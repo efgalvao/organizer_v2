@@ -1,0 +1,26 @@
+<nav>
+  <div class="nav-wrapper">
+      <% if current_user %>
+    <a class="brand-logo" href="/user/overview">ZUKUNFT: <%= current_user.name.upcase %> </a>
+  <% else %>
+    <a class="brand-logo" href="/">ZUKUNFT</a>
+  <% end %>
+
+      <!-- Dropdown Trigger -->
+      <div data-controller="dropdown" data-dropdown-open-value="false" data-dropdown-opened-class="bg-slate-300" class="right">
+          <a c data-dropdown-target="activated" data-action="click->dropdown#toggleDropdown">
+            <%= t('.shortcuts')%><i class="material-icons right">arrow_drop_down</i>
+          </a>
+
+        <div data-dropdown-target="dropdownContent" class="dropdownContent dropdownBox">
+          <li><a href="/categories"><%= t('.categories')%></a></li>
+
+          <li class="divider"></li>
+
+          <li><%= link_to t('.edit_profile'), edit_user_registration_path %></li>
+          <li><%= link_to t('.logout'), destroy_user_session_path, method: :delete %></li>
+        </div>
+
+      </div>
+  </div>
+</nav>
