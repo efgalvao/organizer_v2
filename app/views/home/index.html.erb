@@ -1,5 +1,5 @@
 <main>
-<%=  @user&.username.nil? ? 'Visitante' : @user.username %>
+<%=  current_user ? current_user.username : 'Visitante' %>
 
 <br>
 
