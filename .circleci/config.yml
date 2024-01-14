@@ -1,0 +1,98 @@
+version: 2.1
+
+orbs:
+  ruby: circleci/ruby@1.0
+  node: circleci/node@5.0.3
+
+jobs:
+
+  rspec:
+    environment:
+      CC_TEST_REPORTER_ID: aec1c3a2f65889063c46c4c53040381548d8915af5964adb4f188a0bff376e9f
+    docker:
+      - image: cimg/ruby:3.0.6-node
+        environment:
+          RAILS_ENV: test
+          DB_USERNAME: postgres
+          DB_PASSWORD: postgres
+
+      - image: cimg/postgres:9.6.22
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: finance_test
+          POSTGRES_PASSWORD: postgres
+    steps:
+      - checkout
+      - ruby/install-deps:
+          with-cache: true
+      - node/install:
+          install-yarn: true
+          node-version: '16.13'
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run:
+          name: Database setup
+          command: bundle exec rails db:schema:load --trace
+      - run:
+          name: Setup Code Climate test-reporter
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
+      - run:
+          name: Assets procompile
+          command: |
+            npm --depth 20 update --save caniuse-lite browserslist
+            bundle exec rails assets:precompile
+      - run:
+          name: Rspec
+          command: |
+            ./cc-test-reporter before-build
+            bundle exec rspec
+            ./cc-test-reporter after-build -t simplecov --exit-code $?
+  rubocop:
+    docker:
+      - image: cimg/ruby:3.0.6-node
+        environment:
+          RAILS_ENV: test
+          DB_USERNAME: postgres
+          DB_PASSWORD: postgres
+
+      - image: cimg/postgres:9.6.22
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: finance_test
+          POSTGRES_PASSWORD: postgres
+    steps:
+      - checkout
+      - ruby/install-deps
+      - run:
+          name: rubocop
+          command: bundle exec rubocop
+
+  rails_best_practices:
+    docker:
+      - image: cimg/ruby:3.0.6-node
+        environment:
+          RAILS_ENV: test
+          DB_USERNAME: postgres
+          DB_PASSWORD: postgres
+
+      - image: cimg/postgres:9.6.22
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: finance_test
+          POSTGRES_PASSWORD: postgres
+    steps:
+      - checkout
+      - ruby/install-deps
+      - run:
+          name: rails_best_practices
+          command: bundle exec rails_best_practices
+
+workflows:
+  build_and_test:
+    jobs:
+      - rspec
+      - rubocop
+      - rails_best_practices
