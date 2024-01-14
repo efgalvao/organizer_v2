@@ -39,7 +39,7 @@ class CategoriesController < ApplicationController
     @category.destroy
 
     respond_to do |format|
-      format.html { redirect_to categories_path_path, notice: 'Category successfully destroyed.' }
+      format.html { redirect_to categories_path, notice: 'Category successfully destroyed.' }
       format.turbo_stream
     end
   end
