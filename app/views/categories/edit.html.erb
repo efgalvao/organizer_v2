@@ -1,0 +1,12 @@
+<main class="container">
+  <%= turbo_frame_tag @category do %>
+    <%= link_to sanitize("&larr; Voltar"), category_path(@category) %>
+
+    <div class="header">
+      <h1>Editar categoria</h1>
+    </div>
+
+    <%= render "form", category: @category %>
+
+  <% end %>
+</main>
