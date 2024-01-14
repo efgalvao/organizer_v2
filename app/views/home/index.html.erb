@@ -1,4 +1,6 @@
 <main>
-Home - Index
+<%=  current_user ? current_user.username : 'Visitante' %>
+
+<br>
 
 <%= link_to 'Link Text', '/categories' %>  </main>

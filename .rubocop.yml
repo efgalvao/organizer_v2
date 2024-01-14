@@ -25,6 +25,7 @@ AllCops:
     - 'Rakefile'
     - 'test/**/*'
     - 'app/mailers/**/*'
+    - 'spec/*_helper.rb'
 
   TargetRubyVersion: 3.0
 

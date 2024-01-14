@@ -19,7 +19,7 @@ jobs:
       - image: cimg/postgres:9.6.22
         environment:
           POSTGRES_USER: postgres
-          POSTGRES_DB: finance_test
+          POSTGRES_DB: organizer_v2_test
           POSTGRES_PASSWORD: postgres
     steps:
       - checkout
@@ -61,7 +61,7 @@ jobs:
       - image: cimg/postgres:9.6.22
         environment:
           POSTGRES_USER: postgres
-          POSTGRES_DB: finance_test
+          POSTGRES_DB: organizer_v2_test
           POSTGRES_PASSWORD: postgres
     steps:
       - checkout
@@ -81,7 +81,7 @@ jobs:
       - image: cimg/postgres:9.6.22
         environment:
           POSTGRES_USER: postgres
-          POSTGRES_DB: finance_test
+          POSTGRES_DB: organizer_v2_test
           POSTGRES_PASSWORD: postgres
     steps:
       - checkout
