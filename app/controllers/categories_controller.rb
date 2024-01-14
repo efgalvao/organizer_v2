@@ -3,6 +3,7 @@ class CategoriesController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    @categories = CategoryServices::FetchCategories.fetch_categories(current_user.id)
   end
 
   def show; end
