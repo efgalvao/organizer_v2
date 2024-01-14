@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_29_122855) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_14_212529) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,6 +20,33 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_29_122855) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_categories_on_user_id"
+  end
+
+  create_table "financings", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "borrowed_value_cents", default: 0, null: false
+    t.integer "installments", default: 0, null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_financings_on_user_id"
+  end
+
+  create_table "installments", force: :cascade do |t|
+    t.bigint "financing_id", null: false
+    t.boolean "ordinary", default: true
+    t.integer "parcel"
+    t.integer "paid_parcels", default: 1
+    t.date "payment_date"
+    t.integer "amortization_cents"
+    t.integer "interest_cents"
+    t.integer "insurance_cents"
+    t.integer "fees_cents", default: 2500
+    t.integer "monetary_correction_cents"
+    t.integer "adjustment_cents", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["financing_id"], name: "index_installments_on_financing_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -37,4 +64,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_29_122855) do
   end
 
   add_foreign_key "categories", "users"
+  add_foreign_key "financings", "users"
+  add_foreign_key "installments", "financings"
 end
