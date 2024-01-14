@@ -12,7 +12,7 @@ class CreateInstallments < ActiveRecord::Migration[7.0]
       t.integer :fees_cents, default: 2500
       t.integer :monetary_correction_cents
       t.integer :adjustment_cents, default: 0
-      
+
       t.timestamps
     end
   end
