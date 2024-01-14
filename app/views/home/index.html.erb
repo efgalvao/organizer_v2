@@ -1,4 +1,6 @@
 <main>
-Home - Index
+<%=  @user&.username.nil? ? 'Visitante' : @user.username %>
+
+<br>
 
 <%= link_to 'Link Text', '/categories' %>  </main>
