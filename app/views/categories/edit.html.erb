@@ -1,0 +1,11 @@
+<main class="container">
+  <%= turbo_frame_tag @category do %>
+
+    <div class="header">
+      <h3>Editar categoria</h3>
+    </div>
+
+    <%= render "form", category: @category %>
+
+  <% end %>
+</main>

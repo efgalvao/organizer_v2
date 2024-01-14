@@ -110,6 +110,9 @@ Lint/AmbiguousBlockAssociation:
   Exclude:
     - 'spec/**/*'
 
+Rails/I18nLocaleTexts:
+  Enabled: false
+
 RSpec/LetSetup:
   Enabled: false
 
@@ -332,4 +335,7 @@ RSpec/MultipleMemoizedHelpers:
   Enabled: false
 
 RSpec/FilePath:
+  Enabled: false
+
+FactoryBot/FactoryAssociationWithStrategy:
   Enabled: false

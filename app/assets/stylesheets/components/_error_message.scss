@@ -1,0 +1,16 @@
+.error-message {
+  width: 100%;
+  color: var(--color-primary);
+  background-color: var(--color-primary-bg);
+  padding: var(--space-xs);
+  border-radius: var(--border-radius);
+}
+
+.alert {
+  left: 10px;
+  width: 100%;
+  color: var(--color-primary);
+  background-color: var(--color-primary-bg);
+  padding: var(--space-xs);
+  border-radius: var(--border-radius);
+}

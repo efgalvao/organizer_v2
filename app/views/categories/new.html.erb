@@ -1,0 +1,10 @@
+<main class="container">
+  <%= turbo_frame_tag "new_category" do %>
+
+    <div class="header">
+      <h3>Nova categoria</h3>
+    </div>
+
+    <%= render "form", category: @category %>
+  <% end %>
+</main>
