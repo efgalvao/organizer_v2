@@ -1,0 +1,12 @@
+<main class="container">
+
+  <%= turbo_frame_tag @financing do %>
+
+    <div class="header">
+      <h3>Alterar Financiamento</h3>
+    </div>
+
+    <%= render "form", financing: @financing %>
+
+  <% end %>
+</main>
