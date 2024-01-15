@@ -7,11 +7,7 @@ module Financing
       @financings = Financings::Financing.where(user_id: current_user.id).all
     end
 
-    def show
-      serialized_financing = FinancingSerializer.new(@financing).serializable_hash[:data][:attributes]
-
-      render json: serialized_financing, status: :ok
-    end
+    def show; end
 
     def new
       @financing = Financings::Financing.new
