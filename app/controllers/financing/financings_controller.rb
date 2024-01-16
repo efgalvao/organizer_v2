@@ -28,7 +28,9 @@ module Financing
     end
 
     def update
-      if @financing.update(financing_params)
+      @financing = FinancingServices::UpdateFinancing.call(@financing.id, financing_params)
+
+      if @financing.valid?
         redirect_to financings_path, notice: 'Financiamento atualizado com sucesso.'
       else
         render :edit, status: :unprocessable_entity
