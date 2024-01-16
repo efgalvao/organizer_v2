@@ -37,7 +37,6 @@ module Financing
 
     def destroy
       @financing.destroy
-      render json: { status: ' ok' }, status: :ok
     end
 
     private
