@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   scope module: 'financing' do
     resources :financings do
-      resources :installments, only: %i[index new create]
+      resources :installments
     end
   end
 end
