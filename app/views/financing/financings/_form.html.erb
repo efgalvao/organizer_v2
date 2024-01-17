@@ -10,7 +10,10 @@
   <% end %>
 
   <%= f.input :name, input_html: { autofocus: true } %>
-  <%= f.input :borrowed_value_cents, label: "Borrowed value", input_html: { autofocus: true } %>
+  <%= f.input :borrowed_value_cents, label: "Borrowed value",
+   input_html: { value: (financing.borrowed_value_cents / 100.0 if financing.borrowed_value_cents),
+   autofocus: true
+    } %>
   <%= f.input :installments, input_html: { autofocus: true } %>
   <%= f.submit class: "btn btn--secondary" %>
   <%= link_to "Cancel", financings_path, class: "btn btn--light" %>
