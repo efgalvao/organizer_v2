@@ -25,17 +25,28 @@ module FinancingServices
     end
 
     def update_financing
-      financing.update!(financing_attributes)
+      financing.update(financing_attributes)
       financing
     end
 
     def financing_attributes
       {
-        name: name,
-        user_id: user_id,
-        borrowed_value_cents: value_to_cents(borrowed_value),
-        installments: installments
+        name: new_name,
+        borrowed_value_cents: new_borrowed_value,
+        installments: new_installments
       }
+    end
+
+    def new_name
+      name.nil? ? financing.name : name
+    end
+
+    def new_borrowed_value
+      borrowed_value.nil? ? financing.borrowed_value_cents : value_to_cents(borrowed_value)
+    end
+
+    def new_installments
+      installments.nil? ? financing.installments : installments
     end
 
     def value_to_cents(value)

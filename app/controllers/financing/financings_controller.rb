@@ -39,6 +39,11 @@ module Financing
 
     def destroy
       @financing.destroy
+
+      respond_to do |format|
+        format.html { redirect_to financings_path, notice: 'Financiamento removido.' }
+        format.turbo_stream
+      end
     end
 
     private
