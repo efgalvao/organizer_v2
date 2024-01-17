@@ -1,0 +1,17 @@
+<main class="container">
+  <%= link_to sanitize("&larr; Voltar para financiamentos"), financings_path %>
+  <table>
+    <thead>
+      <th>Nome</th>
+        <th>Valor Financiado</th>
+        <th>Parcelas</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= @financing.name %></td>
+        <td><%= @financing.borrowed_value_cents %></td>
+        <td><%= @financing.installments %></td>
+      </tr>
+    </tbody>
+  </table>
+</main>
