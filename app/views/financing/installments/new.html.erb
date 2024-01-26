@@ -1,0 +1,10 @@
+<main class="container">
+  <%= turbo_frame_tag "new_installment" do %>
+
+    <div class="header">
+      <h3>Cadastrar Novo Pagamento</h3>
+    </div>
+
+    <%= render "form", installment: @installment %>
+  <% end %>
+</main>

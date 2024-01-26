@@ -1,0 +1,26 @@
+<%= simple_form_for installment,
+  as: :installment,
+  url: installment.new_record? ? installments_path : installment_path(installment),
+  html: { class: "installment long-form" } do |f| %>
+
+  <% if installment.errors.any? %>
+    <div class="error-message">
+      <%= installment.errors.full_messages.to_sentence.capitalize %>
+    </div>
+  <% end %>
+
+  <%= f.input :financing_id, as: :hidden, input_html: { value: params[:financing_id] } %>
+  <%= f.input :parcel, as: :float, label: "Valor Pago", input_html: { value: 0 } %>
+  <%= f.input :paid_parcels, as: :integer, label: "Parcelas pagas", input_html: { value: 1 } %>
+  <%= f.input :payment_date, html5: true, label: "Data do pagamento", input_html: { autofocus: true } %>
+  <%= f.input :ordinary, as: :select, collection: [['Parcela', true], ['Amortização', false]], label: "Tipo" %>
+  <%= f.input :amortization, as: :float, label: "Valor amortizado", input_html: { value: 0 } %>
+  <%= f.input :interest, as: :float, label: "Valor dos juros", input_html: { value: 0 } %>
+  <%= f.input :insurance, as: :float, label: "Valor do seguro", input_html: { value: 0 } %>
+  <%= f.input :fees, as: :float, label: "Valor das taxas", input_html: { value: 0 } %>
+  <%= f.input :adjustment, as: :float, label: "Valor de ajustes", input_html: { value: 0 } %>
+  <%= f.input :monetary_correction, as: :float, label: "Atualizacao monetaria", input_html: { value: 0 } %>
+
+  <%= f.submit class: "btn btn--secondary" %>
+  <%= link_to "Cancel", installments_path, class: "btn btn--light" %>
+<% end %>

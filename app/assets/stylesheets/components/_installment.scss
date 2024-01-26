@@ -1,0 +1,26 @@
+.installment {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+
+  &__title {
+    font-size: var(--font-size-s);
+    font-weight: var(--font-weight-bold);
+  }
+
+  &__value {
+    font-size: var(--font-size-m);
+    font-weight: var(--font-weight-bold);
+  }
+
+  @include media(tabletAndUp) {
+    padding: var(--space-xs) var(--space-m);
+  }
+
+  &__actions {
+    display: flex;
+    flex: 0 0 auto;
+    align-self: flex-start;
+    gap: var(--space-xs);
+  }
+} 

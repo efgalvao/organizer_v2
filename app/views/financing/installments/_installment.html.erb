@@ -1,0 +1,44 @@
+<%= turbo_frame_tag installment do %>
+
+<div class="installment">
+  <table>
+    <thead>
+      <th>Valor Pago</th>
+        <th>Parcelas pagas</th>
+        <th>Tipo</th>
+        <th>Data de pagamento</th>
+        <th>Juros</th>
+        <th>Amortização</th>
+        <th>Seguro</th>
+        <th>Taxas</th>
+        <th>Ajustes</th>
+        <th>Correção Monetária</th>
+        <th>
+
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= installment.parcel %></td>
+        <td><%= installment.paid_parcels %></td>
+        <td><%= installment.ordinary %></td>
+        <td><%= installment.payment_date %></td>
+        <td><%= installment.interest_cents %></td>
+        <td><%= installment.amortization_cents %></td>
+        <td><%= installment.insurance_cents %></td>
+        <td><%= installment.fees_cents %></td>
+        <td><%= installment.adjustment_cents %></td>
+        <td><%= installment.monetary_correction_cents %></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="installment__actions">
+    <%= button_to "Remover",
+                  installment_path(installment),
+                  method: :delete,
+                  class: "btn btn--light" %>
+    <%= link_to "Alterar",
+                edit_installment_path(installment),
+                class: "btn btn--light" %>
+  </div>
+</div>
+<% end %>
