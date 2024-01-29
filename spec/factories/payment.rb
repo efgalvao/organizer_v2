@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :payment, class: 'Financings::Installment' do
+  factory :payment, class: 'Financings::Payment' do
     financing
     ordinary { true }
     parcel { SecureRandom.random_number(1..360) }

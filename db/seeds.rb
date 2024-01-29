@@ -13,3 +13,7 @@ user = FactoryBot.create(:user, name: 'User',
   password: '123456')
 
 FactoryBot.create_list(:category, 2, user: user)
+
+financing = FactoryBot.create(:financing, user: user)
+
+FactoryBot.create_list(:payment, 2, financing: financing)

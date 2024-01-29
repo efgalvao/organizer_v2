@@ -11,8 +11,8 @@ Rails.application.routes.draw do
   resources :categories
 
   scope module: 'financing' do
-    resources :installments, except: [:show]
     resources :financings do
+      resources :payments, except: [:index, :show]
     end
   end
 end
