@@ -1,0 +1,47 @@
+<%= turbo_frame_tag "financings_payment_#{payment.id}" do %>
+
+<div class="payment">
+  <table>
+    <thead>
+      <th>Parcela</th>
+      <th>Valor Pago</th>
+        <th>Parcelas pagas</th>
+        <th>Tipo</th>
+        <th>Data de pagamento</th>
+        <th>Juros</th>
+        <th>Amortização</th>
+        <th>Seguro</th>
+        <th>Taxas</th>
+        <th>Ajustes</th>
+        <th>Correção Monetária</th>
+        <th>
+
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= payment.parcel %></td>
+        <td><%= payment.parcel_value %></td>
+        <td><%= payment.paid_parcels %></td>
+        <td><%= payment.kind %></td>
+        <td><%= payment.payment_date %></td>
+        <td><%= payment.interest %></td>
+        <td><%= payment.amortization %></td>
+        <td><%= payment.insurance %></td>
+        <td><%= payment.fees %></td>
+        <td><%= payment.adjustment %></td>
+        <td><%= payment.monetary_correction %></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="payment__actions">
+    <%= button_to "Remover",
+                  financing_payment_path(financing, payment),
+                  method: :delete,
+                  class: "btn btn--light" %>
+    <%= link_to "Alterar",
+                edit_financing_payment_path(financing, payment),
+                method: :edit,
+                class: "btn btn--light" %>
+  </div>
+</div>
+<% end %>
