@@ -1,29 +1,27 @@
 module FinancingServices
-  class CreateInstallment
+  class CreatePayment
     def initialize(params)
       @params = params
     end
 
     def self.call(params)
-      # puts '---------', params.inspect
       new(params).call
     end
 
     def call
-      installment = Financings::Installment.new(installment_attributes)
-      puts '++++++++++', params.inspect, installment_attributes.inspect
-      installment.save
-      installment
+      payment = Financings::Payment.new(payment_attributes)
+      payment.save
+      payment
     end
 
     private
 
     attr_reader :params
 
-    def installment_attributes
+    def payment_attributes
       {
         financing_id: params[:financing_id],
-        parcel: value_to_cents(params[:parcel]),
+        parcel: ordinary? ? next_ordinary_parcel : 0,
         paid_parcels: params[:paid_parcels],
         ordinary: params[:ordinary],
         payment_date: params[:payment_date],
@@ -38,6 +36,18 @@ module FinancingServices
 
     def value_to_cents(value)
       value.to_f * 100
+    end
+
+    def financing
+      @financing ||= Financings::Financing.find(params[:financing_id])
+    end
+
+    def next_ordinary_parcel
+      financing.payments.ordered.ordinary.first&.parcel.to_i + 1
+    end
+
+    def ordinary?
+      params[:ordinary] == 'true'
     end
   end
 end
