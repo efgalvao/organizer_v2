@@ -8,7 +8,7 @@ module Financings
       (object.amortization_cents +
        object.interest_cents +
        object.insurance_cents +
-       + object.fees_cents + object.adjustment_cents + object.monetary_correction_cents) / 100.0
+       + object.fees_cents + object.adjustment_cents) / 100.0
     end
 
     def interest
@@ -39,6 +39,7 @@ module Financings
       object.payment_date&.strftime('%d/%m/%Y')
     end
 
-    delegate :id, :parcel, :paid_parcels, to: :object
+    delegate :id, :parcel, :paid_parcels, :new_record?, :errors, :ordinary, :persisted?, :valid?,
+             to: :object
   end
 end
