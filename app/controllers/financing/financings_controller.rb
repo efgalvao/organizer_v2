@@ -8,7 +8,8 @@ module Financing
     end
 
     def show
-      @financing =  Financings::FinancingDecorator.decorate(@financing)
+      @payments = @financing.payments.ordered.decorate
+      @financing = Financings::FinancingDecorator.decorate(@financing)
     end
 
     def new
