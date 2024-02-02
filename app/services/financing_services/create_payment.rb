@@ -12,6 +12,9 @@ module FinancingServices
       payment = Financings::Payment.new(payment_attributes)
       payment.save
       payment
+    rescue StandardError => e
+      puts 'Error: ', e.message
+      Financings::Payment.new.errors.add(:base, e.message)
     end
 
     private
@@ -24,7 +27,7 @@ module FinancingServices
         parcel: ordinary? ? next_ordinary_parcel : 0,
         paid_parcels: params[:paid_parcels],
         ordinary: params[:ordinary],
-        payment_date: params[:payment_date],
+        payment_date: set_date,
         amortization_cents: value_to_cents(params[:amortization]),
         fees_cents: value_to_cents(params[:fees]),
         interest_cents: value_to_cents(params[:interest]),
@@ -35,7 +38,9 @@ module FinancingServices
     end
 
     def value_to_cents(value)
-      value.to_f * 100
+      return 0 if value.nil?
+
+      value.gsub(',', '.').to_f * 100
     end
 
     def financing
@@ -48,6 +53,10 @@ module FinancingServices
 
     def ordinary?
       params[:ordinary] == 'true'
+    end
+
+    def set_date
+      params[:payment_date].presence || Time.zone.today.strftime('%Y-%m-%d')
     end
   end
 end
