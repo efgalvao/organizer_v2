@@ -36,15 +36,11 @@ module Financings
       format_currency(object.monetary_correction_cents / 100.0)
     end
 
-    def payment_date
-      object.payment_date
-    end
-
     def format_currency(value)
       ActionController::Base.helpers.number_to_currency(value, unit: 'R$ ', separator: ',', delimiter: '.')
     end
 
     delegate :id, :parcel, :paid_parcels, :new_record?, :errors, :ordinary, :persisted?, :valid?,
-             to: :object
+             :payment_date, to: :object
   end
 end

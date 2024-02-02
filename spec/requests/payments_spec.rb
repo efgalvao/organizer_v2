@@ -45,7 +45,7 @@ RSpec.describe 'Financings::Payment' do
         put financing_payment_path(financing_id: financing.id, id: payment.id),
             params: { payment: { ordinary: 'false' } }
 
-        expect(payment.reload.ordinary).to eq(false)
+        expect(payment.reload.ordinary).to be(false)
       end
     end
   end
