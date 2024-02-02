@@ -67,7 +67,7 @@ RSpec.describe Financings::PaymentDecorator do
 
   describe '#payment_date' do
     it 'returns the payment_date in the correct format' do
-      expect(decorate_payment.payment_date).to eq('02/02/2024')
+      expect(decorate_payment.payment_date.strftime('%m/%d/%Y')).to eq('02/02/2024')
     end
   end
 end

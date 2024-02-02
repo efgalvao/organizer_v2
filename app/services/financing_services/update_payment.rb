@@ -38,11 +38,13 @@ module FinancingServices
         insurance_cents: value_to_cents(params[:insurance]),
         adjustment_cents: value_to_cents(params[:adjustment]),
         monetary_correction_cents: value_to_cents(params[:monetary_correction])
-      }.compact
+      }
     end
 
     def value_to_cents(value)
-      value.to_f * 100
+      return 0 if value.nil?
+
+      value.gsub(',', '.').to_f * 100
     end
   end
 end

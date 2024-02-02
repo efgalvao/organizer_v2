@@ -38,7 +38,7 @@ module Financing
       @payment.destroy
 
       respond_to do |format|
-        format.html { redirect_to financing_path(financing), notice: 'Pagamento removido.' }
+        format.html { redirect_to financing_path(@financing), notice: 'Pagamento removido.' }
         format.turbo_stream { flash.now[:notice] = 'Pagamento removido.' }
       end
     end

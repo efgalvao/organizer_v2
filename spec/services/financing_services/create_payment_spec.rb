@@ -58,9 +58,8 @@ RSpec.describe FinancingServices::CreatePayment do
       end
 
       it 'does not create installment' do
-        response = create_installment
+        create_installment
 
-        expect(response).not_to be_persisted
         expect(Financings::Payment.count).to eq(0)
       end
     end

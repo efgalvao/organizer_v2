@@ -13,7 +13,6 @@ module FinancingServices
       payment.save
       payment
     rescue StandardError => e
-      puts 'Error: ', e.message
       Financings::Payment.new.errors.add(:base, e.message)
     end
 
