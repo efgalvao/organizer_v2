@@ -72,6 +72,7 @@ group :development, :test do
   gem 'rubocop-rspec', require: false
   gem 'rubycritic', require: false
   gem 'solargraph'
+  gem 'draper'
 end
 
 group :development do

@@ -3,7 +3,7 @@ SimpleForm.setup do |config|
   config.wrappers :default, class: 'form__group' do |b|
     b.use :html5
     b.use :placeholder
-    b.use :label, class: 'visually-hidden'
+    b.use :label
     b.use :input, class: 'form__input', error_class: 'form__input--invalid'
   end
 

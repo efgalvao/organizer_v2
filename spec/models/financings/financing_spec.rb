@@ -10,4 +10,8 @@ RSpec.describe Financings::Financing do
   it 'belongs to an user' do
     expect(financing).to belong_to(:user)
   end
+
+  it 'has many payments' do
+    expect(financing).to have_many(:payments)
+  end
 end

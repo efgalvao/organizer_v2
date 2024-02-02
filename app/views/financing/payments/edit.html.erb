@@ -1,0 +1,10 @@
+<main class="container">
+
+    <div class="header">
+      <h3>Alterar Pagamento</h3>
+    </div>
+
+  <%= turbo_frame_tag "financings_payment_#{@payment.id}" do %>
+      <%= render "form", financing: @financing, payment: @payment %>
+  <% end %>
+</main>

@@ -1,0 +1,22 @@
+<%= simple_form_for payment,
+  as: :payment,
+  url: payment.new_record? ? financing_payments_path : financing_payment_path(payment),
+  html: { class: "payment long-form" } do |f| %>
+
+  <%= form_error_notification(payment) %>
+
+
+  <%= f.input :financing_id, as: :hidden, input_html: { value: financing.id } %>
+  <%= f.input :paid_parcels, as: :integer, label: "Parcelas pagas", input_html: { value: 1 } %>
+  <%= f.input :payment_date, as: :date, html5: true, label: "Data do pagamento", input_html: { autofocus: true } %>
+  <%= f.input :ordinary, as: :select, collection: [['Parcela', true], ['Amortização', false]], label: "Tipo" %>
+  <%= f.input :amortization, as: :float, label: "Valor amortizado" %>
+  <%= f.input :interest, as: :float, label: "Valor dos juros" %>
+  <%= f.input :insurance, as: :float, label: "Valor do seguro" %>
+  <%= f.input :fees, as: :float, label: "Valor das taxas" %>
+  <%= f.input :adjustment, as: :float, label: "Valor de ajustes" %>
+  <%= f.input :monetary_correction, as: :float, label: "Atualizacao monetaria" %>
+
+  <%= f.submit class: "btn btn--secondary" %>
+  <%= link_to "Cancel", financing_path(financing), class: "btn btn--light" %>
+<% end %>

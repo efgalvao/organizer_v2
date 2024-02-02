@@ -7,7 +7,10 @@ module Financing
       @financings = Financings::Financing.where(user_id: current_user.id).all
     end
 
-    def show; end
+    def show
+      @payments = @financing.payments.ordered.decorate
+      @financing = Financings::FinancingDecorator.decorate(@financing)
+    end
 
     def new
       @financing = Financings::Financing.new

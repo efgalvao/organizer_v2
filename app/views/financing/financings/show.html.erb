@@ -1,17 +1,36 @@
 <main class="container">
+  <%= turbo_frame_tag "first_turbo_frame" do %>
+
+    <div class="header">
   <%= link_to sanitize("&larr; Voltar para financiamentos"), financings_path %>
+      <h1><%= @financing.name %></h1>
+
+      <%= link_to "Cadastrar novo pagamento",
+                  new_financing_payment_path(@financing),
+                  data: { turbo_frame: "new_financing_payment" },
+                  class: "btn btn--primary"
+      %>
+    </div>
+  <% end %>
+
+  <%= turbo_frame_tag "new_financing_payment" %>
+
   <table>
     <thead>
-      <th>Nome</th>
         <th>Valor Financiado</th>
         <th>Parcelas</th>
     </thead>
     <tbody>
       <tr>
-        <td><%= @financing.name %></td>
-        <td><%= @financing.borrowed_value_cents %></td>
+        <td><%= @financing.borrowed_value %></td>
         <td><%= @financing.installments %></td>
       </tr>
     </tbody>
   </table>
+
+<h3> Pagamentos </h3>
+
+<%= turbo_frame_tag "payments" do %>
+<%= render partial: 'financing/payments/payment', collection: @payments, as: :payment, locals: { financing: @financing } %>
+<% end %>
 </main>

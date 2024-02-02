@@ -1,9 +1,5 @@
 <%= simple_form_for category, html: { class: "category form" } do |f| %>
-  <% if category.errors.any? %>
-    <div class="error-message">
-      <%= category.errors.full_messages.to_sentence.capitalize %>
-    </div>
-  <% end %>
+  <%= form_error_notification(category) %>
 
   <%= f.input :name, input_html: { autofocus: true } %>
   <%= link_to "Cancel", categories_path, class: "btn btn--light" %>

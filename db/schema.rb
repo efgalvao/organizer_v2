@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_14_212428) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_17_014451) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -32,6 +32,23 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_14_212428) do
     t.index ["user_id"], name: "index_financings_on_user_id"
   end
 
+  create_table "payments", force: :cascade do |t|
+    t.bigint "financing_id", null: false
+    t.boolean "ordinary", default: true
+    t.integer "parcel", default: 0
+    t.integer "paid_parcels", default: 1
+    t.date "payment_date"
+    t.integer "amortization_cents", default: 0
+    t.integer "interest_cents", default: 0
+    t.integer "insurance_cents", default: 0
+    t.integer "fees_cents", default: 0
+    t.integer "monetary_correction_cents", default: 0
+    t.integer "adjustment_cents", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["financing_id"], name: "index_payments_on_financing_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -48,4 +65,5 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_14_212428) do
 
   add_foreign_key "categories", "users"
   add_foreign_key "financings", "users"
+  add_foreign_key "payments", "financings"
 end

@@ -5,15 +5,20 @@
 // Configuration
 @import "config/variables";
 @import "config/reset";
+@import "config/animations";
+
 
 // Components
 @import "components/btn";
 @import "components/error_message";
+@import "components/flash";
+
 @import "components/form";
 @import "components/long_form";
 @import "components/visually_hidden";
 @import "components/category";
 @import "components/financing";
+@import "components/payment";
 
 // Layouts
 @import "layouts/container";
