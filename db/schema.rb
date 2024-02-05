@@ -16,7 +16,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_02_191106) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "name", null: false
-    t.boolean "savings"
     t.bigint "user_id", null: false
     t.integer "balance_cents", default: 0, null: false
     t.integer "kind", default: 0, null: false
