@@ -10,6 +10,11 @@ Rails.application.routes.draw do
 
   resources :categories
 
+  scope module: 'account' do
+    resources :accounts do
+      get :card_accounts, on: :collection
+    end  end
+
   scope module: 'financing' do
     resources :financings do
       resources :payments, except: [:index, :show]
