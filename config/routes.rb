@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   scope module: 'account' do
     resources :accounts do
-      get :card_accounts, on: :collection
+      get :cards, on: :collection
     end  end
 
   scope module: 'financing' do

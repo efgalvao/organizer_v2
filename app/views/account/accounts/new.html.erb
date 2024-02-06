@@ -1,0 +1,10 @@
+<main class="container">
+  <%= turbo_frame_tag "new_account" do %>
+
+    <div class="header">
+      <h3>Cadastrar Conta</h3>
+    </div>
+
+    <%= render "form", account: @account %>
+  <% end %>
+</main>

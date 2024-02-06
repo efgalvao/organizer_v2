@@ -1,0 +1,21 @@
+<main class="container">
+  <%= turbo_frame_tag "first_turbo_frame" do %>
+
+    <div class="header">
+  <%= link_to sanitize("&larr; Voltar para Contas"), accounts_path %>
+      <h1><%= @account.name %></h1>
+
+    </div>
+  <% end %>
+
+  <table>
+    <thead>
+        <th>Balanço</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= @account.balance %></td>
+      </tr>
+    </tbody>
+  </table>
+</main>
