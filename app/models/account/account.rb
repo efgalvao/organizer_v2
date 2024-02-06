@@ -6,7 +6,6 @@ module Account
 
     scope :card_accounts, -> { where(kind: 'card') }
     scope :except_card_accounts, -> { where.not(kind: 'card') }
-    scope :broker_accounts, -> { where(kind: 'broker') }
 
     validates :name, presence: true, uniqueness: { scope: :user_id }
     validates :kind, presence: true
