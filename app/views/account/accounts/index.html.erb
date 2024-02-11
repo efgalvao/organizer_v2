@@ -1,0 +1,18 @@
+<main class="container">
+  <%= turbo_frame_tag "first_turbo_frame" do %>
+
+    <div class="header">
+      <h1>Contas</h1>
+      <%= link_to "Nova Conta",
+                  new_account_path,
+                  data: { turbo_frame: "new_account" },
+                  class: "btn btn--primary" %>
+    </div>
+  <% end %>
+
+  <%= turbo_frame_tag "new_account" %>
+  <%= turbo_frame_tag "accounts" do %>
+    <%= render partial: 'account', collection: @accounts %>
+  <% end %>
+
+</main>

@@ -1,0 +1,12 @@
+<main class="container">
+
+  <%= turbo_frame_tag @account do %>
+
+    <div class="header">
+      <h3>Alterar Conta</h3>
+    </div>
+
+    <%= render "form", account: @account %>
+
+  <% end %>
+</main>
