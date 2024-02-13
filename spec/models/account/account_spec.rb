@@ -7,7 +7,7 @@ RSpec.describe Account::Account do
     it { is_expected.to belong_to(:user) }
 
     it {
-      expect(subject).to have_many(:account_reports)
+      expect(account).to have_many(:account_reports)
         .class_name('Account::AccountReport').dependent(:destroy)
     }
   end

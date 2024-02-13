@@ -12,11 +12,11 @@ module Account
     validates :kind, presence: true
 
     def current_report
-      account_reports.where(date: Date.today.all_month).first
+      account_reports.where(date: Time.zone.today.all_month).first
     end
 
     def past_month_report
-      account_reports.where(date: Date.today.last_month).first
+      account_reports.where(date: Time.zone.today.last_month).first
     end
   end
 end

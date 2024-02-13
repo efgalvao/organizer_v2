@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Financings::PaymentDecorator do
+RSpec.describe Account::AccountDecorator do
   subject(:decorate_account) { account.decorate }
 
   describe '#balance' do
