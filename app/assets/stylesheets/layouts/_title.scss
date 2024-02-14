@@ -1,0 +1,27 @@
+.subtitle {
+  font-size: 25px;
+  font-weight: 900;
+  padding: 15px;
+  background-color: blue;
+  color: white;
+
+  a:link,
+  a:visited,
+  a:hover,
+  a:active {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+  }
+}
+
+.item {
+  font-size: 18px;
+  padding: 8px;
+}
+
+.item-label {
+  font-size: 18px;
+  font-weight: bold;
+  padding: 8px;
+}
