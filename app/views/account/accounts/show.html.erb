@@ -8,14 +8,6 @@
     </div>
   <% end %>
 
-  <table>
-    <thead>
-        <th>Balanço</th>
-    </thead>
-    <tbody>
-      <tr>
-        <td><%= @account.balance %></td>
-      </tr>
-    </tbody>
-  </table>
+    <%= render 'summary', :account => @account %>
+
 </main>
