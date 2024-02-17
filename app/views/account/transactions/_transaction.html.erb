@@ -1,0 +1,28 @@
+<%= turbo_frame_tag transaction do %>
+
+<div class="transaction">
+  <%= link_to transaction.account.name, account_path(transaction.account),
+                data: { turbo_frame: "_top" }  %>
+
+  <div>
+    <%= transaction.title %>
+  </div>
+  <div>
+    R$ <%= transaction.value %>
+  </div>
+
+  <div>
+    <%= transaction.kind %>
+  </div>
+
+    <div>
+    <%= transaction.date %>
+  </div>
+
+  <div class="account__actions">
+    <%= link_to "Alterar",
+                edit_account_path(transaction),
+                class: "btn btn--light" %>
+  </div>
+</div>
+<% end %>

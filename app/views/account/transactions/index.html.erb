@@ -1,0 +1,32 @@
+<main class="container">
+  <%= turbo_frame_tag "first_turbo_frame" do %>
+
+    <div class="header">
+      <h1>Contas</h1>
+      <%= link_to "Nova Transação",
+                  new_account_path,
+                  data: { turbo_frame: "new_transaction" },
+                  class: "btn btn--primary" %>
+    </div>
+  <% end %>
+
+  <%= turbo_frame_tag "new_transaction" %>
+
+  <div class="button">
+    <%= link_to "Past Transactions",
+      account_transactions_path({account_id: params[:account_id], future: 'false'}),
+      method: :get,
+      data: { turbo_frame: "transactions" },
+      class: "btn btn--light" %>
+
+    <%= link_to "Future Transactions",
+      account_transactions_path({account_id: params[:account_id], future: 'true'}),
+      method: :get,
+      data: { turbo_frame: "transactions" },
+      class: "btn btn--light" %>
+  </div>
+  <%= turbo_frame_tag "transactions" do %>
+    <%= render partial: 'transaction', collection: @transactions %>
+  <% end %>
+
+</main>

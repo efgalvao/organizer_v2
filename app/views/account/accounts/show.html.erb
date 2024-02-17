@@ -7,6 +7,10 @@
 
     </div>
   <% end %>
+      <%= button_to "Transações",
+                  account_transactions_path(@account, future: 'false'),
+                  method: :get,
+                  class: "btn btn--light" %>
 
     <%= render 'summary', :account => @account %>
 

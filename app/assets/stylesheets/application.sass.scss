@@ -20,11 +20,13 @@
 @import "components/financing";
 @import "components/payment";
 @import "components/account";
+@import "components/transaction";
 
 // Layouts
 @import "layouts/container";
 @import "layouts/header";
 @import "layouts/title";
+@import "layouts/button";
 
 // turbo progress bar
 @import "components/turbo_progress_bar";
