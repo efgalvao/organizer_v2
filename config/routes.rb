@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   scope module: 'account' do
     resources :accounts do
       get :cards, on: :collection
+
+      resources :transactions, only: %i[index create update]
     end  end
 
   scope module: 'financing' do
