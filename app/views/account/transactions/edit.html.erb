@@ -1,0 +1,12 @@
+<main class="container">
+
+  <%= turbo_frame_tag @transaction do %>
+
+    <div class="header">
+      <h3>Alterar Transação</h3>
+    </div>
+
+    <%= render "form", transaction: @transaction %>
+
+  <% end %>
+</main>

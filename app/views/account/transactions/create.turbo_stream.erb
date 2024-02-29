@@ -1,0 +1,3 @@
+<%= turbo_stream.prepend "transactions", @transaction %>
+<%= turbo_stream.update "new_transaction", "" %>
+<%= render_turbo_stream_flash_messages %>

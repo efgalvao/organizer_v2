@@ -62,7 +62,7 @@ module Account
     end
 
     def set_account
-      @account = Account.find_by(id: params[:id], user_id: current_user.id)
+      @account = AccountServices::FetchAccount.call(params[:id], current_user.id)
     end
   end
 end
