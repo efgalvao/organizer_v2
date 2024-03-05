@@ -5,6 +5,7 @@ RSpec.describe Account::Transaction do
 
   describe 'associations' do
     it { is_expected.to belong_to(:account) }
+    it { is_expected.to belong_to(:account_report) }
   end
 
   describe 'validations' do

@@ -1,6 +1,7 @@
 module Account
   class Transaction < ApplicationRecord
     belongs_to :account, touch: true
+    belongs_to :account_report, class_name: 'Account::AccountReport'
 
     validates :title, presence: true
     validates :kind, presence: true
