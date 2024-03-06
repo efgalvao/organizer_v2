@@ -29,11 +29,14 @@ RSpec.describe Account::Account do
     end
   end
 
-  describe '#past_month_report' do
-    let!(:past_month_report) { create(:account_report, account: account, date: Date.current - 1.month) }
+  describe '#month_report' do
+    let!(:past_month_report) do
+      create(:account_report, account: account, reference: past_month_reference)
+    end
+    let(:past_month_reference) { Time.zone.now.last_month.strftime('%m%y') }
 
     it 'returns the past month account report' do
-      expect(account.past_month_report).to eq(past_month_report)
+      expect(account.month_report(Time.zone.now.last_month)).to eq(past_month_report)
     end
   end
 end

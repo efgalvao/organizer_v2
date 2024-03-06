@@ -10,13 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_17_173253) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_04_112634) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "account_reports", force: :cascade do |t|
     t.bigint "account_id", null: false
-    t.date "date"
     t.integer "initial_account_balance_cents"
     t.integer "final_account_balance_cents"
     t.integer "month_balance_cents"
@@ -26,6 +25,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_17_173253) do
     t.integer "month_dividends_cents"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "date"
+    t.integer "reference"
     t.index ["account_id"], name: "index_account_reports_on_account_id"
   end
 
@@ -77,6 +78,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_17_173253) do
 
   create_table "transactions", force: :cascade do |t|
     t.bigint "account_id", null: false
+    t.bigint "account_report_id"
     t.bigint "category_id"
     t.integer "value_cents", default: 0, null: false
     t.integer "kind", default: 0, null: false
@@ -85,6 +87,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_17_173253) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_transactions_on_account_id"
+    t.index ["account_report_id"], name: "index_transactions_on_account_report_id"
     t.index ["category_id"], name: "index_transactions_on_category_id"
   end
 
@@ -107,6 +110,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_17_173253) do
   add_foreign_key "categories", "users"
   add_foreign_key "financings", "users"
   add_foreign_key "payments", "financings"
+  add_foreign_key "transactions", "account_reports"
   add_foreign_key "transactions", "accounts"
   add_foreign_key "transactions", "categories"
 end

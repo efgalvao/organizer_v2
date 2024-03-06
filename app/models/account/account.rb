@@ -13,11 +13,11 @@ module Account
     validates :kind, presence: true
 
     def current_report
-      account_reports.where(date: Time.zone.today.all_month).first
+      account_reports.find_by(reference: Time.zone.now.strftime('%m%y'))
     end
 
-    def past_month_report
-      account_reports.where(date: Time.zone.today.last_month).first
+    def month_report(reference_date)
+      account_reports.find_by(reference: reference_date.strftime('%m%y'))
     end
   end
 end
