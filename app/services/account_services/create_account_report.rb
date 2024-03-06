@@ -1,7 +1,8 @@
 module AccountServices
   class CreateAccountReport
-    def initialize(account_id)
+    def initialize(account_id, reference_date)
       @account_id = account_id
+      @reference_date = reference_date || Time.zone.now.strftime('%Y-%m-%d')
     end
 
     def create_report
@@ -10,13 +11,13 @@ module AccountServices
       create_account_report
     end
 
-    def self.create_report(account_id)
-      new(account_id).create_report
+    def self.create_report(account_id, reference_date = nil)
+      new(account_id, reference_date).create_report
     end
 
     private
 
-    attr_reader :account_id
+    attr_reader :account_id, :reference_date
 
     def account
       @account ||= Account::Account.find(account_id)
@@ -34,7 +35,8 @@ module AccountServices
 
     def account_report_params
       {
-        date: Date.current,
+        date: reference_date,
+        reference: reference,
         initial_account_balance_cents: past_month_final_account_balance,
         final_account_balance_cents: 0,
         month_balance_cents: 0,
@@ -46,7 +48,12 @@ module AccountServices
     end
 
     def past_month_final_account_balance
-      account.past_month_report&.final_account_balance_cents || 0
+      past_month_reference_date = Date.parse(reference_date)&.prev_month
+      account.month_report(past_month_reference_date)&.final_account_balance_cents || 0
+    end
+
+    def reference
+      Date.parse(reference_date).strftime('%m%y')
     end
   end
 end
