@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   root 'home#index'
 
   resources :categories
-
+  resources :transferences, only: %i[index new create]
   scope module: 'account' do
     resources :accounts do
       get :cards, on: :collection
