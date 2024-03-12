@@ -19,7 +19,7 @@ module Account
     def edit; end
 
     def create
-      @transaction = AccountServices::ProcessTransaction.call(transactions_params)
+      @transaction = AccountServices::ProcessTransactionRequest.call(transactions_params)
 
       if @transaction.valid?
         @transaction = @transaction.decorate

@@ -6,5 +6,9 @@ module Account
 
     validates :reference, presence: true
     validates :reference, uniqueness: { scope: :account_id }
+
+    def self.month_report(account_id:, reference_date:)
+      find_by(account_id: account_id, reference: reference_date.strftime('%m%y'))
+    end
   end
 end
