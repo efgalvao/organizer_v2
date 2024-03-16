@@ -1,0 +1,10 @@
+<main class="container">
+  <%= turbo_frame_tag "new_transference" do %>
+
+    <div class="header">
+      <h3>Cadastrar transferência</h3>
+    </div>
+
+    <%= render "form", transference: @transference %>
+  <% end %>
+</main>

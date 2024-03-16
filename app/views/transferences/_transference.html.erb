@@ -1,0 +1,17 @@
+<%= turbo_frame_tag transference do %>
+<div class="transference">
+  <%= link_to transference.sender, account_path(transference.sender_id),
+                data: { turbo_frame: "_top" }  %>
+  <%= link_to transference.receiver, account_path(transference.receiver_id),
+                data: { turbo_frame: "_top" }  %>
+
+  <div>
+    <%= transference.date %>
+  </div>
+
+  <div>
+    R$ <%= transference.value %>
+  </div>
+
+</div>
+<% end %>
