@@ -10,4 +10,8 @@ module ApplicationHelper
       object.errors.full_messages.to_sentence.capitalize
     end
   end
+
+  def all_accounts(user_id)
+    Account::Account.where(user_id: user_id).all.map { |account| [account.name, account.id] }
+  end
 end
