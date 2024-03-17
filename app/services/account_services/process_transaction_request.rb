@@ -50,8 +50,9 @@ module AccountServices
       value = case params[:kind]
               when 1, 0, 3
                 params[:value]
-              when params[:kind] == 2 && params[:value_to_update_balance].present?
-                params[:value_to_update_balance]
+              when 2
+                params[:value_to_update_balance].presence || params[:value]
+
               end
       params[:kind].in?([0, 3]) ? -value_to_cents(value) : value_to_cents(value)
     end

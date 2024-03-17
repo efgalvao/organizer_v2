@@ -10,9 +10,9 @@ class TransferencesController < ApplicationController
   end
 
   def create
-    @transference = TransferenceServices::BuildTransference.call(transference_params).decorate
+    @transference = TransferenceServices::ProessTransferenceRequest.call(transference_params).decorate
 
-    if @transference.save
+    if @transference.errors.empty?
       respond_to do |format|
         format.html { redirect_to transferences_path, notice: 'Transferência criada.' }
         format.turbo_stream
