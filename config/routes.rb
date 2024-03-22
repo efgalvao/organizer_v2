@@ -10,9 +10,11 @@ Rails.application.routes.draw do
 
   resources :categories
   resources :transferences, only: %i[index new create]
+
+  resources :cards
+
   scope module: 'account' do
     resources :accounts do
-      get :cards, on: :collection
 
       resources :transactions, only: %i[index new create edit update]
     end  end

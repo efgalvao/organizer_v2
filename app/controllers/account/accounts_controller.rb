@@ -51,10 +51,6 @@ module Account
       end
     end
 
-    def cards
-      @cards = Account.where(user_id: current_user.id).card_accounts.decorate
-    end
-
     private
 
     def account_params
