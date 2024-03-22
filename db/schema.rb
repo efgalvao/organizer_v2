@@ -16,6 +16,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_12_105035) do
 
   create_table "account_reports", force: :cascade do |t|
     t.bigint "account_id", null: false
+    t.date "date"
     t.integer "initial_account_balance_cents"
     t.integer "final_account_balance_cents"
     t.integer "month_balance_cents"
@@ -25,7 +26,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_12_105035) do
     t.integer "month_dividends_cents"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.date "date"
     t.integer "reference"
     t.index ["account_id"], name: "index_account_reports_on_account_id"
   end

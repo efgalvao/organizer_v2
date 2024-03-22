@@ -1,0 +1,13 @@
+<%= simple_form_for card,
+  as: :card,
+  url: card.new_record? ? cards_path : card_path(card),
+  html: { class: "card form" } do |f| %>
+
+  <%= form_error_notification(card) %>
+
+  <%= f.input :name, label: "Nome", input_html: { autofocus: true } %>
+  <%= f.hidden_field :kind, value: "card" %>
+
+  <%= f.submit "Cadastrar Cartão", class: "btn btn--secondary" %>
+  <%= link_to "Cancel", cards_path, class: "btn btn--light" %>
+<% end %>

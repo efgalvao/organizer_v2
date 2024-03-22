@@ -1,0 +1,12 @@
+<main class="container">
+
+  <%= turbo_frame_tag @card do %>
+
+    <div class="header">
+      <h3>Alterar Cartão</h3>
+    </div>
+
+    <%= render "form", card: @card %>
+
+  <% end %>
+</main>

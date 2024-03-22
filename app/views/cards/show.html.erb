@@ -1,0 +1,17 @@
+<main class="container">
+  <%= turbo_frame_tag "first_turbo_frame" do %>
+
+    <div class="header">
+  <%= link_to sanitize("&larr; Voltar para Cartões"), cards_path %>
+      <h1><%= @card.name %></h1>
+
+    </div>
+  <% end %>
+      <%= button_to "Transações",
+                  account_transactions_path(@card, future: 'false'),
+                  method: :get,
+                  class: "btn btn--light" %>
+
+    <%= render 'summary', :card => @card %>
+
+</main>
