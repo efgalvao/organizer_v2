@@ -1,0 +1,43 @@
+<div class="item">
+  <div class="subtitle">
+    <%= t('.summary') %>
+  </div>
+  <table class="striped">
+    <thead>
+      <tr>
+        <th><%= t('.balance') %></th>
+
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><%= number_to_currency(card.balance, unit: 'R$', separator: ',', delimiter: '.') %></td>
+        </tr>
+    </tbody>
+  </table>
+
+<div class="subtitle"><%= t('.current_month') %></div>
+        <p><span class="item-label">Data do relatório: </span><%= card.current_report&.date %></p>
+        <p><span class="item-label">Saldo inicial do mês: </span>
+        <%= number_to_currency(card.current_report&.initial_account_balance, unit: 'R$ ', separator: ',', delimiter: '.') %></p>
+  <table class="striped">
+    <thead>
+      <tr>
+        <th><%= t('.incomes') %></th>
+        <th><%= t('.expenses') %></th>
+        <th><%= t('.invested') %></th>
+        <th><%= t('.month_balance') %></th>
+        <th>Saldo final</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= number_to_currency(card.current_report.month_income, unit: 'R$ ', separator: ',', delimiter: '.') %></td>
+        <td><%= number_to_currency(card.current_report.month_expense, unit: 'R$ ', separator: ',', delimiter: '.') %></td>
+        <td><%= number_to_currency(card.current_report.month_invested, unit: 'R$ ', separator: ',', delimiter: '.') %></td>
+        <td><%= number_to_currency(card.current_report.month_balance, unit: 'R$ ', separator: ',', delimiter: '.') %></td>
+        <td><%= number_to_currency(card.current_report.final_account_balance, unit: 'R$ ', separator: ',', delimiter: '.') %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
