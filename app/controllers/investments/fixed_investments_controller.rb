@@ -28,14 +28,13 @@ module Investments
     def create
       investment = InvestmentsServices::CreateFixedInvestment.call(investment_params)
       if investment.valid?
-        # respond_to do |format|
-        #   format.html { redirect_to account_transactions_path, notice: 'Transação cadastrada.' }
-        #   format.turbo_stream { flash.now[:notice] = 'Transação cadastrada.' }
-        # end
-
+        respond_to do |format|
+          @investment = Investments::InvestmentDecorator.decorate(investment)
+          format.html { redirect_to account_path(@investment.account), notice: 'Investimento criado.' }
+          format.turbo_stream { flash.now[:notice] = 'Investimento criado.' }
+        end
       else
-        render json: { errors: investment.errors.full_messages.to_sentence },
-               status: :unprocessable_entity
+        render :new, status: :unprocessable_entity
       end
     end
 

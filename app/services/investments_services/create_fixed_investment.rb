@@ -17,14 +17,7 @@ module InvestmentsServices
     attr_reader :params
 
     def create_fixed_investment
-      puts '+++++++++++++++++'
-      puts('=======', params.inspect)
-      a = Investments::FixedInvestment.create(params)
-      # binding.pry
-      puts('------', a.errors.full_messages.to_sentence)
-      puts '+++++++++++++++++'
-
-      a
+      Investments::FixedInvestment.create(params)
     end
   end
 end
