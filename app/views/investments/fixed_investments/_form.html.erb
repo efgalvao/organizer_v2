@@ -1,0 +1,15 @@
+<%= simple_form_for investment,
+  as: :investment,
+  url: investment.new_record? ? fixed_investments_path : fixed_investment_path(investment),
+  html: { class: "investment form" } do |f| %>
+
+  <%= form_error_notification(investment) %>
+
+  <%= f.input :name, label: "Nome", input_html: { autofocus: true } %>
+  <%= f.input :invested_value_cents, as: :float, label: "Valor investido", input_html: { value: 1, readonly: !investment.new_record? } %>
+
+  <%= f.input :account_id, as: :hidden, input_html: { value: investment.account_id } %>
+
+  <%= f.submit class: "btn btn--secondary" %>
+  <%= link_to "Cancelar", account_path(investment.account_id), class: "btn btn--light" %>
+<% end %>

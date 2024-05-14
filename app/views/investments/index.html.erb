@@ -1,0 +1,13 @@
+<main class="container">
+  <%= turbo_frame_tag "first_turbo_frame" do %>
+
+    <div class="header">
+      <h1>Investimentos</h1>
+</div>
+  <% end %>
+
+  <%= turbo_frame_tag "investments" do %>
+    <%= render partial: '/investments/investment', collection: @investments %>
+  <% end %>
+
+</main>

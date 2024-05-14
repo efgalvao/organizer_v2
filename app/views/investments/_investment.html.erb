@@ -1,0 +1,25 @@
+<%= turbo_frame_tag investment do %>
+
+<div class="investment">
+  <%= link_to investment.name, investment.path,
+                data: { turbo_frame: "_top" }  %>
+
+  <div>
+    R$ <%= investment.invested_value %>
+  </div>
+
+  <div>
+    R$ <%= investment.current_value %>
+  </div>
+
+  <div>
+    <%= investment.kind %>
+  </div>
+
+  <div>
+    <%= link_to investment.account_name, account_path(investment.account_id),
+                data: { turbo_frame: "_top" } %>
+  </div>
+
+</div>
+<% end %>

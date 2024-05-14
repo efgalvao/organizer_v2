@@ -1,0 +1,10 @@
+<main class="container">
+  <%= turbo_frame_tag "new_fixed_investment" do %>
+
+    <div class="header">
+      <h3>Cadastrar Renda Fixa</h3>
+    </div>
+
+    <%= render "form", investment: @investment %>
+  <% end %>
+</main>

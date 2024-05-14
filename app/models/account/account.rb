@@ -3,6 +3,7 @@ module Account
     belongs_to :user
     has_many :account_reports, class_name: 'Account::AccountReport', dependent: :destroy
     has_many :transactions, class_name: 'Account::Transaction', dependent: :destroy
+    has_many :investments, class_name: 'Investments::Investment', dependent: :destroy
 
     enum kind: { savings: 0, broker: 1, card: 2 }
 

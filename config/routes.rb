@@ -24,4 +24,11 @@ Rails.application.routes.draw do
       resources :payments, except: [:index, :show]
     end
   end
+
+  scope module: 'investments', path: '/investments' do
+    get '/', to: 'investments#index', as: 'investments'
+
+    resources :fixed_investments, except: [:index, :new]
+    get '/:account_id/fixed_investments/new', to: 'fixed_investments#new', as: 'new_fixed_investment'
+  end
 end
