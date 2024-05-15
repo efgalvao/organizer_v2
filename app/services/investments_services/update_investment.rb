@@ -19,7 +19,7 @@ module InvestmentsServices
 
     def update_investment
       ActiveRecord::Base.transaction do
-        investment.update!(params)
+        investment.update!(name: params['name'])
         investment
       end
     end

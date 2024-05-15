@@ -24,8 +24,9 @@
 
     <%= render 'summary', :account => @account %>
 
-    <%# <%= render partial: 'investment', collection: @account.fixed_invLestments %> %>
+    <% if @account.broker? %>
     <%= render 'investments', :investments => @account.investments %>
+    <% end %>
 
 
 </main>

@@ -6,8 +6,9 @@
   <%= form_error_notification(investment) %>
 
   <%= f.input :name, label: "Nome", input_html: { autofocus: true } %>
+<% if investment.new_record? %>
   <%= f.input :invested_value_cents, as: :float, label: "Valor investido", input_html: { value: 1, readonly: !investment.new_record? } %>
-
+<% end %>
   <%= f.input :account_id, as: :hidden, input_html: { value: investment.account_id } %>
 
   <%= f.submit class: "btn btn--secondary" %>

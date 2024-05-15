@@ -39,11 +39,11 @@ module Investments
     end
 
     def update
-      @investment = InvestmentsServices::UpdateInvestment
-                    .call(investment_params.merge(id: params[:id]))
-
-      if @investment.valid?
-        redirect_to account_path(@investment.account_id), notice: 'Investimento atualizado.'
+      investment = InvestmentsServices::UpdateInvestment
+                   .call(investment_params.merge(id: params[:id]))
+      if investment.valid?
+        @investment = Investments::InvestmentDecorator.decorate(investment)
+        redirect_to investments_path, notice: 'Investimento atualizado.'
       else
         render :new, status: :unprocessable_entity
 
@@ -52,7 +52,7 @@ module Investments
 
     def destroy
       @treasury.destroy
-      render json: { status: ' ok' }, status: :ok
+      redirect_to investments_path, notice: 'Investimento atualizado.'
     end
 
     private
@@ -63,8 +63,6 @@ module Investments
     end
 
     def investment_params
-      # binding.pry
-      # params.permit(:name, :account_id, :invested_value_cents)
       params.require(:investment).permit(:name, :account_id, :invested_value_cents,
                                          :current_value_cents)
     end

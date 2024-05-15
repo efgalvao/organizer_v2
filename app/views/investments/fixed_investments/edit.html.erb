@@ -1,12 +1,6 @@
 <main class="container">
 
   <%= turbo_frame_tag "investment_#{@investment.id}" do %>
-  <%# <%= puts '----', @investment%> %>
-    <div class="header">
-      <h3>Alterar Investimento</h3>
-    </div>
-
     <%= render "form", investment: @investment %>
-
   <% end %>
 </main>

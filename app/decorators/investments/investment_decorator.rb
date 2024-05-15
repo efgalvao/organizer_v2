@@ -9,6 +9,12 @@ module Investments
       "/#{object.class.name.underscore.pluralize}/#{object.id}"
     end
 
+    def edit_path
+      return "/investments/fixed_investments/#{object.id}/edit" unless object.class.name.demodulize == 'FixedInvestment'
+
+      "/investments/fixed_investments/#{object.id}/edit"
+    end
+
     def invested_value
       object.invested_value_cents / 100.0
     end
