@@ -17,7 +17,7 @@ module InvestmentsServices
     attr_reader :user_id
 
     def fetch_investments
-      Investments::Investment.joins(:account).includes(:account).not_released.where(account: { user_id: user_id })
+      Investments::Investment.joins(:account).includes(:account).where(account: { user_id: user_id }, released: false)
     end
   end
 end

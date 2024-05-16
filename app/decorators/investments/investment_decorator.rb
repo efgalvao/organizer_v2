@@ -24,7 +24,7 @@ module Investments
     end
 
     def account_name
-      object.account.name
+      object.account.name.capitalize
     end
 
     delegate :new_record?, :errors, :persisted?, :account_id, :id, to: :object
