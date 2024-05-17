@@ -19,7 +19,9 @@ module InvestmentsServices
 
     def update_investment
       ActiveRecord::Base.transaction do
-        investment.update(name: params[:name])
+        investment.name = params[:name]
+        investment.shares_total = params[:shares_total] if params[:shares_total].present?
+        investment.save
         investment
       end
     end

@@ -1,6 +1,6 @@
 module Investments
   class InvestmentDecorator < Draper::Decorator
-    # delegate_all
+    delegate :shares_total
     def name
       object.name.capitalize
     end
