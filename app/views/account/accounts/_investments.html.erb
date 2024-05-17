@@ -1,0 +1,7 @@
+<div class="subtitle"><%= t('.investments') %></div>
+        <p><span class="item-label">Renda Fixa:</p>
+
+<%= turbo_frame_tag "investments" do %>
+    <%= render partial: 'investment', collection: investments %>
+  <% end %>
+</div>

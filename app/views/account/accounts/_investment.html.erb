@@ -1,0 +1,26 @@
+<%= turbo_frame_tag "investment_#{investment.id}" do %>
+
+  <div class="investment">
+    <%= link_to investment.name, fixed_investment_path(investment),
+                  data: { turbo_frame: "_top" }  %>
+
+    <div>
+      R$ <%= investment.invested_value %>
+    </div>
+
+    <div>
+      R$ <%= investment.current_value %>
+    </div>
+
+    <div>
+      <%= investment.kind %>
+    </div>
+
+    <div class="investment__actions">
+
+      <%= link_to "Alterar",
+                  edit_fixed_investment_path(investment),
+                  class: "btn btn--light" %>
+    </div>
+  </div>
+  <% end %>

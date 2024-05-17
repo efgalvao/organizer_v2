@@ -7,11 +7,26 @@
 
     </div>
   <% end %>
-      <%= button_to "Transações",
+  <div class="button">
+      <%= link_to "Transações",
                   account_transactions_path(@account, future: 'false'),
                   method: :get,
                   class: "btn btn--light" %>
+      <% if @account.broker? %>
+        <%= link_to "Cadastrar Renda Fixa",
+        new_fixed_investment_path(account_id: @account.id),
+                          data: { turbo_frame: "new_fixed_investment" },
+        method: :get,
+        class: "btn btn--light" %>
+      <% end %>
+      </div>
+    <%= turbo_frame_tag "new_fixed_investment" %>
 
     <%= render 'summary', :account => @account %>
+
+    <% if @account.broker? %>
+    <%= render 'investments', :investments => @account.investments %>
+    <% end %>
+
 
 </main>

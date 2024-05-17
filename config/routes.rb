@@ -17,11 +17,19 @@ Rails.application.routes.draw do
     resources :accounts do
 
       resources :transactions, only: %i[index new create edit update]
-    end  end
+    end
+  end
 
   scope module: 'financing' do
     resources :financings do
       resources :payments, except: [:index, :show]
     end
+  end
+
+  scope module: 'investments', path: '/investments' do
+    get '/', to: 'investments#index', as: 'investments'
+
+    resources :fixed_investments, except: [:index, :new, :destroy]
+    get '/:account_id/fixed_investments/new', to: 'fixed_investments#new', as: 'new_fixed_investment'
   end
 end

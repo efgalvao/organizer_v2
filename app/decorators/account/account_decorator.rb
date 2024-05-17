@@ -1,6 +1,7 @@
 module Account
   class AccountDecorator < Draper::Decorator
     decorates_association :account_reports, with: AccountReportDecorator
+    # decorates_association :investments, with: Investments::InvestmentDecorator
 
     ACCOUNT_KINDS = { 'savings' => 'Banco',
                       'broker' => 'Corretora',
@@ -18,5 +19,11 @@ module Account
     def current_report
       object.current_report.decorate
     end
+
+    def investments
+      Investments::InvestmentDecorator.decorate_collection(object.investments)
+    end
+
+    delegate :broker?, to: :object
   end
 end

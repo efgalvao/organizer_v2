@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_12_105035) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_25_142811) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -57,6 +57,18 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_12_105035) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_financings_on_user_id"
+  end
+
+  create_table "investments", force: :cascade do |t|
+    t.string "type", null: false
+    t.string "name", null: false
+    t.integer "invested_value_cents", default: 0, null: false
+    t.integer "current_value_cents", default: 0, null: false
+    t.boolean "released", default: false, null: false
+    t.bigint "account_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_investments_on_account_id"
   end
 
   create_table "payments", force: :cascade do |t|
@@ -122,6 +134,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_12_105035) do
   add_foreign_key "accounts", "users"
   add_foreign_key "categories", "users"
   add_foreign_key "financings", "users"
+  add_foreign_key "investments", "accounts"
   add_foreign_key "payments", "financings"
   add_foreign_key "transactions", "account_reports"
   add_foreign_key "transactions", "accounts"
