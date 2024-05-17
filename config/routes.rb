@@ -31,5 +31,8 @@ Rails.application.routes.draw do
 
     resources :fixed_investments, except: [:index, :new, :destroy]
     get '/:account_id/fixed_investments/new', to: 'fixed_investments#new', as: 'new_fixed_investment'
+
+    resources :variable_investments, except: [:index, :new, :destroy]
+    get '/:account_id/variable_investments/new', to: 'variable_investments#new', as: 'new_variable_investment'
   end
 end
