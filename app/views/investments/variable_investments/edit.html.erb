@@ -1,0 +1,6 @@
+<main class="container">
+
+  <%= turbo_frame_tag "investment_#{@investment.id}" do %>
+    <%= render "form", investment: @investment %>
+  <% end %>
+</main>
