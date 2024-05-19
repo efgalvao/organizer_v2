@@ -1,6 +1,6 @@
 <%= simple_form_for investment,
   as: :investment,
-  url: investment.new_record? ? fixed_investments_path : fixed_investment_path(investment),
+  url: investment.new_record? ? investments_path : investment_path(investment),
   html: { class: "investment form" } do |f| %>
 
   <%= form_error_notification(investment) %>
@@ -8,7 +8,11 @@
   <%= f.input :name, label: "Nome", input_html: { autofocus: true } %>
 <% if investment.new_record? %>
   <%= f.input :invested_value_cents, as: :float, label: "Valor investido" %>
+  <%= f.input :current_value_cents, as: :float, label: "Valor investido" %>
+  <%= f.input :type, as: :select, collection: [
+    ["Renda Fixa", "FixedInvestment"], ["Renda Fixa", "VariableInvestment"]], label: "Tipo" %>
 <% end %>
+  <%= f.input :shares_total, as: :integer, label: "Total de cotas" %>
   <%= f.input :account_id, as: :hidden, input_html: { value: investment.account_id } %>
 
   <%= f.submit class: "btn btn--secondary" %>

@@ -26,13 +26,10 @@ Rails.application.routes.draw do
     end
   end
 
-  scope module: 'investments', path: '/investments' do
-    get '/', to: 'investments#index', as: 'investments'
+  scope module: 'investments' do
 
-    resources :fixed_investments, except: [:index, :new, :destroy]
-    get '/:account_id/fixed_investments/new', to: 'fixed_investments#new', as: 'new_fixed_investment'
+    resources :investments, except: [:destroy, :new]
+    get '/investments/:account_id/new', to: 'investments#new', as: 'new_investment'
 
-    resources :variable_investments, except: [:index, :new, :destroy]
-    get '/:account_id/variable_investments/new', to: 'variable_investments#new', as: 'new_variable_investment'
   end
 end

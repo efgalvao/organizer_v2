@@ -6,13 +6,13 @@ module Investments
     end
 
     def path
-      "/#{object.class.name.underscore.pluralize}/#{object.id}"
+      "/investments/#{object.id}"
     end
 
     def edit_path
-      return "/investments/fixed_investments/#{object.id}/edit" unless object.class.name.demodulize == 'FixedInvestment'
+      # return "/investments/#{object.id}/edit" unless object.class.name.demodulize == 'FixedInvestment'
 
-      "/investments/fixed_investments/#{object.id}/edit"
+      "/investments/#{object.id}/edit"
     end
 
     def invested_value
@@ -30,7 +30,9 @@ module Investments
     delegate :new_record?, :errors, :persisted?, :account_id, :id, to: :object
 
     def kind
-      return 'Renda Variável' unless object.class.name.demodulize == 'FixedInvestment'
+      # puts '-------', object.inspect
+      # binding.pry
+      return 'Renda Variável' if object.type.demodulize == 'VariableInvestment'
 
       'Renda Fixa'
     end
