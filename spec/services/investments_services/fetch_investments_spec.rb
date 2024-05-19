@@ -5,7 +5,7 @@ RSpec.describe InvestmentsServices::FetchInvestments do
 
   let(:user) { create(:user) }
   let(:account) { create(:account, user: user) }
-  let!(:investment) { create(:fixed_investment, account: account) }
+  let!(:investment) { create(:investment, account: account) }
 
   it 'fetch users investments', :aggregate_failures do
     response = fetch_investment

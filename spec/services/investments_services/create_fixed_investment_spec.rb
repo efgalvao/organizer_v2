@@ -10,7 +10,8 @@ RSpec.describe InvestmentsServices::CreateFixedInvestment do
       name: 'My investment',
       invested_value_cents: 0,
       current_value_cents: 0,
-      account_id: account.id
+      account_id: account.id,
+      shares_total: 0
     }
   end
 

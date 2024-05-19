@@ -6,7 +6,7 @@ RSpec.describe Investments::FixedInvestment do
   end
 
   describe 'validations' do
-    subject { build(:fixed_investment) }
+    subject { build(:investment) }
 
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_uniqueness_of(:name).scoped_to(:account_id) }

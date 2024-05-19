@@ -1,4 +1,4 @@
-<%= turbo_stream.update "new_variable_investment", "" %>
+<%= turbo_stream.update "new_investment", "" %>
   <%= turbo_stream.prepend "investments" do %>
     <%= render partial: 'account/accounts/investment', object: @investment, locals: { investment: @investment } %>
   <% end %>
