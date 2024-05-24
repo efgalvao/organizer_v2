@@ -1,0 +1,19 @@
+<main class="container">
+  <%= turbo_frame_tag "first_turbo_frame" do %>
+
+    <div class="header">
+      <h1>Dividendos</h1>
+      <%= link_to "Cadastrar Dividendo",
+                  new_investment_dividend_path(investment_id: params[:investment_id]),
+                  data: { turbo_frame: "new_dividend" },
+                  class: "btn btn--primary" %>
+    </div>
+  <% end %>
+
+  <%= turbo_frame_tag "new_dividend" %>
+
+  <%= turbo_frame_tag "dividends" do %>
+    <%= render partial: 'dividend', collection: @dividends %>
+  <% end %>
+
+</main>

@@ -1,0 +1,10 @@
+<main class="container">
+  <%= turbo_frame_tag "new_dividend" do %>
+
+    <div class="header">
+      <h3>Cadastrar Dividendo</h3>
+    </div>
+
+    <%= render "form", dividend: @dividend %>
+  <% end %>
+</main>
