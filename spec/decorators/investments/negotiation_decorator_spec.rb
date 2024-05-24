@@ -7,7 +7,7 @@ RSpec.describe Investments::NegotiationDecorator do
   let(:investment) { create(:investment, negotiations: [negotiation]) }
   let(:account) { create(:account, investments: [investment]) }
 
-  describe '#amoaunt' do
+  describe '#amount' do
     it 'returns the negotiated amount' do
       expect(decorated_negotiation.amount).to eq(negotiation.amount_cents / 100.0)
     end
