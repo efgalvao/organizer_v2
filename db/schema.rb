@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_17_112028) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_20_182233) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -70,6 +70,18 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_17_112028) do
     t.datetime "updated_at", null: false
     t.integer "shares_total", default: 0
     t.index ["account_id"], name: "index_investments_on_account_id"
+  end
+
+  create_table "negotiations", force: :cascade do |t|
+    t.string "negotiable_type", null: false
+    t.bigint "negotiable_id", null: false
+    t.date "date"
+    t.integer "amount_cents", default: 0
+    t.integer "shares", default: 0
+    t.integer "kind", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["negotiable_type", "negotiable_id"], name: "index_negotiations_on_negotiable"
   end
 
   create_table "payments", force: :cascade do |t|

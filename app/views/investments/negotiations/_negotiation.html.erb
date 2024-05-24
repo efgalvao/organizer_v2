@@ -1,0 +1,16 @@
+<%= turbo_frame_tag "negotiation_#{negotiation.id}" do %>
+
+<div class="investment">
+  <div>
+    <%= negotiation.date %>
+  </div>
+
+  <div>
+    <%= negotiation.kind %>
+  </div>
+
+  <div>
+    R$ <%= negotiation.amount %>
+  </div>
+</div>
+<% end %>

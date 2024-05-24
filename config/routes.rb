@@ -28,7 +28,9 @@ Rails.application.routes.draw do
 
   scope module: 'investments' do
 
-    resources :investments, except: [:destroy, :new]
+    resources :investments, except: [:destroy, :new] do
+      resources :negotiations, only: [:index, :new, :create]
+    end
     get '/investments/:account_id/new', to: 'investments#new', as: 'new_investment'
 
   end
