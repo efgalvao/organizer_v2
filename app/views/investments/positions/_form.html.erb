@@ -1,0 +1,15 @@
+<%= simple_form_for position,
+  as: :position,
+  url: position.new_record? ? investment_positions_path : investment_position_path(position),
+  html: { class: "position form" } do |f| %>
+
+  <%= form_error_notification(position) %>
+
+  <%= f.input :date, label: "Data", as: :date, html5: true, input_html: { autofocus: true } %>
+  <%= f.input :amount_cents, as: :float, label: "Valor" %>
+  <%= f.input :shares, as: :integer, label: "Cotas" %>
+  <%= f.input :investment_id, as: :hidden, input_html: { value: params[:investment_id] } %>
+
+  <%= f.submit class: "btn btn--secondary" %>
+  <%= link_to "Cancelar", investment_positions_path(investment_id: params[:investment_id]), class: "btn btn--light" %>
+<% end %>
