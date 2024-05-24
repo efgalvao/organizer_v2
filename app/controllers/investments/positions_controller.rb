@@ -1,0 +1,38 @@
+module Investments
+  class PositionsController < ApplicationController
+    before_action :authenticate_user!
+
+    def index
+      positions = ::InvestmentsServices::FetchPositions.call(params[:investment_id])
+
+      @positions = Investments::PositionDecorator.decorate_collection(positions)
+
+      render 'investments/positions/index'
+    end
+
+    def new
+      @position = Investments::Position.new(positionable_id: params[:investmentt_id])
+    end
+
+    def create
+      @position = InvestmentsServices::CreatePosition.call(position_params)
+      if @position.valid?
+        respond_to do |format|
+          @position = Investments::PositionDecorator.decorate(@position)
+          format.html do
+            redirect_to investment_positions_path(@position.positionable), notice: 'Posição criada.'
+            format.turbo_stream { flash.now[:notice] = 'Posição criada.' }
+          end
+        end
+      else
+        render :new, status: :unprocessable_entity
+      end
+    end
+
+    private
+
+    def position_params
+      params.require(:position).permit(:date, :amount_cents, :kind, :shares, :investment_id)
+    end
+  end
+end
