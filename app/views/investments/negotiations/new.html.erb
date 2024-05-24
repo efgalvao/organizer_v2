@@ -1,0 +1,10 @@
+<main class="container">
+  <%= turbo_frame_tag "new_negotiation" do %>
+
+    <div class="header">
+      <h3>Cadastrar Negociação</h3>
+    </div>
+
+    <%= render "form", negotiation: @negotiation %>
+  <% end %>
+</main>

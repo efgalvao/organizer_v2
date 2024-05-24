@@ -1,0 +1,19 @@
+<main class="container">
+  <%= turbo_frame_tag "first_turbo_frame" do %>
+
+    <div class="header">
+      <h1>Negociações</h1>
+      <%= link_to "Cadastrar Negociação",
+                  new_investment_negotiation_path(investment_id: params[:investment_id]),
+                  data: { turbo_frame: "new_negotiation" },
+                  class: "btn btn--primary" %>
+    </div>
+  <% end %>
+
+  <%= turbo_frame_tag "new_negotiation" %>
+
+  <%= turbo_frame_tag "negotiations" do %>
+    <%= render partial: 'negotiation', collection: @negotiations %>
+  <% end %>
+
+</main>
