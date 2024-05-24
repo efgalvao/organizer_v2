@@ -27,4 +27,7 @@ FactoryBot.create_list(:transaction, 2, account: broker)
 FactoryBot.create(:transaction, date: Time.zone.now + 10.days, account: savings)
 FactoryBot.create(:transaction, date: Time.zone.now + 10.days, account: broker)
 
-FactoryBot.create(:fixed_investment, account: broker)
+FactoryBot.create(:investment, account: broker)
+FactoryBot.create(:investment, :variable, account: broker)
+
+puts '---> Seed finished'

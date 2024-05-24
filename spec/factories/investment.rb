@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :investment, class: 'Investments::Investment' do
-    sequence(:name) { "FixedInvestment_#{_1}" }
+    sequence(:name) { "Investment_#{_1}" }
     invested_value_cents { rand(1.0..1000.0).round(2) }
     current_value_cents { rand(1.0..1000.0).round(2) }
     account
