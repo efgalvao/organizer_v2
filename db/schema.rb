@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_20_182233) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_24_144553) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -99,6 +99,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_20_182233) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["financing_id"], name: "index_payments_on_financing_id"
+  end
+
+  create_table "positions", force: :cascade do |t|
+    t.string "positionable_type", null: false
+    t.bigint "positionable_id", null: false
+    t.date "date"
+    t.integer "amount_cents", default: 0
+    t.integer "shares", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["positionable_type", "positionable_id"], name: "index_positions_on_positionable"
   end
 
   create_table "transactions", force: :cascade do |t|
