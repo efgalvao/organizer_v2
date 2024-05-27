@@ -1,0 +1,13 @@
+<%= turbo_frame_tag "dividend_#{dividend.id}" do %>
+
+<div class="investment">
+  <div>
+    <%= dividend.date %>
+  </div>
+
+
+  <div>
+    R$ <%= dividend.amount %>
+  </div>
+</div>
+<% end %>

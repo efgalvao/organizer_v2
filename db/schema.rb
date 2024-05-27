@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_24_144553) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_24_200855) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -47,6 +47,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_24_144553) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_categories_on_user_id"
+  end
+
+  create_table "dividends", force: :cascade do |t|
+    t.bigint "investment_id", null: false
+    t.integer "amount_cents", default: 0, null: false
+    t.date "date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["investment_id"], name: "index_dividends_on_investment_id"
   end
 
   create_table "financings", force: :cascade do |t|
@@ -157,6 +166,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_24_144553) do
   add_foreign_key "account_reports", "accounts"
   add_foreign_key "accounts", "users"
   add_foreign_key "categories", "users"
+  add_foreign_key "dividends", "investments"
   add_foreign_key "financings", "users"
   add_foreign_key "investments", "accounts"
   add_foreign_key "payments", "financings"
