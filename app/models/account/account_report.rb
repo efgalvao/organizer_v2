@@ -4,8 +4,7 @@ module Account
 
     has_many :transactions, class_name: 'Account::Transaction', dependent: :destroy
 
-    validates :reference, presence: true
-    validates :reference, uniqueness: { scope: :account_id }
+    validates :reference, presence: true, uniqueness: { scope: :account_id }
 
     def self.month_report(account_id:, reference_date:)
       find_by(account_id: account_id, reference: reference_date.strftime('%m%y'))
