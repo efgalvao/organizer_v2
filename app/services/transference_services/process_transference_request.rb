@@ -2,6 +2,7 @@
 
 module TransferenceServices
   class ProcessTransferenceRequest
+    TRANSFERENCE_CODE = 2
     def initialize(params)
       @params = params
     end
@@ -35,7 +36,7 @@ module TransferenceServices
     def sender_transaction_params
       {
         account_id: params[:sender_id],
-        kind: 2,
+        kind: TRANSFERENCE_CODE,
         value: params[:value_cents],
         date: params[:date],
         category_id: nil,
@@ -47,7 +48,7 @@ module TransferenceServices
     def receiver_transaction_params
       {
         account_id: params[:receiver_id],
-        kind: 2,
+        kind: TRANSFERENCE_CODE,
         value: params[:value_cents],
         date: params[:date],
         category_id: nil,

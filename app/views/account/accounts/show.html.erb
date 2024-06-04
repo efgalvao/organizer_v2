@@ -14,7 +14,7 @@
                   class: "btn btn--light" %>
       <% if @account.broker? %>
         <%= link_to "Cadastrar Renda Fixa",
-        new_fixed_investment_path(account_id: @account.id),
+        new_investment_path(account_id: @account.id),
                           data: { turbo_frame: "new_fixed_investment" },
         method: :get,
         class: "btn btn--light" %>
