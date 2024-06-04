@@ -25,11 +25,12 @@ RSpec.describe TransferenceServices::ProcessTransferenceRequest do
     let(:params) { { sender_id: 1, receiver_id: 2, value: 100.0 } }
 
     it 'calls the instance method call' do
-      service = instance_double('TransferenceServices::ProcessTransferenceRequest')
-      allow(TransferenceServices::ProcessTransferenceRequest).to receive(:new).with(params).and_return(service)
-      expect(service).to receive(:call)
+      service = instance_double(described_class)
+      allow(described_class).to receive(:new).with(params).and_return(service)
 
-      TransferenceServices::ProcessTransferenceRequest.call(params)
+      described_class.call(params)
+
+      expect(service).to have_received(:call)
     end
   end
 
