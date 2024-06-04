@@ -24,6 +24,7 @@ module AccountServices
         transaction = build_transaction
         transaction.save!
         update_account_balance
+        transaction
       end
     end
 
@@ -47,14 +48,13 @@ module AccountServices
     end
 
     def value_to_update_balance
-      value = case params[:kind]
-              when 1, 0, 3
+      value = if params.key?(:value_to_update_balance)
+                params[:value_to_update_balance]
+              else
                 params[:value]
-              when 2
-                params[:value_to_update_balance].presence || params[:value]
-
               end
-      params[:kind].in?([0, 3]) ? -value_to_cents(value) : value_to_cents(value)
+
+      params[:kind].to_i.in?([0, 3]) ? -value_to_cents(value) : value_to_cents(value)
     end
   end
 end
