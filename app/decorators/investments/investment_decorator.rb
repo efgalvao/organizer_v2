@@ -30,8 +30,6 @@ module Investments
     delegate :new_record?, :errors, :persisted?, :account_id, :id, to: :object
 
     def kind
-      # puts '-------', object.inspect
-      # binding.pry
       return 'Renda Variável' if object.type.demodulize == 'VariableInvestment'
 
       'Renda Fixa'
