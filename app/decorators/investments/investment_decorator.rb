@@ -38,5 +38,9 @@ module Investments
     def self.decorate_collection(collection)
       collection.map { |object| new(object) }
     end
+
+    def negotiations
+      object.negotiations.order(date: :desc).limit(5).map { |negotiation| NegotiationDecorator.new(negotiation) }
+    end
   end
 end

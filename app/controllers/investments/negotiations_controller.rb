@@ -3,7 +3,7 @@ module Investments
     before_action :authenticate_user!
 
     def index
-      negotiations = ::InvestmentsServices::FetchNegotiations.call(params[:investment_id])
+      negotiations = ::InvestmentsServices::FetchNegotiations.call(params[:investment_id]).limit(5)
 
       @negotiations = Investments::NegotiationDecorator.decorate_collection(negotiations)
 
