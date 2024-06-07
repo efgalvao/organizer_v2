@@ -7,11 +7,20 @@
 
     </div>
   <% end %>
-      <%= button_to "Transações",
-                  account_transactions_path(@card, future: 'false'),
+<div class="button">
+  <%= link_to "Transações",
+              account_transactions_path(@card, future: 'false'),
+              method: :get,
+              class: "btn btn--light" %>
+
+  <%= turbo_frame_tag "invoice_payment" do %>
+    <%= link_to "Pagar Fatura",
+                  new_card_invoice_path(@card),
                   method: :get,
-                  class: "btn btn--light" %>
+                  class: "btn btn--light",
+                  data: { turbo_frame: "invoice_payment" } %>
+  <% end %>
+</div>
 
     <%= render 'summary', :card => @card %>
-
 </main>
