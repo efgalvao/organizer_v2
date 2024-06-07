@@ -15,6 +15,7 @@ module CreditServices
       ActiveRecord::Base.transaction do
         AccountServices::ProcessTransactionRequest.call(sender_params)
         AccountServices::ProcessTransactionRequest.call(receiver_params)
+        'success'
       end
     end
 
