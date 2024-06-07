@@ -1,5 +1,6 @@
 module InvestmentsServices
   class CreateDividend
+    INCOME_CODE = 1
     def initialize(params)
       @params = params
     end
@@ -9,7 +10,11 @@ module InvestmentsServices
     end
 
     def call
-      Investments::Dividend.create(formated_params)
+      ActiveRecord::Base.transaction do
+        dividend = Investments::Dividend.create(formated_params)
+        AccountServices::ProcessTransactionRequest.call(transaction_params)
+        dividend
+      end
     end
 
     private
@@ -29,13 +34,21 @@ module InvestmentsServices
     end
 
     def date
-      return Date.parse(params[:date]) if params[:date].present?
+      return params[:date] if params[:date].present?
 
       Date.current.strftime('%d/%m/%Y')
     end
 
     def investment
-      Investments::Investment.find(params[:investment_id])
+      @investment ||= Investments::Investment.find(params[:investment_id])
+    end
+
+    def transaction_params
+      { account_id: investment.account_id,
+        value: params[:amount_cents],
+        kind: INCOME_CODE,
+        title: "#{I18n.t('investment.dividend.dividend')} - #{investment.name}",
+        date: date }
     end
   end
 end

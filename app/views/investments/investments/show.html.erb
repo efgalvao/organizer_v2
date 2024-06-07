@@ -1,6 +1,43 @@
 <main class="container">
     <div class="header">
+  <%= link_to "Voltar",
+      account_path(@investment.account_id),
+      data: { turbo_frame: "_top" },
+      class: "btn btn--primary" %>
+
       <h1><%= @investment.name %></h1>
     </div>
-      <%= link_to 'Transações', investment_negotiations_path(investment_id: @investment.id), class: "btn btn--light" %>
+
+  <div class="button">
+      <%= link_to "Nova Posição",
+                  new_investment_position_path(@investment),
+                  data: { turbo_frame: "new_position" },
+                  method: :get,
+                  class: "btn btn--light" %>
+
+      <%= link_to "Cadastrar Negociação",
+                  new_investment_negotiation_path(@investment),
+                  data: { turbo_frame: "new_negotiation" },
+                  method: :get,
+                  class: "btn btn--light" %>
+
+      <%= link_to "Cadastrar dividendos",
+                  new_investment_dividend_path(@investment),
+                  data: { turbo_frame: "new_dividend" },
+                  method: :get,
+                  class: "btn btn--light" %>
+
+    <%= turbo_frame_tag "new_position" %>
+    <%= turbo_frame_tag "new_negotiation" %>
+    <%= turbo_frame_tag "new_dividend" %>
+
+  </div>
+
+
+    <%= render 'summary', :investment => @investment %>
+
+    <%= render 'negotiations', :investment => @investment %>
+
+    <%= render 'dividends', :investment => @investment %>
+
 </main>
