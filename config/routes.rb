@@ -11,7 +11,9 @@ Rails.application.routes.draw do
   resources :categories
   resources :transferences, only: %i[index new create]
 
-  resources :cards
+  resources :cards do
+    resource 'invoice', on: :member, only: %i[new create]
+  end
 
   scope module: 'account' do
     resources :accounts do
