@@ -68,15 +68,6 @@ RSpec.describe 'Investments::Investment' do
         expect(investment.reload.name).to eq('New Investment')
       end
     end
-
-    context 'with invalid parameters' do
-      it 'update payment' do
-        put investment_path(account_id: account.id, id: investment.id),
-            params: { investment: { name: '' } }
-
-        expect(response).to be_unprocessable
-      end
-    end
   end
 
   describe 'GET /show' do

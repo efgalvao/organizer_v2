@@ -1,7 +1,7 @@
 module Investments
   class Investment < ApplicationRecord
     # self.abstract_class = true
-    has_many :dividends, class_name: 'Investments::Dividend'
+    has_many :dividends, class_name: 'Investments::Dividend', dependent: :destroy
 
     belongs_to :account, class_name: 'Account::Account', touch: true
 

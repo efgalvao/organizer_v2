@@ -10,7 +10,7 @@
         <th><%= t('.amount') %></th>
       </tr>
     </thead>
-  <% @investment.dividends.each do |dividend| %>
+  <% investment.dividends.each do |dividend| %>
     <tr>
       <td><%= dividend.date %></td>
       <td><%= number_to_currency(dividend.amount, unit: 'R$ ', separator: ',', delimiter: '.') %></td>

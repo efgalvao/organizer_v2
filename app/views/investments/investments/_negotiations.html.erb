@@ -12,7 +12,7 @@
         <th><%= t('.kind') %></th>
       </tr>
     </thead>
-  <% @investment.negotiations.each do |negotiation| %>
+  <% investment.negotiations.each do |negotiation| %>
     <tr>
       <td><%= negotiation.date %></td>
       <td><%= number_to_currency(negotiation.amount, unit: 'R$ ', separator: ',', delimiter: '.') %></td>
