@@ -33,7 +33,7 @@ module CreditServices
 
     def date
       @date || begin
-        return Time.zone.today if params.fetch(:date, '').empty?
+        return Date.current.strftime('%Y-%m-%d') if params.fetch(:date, '').empty?
 
         params.fetch(:date)
       end

@@ -1,10 +1,10 @@
-<%= simple_form_for :invoice, url: card_invoice_path(card_id: @card_id), html: { class: "invoice form" } do |f| %>
+<%= simple_form_for :invoice, url: card_invoice_path(card_id: card_id), html: { class: "invoice form" } do |f| %>
 
   <%= f.input :date, as: :date, html5: true, label: "Date" %>
   <%= f.input :value, label: "Value" %>
-  <%= f.hidden_field :receiver_id, value: @card_id %>
-  <%= f.input :sender_id, collection: @accounts, label_method: :name, value_method: :id, label: "Account" %>
+  <%= f.hidden_field :receiver_id, value: card_id %>
+  <%= f.input :sender_id, collection: accounts, label_method: :name, value_method: :id, label: "Account" %>
 
   <%= f.submit "Submit", class: "btn btn--secondary" %>
-  <%= link_to "Cancel", card_path(id: @card_id), class: "btn btn--light" %>
+  <%= link_to "Cancel", card_path(id: card_id), class: "btn btn--light" %>
 <% end %>
