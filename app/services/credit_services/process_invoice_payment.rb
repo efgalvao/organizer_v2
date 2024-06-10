@@ -15,6 +15,7 @@ module CreditServices
       ActiveRecord::Base.transaction do
         AccountServices::ProcessTransactionRequest.call(sender_params)
         AccountServices::ProcessTransactionRequest.call(receiver_params)
+        'success'
       end
     end
 
@@ -32,7 +33,7 @@ module CreditServices
 
     def date
       @date || begin
-        return Time.zone.today if params.fetch(:date, '').empty?
+        return Date.current.strftime('%Y-%m-%d') if params.fetch(:date, '').empty?
 
         params.fetch(:date)
       end

@@ -1,5 +1,6 @@
 module InvestmentsServices
   class CreateNegotiation
+    INVESTMENT_CODE = 3
     def initialize(params)
       @params = params
     end
@@ -9,7 +10,12 @@ module InvestmentsServices
     end
 
     def call
-      Investments::Negotiation.create(formated_params)
+      ActiveRecord::Base.transaction do
+        negotiation = Investments::Negotiation.create(formated_params)
+        AccountServices::ProcessTransactionRequest.call(transaction_params)
+        InvestmentsServices::UpdateInvestment.call(update_investment_params)
+        negotiation
+      end
     end
 
     private
@@ -31,13 +37,29 @@ module InvestmentsServices
     end
 
     def date
-      return Date.parse(params[:date]) if params[:date].present?
+      return params[:date] if params[:date].present?
 
       Date.current.strftime('%d/%m/%Y')
     end
 
     def negotiable
-      Investments::Investment.find(params[:investment_id])
+      @negotiable ||= Investments::Investment.find(params[:investment_id])
+    end
+
+    def transaction_params
+      { account_id: negotiable.account_id,
+        value: params[:amount_cents],
+        kind: INVESTMENT_CODE,
+        title: "#{I18n.t('investment.negotiation.negotiation')} - #{negotiable.name}",
+        date: date }
+    end
+
+    def update_investment_params
+      {
+        id: negotiable.id,
+        shares_total: params[:shares],
+        invested_value_cents: convert_to_cents(params[:amount_cents])
+      }
     end
   end
 end

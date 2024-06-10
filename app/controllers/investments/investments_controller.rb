@@ -39,13 +39,9 @@ module Investments
     def update
       @investment = InvestmentsServices::UpdateInvestment
                     .call(investment_params.merge(id: params[:id]))
-      if @investment.valid?
-        @investment = Investments::InvestmentDecorator.decorate(@investment)
-        redirect_to investments_path, notice: 'Investimento atualizado.'
-      else
-        render :new, status: :unprocessable_entity
 
-      end
+      @investment = Investments::InvestmentDecorator.decorate(@investment)
+      redirect_to investments_path, notice: 'Investimento atualizado.'
     end
 
     private

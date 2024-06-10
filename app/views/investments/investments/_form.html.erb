@@ -10,7 +10,7 @@
   <%= f.input :invested_value_cents, as: :float, label: "Valor investido" %>
   <%= f.input :current_value_cents, as: :float, label: "Valor investido" %>
   <%= f.input :type, as: :select, collection: [
-    ["Renda Fixa", "FixedInvestment"], ["Renda Fixa", "VariableInvestment"]], label: "Tipo" %>
+    ["Renda Fixa", "FixedInvestment"], ["Renda Variavel", "VariableInvestment"]], label: "Tipo" %>
 <% end %>
   <%= f.input :shares_total, as: :integer, label: "Total de cotas" %>
   <%= f.input :account_id, as: :hidden, input_html: { value: investment.account_id } %>

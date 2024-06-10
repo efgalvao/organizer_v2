@@ -1,0 +1,10 @@
+<main class="container">
+  <%= turbo_frame_tag "invoice_payment" do %>
+
+    <div class="header">
+      <h3>Pagar Fatura</h3>
+    </div>
+
+  <%= render "form", card_id: @card_id, accounts: @accounts  %>
+<% end %>
+</main>
