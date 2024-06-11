@@ -152,7 +152,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_27_204426) do
   create_table "user_reports", force: :cascade do |t|
     t.date "date"
     t.integer "savings_cents", default: 0, null: false
-    t.integer "stocks_cents", default: 0, null: false
+    t.integer "investments_cents", default: 0, null: false
     t.integer "total_cents", default: 0, null: false
     t.integer "incomes_cents", default: 0, null: false
     t.integer "expenses_cents", default: 0, null: false
