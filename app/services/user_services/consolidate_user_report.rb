@@ -26,6 +26,10 @@ module UserService
       @current_reference ||= Date.current.strftime('%m/%y')
     end
 
+    def accounts
+      @accounts ||= user.accounts.includes(:account_reports, :investments)
+    end
+
     def create_report
       user.user_reports.create(reference: current_reference)
     end
@@ -33,7 +37,8 @@ module UserService
     def consolidate_month_report
       @consolidate_month_report ||= user.accounts.map do |account|
         account_report = account.current_report
-        current_month_report.update(
+        #TODO
+        current_month_report.update()
       end
     end
 

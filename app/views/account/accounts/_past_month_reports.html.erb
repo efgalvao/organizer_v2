@@ -1,0 +1,12 @@
+<div class="subtitle"><%= t('.past_month_reports') %></div>
+<div class="table-header" >
+  <%= t('.incomes') %>
+  <%= t('.expenses') %>
+  <%= t('.invested') %>
+  <%= t('.month_balance') %>
+</div>
+
+  <%= turbo_frame_tag "past_month_reports" do %>
+    <%= render partial: 'past_month_report', collection: past_reports, as: :past_report %>
+  <% end %>
+</div>

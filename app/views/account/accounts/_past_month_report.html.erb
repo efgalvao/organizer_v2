@@ -1,0 +1,20 @@
+<%= turbo_frame_tag "report_#{past_report.id}" do %>
+
+  <div class="transaction">
+    <div>
+      <%= number_to_currency(past_report.month_income, unit: 'R$ ', separator: ',', delimiter: '.') %>
+    </div>
+
+    <div>
+      <%= number_to_currency(past_report.month_expense, unit: 'R$ ', separator: ',', delimiter: '.') %>
+    </div>
+
+    <div>
+      <%= number_to_currency(past_report.month_invested, unit: 'R$ ', separator: ',', delimiter: '.') %>
+    </div>
+
+      <div>
+        <%= number_to_currency(past_report.month_balance, unit: 'R$ ', separator: ',', delimiter: '.') %>
+      </div>
+  </div>
+  <% end %>

@@ -24,6 +24,7 @@ module AccountServices
         transaction = build_transaction
         transaction.save!
         update_account_balance
+        consolidate_account_report(transaction)
         transaction
       end
     end
@@ -55,6 +56,10 @@ module AccountServices
               end
 
       params[:kind].to_i.in?([0, 3]) ? -value_to_cents(value) : value_to_cents(value)
+    end
+
+    def consolidate_account_report(transaction)
+      AccountServices::ConsolidateAccountReport.call(transaction.account)
     end
   end
 end
