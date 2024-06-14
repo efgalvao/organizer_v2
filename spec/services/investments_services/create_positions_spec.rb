@@ -28,7 +28,7 @@ RSpec.describe InvestmentsServices::CreatePosition do
     end
   end
 
-  context 'when date is not prsent' do
+  context 'when date is not present' do
     let(:params) do
       {
         date: '',
@@ -38,7 +38,7 @@ RSpec.describe InvestmentsServices::CreatePosition do
       }
     end
 
-    it 'createss a new investment', :aggregate_failures do
+    it 'create a new position', :aggregate_failures do
       response = create_position
 
       expect(response).to be_a(Investments::Position)

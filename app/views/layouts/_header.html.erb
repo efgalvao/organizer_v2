@@ -1,7 +1,7 @@
 <nav>
   <div class="nav-wrapper">
       <% if current_user %>
-    <a class="brand-logo" href="/user/overview">ZUKUNFT: <%= current_user.name.upcase %> </a>
+    <a class="brand-logo" href="/summary">ZUKUNFT: <%= current_user.name.upcase %> </a>
   <% else %>
     <a class="brand-logo" href="/">ZUKUNFT</a>
   <% end %>
