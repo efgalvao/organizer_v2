@@ -10,6 +10,7 @@ module InvestmentsServices
 
     def call
       Investments::Position.create(formated_params)
+      # TODO - UPDATE INVESTMENT
     end
 
     private
