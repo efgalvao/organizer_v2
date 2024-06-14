@@ -14,11 +14,11 @@ class UserReportDecorator < Draper::Decorator
   end
 
   def month_income
-    object.income_cents / 100.0
+    object.incomes_cents / 100.0
   end
 
   def month_expense
-    object.expense_cents / 100.0
+    object.expenses_cents / 100.0
   end
 
   def month_invested
@@ -33,7 +33,7 @@ class UserReportDecorator < Draper::Decorator
     object.balance_cents / 100.0
   end
 
-  def card_expenses
+  def month_card_expenses
     object.card_expenses_cents / 100.0
   end
 end

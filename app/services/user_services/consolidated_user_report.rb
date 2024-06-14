@@ -9,7 +9,9 @@ module UserServices
 
     def call
       consolidate_month_report
-      create_report
+      a = create_report
+      puts '-----', a.inspect
+      a
     end
 
     private
@@ -23,8 +25,21 @@ module UserServices
     end
 
     def create_report
-      user.user_reports.create(reference: current_reference, savings_cents: @savings_cents,
-                               investments_cents: @investments_cents, incomes_cents: @incomes_cents, expenses_cents: @expenses_cents, invested_cents: @invested_cents, dividends_cents: @dividends_cents, card_expenses_cents: @card_expenses_cents, balance_cents: @balance_cents, total_cents: @total_cents)
+      result = user.user_reports.upsert({
+                                          reference: current_reference,
+                                          date: Date.current,
+                                          savings_cents: @savings_cents,
+                                          investments_cents: @investments_cents,
+                                          incomes_cents: @incomes_cents,
+                                          expenses_cents: @expenses_cents,
+                                          invested_cents: @invested_cents,
+                                          dividends_cents: @dividends_cents,
+                                          card_expenses_cents: @card_expenses_cents,
+                                          balance_cents: @balance_cents,
+                                          total_cents: @total_cents
+                                        }, unique_by: :index_user_reports_on_user_id_and_reference)
+
+      UserReport.find(result.first['id'])
     end
 
     def consolidate_month_report
@@ -35,19 +50,29 @@ module UserServices
         @incomes_cents += account_report.month_income_cents
         @expenses_cents += account_report.month_expense_cents
         @invested_cents += account_report.month_invested_cents
-        @balance_cents += account_report.month_balance_cents
         @dividends_cents += account_report.month_dividends_cents
-        @total_cents += @savings_cents + @investments_cents
       end
 
       user.accounts.card_accounts.each do |card|
         @card_expenses_cents += card.account_reports.sum(:month_expense_cents)
       end
+
+      @balance_cents = @incomes_cents - @expenses_cents - @invested_cents
+      @total_cents = @savings_cents + @investments_cents
     end
 
-    # Assuming calculate_investments is a method in this class
     def calculate_investments(account)
-      # logic to calculate investments
+      return 0 if account.investments.empty?
+
+      investments_amounts = 0
+      account.investments.each do |investment|
+        investments_amounts += if investment.type == 'Investments::VariableInvestment'
+                                 (investment.current_value_cents * investment.shares_total)
+                               else
+                                 investment.current_value_cents
+                               end
+      end
+      investments_amounts
     end
   end
 end
