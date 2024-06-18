@@ -1,6 +1,7 @@
 module UserServices
   module FetchUserReports
-    extend self
+    module_function
+
     def fetch_reports(user_id)
       User.find(user_id).user_reports
           .where('date < ?', Date.current.beginning_of_month)

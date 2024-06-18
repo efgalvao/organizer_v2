@@ -27,21 +27,20 @@ module UserServices
     end
 
     def create_report
-      result = user.user_reports.upsert({
-                                          reference: current_reference,
-                                          date: Date.current,
-                                          savings_cents: @savings_cents,
-                                          investments_cents: @investments_cents,
-                                          incomes_cents: @incomes_cents,
-                                          expenses_cents: @expenses_cents,
-                                          invested_cents: @invested_cents,
-                                          dividends_cents: @dividends_cents,
-                                          card_expenses_cents: @card_expenses_cents,
-                                          balance_cents: @balance_cents,
-                                          total_cents: @total_cents
-                                        }, unique_by: :index_user_reports_on_user_id_and_reference)
-
-      UserReport.find(result.first['id'])
+      report = user.user_reports.find_or_initialize_by(reference: current_reference)
+      report.update(
+        date: Date.current,
+        savings_cents: @savings_cents,
+        investments_cents: @investments_cents,
+        incomes_cents: @incomes_cents,
+        expenses_cents: @expenses_cents,
+        invested_cents: @invested_cents,
+        dividends_cents: @dividends_cents,
+        card_expenses_cents: @card_expenses_cents,
+        balance_cents: @balance_cents,
+        total_cents: @total_cents
+      )
+      report
     end
 
     def consolidate_month_report
