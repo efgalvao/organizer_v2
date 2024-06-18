@@ -25,6 +25,7 @@ module AccountServices
         transaction.save!
         update_account_balance
         consolidate_account_report(transaction)
+        # puts '----->', transaction.inspect
         transaction
       end
     end

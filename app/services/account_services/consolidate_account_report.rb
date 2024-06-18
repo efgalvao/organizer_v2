@@ -28,7 +28,7 @@ module AccountServices
 
     def consolidate(current_report)
       {
-        initial_account_balance_cents: past_month_report.final_account_balance_cents,
+        initial_account_balance_cents: past_month_report&.final_account_balance_cents,
         final_account_balance_cents: final_account_balance(current_report),
         month_balance_cents: month_balance(current_report),
         month_income_cents: month_income(current_report),
@@ -43,7 +43,8 @@ module AccountServices
     end
 
     def final_account_balance(current_report)
-      current_report.initial_account_balance_cents + month_balance(current_report)
+      # binding.pry
+      (current_report.initial_account_balance_cents.presence || 0) + month_balance(current_report)
     end
 
     def month_balance(current_report)
