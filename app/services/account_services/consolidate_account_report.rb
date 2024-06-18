@@ -10,6 +10,7 @@ module AccountServices
 
     def call
       current_report = find_or_create_current_month_report
+      current_report.update(default_account_report_attributes) if current_report.new_record?
       consolidated_attributes = consolidate(current_report)
       current_report.update(consolidated_attributes)
     end
@@ -28,7 +29,7 @@ module AccountServices
 
     def consolidate(current_report)
       {
-        initial_account_balance_cents: past_month_report&.final_account_balance_cents,
+        initial_account_balance_cents: initial_account_balance,
         final_account_balance_cents: final_account_balance(current_report),
         month_balance_cents: month_balance(current_report),
         month_income_cents: month_income(current_report),
@@ -39,12 +40,15 @@ module AccountServices
     end
 
     def initial_account_balance
-      past_month_report&.final_account_balance_cents.presence || 0
+      return 0 if past_month_report.nil?
+
+      past_month_report.final_account_balance_cents
     end
 
     def final_account_balance(current_report)
-      # binding.pry
-      (current_report.initial_account_balance_cents.presence || 0) + month_balance(current_report)
+      return 0 if current_report.nil?
+
+      current_report.initial_account_balance_cents + month_balance(current_report)
     end
 
     def month_balance(current_report)
@@ -81,6 +85,19 @@ module AccountServices
 
     def past_month_report
       account.account_reports.find_by(reference: past_month_reference)
+    end
+
+    def default_account_report_attributes
+      {
+        initial_account_balance_cents: 0,
+        final_account_balance_cents: 0,
+        month_balance_cents: 0,
+        month_income_cents: 0,
+        month_expense_cents: 0,
+        month_invested_cents: 0,
+        month_dividends_cents: 0,
+        reference: current_reference
+      }
     end
   end
 end

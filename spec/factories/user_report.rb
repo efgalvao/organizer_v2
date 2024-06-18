@@ -3,7 +3,7 @@ FactoryBot.define do
     user
     date { Time.zone.today }
     savings_cents { rand(1000..100_000) }
-    stocks_cents { rand(1000..100_000) }
+    investments_cents { rand(1000..100_000) }
     total_cents { rand(1000..100_000) }
     incomes_cents { rand(1000..100_000) }
     expenses_cents { rand(1000..100_000) }

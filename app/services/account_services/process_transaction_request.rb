@@ -20,14 +20,14 @@ module AccountServices
     attr_reader :params
 
     def create_transaction
+      transaction = nil
       ActiveRecord::Base.transaction do
         transaction = build_transaction
         transaction.save!
         update_account_balance
-        consolidate_account_report(transaction)
-        # puts '----->', transaction.inspect
-        transaction
       end
+      consolidate_account_report(transaction)
+      transaction
     end
 
     def build_transaction
