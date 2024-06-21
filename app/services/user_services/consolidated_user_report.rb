@@ -1,10 +1,18 @@
 module UserServices
   class ConsolidatedUserReport
-    attr_reader :user_id
+    DEFAULT_VALUE = 0
 
     def initialize(user_id)
       @user_id = user_id
-      @savings_cents = @investments_cents = @incomes_cents = @expenses_cents = @invested_cents = @dividends_cents = @card_expenses_cents = @balance_cents = @total_cents = 0
+      @savings_cents = DEFAULT_VALUE
+      @investments_cents = DEFAULT_VALUE
+      @incomes_cents = DEFAULT_VALUE
+      @expenses_cents = DEFAULT_VALUE
+      @invested_cents = DEFAULT_VALUE
+      @dividends_cents = DEFAULT_VALUE
+      @card_expenses_cents = DEFAULT_VALUE
+      @balance_cents = DEFAULT_VALUE
+      @total_cents = DEFAULT_VALUE
     end
 
     def call
@@ -13,6 +21,9 @@ module UserServices
     end
 
     private
+
+    attr_reader :user_id, :savings_cents, :investments_cents, :incomes_cents, :expenses_cents,
+                :invested_cents, :dividends_cents, :card_expenses_cents, :balance_cents, :total_cents
 
     def user
       @user ||= User.find(user_id)
@@ -45,7 +56,9 @@ module UserServices
 
     def consolidate_month_report
       user.accounts.except_card_accounts.each do |account|
+        # binding.pry
         account_report = account.current_report
+        puts '====> ', account_report.inspect
         @savings_cents += account.balance_cents
         @investments_cents += calculate_investments(account)
         @incomes_cents += account_report.month_income_cents
@@ -67,6 +80,7 @@ module UserServices
 
       investments_amounts = 0
       account.investments.each do |investment|
+        puts '++++++> ', investment.inspect
         investments_amounts += if investment.type == 'Investments::VariableInvestment'
                                  (investment.current_value_cents * investment.shares_total)
                                else

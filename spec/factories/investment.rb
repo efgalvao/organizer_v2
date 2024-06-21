@@ -6,6 +6,7 @@ FactoryBot.define do
     account
     released { false }
     type { 'Investments::FixedInvestment' }
+    shares_total { 0 }
 
     trait :released do
       released { true }

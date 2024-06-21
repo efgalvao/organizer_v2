@@ -6,7 +6,7 @@ module AccountServices
     end
 
     def create_report
-      return account.current_report if existing_current_account_report?
+      # return account.current_report if existing_current_account_report?
 
       create_account_report
     end
@@ -23,9 +23,9 @@ module AccountServices
       @account ||= Account::Account.find(account_id)
     end
 
-    def existing_current_account_report?
-      !account.current_report.nil?
-    end
+    # def existing_current_account_report?
+    #   !account.current_report.nil?
+    # end
 
     def create_account_report
       account_report = account.account_reports.new(account_report_params)
