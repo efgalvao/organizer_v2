@@ -56,9 +56,7 @@ module UserServices
 
     def consolidate_month_report
       user.accounts.except_card_accounts.each do |account|
-        # binding.pry
         account_report = account.current_report
-        puts '====> ', account_report.inspect
         @savings_cents += account.balance_cents
         @investments_cents += calculate_investments(account)
         @incomes_cents += account_report.month_income_cents
@@ -80,7 +78,6 @@ module UserServices
 
       investments_amounts = 0
       account.investments.each do |investment|
-        puts '++++++> ', investment.inspect
         investments_amounts += if investment.type == 'Investments::VariableInvestment'
                                  (investment.current_value_cents * investment.shares_total)
                                else
