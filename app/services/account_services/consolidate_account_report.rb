@@ -70,7 +70,9 @@ module AccountServices
     def month_dividends
       return 0 if account.kind != 'broker'
 
-      account.investments&.dividends&.where(date: current_month_range)&.sum(:amount_cents)
+      account.investments.each do |investment|
+        investment.dividends.where(date: current_month_range)&.sum(:amount_cents)
+      end
     end
 
     def current_month_range
