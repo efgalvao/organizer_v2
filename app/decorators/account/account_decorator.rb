@@ -24,6 +24,9 @@ module Account
       Investments::InvestmentDecorator.decorate_collection(object.investments)
     end
 
+    def past_reports
+      object.account_reports.before_this_month.recent(6).order(date: :desc).map(&:decorate)
+    end
     delegate :broker?, to: :object
   end
 end

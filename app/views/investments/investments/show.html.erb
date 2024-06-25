@@ -1,5 +1,5 @@
-<main class="container">
-    <div class="header">
+<div class="item">
+  <div class="header">
   <%= link_to "Voltar",
       account_path(@investment.account_id),
       data: { turbo_frame: "_top" },
@@ -7,6 +7,7 @@
 
       <h1><%= @investment.name %></h1>
     </div>
+</div>
 
   <div class="button">
       <%= link_to "Nova Posição",
@@ -30,14 +31,12 @@
     <%= turbo_frame_tag "new_position" %>
     <%= turbo_frame_tag "new_negotiation" %>
     <%= turbo_frame_tag "new_dividend" %>
-
   </div>
 
-
+<div class="item">
     <%= render 'summary', :investment => @investment %>
 
     <%= render 'negotiations', :investment => @investment %>
 
     <%= render 'dividends', :investment => @investment %>
-
-</main>
+</div>

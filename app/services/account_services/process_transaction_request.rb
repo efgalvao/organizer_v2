@@ -20,12 +20,14 @@ module AccountServices
     attr_reader :params
 
     def create_transaction
+      transaction = nil
       ActiveRecord::Base.transaction do
         transaction = build_transaction
         transaction.save!
         update_account_balance
-        transaction
       end
+      consolidate_account_report(transaction)
+      transaction
     end
 
     def build_transaction
@@ -55,6 +57,10 @@ module AccountServices
               end
 
       params[:kind].to_i.in?([0, 3]) ? -value_to_cents(value) : value_to_cents(value)
+    end
+
+    def consolidate_account_report(transaction)
+      AccountServices::ConsolidateAccountReport.call(transaction.account)
     end
   end
 end

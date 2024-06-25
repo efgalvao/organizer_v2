@@ -14,7 +14,13 @@ module Account
     validates :kind, presence: true
 
     def current_report
-      account_reports.find_by(reference: Time.zone.now.strftime('%m%y'))
+      current_report = account_reports.find_by(reference: Time.zone.now.strftime('%m%y'))
+      if current_report.nil?
+        return AccountServices::CreateAccountReport.create_report(id,
+                                                                  Time.zone.now.strftime('%m%y'))
+      end
+
+      current_report
     end
 
     def month_report(reference_date)

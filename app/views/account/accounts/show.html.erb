@@ -1,4 +1,4 @@
-<main class="container">
+<div class="item">
   <%= turbo_frame_tag "first_turbo_frame" do %>
 
     <div class="header">
@@ -6,11 +6,11 @@
       accounts_path,
       data: { turbo_frame: "_top" },
       class: "btn btn--primary" %>
-
       <h1><%= @account.name %></h1>
-
     </div>
   <% end %>
+</div>
+
   <div class="button">
       <%= link_to "Transações",
                   account_transactions_path(@account, future: 'false'),
@@ -32,11 +32,14 @@
     <%= turbo_frame_tag "new_investment" %>
     <%= turbo_frame_tag "new_transference" %>
 
+<div class="item">
+
     <%= render 'summary', :account => @account %>
+
+    <%= render 'past_month_reports', :past_reports => @account.past_reports %>
 
     <% if @account.broker? %>
     <%= render 'investments', :investments => @account.investments %>
     <% end %>
 
-
-</main>
+</div>

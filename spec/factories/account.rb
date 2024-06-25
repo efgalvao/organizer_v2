@@ -4,5 +4,13 @@ FactoryBot.define do
     sequence(:name) { "Account_#{_1}" }
     kind { 'savings' }
     balance_cents { Random.rand(1000..100_000) }
+
+    trait :broker do
+      kind { 'broker' }
+    end
+
+    trait :card do
+      kind { 'card' }
+    end
   end
 end

@@ -3,7 +3,7 @@ class CreateUserReport < ActiveRecord::Migration[7.0]
     create_table :user_reports do |t|
         t.date :date
         t.integer :savings_cents, default: 0, null: false
-        t.integer :stocks_cents, default: 0, null: false
+        t.integer :investments_cents, default: 0, null: false
         t.integer :total_cents, default: 0, null: false
         t.integer :incomes_cents, default: 0, null: false
         t.integer :expenses_cents, default: 0, null: false

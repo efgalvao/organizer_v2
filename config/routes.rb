@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root 'home#index'
+  get 'summary', to: 'home#show', as: 'summary'
+
 
   resources :categories
   resources :transferences, only: %i[index new create]

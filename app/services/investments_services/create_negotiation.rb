@@ -13,6 +13,7 @@ module InvestmentsServices
       ActiveRecord::Base.transaction do
         negotiation = Investments::Negotiation.create(formated_params)
         AccountServices::ProcessTransactionRequest.call(transaction_params)
+        # Should create a new position ??
         InvestmentsServices::UpdateInvestment.call(update_investment_params)
         negotiation
       end

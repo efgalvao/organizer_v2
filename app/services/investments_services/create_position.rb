@@ -9,7 +9,11 @@ module InvestmentsServices
     end
 
     def call
-      Investments::Position.create(formated_params)
+      ActiveRecord::Base.transaction do
+        position = Investments::Position.create(formated_params)
+        InvestmentsServices::UpdateInvestment.call(update_investment_params)
+        position
+      end
     end
 
     private
@@ -37,6 +41,13 @@ module InvestmentsServices
 
     def positionable
       Investments::Investment.find(params[:investment_id])
+    end
+
+    def update_investment_params
+      {
+        id: positionable.id,
+        current_value_cents: convert_to_cents(params[:amount_cents])
+      }
     end
   end
 end
