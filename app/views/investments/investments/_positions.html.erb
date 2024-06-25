@@ -1,0 +1,23 @@
+<div class="item">
+  <div class="subtitle">
+    <%= t('.positions') %>
+  </div>
+
+  <table class="striped">
+    <thead>
+      <tr>
+        <th><%= t('.date') %></th>
+        <th><%= t('.amount') %></th>
+        <th><%= t('.shares') %></th>
+      </tr>
+    </thead>
+  <% investment.positions.each do |position| %>
+    <tr>
+      <td><%= position.date %></td>
+      <td><%= number_to_currency(position.amount, unit: 'R$ ', separator: ',', delimiter: '.') %></td>
+      <td><%= position.shares %></td>
+    </tr>
+  <% end %>
+</tbody>
+  </table>
+</div>

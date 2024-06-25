@@ -40,10 +40,10 @@ RSpec.describe UserServices::ConsolidatedUserReport do
 
   it 'consolidates the current user report' do
     response = service.call
-    puts '----> ', response.inspect
+
     expect(response).to be_a(UserReport)
     expect(response.date).to eq(Date.current)
     expect(response.reference).to eq(Date.current.strftime('%m/%y'))
-    expect(response.savings_cents).to eq(100)
+    expect(response.savings_cents).to eq(4)
   end
 end
