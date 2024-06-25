@@ -44,5 +44,9 @@ module Investments
     def dividends
       object.dividends.order(date: :desc).limit(5).map { |dividend| DividendDecorator.new(dividend) }
     end
+
+    def positions
+      object.positions.order(date: :desc).limit(5).map { |position| PositionDecorator.new(position) }
+    end
   end
 end
