@@ -11,7 +11,7 @@ module InvestmentsServices
     def call
       ActiveRecord::Base.transaction do
         position = Investments::Position.create(formated_params)
-        InvestmentsServices::UpdateInvestment.call(update_investment_params)
+        InvestmentsServices::UpdateInvestmentByPosition.call(update_investment_params)
         position
       end
     end
@@ -46,7 +46,8 @@ module InvestmentsServices
     def update_investment_params
       {
         id: positionable.id,
-        current_value_cents: convert_to_cents(params[:amount_cents])
+        current_value_cents: convert_to_cents(params[:amount_cents]),
+        shares_total: params[:shares].to_i
       }
     end
   end

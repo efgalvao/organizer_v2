@@ -13,8 +13,7 @@ module InvestmentsServices
       ActiveRecord::Base.transaction do
         negotiation = Investments::Negotiation.create(formated_params)
         AccountServices::ProcessTransactionRequest.call(transaction_params)
-        # Should create a new position ??
-        InvestmentsServices::UpdateInvestment.call(update_investment_params)
+        update_investment
         negotiation
       end
     end
@@ -61,6 +60,14 @@ module InvestmentsServices
         shares_total: params[:shares],
         invested_value_cents: convert_to_cents(params[:amount_cents])
       }
+    end
+
+    def update_investment
+      if negotiable.fixed?
+        InvestmentsServices::UpdateFixedInvestmentByNegotiation.call(update_investment_params)
+      else
+        InvestmentsServices::UpdateVariableInvestmentByNegotiation.call(update_investment_params)
+      end
     end
   end
 end
