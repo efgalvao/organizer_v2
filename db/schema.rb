@@ -17,13 +17,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_27_204426) do
   create_table "account_reports", force: :cascade do |t|
     t.bigint "account_id", null: false
     t.date "date"
-    t.integer "initial_account_balance_cents"
-    t.integer "final_account_balance_cents"
-    t.integer "month_balance_cents"
-    t.integer "month_income_cents"
-    t.integer "month_expense_cents"
-    t.integer "month_invested_cents"
-    t.integer "month_dividends_cents"
+    t.integer "initial_account_balance_cents", default: 0, null: false
+    t.integer "final_account_balance_cents", default: 0, null: false
+    t.integer "month_balance_cents", default: 0, null: false
+    t.integer "month_income_cents", default: 0, null: false
+    t.integer "month_expense_cents", default: 0, null: false
+    t.integer "month_invested_cents", default: 0, null: false
+    t.integer "month_dividends_cents", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "reference"
@@ -85,8 +85,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_27_204426) do
     t.string "negotiable_type", null: false
     t.bigint "negotiable_id", null: false
     t.date "date"
-    t.integer "amount_cents", default: 0
-    t.integer "shares", default: 0
+    t.integer "amount_cents", default: 0, null: false
+    t.integer "shares", default: 0, null: false
     t.integer "kind", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -114,8 +114,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_27_204426) do
     t.string "positionable_type", null: false
     t.bigint "positionable_id", null: false
     t.date "date"
-    t.integer "amount_cents", default: 0
-    t.integer "shares", default: 0
+    t.integer "amount_cents", default: 0, null: false
+    t.integer "shares", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["positionable_type", "positionable_id"], name: "index_positions_on_positionable"
@@ -141,7 +141,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_27_204426) do
     t.bigint "receiver_id"
     t.bigint "user_id", null: false
     t.date "date", null: false
-    t.integer "value_cents", default: 0
+    t.integer "value_cents", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["receiver_id"], name: "index_transferences_on_receiver_id"
