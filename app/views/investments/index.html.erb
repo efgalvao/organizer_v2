@@ -6,6 +6,30 @@
 </div>
   <% end %>
 
+<div class="investment item-label">
+  <%= t('.name') %>
+  <div>
+    <%= t('.invested') %>
+  </div>
+
+  <div>
+    <%= t('.current') %>
+  </div>
+
+  <div>
+    <%= t('.shares') %>
+  </div>
+
+  <div>
+    <%= t('.kind') %>
+  </div>
+
+  <div>
+    <%= t('.account') %>
+  </div>
+  <%= t('.action') %>
+</div>
+
   <%= turbo_frame_tag "investments" do %>
     <%= render partial: '/investments/investment', collection: @investments %>
   <% end %>
