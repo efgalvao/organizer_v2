@@ -1,0 +1,10 @@
+<%= turbo_stream.update 'new_position', '' %>
+
+<%= turbo_stream.update "positions" do %>
+    <%= render partial: 'investments/investments/positions', locals: { investment: @position.positionable.decorate } %>
+<% end %>
+<%= turbo_stream.update "investment_summary" do %>
+    <%= render partial: 'investments/investments/summary', locals: { investment: @position.positionable.reload.decorate } %>
+<% end %>
+
+<%= render_turbo_stream_flash_messages %>
