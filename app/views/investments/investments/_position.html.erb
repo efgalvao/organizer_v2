@@ -1,0 +1,17 @@
+<%= turbo_frame_tag "position_#{position.id}" do %>
+
+<div class="investment">
+  <div>
+    <%= position.date %>
+  </div>
+
+  <div>
+    R$ <%= position.amount %>
+  </div>
+
+  <div>
+    <%= position.shares %>
+  </div>
+
+</div>
+<% end %>

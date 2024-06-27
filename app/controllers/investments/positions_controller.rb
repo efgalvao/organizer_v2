@@ -17,12 +17,12 @@ module Investments
     def create
       @position = InvestmentsServices::CreatePosition.call(position_params)
       if @position.valid?
+        @position = Investments::PositionDecorator.decorate(@position)
         respond_to do |format|
-          @position = Investments::PositionDecorator.decorate(@position)
           format.html do
-            redirect_to investment_positions_path(@position.positionable), notice: 'Posição criada.'
-            format.turbo_stream { flash.now[:notice] = 'Posição criada.' }
+            redirect_to investment_path(@position.positionable), notice: 'Posição criada.'
           end
+          format.turbo_stream { flash.now[:notice] = 'Posição criada.' }
         end
       else
         render :new, status: :unprocessable_entity
