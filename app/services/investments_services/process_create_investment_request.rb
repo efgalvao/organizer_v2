@@ -1,16 +1,9 @@
 module InvestmentsServices
   module ProcessCreateInvestmentRequest
     extend self
-    # def initialize(params)
-    #   @params = params
-    # end
-
-    # def self.call(params)
-    #   new(params).call
-    # end
 
     def call(params)
-      if params['type'] == 'fixed_investment'
+      if params[:type] == 'FixedInvestment'
         create_fixed_investment(params)
       else
         create_variable_investment(params)
@@ -18,8 +11,6 @@ module InvestmentsServices
     end
 
     private
-
-    # attr_reader :params
 
     def create_fixed_investment(params)
       InvestmentsServices::CreateFixedInvestment.call(params)

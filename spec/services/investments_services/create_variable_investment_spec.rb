@@ -15,10 +15,10 @@ RSpec.describe InvestmentsServices::CreateVariableInvestment do
     }
   end
 
-  it 'createss a new investment', :aggregate_failures do
+  it 'create a new investment', :aggregate_failures do
     response = create_investment
 
-    expect(response).to be_a(Investments::Investment)
+    expect(response).to be_a(Investments::VariableInvestment)
     expect(response.name).to eq('My investment')
     expect(response.account_id).to eq(account.id)
     expect(response.invested_value_cents).to eq(0)
