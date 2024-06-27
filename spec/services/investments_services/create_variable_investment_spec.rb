@@ -9,9 +9,9 @@ RSpec.describe InvestmentsServices::CreateVariableInvestment do
     {
       name: 'My investment',
       invested_value_cents: 0,
-      current_value_cents: 0,
+      current_value_cents: 2,
       account_id: account.id,
-      shares_total: 0
+      shares_total: 1
     }
   end
 
@@ -22,7 +22,8 @@ RSpec.describe InvestmentsServices::CreateVariableInvestment do
     expect(response.name).to eq('My investment')
     expect(response.account_id).to eq(account.id)
     expect(response.invested_value_cents).to eq(0)
-    expect(response.shares_total).to eq(0)
+    expect(response.current_value_cents).to eq(200)
+    expect(response.shares_total).to eq(1)
     expect(response).to be_persisted
   end
 end
