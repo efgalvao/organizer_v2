@@ -1,4 +1,4 @@
-<%= simple_form_for transference, html: { class: "transference form" } do |f| %>
+<%= simple_form_for transference, html: { class: "transference form" }, data: { turbo: false }  do |f| %>
   <%= form_error_notification(transference) %>
 
   <%= f.input :value_cents, as: :float, label: "Valor", input_html: { autofocus: true } %>

@@ -10,12 +10,13 @@ class TransferencesController < ApplicationController
   end
 
   def create
-    @transference = TransferenceServices::ProcessTransferenceRequest.call(transference_params).decorate
+    @transference = TransferenceServices::ProcessTransferenceRequest.call(transference_params)
 
     if @transference.errors.empty?
+      @transference = @transference.decorate
       respond_to do |format|
-        format.html { redirect_to transferences_path, notice: 'Transferência criada.' }
-        format.turbo_stream
+        format.html { redirect_to transferences_path, status: :see_other, notice: 'Transferência criada.' }
+        format.turbo_stream { flash.now[:notice] = 'Transferência criada.' }
       end
     else
       render :new, status: :unprocessable_entity

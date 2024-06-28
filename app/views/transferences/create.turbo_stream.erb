@@ -1,2 +1,4 @@
 <%= turbo_stream.prepend "transferences", @transference %>
-<%= turbo_stream.update Transference.new, "" %>
+<%= turbo_stream.update 'new_transference', "" %>
+
+<%= render_turbo_stream_flash_messages %>
