@@ -17,12 +17,12 @@ module Investments
     def create
       @negotiation = InvestmentsServices::CreateNegotiation.call(negotiation_params)
       if @negotiation.valid?
+        @negotiation = Investments::NegotiationDecorator.decorate(@negotiation)
         respond_to do |format|
-          @negotiation = Investments::NegotiationDecorator.decorate(@negotiation)
           format.html do
             redirect_to investment_negotiations_path(@negotiation.negotiable), notice: 'Negociação criada.'
-            format.turbo_stream { flash.now[:notice] = 'Negociação criada.' }
           end
+          format.turbo_stream { flash.now[:notice] = 'Negociação criada.' }
         end
       else
         render :new, status: :unprocessable_entity
