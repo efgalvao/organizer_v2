@@ -21,6 +21,14 @@ module Investments
       object.current_value_cents / 100.0
     end
 
+    def balance
+      if object.type == 'Investments::VariableInvestment'
+        object.current_value_cents * object.shares_total / 100.0
+      else
+        object.current_value_cents / 100.0
+      end
+    end
+
     def account_name
       object.account.name.capitalize
     end
