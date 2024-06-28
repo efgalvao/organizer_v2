@@ -1,3 +1,7 @@
 <%= turbo_stream.remove @payment %>
 
+<%= turbo_stream.update "financing_summary" do %>
+    <%= render partial: 'financing/financings/summary', locals: { financing: @financing } %>
+<% end %>
+
 <%= render_turbo_stream_flash_messages %>
