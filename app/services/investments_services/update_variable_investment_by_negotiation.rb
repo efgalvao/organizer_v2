@@ -9,7 +9,7 @@ module InvestmentsServices
     end
 
     def new_shares_total
-      investment.shares_total.to_i + params[:shares_total].to_i
+      @new_shares_total ||= investment.shares_total.to_i + params[:shares_total].to_i
     end
 
     def new_current_value
