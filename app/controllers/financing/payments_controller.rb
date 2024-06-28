@@ -16,6 +16,7 @@ module Financing
       @payment = FinancingServices::CreatePayment.call(payment_params).decorate
       if @payment.valid?
         respond_to do |format|
+          @financing = @financing.reload.decorate
           format.html { redirect_to financing_path(@financing), notice: 'Pagamento criado.' }
           format.turbo_stream { flash.now[:notice] = 'Pagamento criado.' }
         end
@@ -36,6 +37,7 @@ module Financing
 
     def destroy
       @payment.destroy
+      @financing = @financing.reload.decorate
 
       respond_to do |format|
         format.html { redirect_to financing_path(@financing), notice: 'Pagamento removido.' }

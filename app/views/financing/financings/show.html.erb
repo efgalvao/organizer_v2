@@ -1,7 +1,11 @@
   <%= turbo_frame_tag "first_turbo_frame" do %>
 
     <div class="header">
-  <%= link_to sanitize("&larr; Voltar para financiamentos"), financings_path %>
+    <%= link_to "Voltar para financiamentos",
+      financings_path,
+      data: { turbo_frame: "_top" },
+      class: "btn btn--primary" %>
+
       <h1><%= @financing.name %></h1>
 
       <%= link_to "Cadastrar novo pagamento",
@@ -14,60 +18,12 @@
 
   <%= turbo_frame_tag "new_financing_payment" %>
 
-  <table>
-    <thead>
-        <th>Valor Financiado</th>
-        <th>Parcelas</th>
-        <th>Saldo Devedor</th>
-        <th>Parcelas Restantes</th>
-    </thead>
-    <tbody>
-      <tr>
-        <td><%= @financing.borrowed_value %></td>
-        <td><%= @financing.installments %></td>
-        <td><%= @financing.outstanding_balance %></td>
-        <td><%= @financing.outstanding_parcels %></td>
-      </tr>
-    </tbody>
-  </table>
-
-    <table>
-    <thead>
-        <th>Parcelas Pagas</th>
-        <th>Total pago em juros</th>
-        <th>Total de Correção Monetária</th>
-        <th>Amortizações realizadas</th>
-        <th>Total amortizado</th>
-    </thead>
-    <tbody>
-      <tr>
-        <td><%= @financing.ordinary_parcels %></td>
-        <td><%= @financing.total_interest_paid %></td>
-        <td><%= @financing.monetary_correction %></td>
-        <td><%= @financing.non_ordinary_parcels %></td>
-        <td><%= @financing.total_amortization %></td>
-      </tr>
-    </tbody>
-  </table>
+  <%= render 'summary', :financing => @financing %>
 
 <h3> Pagamentos </h3>
-  <table>
-    <thead>
-      <th>Parcela</th>
-      <th>Valor Pago</th>
-        <th>Parcelas pagas</th>
-        <th>Tipo</th>
-        <th>Data de pagamento</th>
-        <th>Juros</th>
-        <th>Amortização</th>
-        <th>Seguro</th>
-        <th>Taxas</th>
-        <th>Ajustes</th>
-        <th>Correção Monetária</th>
-        <th>
 
-    </thead>
 <%= turbo_frame_tag "payments" do %>
-  <%= render partial: 'financing/payments/payment', collection: @payments, as: :payment, locals: { financing: @financing } %>
+  <%= render partial: 'header' %>
+  <%= render partial: 'payment', collection: @payments, as: :payment, locals: { financing: @financing } %>
 <% end %>
   </table>

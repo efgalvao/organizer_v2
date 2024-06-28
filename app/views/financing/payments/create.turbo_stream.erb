@@ -1,8 +1,11 @@
 <%= turbo_stream.update "new_financing_payment", "" %>
 
-
-  <%= turbo_stream.prepend "payments" do %>
-    <%= render partial: 'financing/payments/payment', object: @payment, locals: { financing: @financing } %>
+  <%= turbo_stream.update "payments" do %>
+    <%= render partial: 'financing/financings/payment', collection: @financing.payments, as: :payment, locals: { financing: @financing } %>
   <% end %>
+
+<%= turbo_stream.update "financing_summary" do %>
+    <%= render partial: 'financing/financings/summary', locals: { financing: @financing } %>
+<% end %>
 
 <%= render_turbo_stream_flash_messages %>
