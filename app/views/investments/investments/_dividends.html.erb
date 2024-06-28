@@ -2,21 +2,18 @@
   <div class="subtitle">
     <%= t('.dividends') %>
   </div>
-
-  <table class="striped">
-    <thead>
-      <tr>
-        <th><%= t('.date') %></th>
-        <th><%= t('.amount') %></th>
-      </tr>
-    </thead>
-  <% investment.dividends.each do |dividend| %>
-    <tr>
-      <td><%= dividend.date %></td>
-      <td><%= number_to_currency(dividend.amount, unit: 'R$ ', separator: ',', delimiter: '.') %></td>
-
-    </tr>
-  <% end %>
-</tbody>
-  </table>
 </div>
+
+<div class="investment">
+  <div>
+    <%= t('.date') %>
+  </div>
+
+  <div>
+    <%= t('.amount') %>
+  </div>
+</div>
+
+  <%= turbo_frame_tag "dividends" do %>
+    <%= render partial: 'dividend', collection: investment.dividends %>
+  <% end %>

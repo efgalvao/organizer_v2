@@ -1,0 +1,12 @@
+<%= turbo_frame_tag "dividend_#{dividend.id}" do %>
+
+<div class="investment">
+  <div>
+    <%= dividend.date %>
+  </div>
+
+  <div>
+    <%= number_to_currency(dividend.amount, unit: 'R$ ', separator: ',', delimiter: '.') %>
+  </div>
+</div>
+<% end %>
