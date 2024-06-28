@@ -68,6 +68,7 @@
 
     </thead>
 <%= turbo_frame_tag "payments" do %>
+  <%= render partial: 'header' %>
   <%= render partial: 'payment', collection: @payments, as: :payment, locals: { financing: @financing } %>
 <% end %>
   </table>
