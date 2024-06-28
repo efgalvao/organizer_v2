@@ -2,24 +2,25 @@
   <div class="subtitle">
     <%= t('.negotiations') %>
   </div>
-
-  <table class="striped">
-    <thead>
-      <tr>
-        <th><%= t('.date') %></th>
-        <th><%= t('.amount') %></th>
-        <th><%= t('.shares') %></th>
-        <th><%= t('.kind') %></th>
-      </tr>
-    </thead>
-  <% investment.negotiations.each do |negotiation| %>
-    <tr>
-      <td><%= negotiation.date %></td>
-      <td><%= number_to_currency(negotiation.amount, unit: 'R$ ', separator: ',', delimiter: '.') %></td>
-      <td><%= negotiation.shares %></td>
-      <td><%= negotiation.kind %></td>
-    </tr>
-  <% end %>
-</tbody>
-  </table>
 </div>
+
+<div class="investment">
+  <div>
+<%= t('.date') %>  </div>
+
+  <div>
+    <%= t('.amount') %>
+  </div>
+
+  <div>
+    <%= t('.shares') %>
+  </div>
+
+    <div>
+    <%= t('.kind') %>
+  </div>
+</div>
+
+  <%= turbo_frame_tag "negotiations" do %>
+    <%= render partial: 'negotiation', collection: investment.negotiations %>
+  <% end %>
