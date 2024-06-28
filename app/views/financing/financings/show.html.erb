@@ -21,22 +21,7 @@
   <%= render 'summary', :financing => @financing %>
 
 <h3> Pagamentos </h3>
-  <table>
-    <thead>
-      <th>Parcela</th>
-      <th>Valor Pago</th>
-        <th>Parcelas pagas</th>
-        <th>Tipo</th>
-        <th>Data de pagamento</th>
-        <th>Juros</th>
-        <th>Amortização</th>
-        <th>Seguro</th>
-        <th>Taxas</th>
-        <th>Ajustes</th>
-        <th>Correção Monetária</th>
-        <th>
 
-    </thead>
 <%= turbo_frame_tag "payments" do %>
   <%= render partial: 'header' %>
   <%= render partial: 'payment', collection: @payments, as: :payment, locals: { financing: @financing } %>
