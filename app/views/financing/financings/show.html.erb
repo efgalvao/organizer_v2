@@ -1,7 +1,11 @@
   <%= turbo_frame_tag "first_turbo_frame" do %>
 
     <div class="header">
-  <%= link_to sanitize("&larr; Voltar para financiamentos"), financings_path %>
+    <%= link_to "Voltar para financiamentos",
+      financings_path,
+      data: { turbo_frame: "_top" },
+      class: "btn btn--primary" %>
+
       <h1><%= @financing.name %></h1>
 
       <%= link_to "Cadastrar novo pagamento",
