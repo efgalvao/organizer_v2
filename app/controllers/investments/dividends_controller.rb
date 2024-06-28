@@ -17,12 +17,12 @@ module Investments
     def create
       @dividend = InvestmentsServices::CreateDividend.call(dividend_params)
       if @dividend.valid?
+        @dividend = Investments::DividendDecorator.decorate(@dividend)
         respond_to do |format|
-          @dividend = Investments::DividendDecorator.decorate(@dividend)
           format.html do
             redirect_to investment_dividends_path(@dividend.investment), notice: 'Dividendio criado.'
-            format.turbo_stream { flash.now[:notice] = 'Dividendo criado.' }
           end
+          format.turbo_stream { flash.now[:notice] = 'Dividendo criado.' }
         end
       else
         render :new, status: :unprocessable_entity
