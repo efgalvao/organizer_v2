@@ -1,9 +1,11 @@
 <main>
 
 <div class="item">
-  <%= render 'summary', :user_report => @user_report %>
+  <%= render 'summary', :user_report => @report_data.user_report %>
 
-  <%= render 'past_month_reports', :past_reports => @past_reports %>
+  <%= render 'past_month_reports', :past_reports => @report_data.past_reports %>
+
+  <%= render 'past_month_reports_charts', :semester_summary => @report_data.past_reports_chart_data %>
 </div>
 
 </main>
