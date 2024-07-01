@@ -66,7 +66,7 @@ module UserServices
       end
 
       user.accounts.card_accounts.each do |card|
-        @card_expenses_cents += card.account_reports.sum(:month_expense_cents)
+        @card_expenses_cents += card.current_report.month_expense_cents
       end
 
       @balance_cents = @incomes_cents - @expenses_cents - @invested_cents
