@@ -2,3 +2,5 @@
 //= link_tree ../builds
 
 //= link chartkick.js
+
+//= link application.css
