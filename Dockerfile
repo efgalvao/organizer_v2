@@ -1,11 +1,13 @@
 FROM ruby:3.0-alpine
 
+# Install necessary dependencies
 RUN apk add --no-cache \
   build-base \
   postgresql-dev \
   tzdata \
   nodejs \
-  yarn
+  yarn \
+  git
 
 WORKDIR /app
 
@@ -17,6 +19,9 @@ COPY Gemfile Gemfile.lock ./
 
 # Install gems
 RUN bundle install
+
+# Remove package-lock.json to avoid conflicts with Yarn
+RUN rm -f package-lock.json
 
 # Copy the rest of the application code
 COPY . .
