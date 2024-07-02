@@ -6,8 +6,6 @@ RUN apk add --no-cache \
   postgresql-dev \
   tzdata \
   nodejs \
-  yarn \
-  git
 
 # Set working directory
 WORKDIR /app
