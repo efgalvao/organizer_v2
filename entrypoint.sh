@@ -1,5 +1,13 @@
+#!/bin/sh
+
+# Exit on any error
 set -e
 
-bundle exec rake db:migrate
+# Remove a potentially pre-existing server.pid for Rails.
+rm -f /app/tmp/pids/server.pid
 
-bundle exec bin/rails server -b 0.0.0.0 -p ${PORT:-3000}
+# Run any pending migrations
+bundle exec rails db:migrate
+
+# Start the Rails server
+exec "$@"
