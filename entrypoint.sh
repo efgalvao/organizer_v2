@@ -1,13 +1,15 @@
 #!/bin/sh
 
-# Exit on any error
 set -e
 
 # Remove a potentially pre-existing server.pid for Rails.
 rm -f /app/tmp/pids/server.pid
 
-# Run any pending migrations
+# Precompile assets if needed
+yarn build
+
+# Migrate the database
 bundle exec rails db:migrate
 
-# Start the Rails server
+# Then exec the container's main process (what's set as CMD in the Dockerfile).
 exec "$@"
