@@ -1,10 +1,10 @@
-FROM ruby:3.1-alpine3.19
+FROM ruby:3.0.7-alpine
 
 RUN apk add --no-cache \
   build-base \
   postgresql-dev \
   tzdata \
-  nodejs \
+  nodejs-current \
   yarn \
   git
 
