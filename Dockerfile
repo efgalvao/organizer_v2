@@ -5,7 +5,7 @@ RUN apk add --no-cache \
   build-base \
   postgresql-dev \
   tzdata \
-  nodejs \
+  nodejs
 
 # Set working directory
 WORKDIR /app
