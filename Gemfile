@@ -57,6 +57,7 @@ gem 'devise'
 
 gem "chartkick"
 
+gem 'draper'
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'bullet'
@@ -74,7 +75,6 @@ group :development, :test do
   gem 'rubocop-rspec', require: false
   gem 'rubycritic', require: false
   gem 'solargraph'
-  gem 'draper'
 end
 
 group :development do
