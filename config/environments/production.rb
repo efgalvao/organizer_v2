@@ -92,4 +92,6 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
   # Hosts
   config.hosts << ENV['DEVELOPMENT_HOSTS']
+  config.secret_key_base = ENV["SECRET_KEY_BASE"]
+
 end
