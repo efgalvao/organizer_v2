@@ -17,8 +17,8 @@
 default: &default
   adapter: postgresql
   encoding: utf8
-  username: <%= ENV['DB_USERNAME'] || 'my_user' %>
-  password: "<%= ENV['DB_PASSWORD'] || 'my_password' %>"
+  username: <%= ENV['POSTGRES_USER'] || 'my_user' %>
+  password: "<%= ENV['POSTGRES_PASSWORD'] || 'my_password' %>"
   host: <%= ENV['DB_HOST'] || '127.0.0.1' %>
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
@@ -84,6 +84,6 @@ test:
 #
 production:
   <<: *default
-  database: organizer_v2_production
-  username: organizer_v2
-  password: <%= ENV["ORGANIZER_V2_DATABASE_PASSWORD"] %>
+  database: organizer_v2_prod
+  username: <%= ENV["PGUSER"] %>
+  password: <%= ENV["PGPASSWORD"] %>
