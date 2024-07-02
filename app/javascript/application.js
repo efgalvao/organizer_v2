@@ -2,4 +2,5 @@
 import "@hotwired/turbo-rails"
 import "./controllers"
 import "chartkick/chart.js"
-import "../stylesheets/application.scss";
+
+import "../../assets/stylesheets/application.scss";
