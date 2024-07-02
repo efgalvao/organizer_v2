@@ -1,6 +1,5 @@
 FROM ruby:3.0-alpine
 
-# Install necessary dependencies
 RUN apk add --no-cache \
   build-base \
   postgresql-dev \
@@ -25,6 +24,10 @@ RUN rm -f package-lock.json
 
 # Copy the rest of the application code
 COPY . .
+
+# Install esbuild plugins and build assets
+RUN yarn install
+RUN yarn build
 
 # Precompile assets (for production)
 RUN bundle exec rails assets:precompile
