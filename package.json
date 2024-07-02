@@ -13,5 +13,8 @@
     "esbuild": "^0.19.9",
     "sass": "^1.77.6",
     "stimulus-dropdown": "^2.1.0"
+  },
+  "devDependencies": {
+    "esbuild-plugin-sass": "^1.0.1"
   }
 }
