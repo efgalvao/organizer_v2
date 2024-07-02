@@ -3,4 +3,4 @@
 
 //= link chartkick.js
 
-//= link application.css
+//= link application.scss

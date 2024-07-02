@@ -1,6 +1,5 @@
 FROM ruby:3.0-alpine
 
-# Install necessary packages
 RUN apk add --no-cache \
   build-base \
   postgresql-dev \
@@ -22,13 +21,16 @@ RUN bundle install
 # Copy the rest of the application code
 COPY . .
 
+# Precompile assets (for production)
+RUN bundle exec rails assets:precompile
+
 # Copy the entrypoint script
 COPY entrypoint.sh /usr/bin/
 
 # Make the entrypoint script executable
 RUN chmod +x /usr/bin/entrypoint.sh
 
-# Expose port 3000 (or the port you want to use)
+# Expose port 3000
 EXPOSE 3000
 
 # Set the entrypoint to the script
