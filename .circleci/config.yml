@@ -10,7 +10,7 @@ jobs:
     environment:
       CC_TEST_REPORTER_ID: aec1c3a2f65889063c46c4c53040381548d8915af5964adb4f188a0bff376e9f
     docker:
-      - image: cimg/ruby:3.0.6-node
+      - image: cimg/ruby:3.0.7-node
         environment:
           RAILS_ENV: test
           POSTGRES_USER: postgres
@@ -52,7 +52,7 @@ jobs:
             ./cc-test-reporter after-build -t simplecov --exit-code $?
   rubocop:
     docker:
-      - image: cimg/ruby:3.0.6-node
+      - image: cimg/ruby:3.0.7-node
         environment:
           RAILS_ENV: test
           POSTGRES_USER: postgres
@@ -72,7 +72,7 @@ jobs:
 
   rails_best_practices:
     docker:
-      - image: cimg/ruby:3.0.6-node
+      - image: cimg/ruby:3.0.7-node
         environment:
           RAILS_ENV: test
           POSTGRES_USER: postgres
