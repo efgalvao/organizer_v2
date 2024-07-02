@@ -25,17 +25,23 @@ RUN rm -f package-lock.json
 # Copy the rest of the application code
 COPY . .
 
-# Install esbuild plugins and build assets
+# Create a symbolic link for application.scss
+RUN mkdir -p app/javascript/stylesheets && ln -s ../../../assets/stylesheets/application.scss app/javascript/stylesheets/application.scss
+
+# Install yarn dependencies
 RUN yarn install
+
+# Add this line before the build step in Dockerfile
+RUN ls -lR /app
+
+# Build assets
 RUN yarn build
 
 # Precompile assets (for production)
 RUN bundle exec rails assets:precompile
 
 # Copy the entrypoint script
-COPY entrypoint.sh /usr/bin/
-
-# Make the entrypoint script executable
+COPY entrypoint.sh /usr/bin/entrypoint.sh
 RUN chmod +x /usr/bin/entrypoint.sh
 
 # Expose port 3000
