@@ -11,5 +11,6 @@ yarn build
 # Migrate the database
 bundle exec rails db:migrate
 
-# Then exec the container's main process (what's set as CMD in the Dockerfile).
-exec "$@"
+bundle exec rake assets:precompile
+
+bundle exec bin/rails server -b 0.0.0.0 -p ${PORT:-3000}
