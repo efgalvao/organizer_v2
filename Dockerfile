@@ -13,6 +13,12 @@ RUN apk add --no-cache \
 # Upgrade Node.js to the required version using n
 RUN npm install -g n && bash -c "n 20.10.0"
 
+
+RUN node -v
+
+# Install Yarn using npm
+RUN npm install -g yarn
+
 # Set the working directory
 WORKDIR /app
 
@@ -24,7 +30,7 @@ RUN bundle install
 COPY . .
 
 # Install npm dependencies including devDependencies
-RUN npm install --include=dev
+RUN yarn install
 
 # Ensure ESBuild runs during asset precompilation
 RUN npm run build
