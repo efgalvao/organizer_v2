@@ -19,7 +19,7 @@ default: &default
   encoding: utf8
   username: <%= ENV['POSTGRES_USER'] || 'my_user' %>
   password: "<%= ENV['POSTGRES_PASSWORD'] || 'my_password' %>"
-  host: <%= ENV['DB_HOST'] || '127.0.0.1' %>
+  host: <%= ENV['PGHOST'] || 'localhost' %>
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
