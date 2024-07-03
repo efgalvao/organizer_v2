@@ -1,6 +1,6 @@
 FROM ruby:3.0-alpine
 
-# Install bash, Node.js, npm, and other dependencies
+# Install dependencies, including bash
 RUN apk add --no-cache \
   build-base \
   postgresql-dev \
@@ -11,12 +11,15 @@ RUN apk add --no-cache \
   bash
 
 # Upgrade Node.js to the required version using n
-RUN npm install -g n && bash -c "n 20.10.0"
+RUN npm install -g n && n 20.10.0
 
+# Ensure the correct Node.js version is used
+ENV PATH /usr/local/n/versions/node/20.10.0/bin:$PATH
 
+# Print the Node.js version
 RUN node -v
 
-# Install Yarn using npm
+# Install Yarn
 RUN npm install -g yarn
 
 # Set the working directory
@@ -33,7 +36,7 @@ COPY . .
 RUN yarn install
 
 # Ensure ESBuild runs during asset precompilation
-RUN npm run build
+RUN yarn build
 
 # Precompile Rails assets
 RUN bundle exec rake assets:precompile
