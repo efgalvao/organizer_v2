@@ -1,16 +1,17 @@
 FROM ruby:3.0-alpine
 
-# Install Node.js, Yarn, and other dependencies
+# Install bash, Node.js, npm, and other dependencies
 RUN apk add --no-cache \
   build-base \
   postgresql-dev \
   tzdata \
   nodejs \
   npm \
-  git
+  git \
+  bash
 
-# Upgrade Node.js to the required version
-RUN npm install -g n && n 20.10.0
+# Upgrade Node.js to the required version using n
+RUN npm install -g n && bash -c "n 20.10.0"
 
 # Set the working directory
 WORKDIR /app
@@ -22,8 +23,8 @@ RUN bundle install
 # Copy the rest of the application
 COPY . .
 
-# Install npm dependencies
-RUN npm install
+# Install npm dependencies including devDependencies
+RUN npm install --include=dev
 
 # Ensure ESBuild runs during asset precompilation
 RUN npm run build
