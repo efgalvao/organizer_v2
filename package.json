@@ -10,11 +10,11 @@
     "@hotwired/turbo-rails": "^8.0.0-beta.1",
     "chart.js": "^4.4.3",
     "chartkick": "^5.0.1",
+    "esbuild": "^0.23.0",
     "sass": "^1.77.6",
     "stimulus-dropdown": "^2.1.0"
   },
   "devDependencies": {
-    "esbuild": "^0.14.0",
-    "esbuild-plugin-sass": "^1.4.1"
+    "esbuild-plugin-sass": "^1.0.1"
   }
 }
