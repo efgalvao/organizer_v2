@@ -1,24 +1,12 @@
-// esbuild.config.js
-
+const esbuild = require('esbuild');
 const sassPlugin = require('esbuild-plugin-sass');
-const { readFile } = require('fs/promises');
 
-const isProduction = process.env.NODE_ENV === 'production';
-
-module.exports = {
+esbuild.build({
   entryPoints: ['app/javascript/application.js'],
   bundle: true,
-  minify: isProduction,
-  sourcemap: !isProduction,
-  outdir: 'public/assets/builds',
+  sourcemap: true,
+  outdir: 'app/assets/builds',
   publicPath: '/assets',
-  plugins: [
-    sassPlugin({
-      async resolve({ path }) {
-        if (path.endsWith('.scss')) {
-          return { loader: 'scss', contents: await readFile(path, 'utf8') };
-        }
-      },
-    }),
-  ],
-};
+  minify: true,
+  plugins: [sassPlugin()],
+}).catch(() => process.exit(1));

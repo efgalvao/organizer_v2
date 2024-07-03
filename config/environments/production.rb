@@ -1,6 +1,7 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  config.assets.precompile += %w(application.js application.css)
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
@@ -28,7 +29,7 @@ Rails.application.configure do
   config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.js_compressor = :uglifier
+  # config.assets.js_compressor = :uglifier
 
   config.assets.compile = false
   config.assets.digest = true

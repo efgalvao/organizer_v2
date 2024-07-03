@@ -2,7 +2,7 @@
   "name": "app",
   "private": "true",
   "scripts": {
-    "build": "esbuild --platform=node --target=node20 app/javascript/application.js --bundle --minify --sourcemap --outdir=public/assets/builds --public-path=/assets",
+    "build": "node esbuild.config.js",
     "build:css": "sass ./app/assets/stylesheets/application.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
   },
   "dependencies": {
@@ -10,11 +10,11 @@
     "@hotwired/turbo-rails": "^8.0.0-beta.1",
     "chart.js": "^4.4.3",
     "chartkick": "^5.0.1",
-    "esbuild": "^0.23.0",
     "sass": "^1.77.6",
     "stimulus-dropdown": "^2.1.0"
   },
   "devDependencies": {
-    "esbuild-plugin-sass": "^1.0.1"
+    "esbuild": "^0.14.0",
+    "esbuild-plugin-sass": "^1.4.1"
   }
 }
