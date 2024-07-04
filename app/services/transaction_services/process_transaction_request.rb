@@ -1,4 +1,4 @@
-module AccountServices
+module TransactionServices
   class ProcessTransactionRequest
     def initialize(params)
       @params = params

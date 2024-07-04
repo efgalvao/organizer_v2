@@ -14,8 +14,8 @@ module TransferenceServices
     def call
       ActiveRecord::Base.transaction do
         transference = build_transference
-        AccountServices::ProcessTransactionRequest.call(sender_transaction_params)
-        AccountServices::ProcessTransactionRequest.call(receiver_transaction_params)
+        TransactionServices::ProcessTransactionRequest.call(sender_transaction_params)
+        TransactionServices::ProcessTransactionRequest.call(receiver_transaction_params)
         transference.save!
         transference
       end
