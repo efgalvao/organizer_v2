@@ -2,12 +2,10 @@ module AccountServices
   class CreateAccountReport
     def initialize(account_id, reference_date)
       @account_id = account_id
-      @reference_date = reference_date || Time.zone.now.strftime('%Y-%m-%d')
+      @reference_date = reference_date
     end
 
     def create_report
-      # return account.current_report if existing_current_account_report?
-
       create_account_report
     end
 
@@ -23,10 +21,6 @@ module AccountServices
       @account ||= Account::Account.find(account_id)
     end
 
-    # def existing_current_account_report?
-    #   !account.current_report.nil?
-    # end
-
     def create_account_report
       account_report = account.account_reports.new(account_report_params)
       account_report.save
@@ -35,7 +29,7 @@ module AccountServices
 
     def account_report_params
       {
-        date: reference_date,
+        date: date,
         reference: reference,
         initial_account_balance_cents: past_month_final_account_balance,
         final_account_balance_cents: 0,
@@ -48,12 +42,20 @@ module AccountServices
     end
 
     def past_month_final_account_balance
-      past_month_reference_date = Date.parse(reference_date)&.prev_month
+      past_month_reference_date = date.prev_month
       account.month_report(past_month_reference_date)&.final_account_balance_cents || 0
     end
 
     def reference
-      Date.parse(reference_date).strftime('%m%y')
+      date.strftime('%m%y')
+    end
+
+    def date
+      if reference_date.is_a?(String)
+        Date.parse(reference_date)
+      else
+        Date.current
+      end
     end
   end
 end

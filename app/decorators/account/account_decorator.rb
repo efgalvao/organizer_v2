@@ -25,7 +25,12 @@ module Account
     end
 
     def past_reports
-      object.account_reports.before_this_month.recent(6).order(date: :desc).map(&:decorate)
+      AccountServices::FetchAccountReports.fetch_reports(object.id, 6).map(&:decorate)
+    end
+
+    def past_reports_chart_data
+      reports = AccountServices::FetchAccountReports.fetch_reports(object.id, 6)
+      AccountServices::CreatePastReportsChartData.call(reports: reports)
     end
     delegate :broker?, to: :object
   end
