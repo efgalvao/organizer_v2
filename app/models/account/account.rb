@@ -15,16 +15,13 @@ module Account
 
     def current_report
       current_report = account_reports.find_by(reference: Time.zone.now.strftime('%m%y'))
-      if current_report.nil?
-        return AccountServices::CreateAccountReport.create_report(id,
-                                                                  Time.zone.now.strftime('%m%y'))
-      end
+      return AccountServices::CreateAccountReport.create_report(id) if current_report.nil?
 
       current_report
     end
 
-    def month_report(reference_date)
-      account_reports.find_by(reference: reference_date.strftime('%m%y'))
+    def month_report(reference)
+      account_reports.find_by(reference: reference.strftime('%m%y'))
     end
   end
 end
