@@ -1,40 +1,45 @@
 module AccountServices
   class ConsolidateAccountReport
-    def initialize(account)
+    def initialize(account, date)
       @account = account
+      @date = date
     end
 
-    def self.call(account)
-      new(account).call
+    def self.call(account, date)
+      new(account, date).call
     end
 
     def call
-      current_report = find_or_create_current_month_report
-      current_report.update(default_account_report_attributes) if current_report.new_record?
-      consolidated_attributes = consolidate(current_report)
-      current_report.update(consolidated_attributes)
+      report = find_or_create_report
+      report.update(default_account_report_attributes) if report.new_record?
+      consolidated_attributes = consolidate(report)
+      report.update(consolidated_attributes)
     end
 
     private
 
-    attr_reader :account
+    attr_reader :account, :date
 
-    def find_or_create_current_month_report
-      account.account_reports.find_or_initialize_by(reference: current_reference)
+    def find_or_create_report
+      account.account_reports.find_or_initialize_by(reference: month_reference)
     end
 
-    def current_reference
-      Date.current.strftime('%m%y')
+    def month_reference
+      if date.is_a?(String)
+        Date.parse(date).strftime('%m%y')
+      else
+        date.strftime('%m%y')
+      end
     end
 
-    def consolidate(current_report)
+    def consolidate(report)
       {
         initial_account_balance_cents: initial_account_balance,
         final_account_balance_cents: final_account_balance,
-        month_balance_cents: month_balance(current_report),
-        month_income_cents: month_income(current_report),
-        month_expense_cents: month_expense(current_report),
-        month_invested_cents: month_invested(current_report),
+        month_balance_cents: month_balance(report),
+        month_income_cents: month_income(report),
+        month_expense_cents: month_expense(report),
+        month_invested_cents: month_invested(report),
         month_dividends_cents: month_dividends
       }
     end
@@ -49,39 +54,47 @@ module AccountServices
       account.reload.balance_cents
     end
 
-    def month_balance(current_report)
-      month_income(current_report) - month_expense(current_report) - month_invested(current_report)
+    def month_balance(report)
+      month_income(report) - month_expense(report) - month_invested(report)
     end
 
-    def month_income(current_report)
-      current_report.transactions.where(kind: 'income').sum(:value_cents)
+    def month_income(report)
+      report.transactions.where(kind: 'income').sum(:value_cents)
     end
 
-    def month_expense(current_report)
-      current_report.transactions.where(kind: 'expense').sum(:value_cents)
+    def month_expense(report)
+      report.transactions.where(kind: 'expense').sum(:value_cents)
     end
 
-    def month_invested(current_report)
-      current_report.transactions.where(kind: 'investment').sum(:value_cents)
+    def month_invested(report)
+      report.transactions.where(kind: 'investment').sum(:value_cents)
     end
 
     def month_dividends
       return 0 if account.kind != 'broker'
 
       dividends = account.investments.map do |investment|
-        investment.dividends.where(date: current_month_range)&.sum(:amount_cents)
+        investment.dividends.where(date: month_range)&.sum(:amount_cents)
       end
       dividends.sum
     end
 
-    def current_month_range
-      start_of_month = Date.current.beginning_of_month
-      end_of_month = Date.current.end_of_month
+    def reference_date
+      if date.is_a?(String)
+        Date.parse(date)
+      else
+        date
+      end
+    end
+
+    def month_range
+      start_of_month = reference_date.beginning_of_month
+      end_of_month = reference_date.end_of_month
       start_of_month..end_of_month
     end
 
     def past_month_reference
-      Date.current.prev_month.strftime('%m%y')
+      reference_date.prev_month.strftime('%m%y')
     end
 
     def past_month_report

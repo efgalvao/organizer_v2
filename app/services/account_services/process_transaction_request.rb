@@ -60,7 +60,7 @@ module AccountServices
     end
 
     def consolidate_account_report(transaction)
-      AccountServices::ConsolidateAccountReport.call(transaction.account)
+      AccountServices::ConsolidateAccountReport.call(transaction.account, transaction.date)
     end
   end
 end
