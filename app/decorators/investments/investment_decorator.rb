@@ -56,5 +56,21 @@ module Investments
     def positions
       object.positions.order(date: :desc).limit(5).map { |position| PositionDecorator.new(position) }
     end
+
+    def investment_chart_data
+      @investment_chart_data ||= InvestmentsServices::CreateInvestmentChartData.call(object.id)
+    end
+
+    def positions_chart_data
+      investment_chart_data[:positions]
+    end
+
+    def negotiations_chart_data
+      investment_chart_data[:negotiations]
+    end
+
+    def dividends_chart_data
+      investment_chart_data[:dividends]
+    end
   end
 end

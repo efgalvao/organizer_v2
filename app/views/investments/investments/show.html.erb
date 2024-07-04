@@ -38,7 +38,14 @@
 
     <%= render 'positions', :investment => @investment %>
 
+    <%= render 'positions_chart', :positions => @investment.positions_chart_data %>
+
     <%= render 'dividends', :investment => @investment %>
 
+    <%= render 'dividends_chart', :dividends => @investment.dividends_chart_data %>
+
     <%= render 'negotiations', :investment => @investment %>
+
+    <%= render 'negotiations_chart', :negotiations => @investment.negotiations_chart_data %>
+
 </div>

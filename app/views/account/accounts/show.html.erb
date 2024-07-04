@@ -38,6 +38,9 @@
 
     <%= render 'past_month_reports', :past_reports => @account.past_reports %>
 
+    <%= render 'past_month_reports_charts', :semester_summary => @account.past_reports_chart_data %>
+
+
     <% if @account.broker? %>
     <%= render 'investments', :investments => @account.investments %>
     <% end %>
