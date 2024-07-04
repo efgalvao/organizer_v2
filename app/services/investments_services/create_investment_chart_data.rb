@@ -17,7 +17,7 @@ module InvestmentsServices
     attr_reader :investment_id
 
     def investment
-      @investment ||= Investments::Investment.includes(:positions, :negotiations, :dividends).find(investment_id)
+      @investment ||= Investments::Investment.find(investment_id)
     end
 
     def convert_to_float(cents)
