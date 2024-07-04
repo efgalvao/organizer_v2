@@ -1,0 +1,22 @@
+<div class="title">
+  <%= t('.title') %>
+</div>
+
+<h4>
+  <%= simple_format t('.disclaimer') %>
+</h4>
+
+<%= form_with( url: upload_path, multipart: true)  do |form| %>
+  <br />
+
+  <div class="form-group">
+    <%= form.file_field :file, accept: 'application/json,text/csv',  class: "form-control"%>
+  </div>
+
+  <br />
+
+  <div class="actions">
+    <%= form.submit t('.upload'), class: "btn primary-btn" %>
+    <%= link_to t('.cancel'), :back, :class => "btn danger-btn" %>
+  </div>
+<% end %>
