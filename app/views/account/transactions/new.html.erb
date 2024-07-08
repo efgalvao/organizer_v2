@@ -2,7 +2,7 @@
   <%= turbo_frame_tag "new_transaction" do %>
 
     <div class="header">
-      <h3>Cadastrar Transação</h3>
+      <h3><%= t('transactions.index.new_transaction')%></h3>
     </div>
 
     <%= render "form", transaction: @transaction %>

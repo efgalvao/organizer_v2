@@ -3,7 +3,7 @@
   <%= turbo_frame_tag @transaction do %>
 
     <div class="header">
-      <h3>Alterar Transação</h3>
+      <h3><%= t('transactions.edit') %></h3>
     </div>
 
     <%= render "form", transaction: @transaction %>

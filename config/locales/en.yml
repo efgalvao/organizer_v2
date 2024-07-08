@@ -73,6 +73,21 @@ en:
         expenses: Expenses
         invested: Invested
         balance: Balance
+  transactions:
+    index:
+      transactions: Transactions
+      create_transaction: Create transaction
+      new_transaction: New transaction
+      edit: Edit
+    edit: Edit Transaction
+    form:
+      description: Description
+      date: Date
+      amount: Amount
+      description: Description
+      kind: Kind
+      income_kind: Income
+      expense_kind: Expense
   files:
     file_upload:
       upload: Upload
