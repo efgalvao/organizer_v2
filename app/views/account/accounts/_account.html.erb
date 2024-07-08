@@ -13,11 +13,11 @@
   </div>
 
   <div class="account__actions">
-    <%= button_to "Remover",
+    <%= button_to t('buttons.remove'),
                   account_path(account),
                   method: :delete,
                   class: "btn btn--light" %>
-    <%= link_to "Alterar",
+    <%= link_to t('buttons.edit'),
                 edit_account_path(account),
                 class: "btn btn--light" %>
   </div>

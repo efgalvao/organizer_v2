@@ -31,3 +31,48 @@
 
 en:
   hello: "Hello world"
+  buttons:
+    save: Save
+    cancel: Cancel
+    delete: Remove
+    edit: Edit
+  account:
+    form:
+      name: Name
+      account_kind: Kind
+      kind:
+        bank: Bank
+        broker: Broker
+    summary:
+      title: Summary
+      current_month_title: Current month
+      current_month:
+        report_date: Report date
+        month_initial_balance: Initial balance
+        month_incomes: Incomes
+        month_expenses: Expenses
+        month_invested: Invested
+        month_balance: Balance
+        account_balance: Account balance
+      total: Total
+      invested: Invested
+      balance: Balance
+    index:
+      accounts: Accounts
+      create_account: Create account
+      new_account: New account
+      edit: Edit
+    show:
+      transactions: Transactions
+      create_invetmment: Create investment
+      create_transference: Create Transference
+    chart:
+      past_month:
+        title: "Past month"
+        incomes: Incomes
+        expenses: Expenses
+        invested: Invested
+        balance: Balance
+  files:
+    file_upload:
+      upload: Upload

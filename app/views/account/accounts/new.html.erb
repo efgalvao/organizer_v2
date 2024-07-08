@@ -2,7 +2,7 @@
   <%= turbo_frame_tag "new_account" do %>
 
     <div class="header">
-      <h3>Cadastrar Conta</h3>
+      <h3><%= t('account.index.create_account') %></h3>
     </div>
 
     <%= render "form", account: @account %>
