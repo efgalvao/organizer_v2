@@ -2,7 +2,7 @@
   <%= turbo_frame_tag "invoice_payment" do %>
 
     <div class="header">
-      <h3>Pagar Fatura</h3>
+      <h3><%= t('invoices.pay_invoice') %></h3>
     </div>
 
   <%= render "form", card_id: @card_id, accounts: @accounts  %>
