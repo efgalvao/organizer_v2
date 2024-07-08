@@ -118,6 +118,101 @@ en:
       edit_category: Edit category
     form:
       name: Name
+  financing:
+    index:
+      financings: Financings
+      new_financing: New financing
+      create_financing: Create financing
+      edit_financing: Edit financing
+      form:
+        name: Name
+        borrowed_amount: Borrowed amount
+    show:
+      new_payment: Create payment
+      summary:
+        summary_title: Summary
+        borrowed_amount: Borrowed amount
+        parcels: Parcels
+        outstanding_amount: Outstanding amount
+        outstanding_parcels: Outstanding parcels
+        paid_parcels: Paid parcels
+        total_interest_paid: Total interest paid
+        total_monetary_correction_paid: Total monetary correction paid
+        non_ordinary_parcels_paid: Non ordinary parcels paid
+        total_amortized: Total amortized
+      payments: Payments
+      payments_header:
+        parcel: Parcel
+        total_paid: Total paid
+        paid_parcels: Paid parcels
+        date: Date
+        interest: Interest
+        amortization: Amortization
+        insurance: Insurance
+        fees: Fees
+        adjustments: Adjustments
+        monetary_correction: Monetary correction
+  payment:
+    index:
+      payments: Payments
+      new_payment: New payment
+      create_payment: Create payment
+      edit_payment: Edit payment
+
+    form:
+        paid_parcels: Paid parcels
+        date: Date
+        kind_parcel: Parcel
+        kind_amortization: Amortization
+        kind: Kind
+        amortization: Amortization
+        interest: Interest
+        insurance: Insurance
+        fees: fees
+        adjustments: Adjustments
+        monetary_correction: Monetary correction
+  home:
+    welcome: Welcome
+    helpful_message: Here are some useful links
+    summary: Summary
+    accounts: Accounts
+    categories: Categories
+    edit_profile: Edit profile
+    welome_logged_out: Welcome to the site!
+    sign_up: Sign up
+    sign_in: Sign in
+    summary:
+      title: Summary
+      savings: Savings
+      investments: Investments
+      balance: Balance
+      current_month:
+        title: Current month
+        incomes: Incomes
+        expenses: Expenses
+        card_expenses: Card expenses
+        invested: Invested
+        dividends: Dividends
+        month_balance: Balance
+    past_month_reports:
+      title: Past month reports
+      incomes: Incomes
+      expenses: Expenses
+      invested: Invested
+      month_balance: Balance
+      charts:
+        title: Past months
+        total_balance: Total balance
+        total_savings: Total in savings
+        total_invested: Total invested
+        incomes: Incomes
+        expenses: Expenses
+        invested: Invested
+        card_expenses: Card expenses
+
+
+
+
   files:
     file_upload:
       upload: Upload
