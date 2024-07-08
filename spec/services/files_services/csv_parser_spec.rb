@@ -10,7 +10,7 @@ RSpec.describe FilesServices::CsvParser, type: :service do
     let(:expected_content) do
       { credit: [],
         invoices: [],
-        transactions: [{ account: 'BB Fer', category: 'diversao', date: '2023-02-12', kind: 'income', title: 'ticket to mars', value: '22.1' }],
+        transactions: [{ account: 'BB Fer', category: 'diversao', date: '2023-02-12', kind: 'income', title: 'ticket to mars', value: '22.1', parcels: '1' }],
         transferences: [] }
     end
 

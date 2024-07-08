@@ -38,7 +38,8 @@ module FilesServices
           date
           value
           title
-          category]
+          category
+          parcels]
     end
   end
 end
