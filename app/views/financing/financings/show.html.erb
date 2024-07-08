@@ -8,7 +8,7 @@
 
       <h1><%= @financing.name %></h1>
 
-      <%= link_to "Cadastrar novo pagamento",
+      <%= link_to t('financing.show.new_payment'),
                   new_financing_payment_path(@financing),
                   data: { turbo_frame: "new_financing_payment" },
                   class: "btn btn--primary"
@@ -20,7 +20,7 @@
 
   <%= render 'summary', :financing => @financing %>
 
-<h3> Pagamentos </h3>
+<h3><%= t('financing.show.payments') %> </h3>
 
 <%= turbo_frame_tag "payments" do %>
   <%= render partial: 'header' %>

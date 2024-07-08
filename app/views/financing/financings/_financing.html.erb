@@ -4,11 +4,11 @@
   <%= link_to financing.name, financing_path(financing),
                 data: { turbo_frame: "_top" }  %>
   <div class="financing__actions">
-    <%= button_to "Remover",
+    <%= button_to t('buttons.delete'),
                   financing_path(financing),
                   method: :delete,
                   class: "btn btn--light" %>
-    <%= link_to "Alterar",
+    <%= link_to t('buttons.edit'),
                 edit_financing_path(financing),
                 class: "btn btn--light" %>
   </div>

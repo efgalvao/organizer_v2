@@ -1,15 +1,15 @@
 <%= turbo_frame_tag 'financing_summary' do %>
 <div class="item">
   <div class="subtitle">
-    <%= t('.summary') %>
+    <%= t('financing.show.summary.summary_title') %>
   </div>
 
   <table class="striped">
     <thead>
-        <th>Valor Financiado</th>
-        <th>Parcelas</th>
-        <th>Saldo Devedor</th>
-        <th>Parcelas Restantes</th>
+        <th><%= t('financing.show.summary.borrowed_amount') %></th>
+        <th><%= t('financing.show.summary.parcels') %></th>
+        <th><%= t('financing.show.summary.outstanding_amount') %></th>
+        <th><%= t('financing.show.summary.outstanding_parcels') %></th>
     </thead>
     <tbody>
       <tr>
@@ -23,11 +23,11 @@
 
     <table>
     <thead>
-        <th>Parcelas Pagas</th>
-        <th>Total pago em juros</th>
-        <th>Total de Correção Monetária</th>
-        <th>Amortizações realizadas</th>
-        <th>Total amortizado</th>
+        <th><%= t('financing.show.summary.paid_parcels') %></th>
+        <th><%= t('financing.show.summary.total_interest_paid') %></th>
+        <th><%= t('financing.show.summary.total_monetary_correction_paid') %></th>
+        <th><%= t('financing.show.summary.non_ordinary_parcels_paid') %></th>
+        <th><%= t('financing.show.summary.total_amortized') %></th>
     </thead>
     <tbody>
       <tr>

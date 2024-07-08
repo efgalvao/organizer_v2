@@ -5,12 +5,12 @@
 
   <%= form_error_notification(financing) %>
 
-  <%= f.input :name, input_html: { autofocus: true } %>
-  <%= f.input :borrowed_value_cents, label: "Borrowed value",
+  <%= f.input :name, labe: t('financing.form.name'),input_html: { autofocus: true } %>
+  <%= f.input :borrowed_value_cents, label: t('financing.form.borrowed_amount'),
    input_html: { value: (financing.borrowed_value_cents / 100.0 if financing.borrowed_value_cents),
    autofocus: true
     } %>
   <%= f.input :installments, input_html: { autofocus: true } %>
-  <%= f.submit class: "btn btn--secondary" %>
-  <%= link_to "Cancel", financings_path, class: "btn btn--light" %>
+  <%= f.submit t('buttons.save'), class: "btn btn--secondary" %>
+  <%= link_to t('buttons.cancel'), financings_path, class: "btn btn--light" %>
 <% end %>

@@ -14,11 +14,11 @@
         <div><%= payment.adjustment %></div>
         <div><%= payment.monetary_correction %></div>
   <div>
-    <%= button_to "Remover",
+    <%= button_to t('buttons.delete'),
                   financing_payment_path(financing, payment),
                   method: :delete,
                   class: "btn btn--light" %>
-    <%= link_to "Alterar",
+    <%= link_to t('buttons.edit'),
                 edit_financing_payment_path(financing, payment),
                 method: :edit,
                 class: "btn btn--light" %>
