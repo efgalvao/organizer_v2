@@ -3,7 +3,7 @@
 
     <div class="header">
       <h1>Cartões</h1>
-      <%= link_to "Cadastrar Cartão",
+      <%= link_to t('card.index.create_card'),
                   new_card_path,
                   data: { turbo_frame: "new_card" },
                   class: "btn btn--primary" %>

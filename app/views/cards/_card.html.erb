@@ -13,11 +13,11 @@
   </div>
 
   <div class="card__actions">
-    <%= button_to "Remover",
+    <%= button_to t('buttons.delete'),
                   card_path(card),
                   method: :delete,
                   class: "btn btn--light" %>
-    <%= link_to "Alterar",
+    <%= link_to t('buttons.edit'),
                 edit_card_path(card),
                 class: "btn btn--light" %>
   </div>

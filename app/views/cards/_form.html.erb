@@ -5,9 +5,9 @@
 
   <%= form_error_notification(card) %>
 
-  <%= f.input :name, label: "Nome", input_html: { autofocus: true } %>
+  <%= f.input :name, label: t('card.form.name'), input_html: { autofocus: true } %>
   <%= f.hidden_field :kind, value: "card" %>
 
-  <%= f.submit "Cadastrar Cartão", class: "btn btn--secondary" %>
-  <%= link_to "Cancel", cards_path, class: "btn btn--light" %>
+  <%= f.submit t('buttons.save'), class: "btn btn--secondary" %>
+  <%= link_to t('buttons.cancel'), cards_path, class: "btn btn--light" %>
 <% end %>

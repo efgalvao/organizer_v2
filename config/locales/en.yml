@@ -88,6 +88,28 @@ en:
       kind: Kind
       income_kind: Income
       expense_kind: Expense
+  card:
+    form:
+      name: Name
+    index:
+      cards: Cards
+      create_card: Create card
+      edit_card: Edit card
+    show:
+      summary_title: Summary
+      summary:
+        balance: Balance
+        current_month_title: Current month
+        current_month:
+          report_date: Report date
+          month_initial_balance: Initial balance
+          month_incomes: Incomes
+          month_expenses: Expenses
+          month_invested: Invested
+          month_balance: Balance
+          card_balance: Card balance
+      transactions: Transactions
+      pay_invoice: Pay invoice
   files:
     file_upload:
       upload: Upload
