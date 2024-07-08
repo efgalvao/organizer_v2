@@ -110,6 +110,14 @@ en:
           card_balance: Card balance
       transactions: Transactions
       pay_invoice: Pay invoice
+  category:
+    index:
+      categories: Categories
+      new_category: New category
+      create_category: Create category
+      edit_category: Edit category
+    form:
+      name: Name
   files:
     file_upload:
       upload: Upload

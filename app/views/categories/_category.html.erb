@@ -3,11 +3,11 @@
   <%= link_to category.name, category_path(category),
                 data: { turbo_frame: "_top" }  %>
   <div class="category__actions">
-    <%= button_to "Remover",
+    <%= button_to t('buttons.delete'),
                   category_path(category),
                   method: :delete,
                   class: "btn btn--light" %>
-    <%= link_to "Alterar",
+    <%= link_to t('buttons.edit'),
                 edit_category_path(category),
                 class: "btn btn--light" %>
   </div>

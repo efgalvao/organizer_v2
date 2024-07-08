@@ -2,7 +2,7 @@
   <%= turbo_frame_tag @category do %>
 
     <div class="header">
-      <h3>Editar categoria</h3>
+      <h3><%= t('category.index.edit_category')%></h3>
     </div>
 
     <%= render "form", category: @category %>
