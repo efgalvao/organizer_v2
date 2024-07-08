@@ -1,8 +1,7 @@
 module TransactionServices
   class BuildTransactionRequest < ApplicationService
-    def initialize(transaction_string)
-      @transaction_string = transaction_string
-      @date = set_date
+    def initialize(transaction_strings)
+      @transaction_strings = transaction_strings
     end
 
     def self.call(transaction_string)
@@ -10,45 +9,20 @@ module TransactionServices
     end
 
     def call
-      return [params] if params[:parcels].to_i == 1
-
-      ActiveRecord::Base.transaction do
-        (1..params[:parcels].to_i).map do |parcel|
-          build_transaction(parcel)
-        end
+      transaction_strings.map do |csv_string|
+        params = build_params(csv_string)
+        TransactionServices::BuildTransactionParcels.call(params)
       end
-      transactions
     end
 
     private
 
-    attr_reader :transaction_string, :parcels
+    attr_reader :transaction_strings
 
-    def params
-      @params ||= keys = %i[account kind title category value date parcels]
-      values = transaction_string.split(',')
+    def build_params(csv_string)
+      keys = %i[account kind title category value date parcels]
+      values = csv_string.split(',')
       keys.zip(values).to_h
-    end
-
-    def build_transaction(parcel)
-      {
-        title: params.fetch(:title) + " - #{I18n.t('parcel')} #{parcel}/#{params[:parcels]}",
-        category_id: params.fetch(:category_id),
-        account_id: params.fetch(:account_id),
-        kind: params.fetch(:kind),
-        value: params.fetch(:value).to_f / params[:parcels].to_i,
-        date: Date.parse(date) + (parcel - 1).months
-      }
-    end
-
-    def process_transaction(transaction)
-      TransactionServices::ProcessTransactionRequest.call(transaction)
-    end
-
-    def set_date
-      return Date.current if params.fetch(:date) == ''
-
-      params.fetch(:date)
     end
   end
 end
