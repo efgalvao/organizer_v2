@@ -12,7 +12,6 @@ module FilesServices
     def call
       process_transactions if (content[:transactions].presence || []).any?
       process_transferences if (content[:transferences].presence || []).any?
-      # process_parcels_transactions if (content[:credit].presence || []).any?
       process_invoice_payments if (content[:invoices].presence || []).any?
     end
 
@@ -21,9 +20,10 @@ module FilesServices
     attr_reader :content, :user_id
 
     def process_transactions
-      content[:transactions].each do |transaction_string|
-        transaction = TransactionServices::BuildTransactionRequest.call(transaction_string)
-        # transactions.each do |transaction|
+      transaction_strings = content[:transactions]
+      transactions = TransactionServices::BuildTransactionRequest.call(transaction_strings)
+
+      transactions.flatten.each do |transaction|
         next unless process_transaction?(
           date: transaction[:date],
           value: transaction[:value],
@@ -31,34 +31,20 @@ module FilesServices
         )
 
         TransactionServices::ProcessTransactionRequest.call(transaction)
-        # end
       end
     end
 
     def process_transferences
-      transferences = Transferences::BuildTransferences.call(content[:transferences], user_id)
+      transferences = TransferenceServices::BuildTransferenceRequest.call(content[:transferences], user_id)
       transferences.each do |transference|
         next unless process_transference?(transference: transference)
 
-        Transferences::ProcessTransference.call(transference)
+        TransferenceServices::ProcessTransferenceRequest.call(transference)
       end
     end
 
-    # def process_parcels_transactions
-    #   transactions = Transactions::BuildParcelsTransactions.call(content[:credit])
-    #   transactions.each do |transaction|
-    #     next unless process_transaction?(
-    #       date: transaction[:date],
-    #       value: transaction[:value],
-    #       account_id: transaction[:account_id]
-    #     )
-
-    #     Transactions::ProcessCreditTransaction.call(transaction)
-    #   end
-    # end
-
     def process_invoice_payments
-      payments = Invoices::BuildInvoicePayments.call(content[:invoices])
+      payments = InvoiceServices::BuildInvoicePayment.call(content[:invoices])
       payments.each do |payment|
         next unless process_transaction?(
           date: payment[:date],
@@ -66,7 +52,7 @@ module FilesServices
           account_id: payment[:sender_id]
         )
 
-        Invoices::ProcessInvoicePayment.call(payment)
+        InvoiceServices::ProcessInvoicePayment.call(payment)
       end
     end
 
@@ -79,7 +65,7 @@ module FilesServices
       Transference.find_by(
         sender_id: transference[:sender_id],
         receiver_id: transference[:receiver_id], date: transference[:date],
-        value_cents: to_cents(transference[:value])
+        value_cents: to_cents(transference[:value_cents]), user_id: user_id
       ).nil?
     end
 
