@@ -12,7 +12,7 @@ module InvestmentsServices
     def call
       ActiveRecord::Base.transaction do
         dividend = Investments::Dividend.create(formated_params)
-        AccountServices::ProcessTransactionRequest.call(transaction_params)
+        TransactionServices::ProcessTransactionRequest.call(transaction_params)
         dividend
       end
     end

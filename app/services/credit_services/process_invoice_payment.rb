@@ -13,8 +13,8 @@ module CreditServices
 
     def call
       ActiveRecord::Base.transaction do
-        AccountServices::ProcessTransactionRequest.call(sender_params)
-        AccountServices::ProcessTransactionRequest.call(receiver_params)
+        TransactionServices::ProcessTransactionRequest.call(sender_params)
+        TransactionServices::ProcessTransactionRequest.call(receiver_params)
         'success'
       end
     end

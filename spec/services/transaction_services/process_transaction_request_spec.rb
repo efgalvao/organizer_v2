@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe AccountServices::ProcessTransactionRequest do
+RSpec.describe TransactionServices::ProcessTransactionRequest do
   subject(:process_transaction_request) { described_class.call(params) }
 
   let(:account) { create(:account, balance_cents: 12_346) }
