@@ -2,8 +2,8 @@
   <%= turbo_frame_tag "first_turbo_frame" do %>
 
     <div class="header">
-      <h1>Transferências</h1>
-      <%= link_to "Nova Transferência",
+      <h1><%= t('transference.index.title') %></h1>
+      <%= link_to t('transference.index.new_transference'),
                   new_transference_path,
                   data: { turbo_frame: "new_transference" },
                   class: "btn btn--primary" %>

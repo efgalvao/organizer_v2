@@ -1,0 +1,260 @@
+pt-BR:
+  buttons:
+    save: Salvar
+    cancel: Cancelar
+    delete: Remover
+    edit: Editar
+  account:
+    form:
+      name: Nome
+      account_kind: Tipo
+      kind:
+        bank: Banco
+        broker: Corretora
+    summary:
+      title: Resumo
+      current_month_title: Mês atual
+      current_month:
+        report_date: Data do relatório
+        month_initial_balance: Saldo inicial
+        month_incomes: Receitas
+        month_expenses: Despesas
+        month_invested: Investido
+        month_balance: Saldo
+        account_balance: Saldo da conta
+      total: Total
+      invested: Investido
+      balance: Saldo
+    index:
+      accounts: Contas
+      create_account: Criar conta
+      new_account: Nova conta
+      edit: Editar
+    show:
+      transactions: Transações
+      create_investment: Criar investimento
+      create_transference: Criar transferência
+    chart:
+      past_month:
+        title: "Mês passado"
+        incomes: Receitas
+        expenses: Despesas
+        invested: Investido
+        balance: Saldo
+  transactions:
+    index:
+      transactions: Transações
+      create_transaction: Criar transação
+      new_transaction: Nova transação
+      edit: Editar
+    edit: Editar Transação
+    form:
+      description: Descrição
+      date: Data
+      amount: Quantia
+      description: Descrição
+      kind: Tipo
+      income_kind: Receita
+      expense_kind: Despesa
+  card:
+    form:
+      name: Nome
+    index:
+      cards: Cartões
+      create_card: Criar cartão
+      edit_card: Editar cartão
+    show:
+      summary_title: Resumo
+      summary:
+        balance: Saldo
+        current_month_title: Mês atual
+        current_month:
+          report_date: Data do relatório
+          month_initial_balance: Saldo inicial
+          month_incomes: Receitas
+          month_expenses: Despesas
+          month_invested: Investido
+          month_balance: Saldo
+          card_balance: Saldo do cartão
+      transactions: Transações
+      pay_invoice: Pagar fatura
+  category:
+    index:
+      categories: Categorias
+      new_category: Nova categoria
+      create_category: Criar categoria
+      edit_category: Editar categoria
+    form:
+      name: Nome
+  financing:
+    index:
+      financings: Financiamentos
+      new_financing: Novo financiamento
+      create_financing: Criar financiamento
+      edit_financing: Editar financiamento
+      form:
+        name: Nome
+        borrowed_amount: Valor emprestado
+    show:
+      new_payment: Criar pagamento
+      summary:
+        summary_title: Resumo
+        borrowed_amount: Valor emprestado
+        parcels: Parcelas
+        outstanding_amount: Valor pendente
+        outstanding_parcels: Parcelas pendentes
+        paid_parcels: Parcelas pagas
+        total_interest_paid: Total de juros pagos
+        total_monetary_correction_paid: Total de correção monetária paga
+        non_ordinary_parcels_paid: Parcelas não ordinárias pagas
+        total_amortized: Total amortizado
+      payments: Pagamentos
+      payments_header:
+        parcel: Parcela
+        total_paid: Total pago
+        paid_parcels: Parcelas pagas
+        date: Data
+        interest: Juros
+        amortization: Amortização
+        insurance: Seguro
+        fees: Taxas
+        adjustments: Ajustes
+        monetary_correction: Correção monetária
+  payment:
+    index:
+      payments: Pagamentos
+      new_payment: Novo pagamento
+      create_payment: Criar pagamento
+      edit_payment: Editar pagamento
+    form:
+      paid_parcels: Parcelas pagas
+      date: Data
+      kind_parcel: Parcela
+      kind_amortization: Amortização
+      kind: Tipo
+      amortization: Amortização
+      interest: Juros
+      insurance: Seguro
+      fees: Taxas
+      adjustments: Ajustes
+      monetary_correction: Correção monetária
+  home:
+    welcome: Bem-vindo
+    helpful_message: Aqui estão alguns links úteis
+    summary: Resumo
+    accounts: Contas
+    categories: Categorias
+    edit_profile: Editar perfil
+    welcome_logged_out: Bem-vindo ao site!
+    sign_up: Inscrever-se
+    sign_in: Entrar
+    summary:
+      title: Resumo
+      savings: Poupança
+      investments: Investimentos
+      balance: Saldo
+      current_month:
+        title: Mês atual
+        incomes: Receitas
+        expenses: Despesas
+        card_expenses: Despesas do cartão
+        invested: Investido
+        dividends: Dividendos
+        month_balance: Saldo
+    past_month_reports:
+      title: Relatórios do mês passado
+      incomes: Receitas
+      expenses: Despesas
+      invested: Investido
+      month_balance: Saldo
+      charts:
+        title: Meses anteriores
+        total_balance: Saldo total
+        total_savings: Total na poupança
+        total_invested: Total investido
+        incomes: Receitas
+        expenses: Despesas
+        invested: Investido
+        card_expenses: Despesas do cartão
+  invoice:
+    pay_invoice: Pagar fatura
+    form:
+      date: Data
+      amount: Quantia
+      sender: Conta
+  transference:
+    index:
+      title: Transferências
+      new_transference: Nova transferência
+      create_transference: Criar transferência
+    form:
+      date: Data
+      amount: Quantia
+      sender: Remetente
+      receiver: Destinatário
+  investments:
+    dividends:
+      index:
+        title: Dividendos
+        new_dividend: Novo dividendo
+        create_dividend: Criar dividendo
+      form:
+        date: Data
+        amount: Quantia
+    investments:
+      index:
+        title: Investimentos
+        create_investment: Criar investimento
+        name: Nome
+        invested: Investido
+        current: Atual
+        shares: Ações
+        kind: Tipo
+        account: Conta
+        actions: Ações
+      show:
+        new_position: Nova posição
+        new_negotiation: Nova negociação
+        new_dividend: Novo dividendo
+        summary:
+          title: Resumo
+          balance: Saldo
+          current_month: Mês atual
+          kind: Tipo
+          invested: Investido
+          current: Atual
+          shares: Ações
+          positions:
+            title: Posições
+            date: Data
+            monthly_balance: Saldo mensal
+            amount: Quantia
+            shares: Ações
+          negotiations:
+            title: Negociações
+            date: Data
+            amount: Quantia
+            shares: Ações
+            kind: Tipo
+            monthly_balance: Saldo mensal
+          dividends:
+            title: Dividendos
+            date: Data
+            amount: Quantia
+            monthly_balance: Saldo mensal
+  layouts:
+    header:
+      zukunft: ZUKUNFT
+      shortcuts: Atalhos
+      accounts: Contas
+      cards: Cartões
+      categories: Categorias
+      financings: Financiamentos
+      investments: Investimentos
+      transferences: Transferências
+      file_upload: Upload de arquivo
+      edit_profile: Editar perfil
+      log_out: Sair
+  files:
+    file_upload:
+      upload: Upload

@@ -12,18 +12,18 @@
 </div>
 
   <div class="button">
-      <%= link_to "Transações",
+      <%= link_to t('account.show.transactions'),
                   account_transactions_path(@account, future: 'false'),
                   method: :get,
                   class: "btn btn--light" %>
       <% if @account.broker? %>
-        <%= link_to "Cadastrar Investimento",
+        <%= link_to t('account.show.create_investment'),
         new_investment_path(account_id: @account.id),
                           data: { turbo_frame: "new_investment" },
         method: :get,
         class: "btn btn--light" %>
       <% end %>
-            <%= link_to "Cadastrar transferência",
+            <%= link_to t('account.show.create_transference'),
                   new_transference_path,
                   method: :get,
                   data: { turbo_frame: "new_transference" },

@@ -19,6 +19,9 @@ module OrganizerV2
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #
+    I18n.available_locales = [:en, :'pt-BR']
+    I18n.default_locale = :'pt-BR'
+
     config.time_zone = "Brasilia"
     config.eager_load_paths << Rails.root.join("extras")
     config.eager_load_paths << Rails.root.join("/app/services")

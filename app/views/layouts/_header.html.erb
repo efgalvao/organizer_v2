@@ -1,30 +1,30 @@
 <nav>
   <div class="nav-wrapper">
       <% if current_user %>
-    <a class="brand-logo" href="/summary">ZUKUNFT: <%= current_user.name.upcase %> </a>
+    <a class="brand-logo" href="/summary"><%= t('layouts.header.zukunft') %>: <%= current_user.name.upcase %> </a>
   <% else %>
-    <a class="brand-logo" href="/">ZUKUNFT</a>
+    <a class="brand-logo" href="/"><%= t('layouts.header.zukunft') %></a>
   <% end %>
 
       <!-- Dropdown Trigger -->
       <div data-controller="dropdown" data-dropdown-open-value="false" data-dropdown-opened-class="bg-slate-300" class="right">
           <a c data-dropdown-target="activated" data-action="click->dropdown#toggleDropdown">
-            <%= t('.shortcuts')%><i class="material-icons right">arrow_drop_down</i>
+            <%= t('layouts.header.shortcuts') %><i class="material-icons right">arrow_drop_down</i>
           </a>
 
         <div data-dropdown-target="dropdownContent" class="dropdownContent dropdownBox">
-          <li><a href="/accounts"><%= t('.accounts')%></a></li>
-          <li><a href="/cards"><%= t('.cards')%></a></li>
-          <li><a href="/categories"><%= t('.categories')%></a></li>
-          <li><a href="/financings"><%= t('.financings')%></a></li>
-          <li><a href="/investments"><%= t('.investments')%></a></li>
-          <li><a href="/transferences"><%= t('.transferences')%></a></li>
-          <li><a href="/file_upload"><%= t('.file_upload')%></a></li>
+          <li><a href="/accounts"><%= t('layouts.header.accounts') %></a></li>
+          <li><a href="/cards"><%= t('layouts.header.cards') %></a></li>
+          <li><a href="/categories"><%= t('layouts.header.categories') %></a></li>
+          <li><a href="/financings"><%= t('layouts.header.financings') %></a></li>
+          <li><a href="/investments"><%= t('layouts.header.investments') %></a></li>
+          <li><a href="/transferences"><%= t('layouts.header.transferences') %></a></li>
+          <li><a href="/file_upload"><%= t('layouts.header.file_upload') %></a></li>
 
           <li class="divider"></li>
 
-          <li><%= link_to t('.edit_profile'), edit_user_registration_path %></li>
-          <li><%= link_to t('.logout'), destroy_user_session_path, data: { turbo_method: :delete } %></li>
+          <li><%= link_to t('layouts.header.edit_profile'), edit_user_registration_path %></li>
+          <li><%= link_to t('layouts.header.logout'), destroy_user_session_path, data: { turbo_method: :delete } %></li>
         </div>
 
       </div>

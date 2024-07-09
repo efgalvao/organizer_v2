@@ -10,6 +10,6 @@
   <%= f.input :shares, as: :integer, label: "Cotas" %>
   <%= f.input :investment_id, as: :hidden, input_html: { value: params[:investment_id] } %>
 
-  <%= f.submit class: "btn btn--secondary" %>
-  <%= link_to "Cancelar", investment_positions_path(investment_id: params[:investment_id]), class: "btn btn--light" %>
+  <%= f.submit t('buttons.save'), class: "btn btn--secondary" %>
+  <%= link_to t('buttons.cancel'), investment_positions_path(investment_id: params[:investment_id]), class: "btn btn--light" %>
 <% end %>

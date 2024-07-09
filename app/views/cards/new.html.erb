@@ -2,7 +2,7 @@
   <%= turbo_frame_tag "new_card" do %>
 
     <div class="header">
-      <h3>Cadastrar Cartão</h3>
+      <h3><%= t('card.index.create_card') %></h3>
     </div>
 
     <%= render "form", card: @card %>

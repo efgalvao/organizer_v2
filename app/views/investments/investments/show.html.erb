@@ -10,19 +10,19 @@
 </div>
 
   <div class="button">
-      <%= link_to "Nova Posição",
+      <%= link_to t('investments.investments.show.new_position'),
                   new_investment_position_path(@investment),
                   data: { turbo_frame: "new_position" },
                   method: :get,
                   class: "btn btn--light" %>
 
-      <%= link_to "Cadastrar Negociação",
+      <%= link_to t('investments.investments.show.new_negotiation'),
                   new_investment_negotiation_path(@investment),
                   data: { turbo_frame: "new_negotiation" },
                   method: :get,
                   class: "btn btn--light" %>
 
-      <%= link_to "Cadastrar dividendos",
+      <%= link_to t('investments.investments.show.new_dividend'),
                   new_investment_dividend_path(@investment),
                   data: { turbo_frame: "new_dividend" },
                   method: :get,

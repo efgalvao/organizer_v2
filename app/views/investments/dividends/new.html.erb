@@ -2,7 +2,7 @@
   <%= turbo_frame_tag "new_dividend" do %>
 
     <div class="header">
-      <h3>Cadastrar Dividendo</h3>
+      <h3><%= t('investments.dividends.index.create_dividend') %></h3>
     </div>
 
     <%= render "form", dividend: @dividend %>

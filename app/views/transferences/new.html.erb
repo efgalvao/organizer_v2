@@ -2,7 +2,7 @@
   <%= turbo_frame_tag "new_transference" do %>
 
     <div class="header">
-      <h3>Cadastrar transferência</h3>
+      <h3><%= t('transference.index.create_transference') %></h3>
     </div>
 
     <%= render "form", transference: @transference %>

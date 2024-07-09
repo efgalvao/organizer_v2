@@ -15,6 +15,6 @@
   <%= f.input :shares_total, as: :integer, label: "Total de cotas" %>
   <%= f.input :account_id, as: :hidden, input_html: { value: investment.account_id } %>
 
-  <%= f.submit class: "btn btn--secondary" %>
-  <%= link_to "Cancelar", account_path(investment.account_id), class: "btn btn--light" %>
+  <%= f.submit t('buttons.save'), class: "btn btn--secondary" %>
+  <%= link_to t('buttons.cancel'), account_path(investment.account_id), class: "btn btn--light" %>
 <% end %>

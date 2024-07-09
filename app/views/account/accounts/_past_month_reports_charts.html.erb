@@ -1,11 +1,11 @@
 <div class="summary-item">
-  <p class="summary-subtitle"><%= t('.monthly_balance') %></p>
+  <p class="subtitle"><%= t('account.chart.past_month.title') %></p>
   <div class="chart">
   <%= line_chart [
-        { name: t('.total_balance'), data: semester_summary[:incomes] },
-        { name: t('.total_cash'), data: semester_summary[:expenses] },
-        { name: t('.total_invested'), data: semester_summary[:invested] },
-                { name: t('.total_invested'), data: semester_summary[:balance] }
+        { name: t('account.chart.past_month.incomes'), data: semester_summary[:incomes] },
+        { name: t('account.chart.past_month.expenses'), data: semester_summary[:expenses] },
+        { name: t('account.chart.past_month.invested'), data: semester_summary[:invested] },
+        { name: t('account.chart.past_month.balance'), data: semester_summary[:balance] }
         ], precision: 8, discrete: true, legend: 'bottom', width: "100%" %>
   </div>
 </div>

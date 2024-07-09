@@ -3,7 +3,7 @@
   <%= turbo_frame_tag @card do %>
 
     <div class="header">
-      <h3>Alterar Cartão</h3>
+      <h3><%= t('card.index.edit_card') %></h3>
     </div>
 
     <%= render "form", card: @card %>

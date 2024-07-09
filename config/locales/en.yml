@@ -31,3 +31,263 @@
 
 en:
   hello: "Hello world"
+  buttons:
+    save: Save
+    cancel: Cancel
+    delete: Remove
+    edit: Edit
+  account:
+    form:
+      name: Name
+      account_kind: Kind
+      kind:
+        bank: Bank
+        broker: Broker
+    summary:
+      title: Summary
+      current_month_title: Current month
+      current_month:
+        report_date: Report date
+        month_initial_balance: Initial balance
+        month_incomes: Incomes
+        month_expenses: Expenses
+        month_invested: Invested
+        month_balance: Balance
+        account_balance: Account balance
+      total: Total
+      invested: Invested
+      balance: Balance
+    index:
+      accounts: Accounts
+      create_account: Create account
+      new_account: New account
+      edit: Edit
+    show:
+      transactions: Transactions
+      create_invetmment: Create investment
+      create_transference: Create Transference
+    chart:
+      past_month:
+        title: "Past month"
+        incomes: Incomes
+        expenses: Expenses
+        invested: Invested
+        balance: Balance
+  transactions:
+    index:
+      transactions: Transactions
+      create_transaction: Create transaction
+      new_transaction: New transaction
+      edit: Edit
+    edit: Edit Transaction
+    form:
+      description: Description
+      date: Date
+      amount: Amount
+      description: Description
+      kind: Kind
+      income_kind: Income
+      expense_kind: Expense
+  card:
+    form:
+      name: Name
+    index:
+      cards: Cards
+      create_card: Create card
+      edit_card: Edit card
+    show:
+      summary_title: Summary
+      summary:
+        balance: Balance
+        current_month_title: Current month
+        current_month:
+          report_date: Report date
+          month_initial_balance: Initial balance
+          month_incomes: Incomes
+          month_expenses: Expenses
+          month_invested: Invested
+          month_balance: Balance
+          card_balance: Card balance
+      transactions: Transactions
+      pay_invoice: Pay invoice
+  category:
+    index:
+      categories: Categories
+      new_category: New category
+      create_category: Create category
+      edit_category: Edit category
+    form:
+      name: Name
+  financing:
+    index:
+      financings: Financings
+      new_financing: New financing
+      create_financing: Create financing
+      edit_financing: Edit financing
+      form:
+        name: Name
+        borrowed_amount: Borrowed amount
+    show:
+      new_payment: Create payment
+      summary:
+        summary_title: Summary
+        borrowed_amount: Borrowed amount
+        parcels: Parcels
+        outstanding_amount: Outstanding amount
+        outstanding_parcels: Outstanding parcels
+        paid_parcels: Paid parcels
+        total_interest_paid: Total interest paid
+        total_monetary_correction_paid: Total monetary correction paid
+        non_ordinary_parcels_paid: Non ordinary parcels paid
+        total_amortized: Total amortized
+      payments: Payments
+      payments_header:
+        parcel: Parcel
+        total_paid: Total paid
+        paid_parcels: Paid parcels
+        date: Date
+        interest: Interest
+        amortization: Amortization
+        insurance: Insurance
+        fees: Fees
+        adjustments: Adjustments
+        monetary_correction: Monetary correction
+  payment:
+    index:
+      payments: Payments
+      new_payment: New payment
+      create_payment: Create payment
+      edit_payment: Edit payment
+
+    form:
+        paid_parcels: Paid parcels
+        date: Date
+        kind_parcel: Parcel
+        kind_amortization: Amortization
+        kind: Kind
+        amortization: Amortization
+        interest: Interest
+        insurance: Insurance
+        fees: fees
+        adjustments: Adjustments
+        monetary_correction: Monetary correction
+  home:
+    welcome: Welcome
+    helpful_message: Here are some useful links
+    summary: Summary
+    accounts: Accounts
+    categories: Categories
+    edit_profile: Edit profile
+    welome_logged_out: Welcome to the site!
+    sign_up: Sign up
+    sign_in: Sign in
+    summary:
+      title: Summary
+      savings: Savings
+      investments: Investments
+      balance: Balance
+      current_month:
+        title: Current month
+        incomes: Incomes
+        expenses: Expenses
+        card_expenses: Card expenses
+        invested: Invested
+        dividends: Dividends
+        month_balance: Balance
+    past_month_reports:
+      title: Past month reports
+      incomes: Incomes
+      expenses: Expenses
+      invested: Invested
+      month_balance: Balance
+      charts:
+        title: Past months
+        total_balance: Total balance
+        total_savings: Total in savings
+        total_invested: Total invested
+        incomes: Incomes
+        expenses: Expenses
+        invested: Invested
+        card_expenses: Card expenses
+  invoice:
+    pay_invoice: Pay invoice
+    form:
+      date: Date
+      amount: Amount
+      sender: Account
+  transference:
+    index:
+      title: Transferences
+      new_transference: New transference
+      create_transference: Create transference
+    form:
+      date: Date
+      amount: Amount
+      sender: Sender
+      receiver: Receiver
+  investments:
+    dividends:
+      index:
+        title: Dividends
+        new_dividend: New dividend
+        create_dividend: Create dividend
+      form:
+        date: Date
+        amount: Amount
+    investments:
+      index:
+        title: Investments
+        create_investment: Create investment
+        name: Name
+        invested: Invested
+        current: Current
+        shares: Shares
+        kind: Kind
+        account: Account
+        actions: Actions
+      show:
+        new_position: New position
+        new_negotiation: New negotiation
+        new_dividend: New dividend
+        summary:
+          title: Summary
+          balance: Balance
+          current_month: Current month
+          kind: Kind
+          invested: Invested
+          current: Current
+          shares: Shares
+          positions:
+            title: Positions
+            date: Date
+            monthly_balance: Monthly balance
+            amount: Amount
+            shares: Shares
+          negotiations:
+            title: Negotiations
+            date: Date
+            amount: Amount
+            shares: Shares
+            kind: Kind
+            monthly_balance: Monthly balance
+          dividends:
+            title: Dividends
+            date: Date
+            amount: Amount
+            monthly_balance: Monthly balance
+  layouts:
+    header:
+      zukunft: ZUKUNFT
+      shortcuts: Shortcuts
+      accounts: Accounts
+      cards: Cards
+      categories: Categories
+      financings: Financings
+      investments: Investments
+      transferences: Transferences
+      file_upload: File upload
+      edit_profile: Edit profile
+      log_out: Log out
+  files:
+    file_upload:
+      upload: Upload

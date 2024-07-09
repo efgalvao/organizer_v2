@@ -1,19 +1,19 @@
 <div class="summary-item">
-  <p class="summary-subtitle"><%= t('.monthly_balance') %></p>
+  <p class="summary-subtitle"><%= t('home.past_month_reports.charts.title') %></p>
   <div class="chart">
   <%= line_chart [
-        { name: t('.total_balance'), data: semester_summary[:summary][:total] },
-        { name: t('.total_cash'), data: semester_summary[:summary][:savings] },
-        { name: t('.total_invested'), data: semester_summary[:summary][:stocks] }
+        { name: t('home.past_month_reports.charts.total_balance'), data: semester_summary[:summary][:total] },
+        { name: t('home.past_month_reports.charts.total_savings'), data: semester_summary[:summary][:savings] },
+        { name: t('home.past_month_reports.charts.total_invested'), data: semester_summary[:summary][:stocks] }
         ], precision: 8, discrete: false, legend: 'bottom' %>
   </div>
 
     <div class="chart">
   <%= line_chart [
-        { name: t('.total_balance'), data: semester_summary[:details][:incomes] },
-        { name: t('.total_cash'), data: semester_summary[:details][:expenses] },
-        { name: t('.total_invested'), data: semester_summary[:details][:invested] },
-                { name: t('.total_invested'), data: semester_summary[:details][:card_expenses] }
+        { name: t('home.past_month_reports.charts.incomes'), data: semester_summary[:details][:incomes] },
+        { name: t('home.past_month_reports.charts.expenses'), data: semester_summary[:details][:expenses] },
+        { name: t('home.past_month_reports.charts.invested'), data: semester_summary[:details][:invested] },
+        { name: t('home.past_month_reports.charts.card_expenses'), data: semester_summary[:details][:card_expenses] }
         ], precision: 8, discrete: false, legend: 'bottom' %>
   </div>
 </div>

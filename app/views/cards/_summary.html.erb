@@ -1,11 +1,11 @@
 <div class="item">
   <div class="subtitle">
-    <%= t('.summary') %>
+    <%= t('card.show.summary_tittle') %>
   </div>
   <table class="striped">
     <thead>
       <tr>
-        <th><%= t('.balance') %></th>
+        <th><%= t('account.show.summary.balance') %></th>
 
       </tr>
     </thead>
@@ -16,18 +16,18 @@
     </tbody>
   </table>
 
-<div class="subtitle"><%= t('.current_month') %></div>
-        <p><span class="item-label">Data do relatório: </span><%= card.current_report&.date %></p>
-        <p><span class="item-label">Saldo inicial do mês: </span>
+<div class="subtitle"><%= t('account.show.summary.current_month_title') %></div>
+        <p><span class="item-label"><%= t('account.show.summary.current_month.report_date') %>: </span><%= card.current_report&.date %></p>
+        <p><span class="item-label"><%= t('account.show.summary.current_month.initial_balance') %>: </span>
         <%= number_to_currency(card.current_report&.initial_account_balance, unit: 'R$ ', separator: ',', delimiter: '.') %></p>
   <table class="striped">
     <thead>
       <tr>
-        <th><%= t('.incomes') %></th>
-        <th><%= t('.expenses') %></th>
-        <th><%= t('.invested') %></th>
-        <th><%= t('.month_balance') %></th>
-        <th>Saldo final</th>
+        <th><%= t('account.show.summary.current_month.month_incomes') %></th>
+        <th><%= t('account.show.summary.current_month.month_expenses') %></th>
+        <th><%= t('account.show.summary.current_month.month_invested') %></th>
+        <th><%= t('account.show.summary.current_month.month_balance') %></th>
+        <th><%= t('account.show.summary.current_month.card_balance') %></th>
       </tr>
     </thead>
     <tbody>

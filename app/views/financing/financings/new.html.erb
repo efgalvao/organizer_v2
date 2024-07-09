@@ -2,7 +2,7 @@
   <%= turbo_frame_tag "new_financing" do %>
 
     <div class="header">
-      <h3>Novo Financiamento</h3>
+      <h3><%= t('financing.index.create_financing') %></h3>
     </div>
 
     <%= render "form", financing: @financing %>

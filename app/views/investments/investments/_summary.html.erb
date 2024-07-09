@@ -1,13 +1,13 @@
 <%= turbo_frame_tag 'investment_summary' do %>
 <div class="item">
   <div class="subtitle">
-    <%= t('.summary') %>
+    <%= t('investments.investments.show.summary.title') %>
   </div>
 
   <table class="striped">
     <thead>
       <tr>
-        <th><%= t('.balance') %></th>
+        <th><%= t('investments.investments.show.summary.balance') %></th>
 
       </tr>
     </thead>
@@ -18,14 +18,16 @@
     </tbody>
   </table>
 
-<div class="subtitle"><%= t('.current_month') %></div>
-        <p><span class="item-label">Tipo: </span><%= investment.kind %></p>
+<div class="subtitle"><%= t('investments.investments.show.summary.current_month') %></div>
+        <p><span class="item-label"><%= t('investments.investments.show.summary.kind') %>:
+         </span>
+         <%= investment.kind %></p>
   <table class="striped">
     <thead>
       <tr>
-        <th><%= t('.invested') %></th>
-        <th><%= t('.current') %></th>
-        <th><%= t('.shares') %></th>
+        <th><%= t('investments.investments.show.summary.invested') %> </th>
+        <th><%= t('investments.investments.show.summary.current') %></th>
+        <th><%= t('investments.investments.show.summary.shares') %></th>
       </tr>
     </thead>
     <tbody>
