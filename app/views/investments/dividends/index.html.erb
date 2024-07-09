@@ -2,8 +2,8 @@
   <%= turbo_frame_tag "first_turbo_frame" do %>
 
     <div class="header">
-      <h1>Dividendos</h1>
-      <%= link_to "Cadastrar Dividendo",
+      <h1><%= t('investments.dividends.index.title') %></h1>
+      <%= link_to t('investments.dividends.index.new_dividend'),
                   new_investment_dividend_path(investment_id: params[:investment_id]),
                   data: { turbo_frame: "new_dividend" },
                   class: "btn btn--primary" %>

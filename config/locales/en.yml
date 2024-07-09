@@ -209,10 +209,85 @@ en:
         expenses: Expenses
         invested: Invested
         card_expenses: Card expenses
-
-
-
-
+  invoice:
+    pay_invoice: Pay invoice
+    form:
+      date: Date
+      amount: Amount
+      sender: Account
+  transference:
+    index:
+      title: Transferences
+      new_transference: New transference
+      create_transference: Create transference
+    form:
+      date: Date
+      amount: Amount
+      sender: Sender
+      receiver: Receiver
+  investments:
+    dividends:
+      index:
+        title: Dividends
+        new_dividend: New dividend
+        create_dividend: Create dividend
+      form:
+        date: Date
+        amount: Amount
+    investments:
+      index:
+        title: Investments
+        create_investment: Create investment
+        name: Name
+        invested: Invested
+        current: Current
+        shares: Shares
+        kind: Kind
+        account: Account
+        actions: Actions
+      show:
+        new_position: New position
+        new_negotiation: New negotiation
+        new_dividend: New dividend
+        summary:
+          title: Summary
+          balance: Balance
+          current_month: Current month
+          kind: Kind
+          invested: Invested
+          current: Current
+          shares: Shares
+          positions:
+            title: Positions
+            date: Date
+            monthly_balance: Monthly balance
+            amount: Amount
+            shares: Shares
+          negotiations:
+            title: Negotiations
+            date: Date
+            amount: Amount
+            shares: Shares
+            kind: Kind
+            monthly_balance: Monthly balance
+          dividends:
+            title: Dividends
+            date: Date
+            amount: Amount
+            monthly_balance: Monthly balance
+  layouts:
+    header:
+      zukunft: ZUKUNFT
+      shortcuts: Shortcuts
+      accounts: Accounts
+      cards: Cards
+      categories: Categories
+      financings: Financings
+      investments: Investments
+      transferences: Transferences
+      file_upload: File upload
+      edit_profile: Edit profile
+      log_out: Log out
   files:
     file_upload:
       upload: Upload

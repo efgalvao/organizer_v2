@@ -2,7 +2,7 @@
   <%= turbo_frame_tag "new_investment" do %>
 
     <div class="header">
-      <h3>Cadastrar Investimento</h3>
+      <h3><%= t('investments.investments.index.create_investment') %></h3>
     </div>
 
     <%= render "form", investment: @investment %>

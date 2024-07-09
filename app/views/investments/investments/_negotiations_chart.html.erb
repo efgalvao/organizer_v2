@@ -1,9 +1,9 @@
 <div class="summary-item">
-  <p class="summary-subtitle"><%= t('.monthly_balance') %></p>
+  <p class="summary-subtitle"><%= t('investments.investments.show.summary.negotiations.monthly_balance') %></p>
   <div class="chart">
   <%= line_chart [
-        { name: t('.shares'), data: negotiations[:shares] },
-                { name: t('.amount'), data: negotiations[:amounts] }
+        { name: t('investments.investments.show.summary.negotiations.shares'), data: negotiations[:shares] },
+        { name: t('investments.investments.show.summary.negotiations.amount'), data: negotiations[:amounts] }
         ], precision: 8, discrete: false, legend: 'bottom', spanGaps: true %>
   </div>
 </div>
