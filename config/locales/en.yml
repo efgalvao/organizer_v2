@@ -88,6 +88,7 @@ en:
       kind: Kind
       income_kind: Income
       expense_kind: Expense
+      parcels: Parcels
   card:
     form:
       name: Name

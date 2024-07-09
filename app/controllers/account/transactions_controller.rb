@@ -19,7 +19,9 @@ module Account
     def edit; end
 
     def create
-      @transaction = TransactionServices::ProcessTransactionRequest.call(transactions_params)
+      # @transaction = TransactionServices::ProcessTransactionRequest.call(transactions_params)
+      # binding.pry
+      @transaction = TransactionServices::TransactionRequestBuilder.call(transactions_params)
 
       if @transaction.valid?
         @transaction = @transaction.decorate
@@ -32,19 +34,19 @@ module Account
       end
     end
 
-    def update
-      if @transaction.update(update_params)
-        serialized_transaction = TransactionSerializer.new(@transaction).serializable_hash[:data]
-        render json: serialized_transaction, status: :ok
-      else
-        render json: { error: @transaction.errors.full_messages.to_sentence }, status: :unprocessable_entity
-      end
-    end
+    # def update
+    #   if @transaction.update(update_params)
+    #     serialized_transaction = TransactionSerializer.new(@transaction).serializable_hash[:data]
+    #     render json: serialized_transaction, status: :ok
+    #   else
+    #     render json: { error: @transaction.errors.full_messages.to_sentence }, status: :unprocessable_entity
+    #   end
+    # end
 
     private
 
     def transactions_params
-      params.require(:transaction).permit(:title, :category_id, :value, :kind, :date, :future)
+      params.require(:transaction).permit(:title, :category_id, :value, :kind, :date, :future, :parcels)
             .merge(account_id: params[:account_id])
     end
 

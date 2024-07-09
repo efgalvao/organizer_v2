@@ -8,8 +8,10 @@
   <%= f.input :title, label: t('transactions.form.description'), input_html: { autofocus: true } %>
   <%= f.input :value, as: :integer, label: t('transactions.form.amount'), input_html: { value: 1, readonly: !transaction.new_record? } %>
   <%= f.input :date, as: :date, html5: true, label: t('transactions.form.date') %>
+  <%# # ADD Category %>
   <%= f.input :kind, as: :select, collection: [[t('transactions.form.income_kind'), 0],
       [t('transactions.form.expense_kind'), 1]], label: t('transactions.form.kind') %>
+  <%= f.input :parcels, as: :integer, label: t('transactions.form.parcels'), input_html: { value: 1 } %>
 
   <%= f.submit t('buttons.save'), class: "btn btn--secondary" %>
   <%= link_to t('buttons.cancel'), account_transactions_path, class: "btn btn--light" %>
