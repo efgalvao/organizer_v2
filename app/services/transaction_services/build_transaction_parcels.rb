@@ -37,6 +37,8 @@ module TransactionServices
     end
 
     def category_id(category_name)
+      return nil if category_name.blank?
+
       downcased_name = category_name.downcase.strip
       Category.find_by('LOWER(name) = ?', downcased_name)&.id.presence || Category.find_by(name: 'Diversos')&.id
     end
