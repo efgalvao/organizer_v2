@@ -88,7 +88,7 @@ en:
       kind: Kind
       income_kind: Income
       expense_kind: Expense
-      parcels: Parcels
+      parcels: Parcelps
       category: Category
   card:
     form:
@@ -176,7 +176,7 @@ en:
   home:
     welcome: Welcome
     helpful_message: Here are some useful links
-    summary: Summary
+    summary_button: Summary
     accounts: Accounts
     categories: Categories
     edit_profile: Edit profile

@@ -144,7 +144,7 @@ pt-BR:
   home:
     welcome: Bem-vindo
     helpful_message: Aqui estão alguns links úteis
-    summary: Resumo
+    summary_button: Resumo
     accounts: Contas
     categories: Categorias
     edit_profile: Editar perfil
