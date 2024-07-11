@@ -11,7 +11,7 @@
      readonly: !transaction.new_record? } %>
   <%= f.input :date, as: :date, html5: true, label: t('transactions.form.date') %>
   <%= f.input :category_id, label: t('transactions.form.category'), as: :select,
-    collection: @categories.map { |category| [category.name, category.id] } %>
+    collection: categories.map { |category| [category.name, category.id] } %>
 <%= f.input :kind, as: :select, collection: [[t('transactions.form.income_kind'), 1],
     [t('transactions.form.expense_kind'), 0]], label: t('transactions.form.kind'),
     disabled: !f.object&.new_record? %>
