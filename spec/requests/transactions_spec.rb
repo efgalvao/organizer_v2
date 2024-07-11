@@ -41,9 +41,8 @@ RSpec.describe 'Financings::Transaction' do
 
     context 'with invalid parameters' do
       it 'does not create a new Financing' do
-        expect do
-          post financing_payments_path(financing_id: financing.id), params: { payment: { financing_id: '0000' } }
-        end.not_to change(Financings::Financing, :count)
+        post account_transactions_path(account_id: account.id), params: { transaction: { category_id: '002' } }
+        expect(response).to be_unprocessable
       end
     end
   end
@@ -51,21 +50,11 @@ RSpec.describe 'Financings::Transaction' do
   describe 'PATCH /update' do
     context 'with valid parameters' do
       it 'update payment' do
-        put financing_payment_path(financing_id: financing.id, id: payment.id),
-            params: { payment: { ordinary: 'false' } }
+        put account_transaction_path(account_id: account.id, id: transaction.id),
+            params: { transaction: { title: 'New Title' } }
 
-        expect(payment.reload.ordinary).to be(false)
+        expect(transaction.reload.title).to eq('New Title')
       end
-    end
-  end
-
-  describe 'DELETE /delete' do
-    let!(:new_payment) { create(:payment, financing: financing) }
-
-    it 'delete payment' do
-      expect do
-        delete financing_payment_path(financing_id: financing.id, id: new_payment.id)
-      end.to change(Financings::Payment, :count).by(-1)
     end
   end
 end

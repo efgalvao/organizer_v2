@@ -2,6 +2,7 @@ module Account
   class TransactionsController < ApplicationController
     before_action :authenticate_user!
     before_action :set_transaction, only: %i[edit update]
+    before_action :categories, only: %i[new create edit]
 
     def index
       transactions = AccountServices::FetchTransactions.call(
@@ -19,8 +20,6 @@ module Account
     def edit; end
 
     def create
-      # @transaction = TransactionServices::ProcessTransactionRequest.call(transactions_params)
-      # binding.pry
       @transaction = TransactionServices::TransactionRequestBuilder.call(transactions_params)
 
       if @transaction.valid?
@@ -34,14 +33,17 @@ module Account
       end
     end
 
-    # def update
-    #   if @transaction.update(update_params)
-    #     serialized_transaction = TransactionSerializer.new(@transaction).serializable_hash[:data]
-    #     render json: serialized_transaction, status: :ok
-    #   else
-    #     render json: { error: @transaction.errors.full_messages.to_sentence }, status: :unprocessable_entity
-    #   end
-    # end
+    def update
+      if @transaction.update(update_params)
+        @transaction = @transaction.decorate
+        respond_to do |format|
+          format.html { redirect_to account_transactions_path, notice: 'Transação atualizada.' }
+          format.turbo_stream { flash.now[:notice] = 'Transação  atualizada.' }
+        end
+      else
+        render :edit, status: :unprocessable_entity
+      end
+    end
 
     private
 
@@ -56,6 +58,10 @@ module Account
 
     def set_transaction
       @transaction = Transaction.find(params[:id])
+    end
+
+    def categories
+      @categories ||= Category.where(user_id: current_user.id).order(:name)
     end
   end
 end
