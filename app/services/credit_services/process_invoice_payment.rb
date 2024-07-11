@@ -43,7 +43,7 @@ module CreditServices
       { account_id: params[:sender_id],
         value: value,
         kind: EXPENSE_CODE,
-        title: "#{I18n.t('transactions.invoice.invoice_payment')} - #{receiver.name}",
+        title: "#{I18n.t('invoice.invoice_payment')} - #{receiver.name}",
         date: date }
     end
 
@@ -51,7 +51,7 @@ module CreditServices
       { account_id: receiver.id,
         value: value,
         kind: INCOME_CODE,
-        title: I18n.t('transactions.invoice.invoice_payment'),
+        title: I18n.t('invoice.invoice_payment'),
         date: date }
     end
   end

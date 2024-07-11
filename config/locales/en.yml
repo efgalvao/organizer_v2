@@ -30,7 +30,7 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  parcel: parcel
   buttons:
     save: Save
     cancel: Cancel
@@ -88,6 +88,8 @@ en:
       kind: Kind
       income_kind: Income
       expense_kind: Expense
+      parcels: Parcels
+      category: Category
   card:
     form:
       name: Name
@@ -211,6 +213,7 @@ en:
         card_expenses: Card expenses
   invoice:
     pay_invoice: Pay invoice
+    invoice_payment: Invoice payment
     form:
       date: Date
       amount: Amount

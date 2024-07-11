@@ -15,7 +15,7 @@ module Account
     end
 
     def title
-      object.title.titleize
+      object.title.split(/(\s|-)/).map(&:capitalize).join
     end
   end
 end
