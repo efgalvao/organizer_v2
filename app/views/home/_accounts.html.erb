@@ -1,0 +1,21 @@
+<p class="subtitle"><%= t('home.accounts.title') %></p>
+<table class="striped responsive-table">
+  <thead>
+    <tr>
+      <th><%= t('home.accounts.account') %></th>
+      <th><%= t('home.accounts.balance') %></th>
+      <th><%= t('home.accounts.investments') %></th>
+      <th><%= t('home.accounts.total') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% accounts.each do |account| %>
+    <tr>
+      <td><%= link_to account[:name], account_path(account[:id]) %></td>
+      <td><%= number_to_currency(account[:balance], unit: 'R$ ', separator: ',', delimiter: '.') %></td>
+      <td><%= number_to_currency(account[:investments], unit: 'R$ ', separator: ',', delimiter: '.') %></td>
+      <td><%= number_to_currency(account[:total], unit: 'R$ ', separator: ',', delimiter: '.') %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
