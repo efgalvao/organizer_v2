@@ -45,7 +45,7 @@ module InvestmentsServices
 
     def transaction_params
       { account_id: investment.account_id,
-        value: params[:amount_cents],
+        value: params[:amount_cents].to_f * investment.shares_total,
         kind: INCOME_CODE,
         title: "#{I18n.t('investments.dividends.dividends')} - #{investment.name}",
         date: date }
