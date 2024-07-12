@@ -183,6 +183,12 @@ pt-BR:
         expenses: Despesas
         invested: Investido
         card_expenses: Despesas do cartão
+    accounts:
+      title: Resumo das contas
+      account: Conta
+      balance: Total em contas
+      investments: Total em investimentos
+      total: Total
   invoice:
     pay_invoice: Pagar fatura
     invoice_payment: Pagamento de fatura

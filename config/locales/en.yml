@@ -211,6 +211,12 @@ en:
         expenses: Expenses
         invested: Invested
         card_expenses: Card expenses
+    accounts:
+      title: Accounts Summary
+      account: Account
+      balance: Total in Savings
+      investments: Total in Investments
+      total: Total
   invoice:
     pay_invoice: Pay invoice
     invoice_payment: Invoice payment
