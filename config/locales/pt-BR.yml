@@ -2,6 +2,7 @@ pt-BR:
   devise:
     sessions:
       signed_in: 'Você está logado.'
+      signed_out: 'Você saiu.'
   parcel: Parcela
   buttons:
     save: Salvar
@@ -200,6 +201,7 @@ pt-BR:
       sender: Remetente
       receiver: Destinatário
   investments:
+    negotiation: Negociação
     dividends:
       dividends: Dividendos
       index:

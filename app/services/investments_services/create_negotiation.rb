@@ -50,7 +50,7 @@ module InvestmentsServices
       { account_id: negotiable.account_id,
         value: params[:amount_cents],
         kind: INVESTMENT_CODE,
-        title: "#{I18n.t('investment.negotiation.negotiation')} - #{negotiable.name}",
+        title: "#{I18n.t('investments.negotiation')} - #{negotiable.name}",
         date: date }
     end
 

@@ -229,6 +229,7 @@ en:
       sender: Sender
       receiver: Receiver
   investments:
+    negotiation: negotiation
     dividends:
       dividends: Dividends
       index:
