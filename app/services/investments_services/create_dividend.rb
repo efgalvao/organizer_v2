@@ -47,7 +47,7 @@ module InvestmentsServices
       { account_id: investment.account_id,
         value: params[:amount_cents],
         kind: INCOME_CODE,
-        title: "#{I18n.t('investment.dividend.dividend')} - #{investment.name}",
+        title: "#{I18n.t('investments.dividends.dividends')} - #{investment.name}",
         date: date }
     end
   end

@@ -1,4 +1,7 @@
 pt-BR:
+  devise:
+    sessions:
+      signed_in: 'Você está logado.'
   parcel: Parcela
   buttons:
     save: Salvar
@@ -198,6 +201,7 @@ pt-BR:
       receiver: Destinatário
   investments:
     dividends:
+      dividends: Dividendos
       index:
         title: Dividendos
         new_dividend: Novo dividendo

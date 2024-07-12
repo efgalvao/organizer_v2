@@ -230,6 +230,7 @@ en:
       receiver: Receiver
   investments:
     dividends:
+    dividends: Dividends
       index:
         title: Dividends
         new_dividend: New dividend
