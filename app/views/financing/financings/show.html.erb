@@ -17,6 +17,7 @@
   <% end %>
 
   <%= turbo_frame_tag "new_financing_payment" %>
+<div class="item">
 
   <%= render 'summary', :financing => @financing %>
 
@@ -27,3 +28,4 @@
   <%= render partial: 'payment', collection: @payments, as: :payment, locals: { financing: @financing } %>
 <% end %>
   </table>
+</div>
