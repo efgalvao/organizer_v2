@@ -3,6 +3,10 @@ pt-BR:
     sessions:
       signed_in: 'Você está logado.'
       signed_out: 'Você saiu.'
+    failure:
+      user:
+        unauthenticated: 'Você precisa estar logado para acessar esta página.'
+        invalid: 'Email ou senha inválidos.'
   parcel: Parcela
   buttons:
     save: Salvar

@@ -6,7 +6,7 @@
       <h3><%= t('transactions.edit') %></h3>
     </div>
 
-    <%= render "form", transaction: @transaction %>
+    <%= render "form", transaction: @transaction, categories: @categories %>
 
   <% end %>
 </main>
