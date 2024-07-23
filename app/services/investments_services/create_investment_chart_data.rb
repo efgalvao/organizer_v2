@@ -26,8 +26,8 @@ module InvestmentsServices
 
     def fetch_positions
       summary = { shares: {}, amounts: {} }
-      investment.positions.order(date: :desc).map do |position|
-        summary[:shares][position.date.strftime('%d/%m/%Y')] = position.shares
+      investment.positions.order(:date).map do |position|
+        summary[:shares][position.date.strftime('%d/%m/%Y').to_s] = position.shares
         summary[:amounts][position.date.strftime('%d/%m/%Y').to_s] = convert_to_float(position.amount_cents)
       end
       summary
@@ -35,8 +35,8 @@ module InvestmentsServices
 
     def fetch_negotiations
       summary = { shares: {}, amounts: {} }
-      investment.negotiations.order(date: :desc).map do |negotiation|
-        summary[:shares][negotiation.date.strftime('%d/%m/%Y')] = negotiation.shares
+      investment.negotiations.order(:date).map do |negotiation|
+        summary[:shares][negotiation.date.strftime('%d/%m/%Y').to_s] = negotiation.shares
         summary[:amounts][negotiation.date.strftime('%d/%m/%Y').to_s] = convert_to_float(negotiation.amount_cents)
       end
       summary
@@ -44,7 +44,7 @@ module InvestmentsServices
 
     def fetch_dividends
       summary = { amounts: {} }
-      investment.dividends.order(date: :desc).map do |dividend|
+      investment.dividends.order(:date).map do |dividend|
         summary[:amounts][dividend.date.strftime('%d/%m/%Y').to_s] = convert_to_float(dividend.amount_cents)
       end
       summary
