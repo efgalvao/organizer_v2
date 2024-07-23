@@ -41,7 +41,7 @@ pt-BR:
       create_transference: Criar transferência
     chart:
       past_month:
-        title: "Mês passado"
+        title: Mêses anteriores
         incomes: Receitas
         expenses: Despesas
         invested: Investido
@@ -52,11 +52,13 @@ pt-BR:
       create_transaction: Criar transação
       new_transaction: Nova transação
       edit: Editar
+      consolidated: Consolidado
+      scheduled: Agendado
     edit: Editar Transação
     form:
       description: Descrição
       date: Data
-      amount: Quantia
+      amount: Valor
       description: Descrição
       kind: Tipo
       income_kind: Receita
@@ -99,9 +101,10 @@ pt-BR:
       new_financing: Novo financiamento
       create_financing: Criar financiamento
       edit_financing: Editar financiamento
-      form:
-        name: Nome
-        borrowed_amount: Valor emprestado
+    form:
+      name: Nome
+      borrowed_amount: Valor financiado
+      parcels: Parcelas
     show:
       new_payment: Criar pagamento
       summary:
@@ -112,8 +115,8 @@ pt-BR:
         outstanding_parcels: Parcelas pendentes
         paid_parcels: Parcelas pagas
         total_interest_paid: Total de juros pagos
-        total_monetary_correction_paid: Total de correção monetária paga
-        non_ordinary_parcels_paid: Parcelas não ordinárias pagas
+        total_monetary_correction_paid: Total pago em correção monetária
+        non_ordinary_parcels_paid: Amortiações pagas
         total_amortized: Total amortizado
       payments: Pagamentos
       payments_header:
@@ -143,7 +146,7 @@ pt-BR:
       interest: Juros
       insurance: Seguro
       fees: Taxas
-      adjustments: Ajustes
+      adjustment: Ajuste
       monetary_correction: Correção monetária
   home:
     welcome: Bem-vindo
@@ -157,9 +160,9 @@ pt-BR:
     sign_in: Entrar
     summary:
       title: Resumo
-      savings: Poupança
-      investments: Investimentos
-      balance: Saldo
+      savings: Em Contas
+      investments: Em Investimentos
+      balance: Total
       current_month:
         title: Mês atual
         incomes: Receitas
@@ -194,7 +197,7 @@ pt-BR:
     invoice_payment: Pagamento de fatura
     form:
       date: Data
-      amount: Quantia
+      amount: Valor
       sender: Conta
   transference:
     index:
@@ -203,7 +206,7 @@ pt-BR:
       create_transference: Criar transferência
     form:
       date: Data
-      amount: Quantia
+      amount: Valor
       sender: Remetente
       receiver: Destinatário
   investments:
@@ -216,7 +219,7 @@ pt-BR:
         create_dividend: Criar dividendo
       form:
         date: Data
-        amount: Quantia
+        amount: Valor
     investments:
       index:
         title: Investimentos
@@ -224,7 +227,7 @@ pt-BR:
         name: Nome
         invested: Investido
         current: Atual
-        shares: Ações
+        shares: Cotas
         kind: Tipo
         account: Conta
         actions: Ações
@@ -239,24 +242,24 @@ pt-BR:
           kind: Tipo
           invested: Investido
           current: Atual
-          shares: Ações
+          shares: Cotas
           positions:
             title: Posições
             date: Data
             monthly_balance: Saldo mensal
-            amount: Quantia
-            shares: Ações
+            amount: Valor
+            shares: otas
           negotiations:
             title: Negociações
             date: Data
-            amount: Quantia
-            shares: Ações
+            amount: Valor
+            shares: Cotas
             kind: Tipo
             monthly_balance: Saldo mensal
           dividends:
             title: Dividendos
             date: Data
-            amount: Quantia
+            amount: Valor
             monthly_balance: Saldo mensal
   layouts:
     header:
