@@ -74,7 +74,7 @@ module AccountServices
       return 0 if account.kind != 'broker'
 
       dividends = account.investments.map do |investment|
-        investment.dividends.where(date: month_range)&.sum(:amount_cents)
+        investment.dividends.where(date: month_range).sum { |dividend| dividend.amount_cents * dividend.shares }
       end
       dividends.sum
     end
