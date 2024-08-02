@@ -224,6 +224,7 @@ pt-BR:
       form:
         date: Data
         amount: Valor
+        shares: Cotas
     investments:
       index:
         title: Investimentos

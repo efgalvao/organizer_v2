@@ -177,7 +177,7 @@ en:
     welcome: Welcome
     helpful_message: Here are some useful links
     summary_button: Summary
-    accounts: Accounts
+    accounts_button: Accounts
     categories: Categories
     edit_profile: Edit profile
     welome_logged_out: Welcome to the site!
@@ -245,6 +245,7 @@ en:
       form:
         date: Date
         amount: Amount
+        shares: Shares
     investments:
       index:
         title: Investments
