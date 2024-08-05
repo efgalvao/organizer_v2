@@ -1,6 +1,6 @@
 <%= turbo_frame_tag transaction do %>
 <div class="transaction">
-  <%= link_to transaction.account.name, account_path(transaction.account),
+  <%= link_to transaction.account.name, transaction.path,
                 data: { turbo_frame: "_top" }  %>
 
   <div>
