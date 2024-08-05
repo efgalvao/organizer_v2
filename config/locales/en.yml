@@ -34,6 +34,7 @@ en:
   buttons:
     save: Save
     cancel: Cancel
+    back: Back
     delete: Remove
     edit: Edit
   account:

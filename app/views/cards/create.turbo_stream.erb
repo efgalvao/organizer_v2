@@ -1,3 +1,6 @@
-<%= turbo_stream.prepend "cards", @card %>
+<%= turbo_stream.prepend "cards" do %>
+  <%= render partial: "cards/card", locals: { card: @card } %>
+<% end %>
+
 <%= turbo_stream.update "new_card", "" %>
 <%= render_turbo_stream_flash_messages %>

@@ -11,6 +11,7 @@ pt-BR:
   buttons:
     save: Salvar
     cancel: Cancelar
+    back: Voltar
     delete: Remover
     edit: Editar
   account:

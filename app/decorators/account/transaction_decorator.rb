@@ -17,5 +17,21 @@ module Account
     def title
       object.title.split(/(\s|-)/).map(&:capitalize).join
     end
+
+    def path
+      if object.account.kind == 'card'
+        "/cards/#{object.account.id}"
+      else
+        "/accounts/#{object.account.id}"
+      end
+    end
+
+    def parent_path
+      if object.account.kind == 'card'
+        "/cards/#{object.account.id}"
+      else
+        "/accounts/#{object.account.id}"
+      end
+    end
   end
 end
