@@ -10,6 +10,7 @@ module Account
         current_user.id,
         params[:future]
       )
+      @parent = Account.find(params[:account_id])
       @transactions = TransactionDecorator.decorate_collection(transactions)
     end
 
