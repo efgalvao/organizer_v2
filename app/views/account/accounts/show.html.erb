@@ -2,7 +2,7 @@
   <%= turbo_frame_tag "first_turbo_frame" do %>
 
     <div class="header">
-  <%= link_to "Voltar",
+  <%= link_to t('buttons.back'),
       accounts_path,
       data: { turbo_frame: "_top" },
       class: "btn btn--primary" %>
