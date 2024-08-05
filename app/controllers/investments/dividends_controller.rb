@@ -32,7 +32,7 @@ module Investments
     private
 
     def dividend_params
-      params.require(:dividend).permit(:date, :amount_cents, :investment_id)
+      params.require(:dividend).permit(:date, :amount_cents, :investment_id, :shares)
     end
   end
 end

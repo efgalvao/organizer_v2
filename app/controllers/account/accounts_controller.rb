@@ -4,7 +4,7 @@ module Account
     before_action :set_account, only: %i[show edit update destroy]
 
     def index
-      accounts = Account.where(user_id: current_user.id).except_card_accounts
+      accounts = Account.where(user_id: current_user.id).except_card_accounts.order(:name)
       @accounts = AccountDecorator.decorate_collection(accounts)
     end
 
