@@ -8,6 +8,7 @@ class HomeController < ApplicationController
 
     past_reports = UserServices::FetchUserReports.fetch_reports(current_user.id)
 
+    accounts = UserServices::FetchUserAccountsSummary.new(current_user.id).call
 
     cards = UserServices::FetchUserCardsSummary.new(current_user.id).call
 
