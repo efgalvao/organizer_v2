@@ -197,6 +197,11 @@ pt-BR:
       balance: Total em contas
       investments: Total em investimentos
       total: Total
+    cards:
+      title: Resumo dos cartões
+      account: Cartão
+      balance: Saldo no mês
+      total: Total
   invoice:
     pay_invoice: Pagar fatura
     invoice_payment: Pagamento de fatura

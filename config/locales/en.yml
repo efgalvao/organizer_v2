@@ -218,6 +218,11 @@ en:
       balance: Total in Savings
       investments: Total in Investments
       total: Total
+    cards:
+      title: Cards Summary
+      account: Card
+      balance: Month Balance
+      total: Total Balance
   invoice:
     pay_invoice: Pay invoice
     invoice_payment: Invoice payment
