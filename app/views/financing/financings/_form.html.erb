@@ -6,8 +6,8 @@
   <%= form_error_notification(financing) %>
 
   <%= f.input :name, label: t('financing.form.name'),input_html: { autofocus: true } %>
-  <%= f.input :borrowed_value_cents, label: t('financing.form.borrowed_amount'),
-   input_html: { value: (financing.borrowed_value_cents / 100.0 if financing.borrowed_value_cents)
+  <%= f.input :borrowed_value, label: t('financing.form.borrowed_amount'),
+   input_html: { value: (financing.borrowed_value if financing.borrowed_value)
     } %>
   <%= f.input :installments, label: t('financing.form.parcels') %>
   <%= f.submit t('buttons.save'), class: "btn btn--secondary" %>
