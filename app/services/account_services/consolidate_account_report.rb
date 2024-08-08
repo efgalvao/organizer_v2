@@ -51,7 +51,7 @@ module AccountServices
     end
 
     def final_account_balance
-      account.reload.balance_cents
+      account.reload.balance
     end
 
     def month_balance(report)
