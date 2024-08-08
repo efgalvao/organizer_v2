@@ -34,8 +34,8 @@ module TransactionServices
       AccountServices::BuildTransaction.build(params)
     end
 
-    def value_to_cents(value)
-      (value.to_f * 100).to_i
+    def value_to_decimal(value)
+      value.to_d
     end
 
     def update_account_balance
@@ -45,7 +45,7 @@ module TransactionServices
     def update_account_balance_params
       {
         account_id: params[:account_id],
-        value_cents: value_to_update_balance
+        value: value_to_update_balance
       }
     end
 
@@ -56,7 +56,7 @@ module TransactionServices
                 params[:value]
               end
 
-      params[:kind].to_i.in?([0, 3]) ? -value_to_cents(value) : value_to_cents(value)
+      params[:kind].to_i.in?([0, 3]) ? -value_to_decimal(value) : value_to_decimal(value)
     end
 
     def consolidate_account_report(transaction)
