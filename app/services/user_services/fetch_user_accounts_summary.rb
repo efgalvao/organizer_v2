@@ -21,7 +21,7 @@ module UserServices
     end
 
     def build_account_summary(account)
-      account_balance = convert_to_float(account.balance_cents)
+      account_balance = account.balance
       account_investments = convert_to_float(calculate_investments_total(account))
       {
         id: account.id,
