@@ -38,8 +38,8 @@ RSpec.describe Financings::FinancingDecorator do
     let!(:payment) do
       create(:payment,
              financing: financing,
-             amortization_cents: 100,
-             monetary_correction_cents: 600)
+             amortization: 100,
+             monetary_correction: 600)
     end
 
     it 'returns the calculated outstanding_balance' do
@@ -51,7 +51,7 @@ RSpec.describe Financings::FinancingDecorator do
     let!(:payment) do
       create(:payment,
              financing: financing,
-             amortization_cents: 100)
+             amortization: 100)
     end
 
     it 'returns the total_amortization amount' do
@@ -63,7 +63,7 @@ RSpec.describe Financings::FinancingDecorator do
     let!(:payment) do
       create(:payment,
              financing: financing,
-             interest_cents: 400)
+             interest: 400)
     end
 
     it 'returns the total_interest_paid amount' do
@@ -99,7 +99,7 @@ RSpec.describe Financings::FinancingDecorator do
     let!(:payment) do
       create(:payment,
              financing: financing,
-             monetary_correction_cents: 500)
+             monetary_correction: 500)
     end
 
     it 'returns the monetary_correction amount' do
