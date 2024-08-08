@@ -19,7 +19,7 @@ RSpec.describe AccountServices::CreateAccount do
     expect(response.kind).to eq('savings')
     expect(response.name).to eq('My Account')
     expect(response.user_id).to eq(user.id)
-    expect(response.balance_cents).to eq(0)
+    expect(response.balance).to eq(0)
     expect(response).to be_persisted
   end
 end

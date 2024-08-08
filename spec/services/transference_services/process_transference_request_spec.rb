@@ -5,10 +5,10 @@ RSpec.describe TransferenceServices::ProcessTransferenceRequest do
 
   let(:user) { create(:user) }
   let(:sender_account) do
-    create(:account, name: 'Sender account', balance_cents: 223, user_id: user.id)
+    create(:account, name: 'Sender account', balance: 2.23, user_id: user.id)
   end
   let(:receiver_account) do
-    create(:account, name: 'Receiver account', balance_cents: 200, user_id: user.id)
+    create(:account, name: 'Receiver account', balance: 2.00, user_id: user.id)
   end
 
   let(:transference_params) do
@@ -40,8 +40,8 @@ RSpec.describe TransferenceServices::ProcessTransferenceRequest do
     it 'updates the account balance' do
       service.call
 
-      expect(sender_account.reload.balance_cents).to eq(100)
-      expect(receiver_account.reload.balance_cents).to eq(323)
+      expect(sender_account.reload.balance).to eq(1.0)
+      expect(receiver_account.reload.balance).to eq(3.23)
     end
   end
 
