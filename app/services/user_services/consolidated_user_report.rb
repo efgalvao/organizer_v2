@@ -57,7 +57,7 @@ module UserServices
     def consolidate_month_report
       user.accounts.except_card_accounts.each do |account|
         account_report = account.current_report
-        @savings_cents += account.balance_cents
+        @savings_cents += account.balance
         @investments_cents += calculate_investments(account)
         @incomes_cents += account_report.month_income_cents
         @expenses_cents += account_report.month_expense_cents

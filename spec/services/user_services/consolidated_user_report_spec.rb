@@ -5,7 +5,7 @@ RSpec.describe UserServices::ConsolidatedUserReport do
 
   let(:user) { create(:user) }
 
-  let(:savings_account) { create(:account, user: user, balance_cents: 2) }
+  let(:savings_account) { create(:account, user: user, balance: 2) }
   let!(:savings_account_report) do
     create(:account_report,
            account: savings_account,
@@ -19,7 +19,7 @@ RSpec.describe UserServices::ConsolidatedUserReport do
            month_dividends_cents: 7,
            reference: Date.current.strftime('%m%y'))
   end
-  let(:broker_account) { create(:account, :broker, user: user, balance_cents: 2) }
+  let(:broker_account) { create(:account, :broker, user: user, balance: 2) }
   let!(:broker_account_report) do
     create(:account_report,
            account: broker_account,
