@@ -4,16 +4,16 @@ RSpec.describe Account::AccountDecorator do
   subject(:decorated_account) { account.decorate }
 
   describe '#balance' do
-    let(:account) { create(:account, balance_cents: 1234) }
+    let(:account) { create(:account, balance: 12.34) }
 
     it 'returns the balance in the correct format' do
-      expect(decorated_account.balance).to eq(12.34)
+      expect(decorated_account.balance).to eq('R$ 12,34')
     end
   end
 
   describe '#kind' do
     context 'when the kind is broker' do
-      let(:account)        { create(:account, kind: 'broker') }
+      let(:account) { create(:account, kind: 'broker') }
 
       it 'returns the kind in the correct format' do
         expect(decorated_account.kind).to eq('Corretora')
