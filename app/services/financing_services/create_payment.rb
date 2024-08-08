@@ -27,19 +27,19 @@ module FinancingServices
         paid_parcels: params[:paid_parcels],
         ordinary: params[:ordinary],
         payment_date: set_date,
-        amortization_cents: value_to_cents(params[:amortization]),
-        fees_cents: value_to_cents(params[:fees]),
-        interest_cents: value_to_cents(params[:interest]),
-        insurance_cents: value_to_cents(params[:insurance]),
-        adjustment_cents: value_to_cents(params[:adjustment]),
-        monetary_correction_cents: value_to_cents(params[:monetary_correction])
+        amortization: value_to_decimal(params[:amortization]),
+        fees: value_to_decimal(params[:fees]),
+        interest: value_to_decimal(params[:interest]),
+        insurance: value_to_decimal(params[:insurance]),
+        adjustment: value_to_decimal(params[:adjustment]),
+        monetary_correction: value_to_decimal(params[:monetary_correction])
       }
     end
 
-    def value_to_cents(value)
+    def value_to_decimal(value)
       return 0 if value.nil?
 
-      value.gsub(',', '.').to_f * 100
+      value.to_d
     end
 
     def financing

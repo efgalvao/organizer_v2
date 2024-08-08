@@ -13,16 +13,16 @@ RSpec.describe FinancingServices::CreatePayment do
           paid_parcels: 1,
           ordinary: 'true',
           payment_date: Date.current,
-          amortization: '12,34',
-          fees: '56,78',
-          interest: '90,12',
-          insurance: '34,56',
-          adjustment: '78,90',
-          monetary_correction: '12,34'
+          amortization: '12.34',
+          fees: '56.78',
+          interest: '90.12',
+          insurance: '34.56',
+          adjustment: '78.90',
+          monetary_correction: '12.34'
         }
       end
 
-      it 'create and return the installment' do
+      it 'create and return the installment', :aggregate_failures do
         response = create_installment
 
         expect(response).to be_persisted
@@ -31,12 +31,12 @@ RSpec.describe FinancingServices::CreatePayment do
         expect(response.parcel).to eq(1)
         expect(response.paid_parcels).to eq(1)
         expect(response.ordinary).to be true
-        expect(response.amortization_cents).to eq(1234)
-        expect(response.fees_cents).to eq(5678)
-        expect(response.interest_cents).to eq(9012)
-        expect(response.insurance_cents).to eq(3456)
-        expect(response.adjustment_cents).to eq(7890)
-        expect(response.monetary_correction_cents).to eq(1234)
+        expect(response.amortization).to eq(12.34)
+        expect(response.fees).to eq(56.78)
+        expect(response.interest).to eq(90.12)
+        expect(response.insurance).to eq(34.56)
+        expect(response.adjustment).to eq(78.90)
+        expect(response.monetary_correction).to eq(12.34)
       end
     end
 
