@@ -1,7 +1,7 @@
 <%= simple_form_for transference, html: { class: "transference form" }, data: { turbo: false }  do |f| %>
   <%= form_error_notification(transference) %>
 
-  <%= f.input :value_cents, as: :float, label: t('transference.form.amount'), input_html: { autofocus: true } %>
+  <%= f.input :amount, as: :float, label: t('transference.form.amount'), input_html: { autofocus: true } %>
   <%= f.input :date, as: :date, html5: true, label: t('transference.form.date') %>
   <%= f.input :sender_id, as: :select, collection: all_accounts(current_user.id), label: t('transference.form.sender') %>
   <%= f.input :receiver_id, as: :select, collection: all_accounts(current_user.id), label: t('transference.form.receiver') %>
