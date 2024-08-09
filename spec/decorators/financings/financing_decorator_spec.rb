@@ -52,6 +52,7 @@ RSpec.describe Financings::FinancingDecorator do
       create(:payment,
              financing: financing,
              amortization: 100)
+
     end
 
     it 'returns the total_amortization amount' do
