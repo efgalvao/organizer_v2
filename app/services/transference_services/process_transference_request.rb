@@ -37,11 +37,11 @@ module TransferenceServices
       {
         account_id: params[:sender_id],
         kind: TRANSFERENCE_CODE,
-        amount: params[:value_cents],
+        amount: params[:amount],
         date: params[:date],
         category_id: nil,
         title: "Transferência para #{account(params[:receiver_id]).name}",
-        value_to_update_balance: "-#{params[:value_cents]}"
+        value_to_update_balance: "-#{params[:amount]}"
       }
     end
 
@@ -49,11 +49,11 @@ module TransferenceServices
       {
         account_id: params[:receiver_id],
         kind: TRANSFERENCE_CODE,
-        amount: params[:value_cents],
+        amount: params[:amount],
         date: params[:date],
         category_id: nil,
         title: "Transferência de #{account(params[:sender_id]).name}",
-        value_to_update_balance: params[:value_cents]
+        value_to_update_balance: params[:amount]
       }
     end
 

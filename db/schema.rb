@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_08_09_173817) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_09_182245) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -142,7 +142,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_09_173817) do
     t.bigint "receiver_id"
     t.bigint "user_id", null: false
     t.date "date", null: false
-    t.integer "value_cents", default: 0, null: false
+    t.decimal "amount", precision: 15, scale: 2, default: "0.0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["receiver_id"], name: "index_transferences_on_receiver_id"
