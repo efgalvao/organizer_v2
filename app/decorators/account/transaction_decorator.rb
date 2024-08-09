@@ -2,8 +2,8 @@ module Account
   class TransactionDecorator < Draper::Decorator
     delegate_all
 
-    def value
-      object.value_cents / 100.0
+    def amount
+      ActionController::Base.helpers.number_to_currency(object.amount, unit: 'R$ ', separator: ',', delimiter: '.')
     end
 
     def date
