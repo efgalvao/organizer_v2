@@ -10,13 +10,13 @@ RSpec.describe UserServices::ConsolidatedUserReport do
     create(:account_report,
            account: savings_account,
            date: Date.current,
-           initial_account_balance_cents: 1,
-           final_account_balance_cents: 2,
-           month_balance_cents: 3,
-           month_income_cents: 4,
-           month_expense_cents: 5,
-           month_invested_cents: 6,
-           month_dividends_cents: 7,
+           initial_account_balance: 1,
+           final_account_balance: 2,
+           month_balance: 3,
+           month_income: 4,
+           month_expense: 5,
+           month_invested: 6,
+           month_dividends: 7,
            reference: Date.current.strftime('%m%y'))
   end
   let(:broker_account) { create(:account, :broker, user: user, balance: 2) }
@@ -24,13 +24,13 @@ RSpec.describe UserServices::ConsolidatedUserReport do
     create(:account_report,
            account: broker_account,
            date: Date.current,
-           initial_account_balance_cents: 1,
-           final_account_balance_cents: 2,
-           month_balance_cents: 3,
-           month_income_cents: 4,
-           month_expense_cents: 5,
-           month_invested_cents: 6,
-           month_dividends_cents: 7,
+           initial_account_balance: 1,
+           final_account_balance: 2,
+           month_balance: 3,
+           month_income: 4,
+           month_expense: 5,
+           month_invested: 6,
+           month_dividends: 7,
            reference: Date.current.strftime('%m%y'))
   end
   let!(:fixed_investment) { create(:investment, account: broker_account, current_value_cents: 2) }

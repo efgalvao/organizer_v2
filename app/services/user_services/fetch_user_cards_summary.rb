@@ -19,7 +19,7 @@ module UserServices
           id: card.id,
           name: card.name,
           balance: calculate_month_balance(card),
-          total: convert_to_float(card.balance)
+          total: card.balance
         }
       end
     end
@@ -28,13 +28,10 @@ module UserServices
 
     attr_reader :user_id
 
-    def convert_to_float(cents)
-      cents / 100.0
-    end
-
     def calculate_month_balance(card)
+      # binding.pry
       current_report = card.current_report
-      convert_to_float(current_report.month_income_cents - current_report.month_expense_cents)
+      current_report.month_income - current_report.month_expense
     end
   end
 end

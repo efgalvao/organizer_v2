@@ -59,14 +59,14 @@ module UserServices
         account_report = account.current_report
         @savings_cents += account.balance
         @investments_cents += calculate_investments(account)
-        @incomes_cents += account_report.month_income_cents
-        @expenses_cents += account_report.month_expense_cents
-        @invested_cents += account_report.month_invested_cents
-        @dividends_cents += account_report.month_dividends_cents
+        @incomes_cents += account_report.month_income
+        @expenses_cents += account_report.month_expense
+        @invested_cents += account_report.month_invested
+        @dividends_cents += account_report.month_dividends
       end
 
       user.accounts.card_accounts.each do |card|
-        @card_expenses_cents += card.current_report.month_expense_cents
+        @card_expenses_cents += card.current_report.month_expense
       end
 
       @balance_cents = @incomes_cents - @expenses_cents - @invested_cents

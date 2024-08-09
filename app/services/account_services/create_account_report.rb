@@ -31,19 +31,19 @@ module AccountServices
       {
         date: date,
         reference: reference,
-        initial_account_balance_cents: past_month_final_account_balance,
-        final_account_balance_cents: 0,
-        month_balance_cents: 0,
-        month_income_cents: 0,
-        month_expense_cents: 0,
-        month_invested_cents: 0,
-        month_dividends_cents: 0
+        initial_account_balance: past_month_final_account_balance,
+        final_account_balance: 0,
+        month_balance: 0,
+        month_income: 0,
+        month_expense: 0,
+        month_invested: 0,
+        month_dividends: 0
       }
     end
 
     def past_month_final_account_balance
       past_month_reference_date = date.prev_month
-      account.month_report(past_month_reference_date)&.final_account_balance_cents || 0
+      account.month_report(past_month_reference_date)&.final_account_balance || 0
     end
 
     def reference

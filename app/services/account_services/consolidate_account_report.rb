@@ -34,20 +34,20 @@ module AccountServices
 
     def consolidate(report)
       {
-        initial_account_balance_cents: initial_account_balance,
-        final_account_balance_cents: final_account_balance,
-        month_balance_cents: month_balance(report),
-        month_income_cents: month_income(report),
-        month_expense_cents: month_expense(report),
-        month_invested_cents: month_invested(report),
-        month_dividends_cents: month_dividends
+        initial_account_balance: initial_account_balance,
+        final_account_balance: final_account_balance,
+        month_balance: month_balance(report),
+        month_income: month_income(report),
+        month_expense: month_expense(report),
+        month_invested: month_invested(report),
+        month_dividends: month_dividends
       }
     end
 
     def initial_account_balance
       return 0 if past_month_report.nil?
 
-      past_month_report.final_account_balance_cents
+      past_month_report.final_account_balance
     end
 
     def final_account_balance
@@ -103,13 +103,13 @@ module AccountServices
 
     def default_account_report_attributes
       {
-        initial_account_balance_cents: 0,
-        final_account_balance_cents: 0,
-        month_balance_cents: 0,
-        month_income_cents: 0,
-        month_expense_cents: 0,
-        month_invested_cents: 0,
-        month_dividends_cents: 0,
+        initial_account_balance: 0,
+        final_account_balance: 0,
+        month_balance: 0,
+        month_income: 0,
+        month_expense: 0,
+        month_invested: 0,
+        month_dividends: 0,
         reference: current_reference
       }
     end
