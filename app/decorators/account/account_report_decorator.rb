@@ -3,31 +3,35 @@ module Account
     delegate_all
 
     def initial_account_balance
-      (object.initial_account_balance_cents.presence || 0) / 100.0
+      format_currency(object.initial_account_balance)
     end
 
     def final_account_balance
-      (object.final_account_balance_cents.presence || 0) / 100.0
+      format_currency(object.final_account_balance.presence || 0)
     end
 
     def month_balance
-      object.month_balance_cents / 100.0
+      format_currency(object.month_balance)
     end
 
     def month_income
-      object.month_income_cents / 100.0
+      format_currency(object.month_income)
     end
 
     def month_expense
-      object.month_expense_cents / 100.0
+      format_currency(object.month_expense)
     end
 
     def month_invested
-      object.month_invested_cents / 100.0
+      format_currency(object.month_invested)
     end
 
     def month_dividends
-      object.month_dividends_cents / 100.0
+      format_currency(object.month_dividends)
+    end
+
+    def format_currency(value)
+      ActionController::Base.helpers.number_to_currency(value, unit: 'R$ ', separator: ',', delimiter: '.')
     end
   end
 end
