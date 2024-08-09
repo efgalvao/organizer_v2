@@ -7,7 +7,7 @@ module Investments
     end
 
     def amount
-      object.amount_cents.to_f / 100
+      ActionController::Base.helpers.number_to_currency(object.amount, unit: 'R$ ', separator: ',', delimiter: '.')
     end
   end
 end
