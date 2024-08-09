@@ -3,13 +3,13 @@ require 'rails_helper'
 RSpec.describe TransactionServices::ProcessTransactionRequest do
   subject(:process_transaction_request) { described_class.call(params) }
 
-  let(:account) { create(:account, balance_cents: 1.00) }
+  let(:account) { create(:account, balance: 1.0) }
 
   context 'when the transaction is an income' do
     let(:params) do
       {
         account_id: account.id,
-        amount: '123.45',
+        amount: '1.23',
         kind: 1,
         category_id: nil,
         title: 'My Transaction',
@@ -26,7 +26,7 @@ RSpec.describe TransactionServices::ProcessTransactionRequest do
 
       account.reload
 
-      expect(account.balance_cents).to eq(124)
+      expect(account.balance).to eq(2.23)
     end
   end
 
@@ -34,7 +34,7 @@ RSpec.describe TransactionServices::ProcessTransactionRequest do
     let(:params) do
       {
         account_id: account.id,
-        value: '123.45',
+        amount: '0.51',
         kind: 0,
         category_id: nil,
         title: 'My Transaction',
@@ -51,7 +51,7 @@ RSpec.describe TransactionServices::ProcessTransactionRequest do
 
       account.reload
 
-      expect(account.balance_cents).to eq(1)
+      expect(account.balance).to eq(0.49)
     end
   end
 

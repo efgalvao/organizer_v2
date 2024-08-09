@@ -16,7 +16,6 @@ module Financings
 
     def outstanding_balance
       value = object.payments.order(payment_date: :asc).reduce(object.borrowed_value) do |result, parcel|
-
         (result - parcel.amortization) + parcel.monetary_correction
       end
       format_currency(value)

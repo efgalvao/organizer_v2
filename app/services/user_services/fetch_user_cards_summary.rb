@@ -19,7 +19,7 @@ module UserServices
           id: card.id,
           name: card.name,
           balance: calculate_month_balance(card),
-          total: convert_to_float(card.balance_cents)
+          total: convert_to_float(card.balance)
         }
       end
     end

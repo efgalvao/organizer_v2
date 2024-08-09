@@ -34,7 +34,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_09_123537) do
   create_table "accounts", force: :cascade do |t|
     t.string "name", null: false
     t.bigint "user_id", null: false
-    t.integer "balance_cents", default: 0, null: false
+    t.decimal "balance", precision: 15, scale: 2, default: "0.0", null: false
     t.integer "kind", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

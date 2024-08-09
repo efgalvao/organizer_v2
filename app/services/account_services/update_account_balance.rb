@@ -29,12 +29,12 @@ module AccountServices
 
     def update_params
       {
-        balance_cents: new_balance
+        balance: new_balance
       }
     end
 
     def new_balance
-      account.balance_cents + params[:amount]
+      account.balance + params[:amount]
     end
   end
 end

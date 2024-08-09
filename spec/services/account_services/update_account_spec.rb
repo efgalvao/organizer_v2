@@ -4,7 +4,7 @@ RSpec.describe AccountServices::UpdateAccount do
   subject(:update_account) { described_class.update(account_params) }
 
   let(:user) { create(:user) }
-  let(:account) { create(:account, balance_cents: 123, user_id: user.id) }
+  let(:account) { create(:account, balance: 1.23, user_id: user.id) }
   let(:account_params) do
     {
       id: account.id,
@@ -19,6 +19,6 @@ RSpec.describe AccountServices::UpdateAccount do
     expect(response.kind).to eq('broker')
     expect(response.name).to eq('My Other Account')
     expect(response.user_id).to eq(user.id)
-    expect(response.balance_cents).to eq(123)
+    expect(response.balance).to eq(1.23)
   end
 end

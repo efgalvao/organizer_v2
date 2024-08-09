@@ -3,7 +3,7 @@ FactoryBot.define do
     user
     sequence(:name) { "Account_#{_1}" }
     kind { 'savings' }
-    balance_cents { Random.rand(1000..100_000) }
+    balance { Random.rand(1000..100_000) }
 
     trait :broker do
       kind { 'broker' }

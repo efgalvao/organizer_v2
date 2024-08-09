@@ -9,7 +9,7 @@ module Account
     delegate_all
 
     def balance
-      object.balance_cents / 100.0
+      format_currency(object.balance)
     end
 
     def kind
@@ -31,6 +31,10 @@ module Account
     def past_reports_chart_data
       reports = AccountServices::FetchAccountReports.fetch_reports(object.id, 6)
       AccountServices::CreatePastReportsChartData.call(reports: reports)
+    end
+
+    def format_currency(value)
+      ActionController::Base.helpers.number_to_currency(value, unit: 'R$ ', separator: ',', delimiter: '.')
     end
     delegate :broker?, to: :object
   end
