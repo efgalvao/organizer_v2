@@ -13,11 +13,11 @@ module InvestmentsServices
     end
 
     def new_current_value
-      params[:invested_value_cents].to_i
+      params[:invested_value_cents].to_d
     end
 
     def new_invested_value
-      investment.invested_value_cents + (params[:invested_value_cents].to_i * params[:shares_total].to_i)
+      investment.invested_value_cents + (params[:invested_value_cents].to_d * params[:shares_total].to_i)
     end
   end
 end
