@@ -22,7 +22,7 @@ module TransactionServices
         category_id: category_id(params.fetch(:category)),
         account_id: account_id(params.fetch(:account)),
         kind: params.fetch(:kind),
-        value: params.fetch(:value).to_f / params[:parcels].to_i,
+        amount: params.fetch(:amount).to_d / params[:parcels].to_i,
         date: calculate_date(params[:date], parcel)
       }
     end
