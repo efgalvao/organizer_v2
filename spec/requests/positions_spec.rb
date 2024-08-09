@@ -31,7 +31,7 @@ RSpec.describe 'Investments::Position' do
           post investment_positions_path(investment_id: investment.id), params: { position: {
             date: '',
             kind: 'buy',
-            amount_cents: '10.01',
+            amount: '10.01',
             investment_id: investment.id,
             shares: 1
           } }

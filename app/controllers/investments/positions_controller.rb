@@ -32,7 +32,7 @@ module Investments
     private
 
     def position_params
-      params.require(:position).permit(:date, :amount_cents, :shares, :investment_id)
+      params.require(:position).permit(:date, :amount, :shares, :investment_id)
     end
   end
 end

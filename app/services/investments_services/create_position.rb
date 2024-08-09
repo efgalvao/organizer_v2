@@ -23,14 +23,10 @@ module InvestmentsServices
     def formated_params
       {
         date: date,
-        amount_cents: convert_to_cents(params[:amount_cents]),
+        amount: params[:amount],
         shares: params[:shares],
         positionable: positionable
       }
-    end
-
-    def convert_to_cents(value)
-      value.to_f * 100
     end
 
     def date
@@ -46,7 +42,7 @@ module InvestmentsServices
     def update_investment_params
       {
         id: positionable.id,
-        current_value_cents: convert_to_cents(params[:amount_cents]),
+        current_value_cents: params[:amount],
         shares_total: params[:shares].to_i
       }
     end
