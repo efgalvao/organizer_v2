@@ -58,7 +58,7 @@ module Financing
 
     def financing_params
       params.require(:financing)
-            .permit(:name, :borrowed_value_cents, :installments)
+            .permit(:name, :borrowed_value, :installments)
             .merge(user_id: current_user.id)
     end
   end

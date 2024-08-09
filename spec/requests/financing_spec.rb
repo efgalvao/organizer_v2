@@ -34,7 +34,7 @@ RSpec.describe 'Financings::Financing' do
       it 'creates a new Financing' do
         expect do
           post financings_path, params: { financing: { name: 'First',
-                                                       borrowed_value_cents: '1',
+                                                       borrowed_value: '1.23',
                                                        installments: 123 } }
         end.to change(Financings::Financing, :count).by(1)
       end

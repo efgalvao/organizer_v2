@@ -2,7 +2,7 @@ module FinancingServices
   class UpdateFinancing
     def initialize(financing_id, params)
       @user_id = params[:user_id]
-      @borrowed_value = params[:borrowed_value_cents]
+      @borrowed_value = params[:borrowed_value]
       @installments = params[:installments]
       @name = params[:name]
       @financing_id = financing_id
@@ -32,7 +32,7 @@ module FinancingServices
     def financing_attributes
       {
         name: new_name,
-        borrowed_value_cents: new_borrowed_value,
+        borrowed_value: new_borrowed_value,
         installments: new_installments
       }
     end
@@ -42,15 +42,15 @@ module FinancingServices
     end
 
     def new_borrowed_value
-      borrowed_value.nil? ? financing.borrowed_value_cents : value_to_cents(borrowed_value)
+      borrowed_value.nil? ? financing.borrowed_value : value_to_decimal(borrowed_value)
     end
 
     def new_installments
       installments.nil? ? financing.installments : installments
     end
 
-    def value_to_cents(value)
-      value.to_f * 100
+    def value_to_decimal(value)
+      value.to_d
     end
   end
 end
