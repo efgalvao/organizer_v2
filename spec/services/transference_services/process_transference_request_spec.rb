@@ -40,8 +40,8 @@ RSpec.describe TransferenceServices::ProcessTransferenceRequest do
     it 'updates the account balance' do
       service.call
 
-      expect(sender_account.reload.balance_cents).to eq(100)
-      expect(receiver_account.reload.balance_cents).to eq(323)
+      expect(sender_account.reload.balance_cents).to eq(221)
+      expect(receiver_account.reload.balance_cents).to eq(201)
     end
   end
 

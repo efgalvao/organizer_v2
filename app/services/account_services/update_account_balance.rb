@@ -34,7 +34,7 @@ module AccountServices
     end
 
     def new_balance
-      account.balance_cents + params[:value_cents]
+      account.balance_cents + params[:amount]
     end
   end
 end

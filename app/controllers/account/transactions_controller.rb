@@ -49,7 +49,7 @@ module Account
     private
 
     def transactions_params
-      params.require(:transaction).permit(:title, :category_id, :value, :kind, :date, :future, :parcels)
+      params.require(:transaction).permit(:title, :category_id, :amount, :kind, :date, :future, :parcels)
             .merge(account_id: params[:account_id])
     end
 
