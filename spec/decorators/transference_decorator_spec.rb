@@ -3,21 +3,19 @@ require 'rails_helper'
 RSpec.describe TransferenceDecorator do
   subject(:decorate_transference) { transference.decorate }
 
-  describe '#value' do
+  describe '#amount' do
     let(:transference) do
-      create(:transference,
-             value_cents: 1234)
+      create(:transference, amount: 12.34)
     end
 
     it 'returns the balance in the correct format' do
-      expect(decorate_transference.value).to eq(12.34)
+      expect(decorate_transference.amount).to eq('R$ 12,34')
     end
   end
 
   describe '#date' do
     let(:transference) do
-      create(:transference,
-             date: '2024-03-16')
+      create(:transference, date: '2024-03-16')
     end
 
     it 'returns the balance in the correct format' do
@@ -27,8 +25,7 @@ RSpec.describe TransferenceDecorator do
 
   describe '#sender' do
     let(:transference) do
-      create(:transference,
-             sender_id: sender.id)
+      create(:transference, sender_id: sender.id)
     end
 
     let(:sender) { create(:account, name: 'Sender') }
@@ -40,8 +37,7 @@ RSpec.describe TransferenceDecorator do
 
   describe '#receiver' do
     let(:transference) do
-      create(:transference,
-             receiver_id: receiver.id)
+      create(:transference, receiver_id: receiver.id)
     end
 
     let(:receiver) { create(:account, name: 'Receiver') }
