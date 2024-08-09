@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.describe Account::TransactionDecorator do
   subject(:decorated_transaction) { transaction.decorate }
 
-  describe '#value' do
-    let(:transaction) { create(:transaction, value_cents: 1234) }
+  describe '#amount' do
+    let(:transaction) { create(:transaction, amount: 12.34) }
 
     it 'returns the amount in the correct format' do
-      expect(decorated_transaction.value).to eq(12.34)
+      expect(decorated_transaction.amount).to eq('R$ 12,34')
     end
   end
 

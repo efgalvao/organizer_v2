@@ -3,12 +3,12 @@ require 'rails_helper'
 RSpec.describe AccountServices::UpdateAccountBalance do
   subject(:update_account_balance) { described_class.call(params) }
 
-  let(:account) { create(:account, balance: 1.23) }
-  let(:value) { -1 }
+  let(:account) { create(:account, balance: 123) }
+  let(:amount) { -100 }
   let(:params) do
     {
       account_id: account.id,
-      value: value
+      amount: amount
     }
   end
 

@@ -23,7 +23,7 @@ module AccountServices
     def transaction_params
       {
         account_id: params[:account_id],
-        value_cents: value_to_cents(params[:value]),
+        amount: value_to_decimal(params[:value]),
         kind: params[:kind].to_i,
         date: date,
         category_id: params[:category_id],
@@ -32,8 +32,8 @@ module AccountServices
       }
     end
 
-    def value_to_cents(value)
-      (value.to_f * 100).to_i
+    def value_to_decimal(value)
+      value.to_d
     end
 
     def date

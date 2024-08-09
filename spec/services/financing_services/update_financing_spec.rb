@@ -11,7 +11,7 @@ RSpec.describe FinancingServices::UpdateFinancing do
         {
           user_id: financing.user_id,
           name: 'Updated Financing',
-          borrowed_value_cents: 12.34,
+          borrowed_value: '12.34',
           installments: 10
         }
       end
@@ -22,7 +22,7 @@ RSpec.describe FinancingServices::UpdateFinancing do
         expect(response).to be_persisted
         expect(response).to be_a(Financings::Financing)
         expect(response.name).to eq('Updated Financing')
-        expect(response.borrowed_value_cents).to eq(1234)
+        expect(response.borrowed_value).to eq(12.34)
         expect(response.installments).to eq(10)
       end
     end

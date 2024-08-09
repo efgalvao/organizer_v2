@@ -9,7 +9,7 @@ RSpec.describe TransactionServices::ProcessTransactionRequest do
     let(:params) do
       {
         account_id: account.id,
-        value: '123.45',
+        amount: '123.45',
         kind: 1,
         category_id: nil,
         title: 'My Transaction',

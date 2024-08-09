@@ -30,7 +30,7 @@ RSpec.describe 'Financings::Transaction' do
           post account_transactions_path(account_id: account.id), params: { transaction: {
             title: 'Transaction',
             date: '2024-01-01',
-            value: '100.01',
+            amount: '100.01',
             kind: 0,
             category_id: 2,
             parcels: 1

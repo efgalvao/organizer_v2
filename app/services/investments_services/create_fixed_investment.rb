@@ -17,7 +17,6 @@ module InvestmentsServices
     attr_reader :params
 
     def create_fixed_investment
-      # binding.pry
       Investments::FixedInvestment.create(attributes)
     end
 

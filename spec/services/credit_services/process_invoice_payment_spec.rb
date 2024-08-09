@@ -4,7 +4,7 @@ RSpec.describe CreditServices::ProcessInvoicePayment do
   subject(:service) { described_class.call(params) }
 
   let(:params) do
-    { sender_id: sender.id, receiver_id: receiver.id, value: '100', date: '2001-01-01' }
+    { sender_id: sender.id, receiver_id: receiver.id, amount: '100.01', date: '2001-01-01' }
   end
   let(:sender) { create(:account, balance: 150.00) }
   let(:receiver) { create(:account, balance: 0) }
