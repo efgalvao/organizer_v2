@@ -10,7 +10,7 @@ RSpec.describe InvestmentsServices::CreateDividend do
     let(:params) do
       {
         date: Date.current.strftime('%d/%m/%Y'),
-        amount_cents: '10.01',
+        amount: '10.01',
         investment_id: investment.id
       }
     end
@@ -20,7 +20,7 @@ RSpec.describe InvestmentsServices::CreateDividend do
 
       expect(response).to be_a(Investments::Dividend)
       expect(response.date).to eq(Date.current)
-      expect(response.amount_cents).to eq(1001)
+      expect(response.amount).to eq(10.01)
       expect(response.investment_id).to eq(investment.id)
       expect(response).to be_persisted
     end
@@ -30,7 +30,7 @@ RSpec.describe InvestmentsServices::CreateDividend do
     let(:params) do
       {
         date: '',
-        amount_cents: '10.01',
+        amount: '10.01',
         investment_id: investment.id
       }
     end
@@ -40,7 +40,7 @@ RSpec.describe InvestmentsServices::CreateDividend do
 
       expect(response).to be_a(Investments::Dividend)
       expect(response.date).to eq(Date.current)
-      expect(response.amount_cents).to eq(1001)
+      expect(response.amount).to eq(10.01)
       expect(response.investment_id).to eq(investment.id)
       expect(response).to be_persisted
     end

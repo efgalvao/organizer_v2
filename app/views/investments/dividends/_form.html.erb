@@ -6,7 +6,7 @@
   <%= form_error_notification(dividend) %>
 
   <%= f.input :date, label: t('investments.dividends.form.date'), as: :date, html5: true, input_html: { autofocus: true } %>
-  <%= f.input :amount_cents, as: :float, label: t('investments.dividends.form.amount') %>
+  <%= f.input :amount, as: :float, label: t('investments.dividends.form.amount') %>
   <%= f.input :shares, label: t('investments.dividends.form.shares'), as: :integer %>
   <%= f.input :investment_id, as: :hidden, input_html: { value: params[:investment_id] } %>
   <%= f.submit t('buttons.save'), class: "btn btn--secondary" %>
