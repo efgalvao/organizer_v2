@@ -33,9 +33,9 @@ RSpec.describe UserServices::ConsolidatedUserReport do
            month_dividends: 7,
            reference: Date.current.strftime('%m%y'))
   end
-  let!(:fixed_investment) { create(:investment, account: broker_account, current_value_cents: 2) }
+  let!(:fixed_investment) { create(:investment, account: broker_account, current_amount: 2) }
   let!(:variable_investment) do
-    create(:investment, :variable, account: broker_account, current_value_cents: 3, shares_total: 3)
+    create(:investment, :variable, account: broker_account, current_amount: 3, shares_total: 3)
   end
 
   it 'consolidates the current user report' do
