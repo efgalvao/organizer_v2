@@ -10,21 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_08_09_123537) do
-
+ActiveRecord::Schema[7.0].define(version: 2024_08_09_150559) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "account_reports", force: :cascade do |t|
     t.bigint "account_id", null: false
     t.date "date"
-    t.integer "initial_account_balance_cents", default: 0, null: false
-    t.integer "final_account_balance_cents", default: 0, null: false
-    t.integer "month_balance_cents", default: 0, null: false
-    t.integer "month_income_cents", default: 0, null: false
-    t.integer "month_expense_cents", default: 0, null: false
-    t.integer "month_invested_cents", default: 0, null: false
-    t.integer "month_dividends_cents", default: 0, null: false
+    t.decimal "initial_account_balance", precision: 15, scale: 2, default: "0.0", null: false
+    t.decimal "final_account_balance", precision: 15, scale: 2, default: "0.0", null: false
+    t.decimal "month_balance", precision: 15, scale: 2, default: "0.0", null: false
+    t.decimal "month_income", precision: 15, scale: 2, default: "0.0", null: false
+    t.decimal "month_expense", precision: 15, scale: 2, default: "0.0", null: false
+    t.decimal "month_invested", precision: 15, scale: 2, default: "0.0", null: false
+    t.decimal "month_dividends", precision: 15, scale: 2, default: "0.0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "reference"
