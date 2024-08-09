@@ -20,15 +20,11 @@ module InvestmentsServices
       @investment ||= Investments::Investment.find(investment_id)
     end
 
-    def convert_to_float(cents)
-      cents / 100.0
-    end
-
     def fetch_positions
       summary = { shares: {}, amounts: {} }
       investment.positions.order(:date).map do |position|
         summary[:shares][position.date.strftime('%d/%m/%Y').to_s] = position.shares
-        summary[:amounts][position.date.strftime('%d/%m/%Y').to_s] = convert_to_float(position.amount_cents)
+        summary[:amounts][position.date.strftime('%d/%m/%Y').to_s] = position.amount
       end
       summary
     end
@@ -37,7 +33,7 @@ module InvestmentsServices
       summary = { shares: {}, amounts: {} }
       investment.negotiations.order(:date).map do |negotiation|
         summary[:shares][negotiation.date.strftime('%d/%m/%Y').to_s] = negotiation.shares
-        summary[:amounts][negotiation.date.strftime('%d/%m/%Y').to_s] = convert_to_float(negotiation.amount_cents)
+        summary[:amounts][negotiation.date.strftime('%d/%m/%Y').to_s] = negotiation.amount_cents
       end
       summary
     end
@@ -45,7 +41,7 @@ module InvestmentsServices
     def fetch_dividends
       summary = { amounts: {} }
       investment.dividends.order(:date).map do |dividend|
-        summary[:amounts][dividend.date.strftime('%d/%m/%Y').to_s] = convert_to_float(dividend.amount_cents)
+        summary[:amounts][dividend.date.strftime('%d/%m/%Y').to_s] = dividend.amount
       end
       summary
     end

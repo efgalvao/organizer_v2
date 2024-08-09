@@ -19,7 +19,7 @@ RSpec.describe InvestmentsServices::UpdateInvestment do
     expect(response).to be_a(Investments::Investment)
     expect(response.name).to eq('My investment updated')
     expect(response.account_id).to eq(account.id)
-    expect(response.invested_value_cents).to eq(investment.invested_value_cents)
+    expect(response.invested_amount).to eq(investment.invested_amount)
     expect(response).to be_persisted
   end
 end

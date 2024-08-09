@@ -54,7 +54,7 @@ module InvestmentsServices
       {
         id: negotiable.id,
         shares_total: params[:shares],
-        invested_value_cents: params[:amount]
+        invested_amount: params[:amount]
       }
     end
 

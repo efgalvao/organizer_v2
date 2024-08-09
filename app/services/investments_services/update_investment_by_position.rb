@@ -3,12 +3,12 @@ module InvestmentsServices
     private
 
     def update_attributes
-      investment.current_value_cents = new_current_value
+      investment.current_amount = new_current_value
       investment.shares_total = new_shares_total
     end
 
     def new_current_value
-      params[:current_value_cents].to_i
+      params[:current_amount].to_i
     end
 
     def new_shares_total
