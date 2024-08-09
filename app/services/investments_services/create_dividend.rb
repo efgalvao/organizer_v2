@@ -24,14 +24,10 @@ module InvestmentsServices
     def formated_params
       {
         date: date,
-        amount_cents: convert_to_cents(params[:amount_cents]),
+        amount: params[:amount].to_d,
         shares: params[:shares],
         investment: investment
       }
-    end
-
-    def convert_to_cents(value)
-      value.to_f * 100
     end
 
     def date
@@ -46,7 +42,7 @@ module InvestmentsServices
 
     def transaction_params
       { account_id: investment.account_id,
-        amount: params[:amount_cents].to_f * params[:shares].to_i,
+        amount: params[:amount].to_d * params[:shares].to_i,
         kind: INCOME_CODE,
         title: "#{I18n.t('investments.dividends.dividends')} - #{investment.name}",
         date: date }
