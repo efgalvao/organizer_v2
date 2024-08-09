@@ -79,9 +79,9 @@ module UserServices
       investments_amounts = 0
       account.investments.each do |investment|
         investments_amounts += if investment.type == 'Investments::VariableInvestment'
-                                 (investment.current_value_cents * investment.shares_total)
+                                 (investment.current_amount * investment.shares_total)
                                else
-                                 investment.current_value_cents
+                                 investment.current_amount
                                end
       end
       investments_amounts

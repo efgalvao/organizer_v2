@@ -22,7 +22,7 @@ module UserServices
 
     def build_account_summary(account)
       account_balance = account.balance
-      account_investments = convert_to_float(calculate_investments_total(account))
+      account_investments = calculate_investments_total(account)
       {
         id: account.id,
         name: account.name,
@@ -35,18 +35,14 @@ module UserServices
     def calculate_investments_total(account)
       fixed_amount = account.investments
                             .where(type: 'Investments::FixedInvestment', released: false)
-                            .sum(:current_value_cents)
+                            .sum(:current_amount)
       variable_amount = account.investments
                                .where(type: 'Investments::VariableInvestment', released: false)
                                .to_a
                                .sum do |investment|
-                                 investment.current_value_cents * (investment.shares_total.presence || 1)
+                                 investment.current_amount * (investment.shares_total.presence || 1)
                                end
       fixed_amount + variable_amount
-    end
-
-    def convert_to_float(cents)
-      cents / 100.0
     end
   end
 end

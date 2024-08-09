@@ -31,8 +31,8 @@ RSpec.describe 'Investments::Investment' do
           post investments_path(account_id: account.id), params: { investment: {
             account_id: account.id,
             name: 'Fixed Investment',
-            current_value_cents: '100',
-            invested_value_cents: '100',
+            current_amount: '100',
+            invested_amount: '100',
             type: 'FixedInvestment'
           } }
         end.to change(Investments::FixedInvestment, :count).by(1)
@@ -45,7 +45,7 @@ RSpec.describe 'Investments::Investment' do
           post investments_path(account_id: account.id), params: { investment: {
             account_id: account.id,
             name: '',
-            invested_value_cents: '100'
+            invested_amount: '100'
           } }
         end.not_to change(Investments::FixedInvestment, :count)
       end
