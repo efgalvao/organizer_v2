@@ -15,7 +15,7 @@ RSpec.describe TransferenceServices::ProcessTransferenceRequest do
     {
       sender_id: sender_account.id,
       receiver_id: receiver_account.id,
-      value_cents: '1.23',
+      amount: '1.23',
       date: '2024-03-17',
       user_id: user.id
     }

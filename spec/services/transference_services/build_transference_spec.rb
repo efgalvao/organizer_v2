@@ -13,7 +13,7 @@ RSpec.describe TransferenceServices::BuildTransference do
         receiver_id: receiver_account.id,
         sender_id: sender_account.id,
         user_id: user.id,
-        value_cents: '1.23',
+        amount: '1.23',
         date: '2024-03-16'
       }
     end
@@ -26,7 +26,7 @@ RSpec.describe TransferenceServices::BuildTransference do
       expect(response.sender_id).to eq(sender_account.id)
       expect(response.receiver_id).to eq(receiver_account.id)
       expect(response.user_id).to eq(user.id)
-      expect(response.value_cents).to eq(123)
+      expect(response.amount).to eq(1.23)
       expect(response.date).to eq(Date.parse('2024-03-16'))
     end
   end

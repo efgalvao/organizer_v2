@@ -25,13 +25,9 @@ module TransferenceServices
         sender_id: params[:sender_id],
         receiver_id: params[:receiver_id],
         user_id: params[:user_id],
-        value_cents: value_to_cents(params[:value_cents]),
+        amount: params[:amount].to_d,
         date: date
       }
-    end
-
-    def value_to_cents(value)
-      (value.to_f * 100).to_i
     end
 
     def date
