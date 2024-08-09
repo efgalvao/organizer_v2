@@ -59,15 +59,15 @@ module AccountServices
     end
 
     def month_income(report)
-      report.transactions.where(kind: 'income').sum(:value_cents)
+      report.transactions.where(kind: 'income').sum(:amount)
     end
 
     def month_expense(report)
-      report.transactions.where(kind: 'expense').sum(:value_cents)
+      report.transactions.where(kind: 'expense').sum(:amount)
     end
 
     def month_invested(report)
-      report.transactions.where(kind: 'investment').sum(:value_cents)
+      report.transactions.where(kind: 'investment').sum(:amount)
     end
 
     def month_dividends
