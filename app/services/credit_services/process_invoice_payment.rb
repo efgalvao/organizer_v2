@@ -27,8 +27,8 @@ module CreditServices
       @receiver ||= Account::Account.find(params[:receiver_id])
     end
 
-    def value
-      @value ||= params.fetch(:value, 0).to_f
+    def amount
+      @amount ||= params.fetch(:amount, 0).to_d
     end
 
     def date
@@ -41,7 +41,7 @@ module CreditServices
 
     def sender_params
       { account_id: params[:sender_id],
-        value: value,
+        amount: amount,
         kind: EXPENSE_CODE,
         title: "#{I18n.t('invoice.invoice_payment')} - #{receiver.name}",
         date: date }
@@ -49,7 +49,7 @@ module CreditServices
 
     def receiver_params
       { account_id: receiver.id,
-        value: value,
+        amount: amount,
         kind: INCOME_CODE,
         title: I18n.t('invoice.invoice_payment'),
         date: date }

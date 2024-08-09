@@ -4,11 +4,11 @@ RSpec.describe AccountServices::UpdateAccountBalance do
   subject(:update_account_balance) { described_class.call(params) }
 
   let(:account) { create(:account, balance_cents: 123) }
-  let(:value) { -100 }
+  let(:amount) { -100 }
   let(:params) do
     {
       account_id: account.id,
-      value_cents: value
+      amount: amount
     }
   end
 

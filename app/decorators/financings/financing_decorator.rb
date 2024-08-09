@@ -16,17 +16,18 @@ module Financings
 
     def outstanding_balance
       value = object.payments.order(payment_date: :asc).reduce(object.borrowed_value) do |result, parcel|
-        (result - parcel.amortization_cents) + parcel.monetary_correction_cents
+
+        (result - parcel.amortization) + parcel.monetary_correction
       end
       format_currency(value)
     end
 
     def total_amortization
-      format_currency(object.payments.sum(:amortization_cents))
+      format_currency(object.payments.sum(:amortization))
     end
 
     def total_interest_paid
-      format_currency(object.payments.sum(:interest_cents))
+      format_currency(object.payments.sum(:interest))
     end
 
     def ordinary_parcels
@@ -38,7 +39,7 @@ module Financings
     end
 
     def monetary_correction
-      format_currency(object.payments.sum(:monetary_correction_cents))
+      format_currency(object.payments.sum(:monetary_correction))
     end
 
     def format_currency(value)

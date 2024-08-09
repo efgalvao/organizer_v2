@@ -5,35 +5,35 @@ module Financings
     end
 
     def parcel_value
-      value = (object.amortization_cents +
-       object.interest_cents +
-       object.insurance_cents +
-       + object.fees_cents + object.adjustment_cents) / 100.0
+      value = (object.amortization +
+       object.interest +
+       object.insurance +
+       + object.fees + object.adjustment) / 100.0
       format_currency(value)
     end
 
     def interest
-      format_currency(object.interest_cents / 100.0)
+      format_currency(object.interest / 100.0)
     end
 
     def amortization
-      format_currency(object.amortization_cents / 100.0)
+      format_currency(object.amortization / 100.0)
     end
 
     def insurance
-      format_currency(object.insurance_cents / 100.0)
+      format_currency(object.insurance / 100.0)
     end
 
     def fees
-      format_currency(object.fees_cents / 100.0)
+      format_currency(object.fees / 100.0)
     end
 
     def adjustment
-      format_currency(object.adjustment_cents / 100.0)
+      format_currency(object.adjustment / 100.0)
     end
 
     def monetary_correction
-      format_currency(object.monetary_correction_cents / 100.0)
+      format_currency(object.monetary_correction / 100.0)
     end
 
     def format_currency(value)

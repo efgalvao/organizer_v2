@@ -30,7 +30,7 @@ module TransactionServices
         category: category_name(params.fetch(:category_id)),
         account: account_name(params.fetch(:account_id)),
         kind: params.fetch(:kind),
-        value: params.fetch(:value),
+        amount: params.fetch(:amount),
         date: params[:date],
         parcels: params[:parcels]
       }
