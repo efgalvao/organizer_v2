@@ -9,14 +9,14 @@ RSpec.describe InvestmentsServices::UpdateFixedInvestmentByNegotiation do
     create(:investment,
            account: account,
            shares_total: 1,
-           invested_value_cents: 1,
-           current_value_cents: 1)
+           invested_amount: 1,
+           current_amount: 1)
   end
   let(:investment_params) do
     {
       id: investment.id,
       shares_total: 1,
-      invested_value_cents: 2
+      invested_amount: 2
     }
   end
 
@@ -26,7 +26,7 @@ RSpec.describe InvestmentsServices::UpdateFixedInvestmentByNegotiation do
     expect(response).to be_a(Investments::Investment)
     expect(response).to be_persisted
     expect(response.shares_total).to eq(2)
-    expect(response.invested_value_cents).to eq(3)
-    expect(response.current_value_cents).to eq(3)
+    expect(response.invested_amount).to eq(3)
+    expect(response.current_amount).to eq(3)
   end
 end
