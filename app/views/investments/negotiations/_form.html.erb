@@ -6,7 +6,7 @@
   <%= form_error_notification(negotiation) %>
 
   <%= f.input :date, label: "Data", as: :date, html5: true, input_html: { autofocus: true } %>
-  <%= f.input :amount_cents, as: :float, label: "Valor" %>
+  <%= f.input :amount, as: :float, label: "Valor" %>
   <%= f.input :shares, as: :integer, label: "Cotas" %>
   <%= f.input :kind, as: :select, collection: [    ["Compra", "buy"], ["Venda", "sell"]], label: "Tipo" %>
   <%= f.input :investment_id, as: :hidden, input_html: { value: params[:investment_id] } %>
