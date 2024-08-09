@@ -10,7 +10,7 @@ RSpec.describe Transference do
   end
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of(:value_cents) }
+    it { is_expected.to validate_presence_of(:amount) }
 
     it 'validates that sender and receiver are different' do
       account = create(:account)

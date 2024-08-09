@@ -3,7 +3,7 @@ class Transference < ApplicationRecord
   belongs_to :receiver, class_name: 'Account::Account'
   belongs_to :user
 
-  validates :date, :value_cents, presence: true
+  validates :date, :amount, presence: true
   validate :different_accounts
 
   def different_accounts
