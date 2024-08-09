@@ -21,7 +21,7 @@ RSpec.describe AccountServices::BuildTransaction do
     expect(response).to be_a(Account::Transaction)
     expect(response.kind).to eq('income')
     expect(response.title).to eq('My Transaction')
-    expect(response.value_cents).to eq(12_345)
+    expect(response.amount).to eq(123.45)
     expect(response).not_to be_persisted
     expect(response.account_report_id).not_to be_nil
     expect(response.date).to eq(Date.parse('2024-01-01'))
