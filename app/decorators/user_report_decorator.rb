@@ -2,38 +2,42 @@ class UserReportDecorator < Draper::Decorator
   delegate_all
 
   def savings_balance
-    object.savings_cents / 100.0
+    format_currency(object.savings)
   end
 
   def investments_balance
-    object.investments_cents / 100.0
+    format_currency(object.investments)
   end
 
   def month_total
-    object.total_cents / 100.0
+    format_currency(object.total)
   end
 
   def month_income
-    object.incomes_cents / 100.0
+    format_currency(object.incomes)
   end
 
   def month_expense
-    object.expenses_cents / 100.0
+    format_currency(object.expenses)
   end
 
   def month_invested
-    object.invested_cents / 100.0
+    format_currency(object.invested)
   end
 
   def month_dividends
-    object.dividends_cents / 100.0
+    format_currency(object.dividends)
   end
 
   def month_balance
-    object.balance_cents / 100.0
+    format_currency(object.balance)
   end
 
   def month_card_expenses
-    object.card_expenses_cents / 100.0
+    format_currency(object.card_expenses)
+  end
+
+  def format_currency(value)
+    ActionController::Base.helpers.number_to_currency(value, unit: 'R$ ', separator: ',', delimiter: '.')
   end
 end

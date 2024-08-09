@@ -44,6 +44,6 @@ RSpec.describe UserServices::ConsolidatedUserReport do
     expect(response).to be_a(UserReport)
     expect(response.date).to eq(Date.current)
     expect(response.reference).to eq(Date.current.strftime('%m/%y'))
-    expect(response.savings_cents).to eq(4)
+    expect(response.savings).to eq(4)
   end
 end

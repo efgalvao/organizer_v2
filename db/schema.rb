@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_08_09_182245) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_09_184453) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -152,15 +152,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_09_182245) do
 
   create_table "user_reports", force: :cascade do |t|
     t.date "date"
-    t.integer "savings_cents", default: 0, null: false
-    t.integer "investments_cents", default: 0, null: false
-    t.integer "total_cents", default: 0, null: false
-    t.integer "incomes_cents", default: 0, null: false
-    t.integer "expenses_cents", default: 0, null: false
-    t.integer "invested_cents", default: 0, null: false
-    t.integer "balance_cents", default: 0, null: false
-    t.integer "card_expenses_cents", default: 0, null: false
-    t.integer "dividends_cents", default: 0, null: false
+    t.decimal "savings", precision: 15, scale: 2, default: "0.0", null: false
+    t.decimal "investments", precision: 15, scale: 2, default: "0.0", null: false
+    t.decimal "total", precision: 15, scale: 2, default: "0.0", null: false
+    t.decimal "incomes", precision: 15, scale: 2, default: "0.0", null: false
+    t.decimal "expenses", precision: 15, scale: 2, default: "0.0", null: false
+    t.decimal "invested", precision: 15, scale: 2, default: "0.0", null: false
+    t.decimal "balance", precision: 15, scale: 2, default: "0.0", null: false
+    t.decimal "card_expenses", precision: 15, scale: 2, default: "0.0", null: false
+    t.decimal "dividends", precision: 15, scale: 2, default: "0.0", null: false
     t.string "reference", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
