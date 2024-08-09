@@ -25,15 +25,11 @@ module InvestmentsServices
     def formated_params
       {
         date: date,
-        amount_cents: convert_to_cents(params[:amount_cents]),
+        amount: params[:amount].to_d,
         kind: params[:kind],
         shares: params[:shares],
         negotiable: negotiable
       }
-    end
-
-    def convert_to_cents(value)
-      value.to_f * 100
     end
 
     def date
@@ -48,7 +44,7 @@ module InvestmentsServices
 
     def transaction_params
       { account_id: negotiable.account_id,
-        value: params[:amount_cents],
+        value: params[:amount],
         kind: INVESTMENT_CODE,
         title: "#{I18n.t('investments.negotiation')} - #{negotiable.name}",
         date: date }
@@ -58,7 +54,7 @@ module InvestmentsServices
       {
         id: negotiable.id,
         shares_total: params[:shares],
-        invested_value_cents: convert_to_cents(params[:amount_cents])
+        invested_value_cents: params[:amount]
       }
     end
 

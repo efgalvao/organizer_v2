@@ -13,7 +13,7 @@ RSpec.describe InvestmentsServices::CreateNegotiation do
         {
           date: Date.current.strftime('%d/%m/%Y'),
           kind: 'buy',
-          amount_cents: '10.01',
+          amount: '10.01',
           investment_id: investment.id,
           shares: 1
         }
@@ -25,7 +25,7 @@ RSpec.describe InvestmentsServices::CreateNegotiation do
         expect(response).to be_a(Investments::Negotiation)
         expect(response.date).to eq(Date.current)
         expect(response.kind).to eq('buy')
-        expect(response.amount_cents).to eq(1001)
+        expect(response.amount).to eq(10.01)
         expect(response.negotiable_id).to eq(investment.id)
         expect(response.shares).to eq(1)
         expect(response).to be_persisted
@@ -37,7 +37,7 @@ RSpec.describe InvestmentsServices::CreateNegotiation do
         {
           date: '',
           kind: 'buy',
-          amount_cents: '10.01',
+          amount: '10.01',
           investment_id: investment.id,
           shares: 1
         }
@@ -49,7 +49,7 @@ RSpec.describe InvestmentsServices::CreateNegotiation do
         expect(response).to be_a(Investments::Negotiation)
         expect(response.date).to eq(Date.current)
         expect(response.kind).to eq('buy')
-        expect(response.amount_cents).to eq(1001)
+        expect(response.amount).to eq(10.01)
         expect(response.negotiable_id).to eq(investment.id)
         expect(response.shares).to eq(1)
         expect(response).to be_persisted
@@ -65,7 +65,7 @@ RSpec.describe InvestmentsServices::CreateNegotiation do
         {
           date: Date.current.strftime('%d/%m/%Y'),
           kind: 'buy',
-          amount_cents: '10.01',
+          amount: '10.01',
           investment_id: investment.id,
           shares: 1
         }
@@ -77,7 +77,7 @@ RSpec.describe InvestmentsServices::CreateNegotiation do
         expect(response).to be_a(Investments::Negotiation)
         expect(response.date).to eq(Date.current)
         expect(response.kind).to eq('buy')
-        expect(response.amount_cents).to eq(1001)
+        expect(response.amount).to eq(10.01)
         expect(response.negotiable_id).to eq(investment.id)
         expect(response.shares).to eq(1)
         expect(response).to be_persisted
@@ -89,7 +89,7 @@ RSpec.describe InvestmentsServices::CreateNegotiation do
         {
           date: '',
           kind: 'buy',
-          amount_cents: '10.01',
+          amount: '10.01',
           investment_id: investment.id,
           shares: 1
         }
@@ -101,7 +101,7 @@ RSpec.describe InvestmentsServices::CreateNegotiation do
         expect(response).to be_a(Investments::Negotiation)
         expect(response.date).to eq(Date.current)
         expect(response.kind).to eq('buy')
-        expect(response.amount_cents).to eq(1001)
+        expect(response.amount).to eq(10.01)
         expect(response.negotiable_id).to eq(investment.id)
         expect(response.shares).to eq(1)
         expect(response).to be_persisted
