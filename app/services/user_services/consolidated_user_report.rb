@@ -4,15 +4,15 @@ module UserServices
 
     def initialize(user_id)
       @user_id = user_id
-      @savings_cents = DEFAULT_VALUE
-      @investments_cents = DEFAULT_VALUE
-      @incomes_cents = DEFAULT_VALUE
-      @expenses_cents = DEFAULT_VALUE
-      @invested_cents = DEFAULT_VALUE
-      @dividends_cents = DEFAULT_VALUE
-      @card_expenses_cents = DEFAULT_VALUE
-      @balance_cents = DEFAULT_VALUE
-      @total_cents = DEFAULT_VALUE
+      @savings = DEFAULT_VALUE
+      @investments = DEFAULT_VALUE
+      @incomes = DEFAULT_VALUE
+      @expenses = DEFAULT_VALUE
+      @invested = DEFAULT_VALUE
+      @dividends = DEFAULT_VALUE
+      @card_expenses = DEFAULT_VALUE
+      @balance = DEFAULT_VALUE
+      @total = DEFAULT_VALUE
     end
 
     def call
@@ -22,8 +22,8 @@ module UserServices
 
     private
 
-    attr_reader :user_id, :savings_cents, :investments_cents, :incomes_cents, :expenses_cents,
-                :invested_cents, :dividends_cents, :card_expenses_cents, :balance_cents, :total_cents
+    attr_reader :user_id, :savings, :investments, :incomes, :expenses,
+                :invested, :dividends, :card_expenses, :balance, :total
 
     def user
       @user ||= User.find(user_id)
@@ -41,15 +41,15 @@ module UserServices
       report = user.user_reports.find_or_initialize_by(reference: current_reference)
       report.update(
         date: Date.current,
-        savings_cents: @savings_cents,
-        investments_cents: @investments_cents,
-        incomes_cents: @incomes_cents,
-        expenses_cents: @expenses_cents,
-        invested_cents: @invested_cents,
-        dividends_cents: @dividends_cents,
-        card_expenses_cents: @card_expenses_cents,
-        balance_cents: @balance_cents,
-        total_cents: @total_cents
+        savings: @savings,
+        investments: @investments,
+        incomes: @incomes,
+        expenses: @expenses,
+        invested: @invested,
+        dividends: @dividends,
+        card_expenses: @card_expenses,
+        balance: @balance,
+        total: @total
       )
       report
     end
@@ -57,20 +57,20 @@ module UserServices
     def consolidate_month_report
       user.accounts.except_card_accounts.each do |account|
         account_report = account.current_report
-        @savings_cents += account.balance
-        @investments_cents += calculate_investments(account)
-        @incomes_cents += account_report.month_income
-        @expenses_cents += account_report.month_expense
-        @invested_cents += account_report.month_invested
-        @dividends_cents += account_report.month_dividends
+        @savings += account.balance
+        @investments += calculate_investments(account)
+        @incomes += account_report.month_income
+        @expenses += account_report.month_expense
+        @invested += account_report.month_invested
+        @dividends += account_report.month_dividends
       end
 
       user.accounts.card_accounts.each do |card|
-        @card_expenses_cents += card.current_report.month_expense
+        @card_expenses += card.current_report.month_expense
       end
 
-      @balance_cents = @incomes_cents - @expenses_cents - @invested_cents
-      @total_cents = @savings_cents + @investments_cents
+      @balance = @incomes - @expenses - @invested
+      @total = @savings + @investments
     end
 
     def calculate_investments(account)
