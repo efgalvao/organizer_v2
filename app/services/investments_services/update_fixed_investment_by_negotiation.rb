@@ -9,6 +9,7 @@ module InvestmentsServices
     end
 
     def new_current_value
+      # puts '----->', @investment.current_amount, params[:invested_amount].to_d
       @investment.current_amount + params[:invested_amount].to_d
     end
 

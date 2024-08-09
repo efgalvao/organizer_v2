@@ -10,6 +10,7 @@ module FinancingServices
 
     def call
       payment = Financings::Payment.new(payment_attributes)
+      binding.pry
       payment.save
       payment
     rescue StandardError => e

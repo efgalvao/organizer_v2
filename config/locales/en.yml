@@ -273,7 +273,8 @@ en:
           current_month: Current month
           kind: Kind
           invested: Invested
-          current: Current
+          current_amount: Current amount
+          current_total_amount: Current total
           shares: Shares
           positions:
             title: Positions

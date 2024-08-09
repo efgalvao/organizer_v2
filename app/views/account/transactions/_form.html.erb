@@ -6,7 +6,7 @@
   <%= form_error_notification(transaction) %>
 
   <%= f.input :title, label: t('transactions.form.description'), input_html: { autofocus: true } %>
-  <%= f.input :value, as: :integer, label: t('transactions.form.amount'),
+  <%= f.input :amount, as: :integer, label: t('transactions.form.amount'),
     input_html: { value: transaction.amount.present? ? transaction.amount.to_d : 1,
      readonly: !transaction.new_record? } %>
   <%= f.input :date, as: :date, html5: true, label: t('transactions.form.date') %>

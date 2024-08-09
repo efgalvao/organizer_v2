@@ -3,6 +3,9 @@
 <div class="financing">
   <%= link_to financing.name, financing_path(financing),
                 data: { turbo_frame: "_top" }  %>
+        <div><%= financing.installments %></div>
+        <div><%= financing.borrowed_value %></div>
+
   <div class="financing__actions">
     <%= button_to t('buttons.delete'),
                   financing_path(financing),

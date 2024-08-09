@@ -11,9 +11,9 @@
     </thead>
     <tbody>
         <tr>
-          <td><%= number_to_currency(user_report.savings_balance, unit: 'R$', separator: ',', delimiter: '.') %></td>
-          <td><%= number_to_currency(user_report.investments_balance, unit: 'R$', separator: ',', delimiter: '.') %></td>
-          <td><%= number_to_currency(user_report.month_total, unit: 'R$', separator: ',', delimiter: '.') %></td>
+          <td><%= user_report.savings_balance %></td>
+          <td><%= user_report.investments_balance %></td>
+          <td><%= user_report.month_total %></td>
         </tr>
     </tbody>
   </table>
@@ -33,12 +33,12 @@
     </thead>
     <tbody>
       <tr>
-        <td><%= number_to_currency(user_report.month_income, unit: 'R$ ', separator: ',', delimiter: '.') %></td>
-        <td><%= number_to_currency(user_report.month_expense, unit: 'R$ ', separator: ',', delimiter: '.') %></td>
-        <td><%= number_to_currency(user_report.month_card_expenses, unit: 'R$ ', separator: ',', delimiter: '.') %></td>
-        <td><%= number_to_currency(user_report.month_invested, unit: 'R$ ', separator: ',', delimiter: '.') %></td>
-        <td><%= number_to_currency(user_report.month_dividends, unit: 'R$ ', separator: ',', delimiter: '.') %></td>
-        <td><%= number_to_currency(user_report.month_balance, unit: 'R$ ', separator: ',', delimiter: '.') %></td>
+        <td><%= user_report.month_income %></td>
+        <td><%= user_report.month_expense %></td>
+        <td><%= user_report.month_card_expenses %></td>
+        <td><%= user_report.month_invested %></td>
+        <td><%= user_report.month_dividends %></td>
+        <td><%= user_report.month_balance %></td>
       </tr>
     </tbody>
   </table>

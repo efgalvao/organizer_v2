@@ -8,32 +8,32 @@ module Financings
       value = (object.amortization +
        object.interest +
        object.insurance +
-       + object.fees + object.adjustment) / 100.0
+       + object.fees + object.adjustment)
       format_currency(value)
     end
 
     def interest
-      format_currency(object.interest / 100.0)
+      format_currency(object.interest)
     end
 
     def amortization
-      format_currency(object.amortization / 100.0)
+      format_currency(object.amortization)
     end
 
     def insurance
-      format_currency(object.insurance / 100.0)
+      format_currency(object.insurance)
     end
 
     def fees
-      format_currency(object.fees / 100.0)
+      format_currency(object.fees)
     end
 
     def adjustment
-      format_currency(object.adjustment / 100.0)
+      format_currency(object.adjustment)
     end
 
     def monetary_correction
-      format_currency(object.monetary_correction / 100.0)
+      format_currency(object.monetary_correction)
     end
 
     def format_currency(value)

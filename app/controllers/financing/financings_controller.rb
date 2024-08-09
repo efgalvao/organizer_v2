@@ -4,7 +4,7 @@ module Financing
     before_action :financing, only: %i[show destroy edit update]
 
     def index
-      @financings = Financings::Financing.where(user_id: current_user.id).all
+      @financings = Financings::Financing.where(user_id: current_user.id).all.decorate
     end
 
     def show

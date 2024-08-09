@@ -42,7 +42,7 @@ module InvestmentsServices
     def update_investment_params
       {
         id: positionable.id,
-        current_value_cents: params[:amount],
+        current_amount: params[:amount],
         shares_total: params[:shares].to_i
       }
     end

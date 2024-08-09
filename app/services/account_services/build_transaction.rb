@@ -23,17 +23,13 @@ module AccountServices
     def transaction_params
       {
         account_id: params[:account_id],
-        amount: value_to_decimal(params[:value]),
+        amount: params[:amount].to_d,
         kind: params[:kind].to_i,
         date: date,
         category_id: params[:category_id],
         title: params[:title],
         account_report_id: account_report.id
       }
-    end
-
-    def value_to_decimal(value)
-      value.to_d
     end
 
     def date

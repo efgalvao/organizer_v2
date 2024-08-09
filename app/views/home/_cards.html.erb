@@ -11,8 +11,8 @@
     <% cards.each do |card| %>
     <tr>
       <td><%= link_to card[:name], card_path(card[:id]) %></td>
-      <td><%= number_to_currency(card[:balance], unit: 'R$ ', separator: ',', delimiter: '.') %></td>
-      <td><%= number_to_currency(card[:total], unit: 'R$ ', separator: ',', delimiter: '.') %></td>
+      <td><%= card[:balance] %></td>
+      <td><%= card[:total] %></td>
     </tr>
     <% end %>
   </tbody>

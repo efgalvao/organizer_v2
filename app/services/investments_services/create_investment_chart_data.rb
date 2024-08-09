@@ -33,7 +33,7 @@ module InvestmentsServices
       summary = { shares: {}, amounts: {} }
       investment.negotiations.order(:date).map do |negotiation|
         summary[:shares][negotiation.date.strftime('%d/%m/%Y').to_s] = negotiation.shares
-        summary[:amounts][negotiation.date.strftime('%d/%m/%Y').to_s] = negotiation.amount_cents
+        summary[:amounts][negotiation.date.strftime('%d/%m/%Y').to_s] = negotiation.amount
       end
       summary
     end
