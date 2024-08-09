@@ -32,8 +32,8 @@
     </thead>
     <tbody>
       <tr>
-        <td><%= number_to_currency(investment.invested_value, unit: 'R$ ', separator: ',', delimiter: '.') %></td>
-        <td><%= number_to_currency(investment.current_value, unit: 'R$ ', separator: ',', delimiter: '.') %></td>
+        <td><%= investment.invested_amount %></td>
+        <td><%= investment.current_amount %></td>
         <td><%= investment.shares_total %></td>
       </tr>
     </tbody>

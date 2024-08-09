@@ -13,19 +13,19 @@ module Investments
       "/investments/#{object.id}/edit"
     end
 
-    def invested_value
-      object.invested_value_cents / 100.0
+    def invested_amount
+      format_currency(object.invested_amount)
     end
 
-    def current_value
-      object.current_value_cents / 100.0
+    def current_amount
+      format_currency(object.current_amount)
     end
 
     def balance
       if object.type == 'Investments::VariableInvestment'
-        object.current_value_cents * object.shares_total / 100.0
+        format_currency(object.current_amount * object.shares_total)
       else
-        object.current_value_cents / 100.0
+        format_currency(object.current_amount)
       end
     end
 
@@ -71,6 +71,10 @@ module Investments
 
     def dividends_chart_data
       investment_chart_data[:dividends]
+    end
+
+    def format_currency(value)
+      ActionController::Base.helpers.number_to_currency(value, unit: 'R$ ', separator: ',', delimiter: '.')
     end
   end
 end
