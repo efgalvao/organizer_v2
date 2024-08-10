@@ -29,7 +29,6 @@ module UserServices
     attr_reader :user_id
 
     def calculate_month_balance(card)
-      # binding.pry
       current_report = card.current_report
       current_report.month_income - current_report.month_expense
     end

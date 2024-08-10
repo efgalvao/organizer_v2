@@ -44,9 +44,9 @@ module InvestmentsServices
 
     def transaction_params
       { account_id: negotiable.account_id,
-        value: params[:amount],
+        amount: amount_by_origin,
         kind: INVESTMENT_CODE,
-        title: "#{I18n.t('investments.negotiation')} - #{negotiable.name}",
+        title: "#{I18n.t('investments.negotiation')} - #{negotiable.name} -> #{params[:amount]}*#{params[:shares]}",
         date: date }
     end
 
@@ -63,6 +63,14 @@ module InvestmentsServices
         InvestmentsServices::UpdateFixedInvestmentByNegotiation.call(update_investment_params)
       else
         InvestmentsServices::UpdateVariableInvestmentByNegotiation.call(update_investment_params)
+      end
+    end
+
+    def amount_by_origin
+      if negotiable.fixed?
+        params[:amount]
+      else
+        params[:amount] * params[:shares]
       end
     end
   end
