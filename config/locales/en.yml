@@ -293,6 +293,7 @@ en:
             title: Dividends
             date: Date
             amount: Amount
+            shares: Shares
             monthly_balance: Monthly balance
   layouts:
     header:

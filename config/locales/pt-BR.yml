@@ -272,6 +272,7 @@ pt-BR:
             title: Dividendos
             date: Data
             amount: Valor
+            shares: Cotas
             monthly_balance: Saldo mensal
   layouts:
     header:
