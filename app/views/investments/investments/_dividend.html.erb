@@ -6,7 +6,11 @@
   </div>
 
   <div>
-    <%= number_to_currency(dividend.amount, unit: 'R$ ', separator: ',', delimiter: '.') %>
+    <%= dividend.amount %>
+  </div>
+
+  <div>
+    <%= dividend.shares %>
   </div>
 </div>
 <% end %>

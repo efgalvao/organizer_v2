@@ -8,7 +8,7 @@ module InvestmentsServices
     end
 
     def new_current_value
-      params[:current_amount].to_i
+      params[:current_amount].to_d
     end
 
     def new_shares_total

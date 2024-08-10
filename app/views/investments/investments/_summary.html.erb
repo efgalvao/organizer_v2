@@ -13,7 +13,7 @@
     </thead>
     <tbody>
         <tr>
-          <td><%= number_to_currency(investment.balance, unit: 'R$', separator: ',', delimiter: '.') %></td>
+          <td><%= investment.balance %></td>
         </tr>
     </tbody>
   </table>
@@ -26,7 +26,8 @@
     <thead>
       <tr>
         <th><%= t('investments.investments.show.summary.invested') %> </th>
-        <th><%= t('investments.investments.show.summary.current') %></th>
+        <th><%= t('investments.investments.show.summary.current_amount') %></th>
+        <th><%= t('investments.investments.show.summary.current_total_amount') %></th>
         <th><%= t('investments.investments.show.summary.shares') %></th>
       </tr>
     </thead>
@@ -34,6 +35,7 @@
       <tr>
         <td><%= investment.invested_amount %></td>
         <td><%= investment.current_amount %></td>
+        <td><%= investment.current_total_amount %></td>
         <td><%= investment.shares_total %></td>
       </tr>
     </tbody>

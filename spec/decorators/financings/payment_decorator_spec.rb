@@ -9,12 +9,12 @@ RSpec.describe Financings::PaymentDecorator do
            paid_parcels: 1,
            ordinary: 'true',
            payment_date: '2024-02-02'.to_date,
-           amortization: 100,
-           fees: 200,
-           interest: 300,
-           insurance: 400,
-           adjustment: 500,
-           monetary_correction: 600)
+           amortization: 1,
+           fees: 2,
+           interest: 3,
+           insurance: 4,
+           adjustment: 5,
+           monetary_correction: 6)
   end
 
   describe '#parcel_value' do

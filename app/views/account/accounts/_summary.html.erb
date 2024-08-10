@@ -18,7 +18,7 @@
 <div class="subtitle"><%= t('account.summary.current_month_title') %></div>
         <p><span class="item-label"><%= t('account.summary.current_month.report_date') %>: </span><%= account.current_report&.date %></p>
         <p><span class="item-label"><%= t('account.summary.current_month.initial_balance') %>: </span>
-        <%= number_to_currency(account.current_report&.initial_account_balance, unit: 'R$ ', separator: ',', delimiter: '.') %></p>
+        <%= account.current_report&.initial_account_balance %></p>
   <table class="striped">
     <thead>
       <tr>
@@ -31,11 +31,11 @@
     </thead>
     <tbody>
       <tr>
-        <td><%= number_to_currency(account.current_report.month_income, unit: 'R$ ', separator: ',', delimiter: '.') %></td>
-        <td><%= number_to_currency(account.current_report.month_expense, unit: 'R$ ', separator: ',', delimiter: '.') %></td>
-        <td><%= number_to_currency(account.current_report.month_invested, unit: 'R$ ', separator: ',', delimiter: '.') %></td>
-        <td><%= number_to_currency(account.current_report.month_balance, unit: 'R$ ', separator: ',', delimiter: '.') %></td>
-        <td><%= number_to_currency(account.current_report.final_account_balance, unit: 'R$ ', separator: ',', delimiter: '.') %></td>
+        <td><%= account.current_report.month_income %></td>
+        <td><%= account.current_report.month_expense %></td>
+        <td><%= account.current_report.month_invested %></td>
+        <td><%= account.current_report.month_balance %></td>
+        <td><%= account.current_report.final_account_balance %></td>
       </tr>
     </tbody>
   </table>

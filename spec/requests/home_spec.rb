@@ -16,11 +16,10 @@ RSpec.describe 'Home' do
     end
 
     context 'when not logged in' do
-      it 'redirects to home' do
+      it 'redirects to home', :aggregate_failures do
         get '/'
 
-        expect(response).to be_successful
-        expect(response).to render_template(:index)
+        expect(response).to have_http_status(:found)
       end
     end
   end

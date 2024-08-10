@@ -252,7 +252,8 @@ pt-BR:
           current_month: Mês atual
           kind: Tipo
           invested: Investido
-          current: Atual
+          current_amount: Valor atual
+          current_total_amount: Total atual
           shares: Cotas
           positions:
             title: Posições
@@ -271,6 +272,7 @@ pt-BR:
             title: Dividendos
             date: Data
             amount: Valor
+            shares: Cotas
             monthly_balance: Saldo mensal
   layouts:
     header:

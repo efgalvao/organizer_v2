@@ -273,7 +273,8 @@ en:
           current_month: Current month
           kind: Kind
           invested: Invested
-          current: Current
+          current_amount: Current amount
+          current_total_amount: Current total
           shares: Shares
           positions:
             title: Positions
@@ -292,6 +293,7 @@ en:
             title: Dividends
             date: Date
             amount: Amount
+            shares: Shares
             monthly_balance: Monthly balance
   layouts:
     header:
