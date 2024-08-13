@@ -2,11 +2,22 @@
   <%= t('home.past_month_reports.title') %>
 </div>
 
-<div class="table-header">
-  <%= t('home.past_month_reports.incomes') %>
-  <%= t('home.past_month_reports.expenses') %>
-  <%= t('home.past_month_reports.invested') %>
-  <%= t('home.past_month_reports.month_balance') %>
+<div class="list-header">
+  <div class="list-header-item">
+    <%= t('home.past_month_reports.incomes') %>
+  </div>
+
+  <div class="list-header-item">
+    <%= t('home.past_month_reports.expenses') %>
+  </div>
+
+  <div class="list-header-item">
+    <%= t('home.past_month_reports.invested') %>
+  </div>
+
+  <div class="list-header-item">
+    <%= t('home.past_month_reports.month_balance') %>
+  </div>
 </div>
 
   <%= turbo_frame_tag "past_month_reports" do %>

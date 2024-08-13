@@ -9,4 +9,5 @@ esbuild.build({
   publicPath: '/assets',
   minify: true,
   plugins: [sassPlugin()],
+  watch: true, // Ensure this is enabled
 }).catch(() => process.exit(1));

@@ -1,0 +1,16 @@
+.list-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+.list-header-item {
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 10px solid red;
+  /* Optional: for visual clarity */
+  box-sizing: border-box;
+  /* Ensures padding/border doesn't affect size */
+}
