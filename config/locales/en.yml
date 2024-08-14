@@ -67,13 +67,19 @@ en:
       transactions: Transactions
       create_invetmment: Create investment
       create_transference: Create Transference
-    chart:
-      past_month:
-        title: "Past month"
-        incomes: Incomes
-        expenses: Expenses
-        invested: Invested
-        balance: Balance
+      chart:
+        past_month:
+          title: Past month
+          incomes: Incomes
+          expenses: Expenses
+          invested: Invested
+          balance: Balance
+      investments:
+        title: Investments
+        name: Name
+        invested_amount: Invested
+        current_amount: Current amount
+        kind: Kind
   transactions:
     index:
       transactions: Transactions
@@ -82,14 +88,13 @@ en:
       edit: Edit
     edit: Edit Transaction
     form:
-      description: Description
       date: Date
       amount: Amount
       description: Description
       kind: Kind
       income_kind: Income
       expense_kind: Expense
-      parcels: Parcelps
+      parcels: Parcels
       category: Category
   card:
     form:

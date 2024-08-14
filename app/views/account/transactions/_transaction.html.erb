@@ -1,27 +1,30 @@
 <%= turbo_frame_tag transaction do %>
-<div class="transaction">
-  <div>
-    <%= transaction.title %>
-  </div>
-  <div>
-    <%= transaction.amount %>
-  </div>
+  <div class="account-transaction-list account-transaction-list-grid">
+    <div class="list-item">
+      <%= transaction.title %>
+    </div>
 
-  <div>
-    <%= transaction.kind %>
-  </div>
+    <div class="list-item">
+      <%= transaction.amount %>
+    </div>
 
-  <div>
-    <%= transaction.date %>
-  </div>
+    <div class="list-item">
+      <%= transaction.kind %>
+    </div>
 
-  <%= link_to transaction.account.name, transaction.path,
-                data: { turbo_frame: "_top" }  %>
+    <div class="list-item">
+      <%= transaction.date %>
+    </div>
 
-  <div class="account__actions">
-    <%= link_to t('buttons.edit'),
-                edit_account_transaction_path(id: transaction.id),
-                class: "btn btn--light" %>
+    <div class="list-item">
+    <%= link_to transaction.account.name, transaction.path,
+                  data: { turbo_frame: "_top" }  %>
+    </div>
+
+    <div  class="list-item">
+      <%= link_to t('buttons.edit'),
+                  edit_account_transaction_path(id: transaction.id),
+                  class: "btn btn--light" %>
+    </div>
   </div>
-</div>
 <% end %>

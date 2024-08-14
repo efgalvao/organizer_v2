@@ -1,7 +1,9 @@
 <div class="subtitle">
-  <%= t('.investments') %>
-  </div>
+  <%= t('account.show.investments.title') %>
+</div>
+
+<%= render partial: 'investment_header' %>
 
 <%= turbo_frame_tag "investments" do %>
     <%= render partial: 'investment', collection: investments %>
-  <% end %>
+<% end %>

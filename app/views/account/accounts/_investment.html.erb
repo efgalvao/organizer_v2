@@ -1,26 +1,27 @@
 <%= turbo_frame_tag "investment_#{investment.id}" do %>
 
-  <div class="investment">
-    <%= link_to investment.name, investment_path(investment),
+  <div class="list account-investment-list-grid">
+    <div class="list-item">
+      <%= link_to investment.name, investment_path(investment),
                   data: { turbo_frame: "_top" }  %>
+    </div>
 
-    <div>
+    <div class="list-item">
       <%= investment.invested_amount %>
     </div>
 
-    <div>
+    <div class="list-item">
       <%= investment.current_amount %>
     </div>
 
-    <div>
+    <div class="list-item">
       <%= investment.kind %>
     </div>
 
-    <div class="investment__actions">
-
+    <div  class="list-item">
       <%= link_to t('buttons.edit'),
                   edit_investment_path(investment),
                   class: "btn btn--light" %>
     </div>
   </div>
-  <% end %>
+<% end %>
