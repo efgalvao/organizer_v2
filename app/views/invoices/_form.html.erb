@@ -1,7 +1,7 @@
 <%= simple_form_for :invoice, url: card_invoice_path(card_id: card_id), html: { class: "invoice form" } do |f| %>
 
   <%= f.input :date, as: :date, html5: true, label: t('invoices.date') %>
-  <%= f.input :value, label: t('invoices.amount') %>
+  <%= f.input :amount, label: t('invoices.amount') %>
   <%= f.hidden_field :receiver_id, value: card_id %>
   <%= f.input :sender_id, collection: accounts, label_method: :name, value_method: :id, label: t('invoices.account') %>
 
