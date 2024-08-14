@@ -1,16 +1,22 @@
-.list-header {
+.home-list-header {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 10px;
+  gap: var(--space-s);
+  margin-bottom: var(--space-m);
+  padding: var(--space-xs);
+
+  @include media(tabletAndUp) {
+    padding: var(--space-xs) var(--space-m);
+  }
+
+  &__actions {
+    display: flex;
+    flex: 0 0 auto;
+    align-self: flex-start;
+    gap: var(--space-xs);
+  }
 }
 
-.list-header-item {
-  height: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 10px solid red;
-  /* Optional: for visual clarity */
-  box-sizing: border-box;
-  /* Ensures padding/border doesn't affect size */
+.past-months-header-grid {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+
 }
