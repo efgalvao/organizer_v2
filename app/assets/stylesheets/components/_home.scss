@@ -7,16 +7,8 @@
   @include media(tabletAndUp) {
     padding: var(--space-xs) var(--space-m);
   }
-
-  &__actions {
-    display: flex;
-    flex: 0 0 auto;
-    align-self: flex-start;
-    gap: var(--space-xs);
-  }
 }
 
 .past-months-header-grid {
   grid-template-columns: 1fr 1fr 1fr 1fr;
-
 }

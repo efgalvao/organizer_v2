@@ -1,7 +1,7 @@
-.account {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.account-index-list {
+  display: grid;
+  gap: 10px;
+  align-items: left;
   gap: var(--space-s);
 
   background-color: var(--color-white);
@@ -13,11 +13,102 @@
   @include media(tabletAndUp) {
     padding: var(--space-xs) var(--space-m);
   }
+}
 
-  &__actions {
-    display: flex;
-    flex: 0 0 auto;
-    align-self: flex-start;
-    gap: var(--space-xs);
+.account-index-list-item {
+  height: 10px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 15px 5px;
+  font-size: 15px;
+}
+
+.account-index-list-button {
+  height: 10px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 15px 5px;
+  font-size: 15px;
+  gap: 10px;
+}
+
+.account-index-grid {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.account-past-months-list-header {
+  display: grid;
+  gap: var(--space-s);
+  margin-bottom: var(--space-m);
+  padding: var(--space-xs);
+
+  @include media(tabletAndUp) {
+    padding: var(--space-xs) var(--space-m);
+  }
+}
+
+.account-past-months-header-grid {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.account-transaction-list {
+  display: grid;
+  gap: 10px;
+  align-items: left;
+  gap: var(--space-s);
+
+  background-color: var(--color-white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-small);
+  margin-bottom: var(--space-m);
+  padding: var(--space-xs);
+
+  @include media(tabletAndUp) {
+    padding: var(--space-xs) var(--space-m);
+  }
+}
+
+.account-transaction-list-grid {
+  grid-template-columns: 3fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.account-transaction-list-header {
+  display: grid;
+  gap: var(--space-s);
+  margin-bottom: var(--space-m);
+  padding: var(--space-xs);
+
+  @include media(tabletAndUp) {
+    padding: var(--space-xs) var(--space-m);
+  }
+}
+
+.account-investment-list-header {
+  display: grid;
+  gap: var(--space-s);
+  margin-bottom: var(--space-m);
+  padding: var(--space-xs);
+
+  @include media(tabletAndUp) {
+    padding: var(--space-xs) var(--space-m);
+  }
+}
+
+.account-investment-list-grid {
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.account-investments-list-header {
+  display: grid;
+  gap: var(--space-s);
+  margin-bottom: var(--space-m);
+  padding: var(--space-xs);
+
+  @include media(tabletAndUp) {
+    padding: var(--space-xs) var(--space-m);
   }
 }
