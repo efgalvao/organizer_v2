@@ -31,8 +31,8 @@
       class: "btn btn--light" %>
   </div>
 
+  <%= render partial: 'header' %>
   <%= turbo_frame_tag "transactions" do %>
     <%= render partial: 'transaction', collection: @transactions %>
   <% end %>
-
 </main>

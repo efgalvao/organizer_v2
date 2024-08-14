@@ -1,20 +1,19 @@
 <%= turbo_frame_tag "report_#{past_report.id}" do %>
-
-  <div class="transaction">
-    <div>
+  <div class="list account-past-months-header-grid">
+    <div class="list-item">
       <%= past_report.month_income %>
     </div>
 
-    <div>
+    <div class="list-item">
       <%= past_report.month_expense %>
     </div>
 
-    <div>
+    <div class="list-item">
       <%= past_report.month_invested %>
     </div>
 
-      <div>
-        <%= past_report.month_balance %>
-      </div>
+    <div class="list-item">
+      <%= past_report.month_balance %>
+    </div>
   </div>
-  <% end %>
+<% end %>
