@@ -18,8 +18,8 @@ financing = FactoryBot.create(:financing, user: user)
 
 FactoryBot.create_list(:payment, 2, financing: financing)
 
-savings = FactoryBot.create(:account, user: user, kind: 'savings', name: 'Savings Account')
-broker = FactoryBot.create(:account, user: user, kind: 'broker', name: 'Broker Account')
+savings = FactoryBot.create(:account, user: user, kind: 'savings', name: 'Savings Account', balance: 0.0)
+broker = FactoryBot.create(:account, user: user, kind: 'broker', name: 'Broker Account', balance: 0.0)
 
 FactoryBot.create_list(:transaction, 2, account: savings)
 FactoryBot.create_list(:transaction, 2, account: broker)

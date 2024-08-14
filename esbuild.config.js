@@ -8,5 +8,5 @@ esbuild.build({
   outdir: 'app/assets/builds',
   publicPath: '/assets',
   minify: true,
-  plugins: [sassPlugin()],
+  plugins: [sassPlugin()]
 }).catch(() => process.exit(1));
