@@ -214,6 +214,10 @@ pt-BR:
       title: Transferências
       new_transference: Nova transferência
       create_transference: Criar transferência
+      sender: Remetente
+      receiver: Destinatário
+      date: Data
+      amount: Valor
     form:
       date: Data
       amount: Valor
