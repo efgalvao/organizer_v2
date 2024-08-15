@@ -1,5 +1,6 @@
-  <%= turbo_frame_tag "first_turbo_frame" do %>
+<%= turbo_frame_tag "first_turbo_frame" do %>
 
+  <div class="item">
     <div class="header">
     <%= link_to t('buttons.back'),
       financings_path,
@@ -14,18 +15,23 @@
                   class: "btn btn--primary"
       %>
     </div>
-  <% end %>
+  </div>
+<% end %>
 
   <%= turbo_frame_tag "new_financing_payment" %>
 <div class="item">
-
   <%= render 'summary', :financing => @financing %>
+</div>
 
-<h3><%= t('financing.show.payments') %> </h3>
+  <div  class="item">
+    <div  class="subtitle">
+      <%= t('financing.show.payments') %>
+    </div>
+  </div>
 
-<%= turbo_frame_tag "payments" do %>
-  <%= render partial: 'header' %>
-  <%= render partial: 'payment', collection: @payments, as: :payment, locals: { financing: @financing } %>
-<% end %>
-  </table>
+  <div class="item">
+  <%= turbo_frame_tag "payments" do %>
+    <%= render partial: 'payment_list_header' %>
+    <%= render partial: 'payment', collection: @payments, as: :payment, locals: { financing: @financing } %>
+  <% end %>
 </div>
