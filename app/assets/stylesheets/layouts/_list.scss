@@ -32,6 +32,17 @@
   font-size: 15px;
 }
 
+.list-button {
+  height: 10px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 15px 5px;
+  font-size: 15px;
+  gap: 10px;
+}
+
 .list-header-item {
   height: 10px;
   box-sizing: border-box;
