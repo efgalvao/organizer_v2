@@ -1,7 +1,6 @@
 module Account
   class AccountDecorator < Draper::Decorator
     decorates_association :account_reports, with: AccountReportDecorator
-    # decorates_association :investments, with: Investments::InvestmentDecorator
 
     ACCOUNT_KINDS = { 'savings' => 'Banco',
                       'broker' => 'Corretora',
@@ -25,6 +24,7 @@ module Account
     end
 
     def past_reports
+      # binding.pry
       AccountServices::FetchAccountReports.fetch_reports(object.id, 6).map(&:decorate)
     end
 
