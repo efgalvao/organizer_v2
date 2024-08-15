@@ -1,17 +1,21 @@
 <%= turbo_frame_tag transference do %>
-<div class="transference">
-  <%= link_to transference.sender, account_path(transference.sender_id),
+<div class="list transference-header-grid">
+  <div class="list-item">
+    <%= link_to transference.sender, account_path(transference.sender_id),
                 data: { turbo_frame: "_top" }  %>
-  <%= link_to transference.receiver, account_path(transference.receiver_id),
-                data: { turbo_frame: "_top" }  %>
-
-  <div>
-    <%= transference.date %>
   </div>
 
-  <div>
+  <div class="list-item">
+  <%= link_to transference.receiver, account_path(transference.receiver_id),
+                data: { turbo_frame: "_top" }  %>
+  </div>
+
+  <div class="list-item">
     <%= transference.amount %>
   </div>
 
+  <div class="list-item">
+    <%= transference.date %>
+  </div>
 </div>
 <% end %>
