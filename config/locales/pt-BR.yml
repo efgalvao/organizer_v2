@@ -128,6 +128,7 @@ pt-BR:
         parcel: Parcela
         total_paid: Total pago
         paid_parcels: Parcelas pagas
+        kind: Tipo
         date: Data
         interest: Juros
         amortization: Amortização

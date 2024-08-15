@@ -9,6 +9,7 @@
     </div>
   <% end %>
 
+  <%= render partial: 'index_header' %>
   <%= turbo_frame_tag "new_financing" %>
   <%= turbo_frame_tag "financings" do %>
     <%= render partial: 'financing', collection: @financings %>
