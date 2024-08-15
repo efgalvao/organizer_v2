@@ -240,6 +240,10 @@ en:
       title: Transferences
       new_transference: New transference
       create_transference: Create transference
+      sender: Sender
+      receiver: Receiver
+      date: Date
+      amount: Amount
     form:
       date: Date
       amount: Amount
