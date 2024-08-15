@@ -153,6 +153,7 @@ en:
         parcel: Parcel
         total_paid: Total paid
         paid_parcels: Paid parcels
+        kind: Kind
         date: Date
         interest: Interest
         amortization: Amortization
