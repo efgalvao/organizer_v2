@@ -1,28 +1,29 @@
 module TransactionServices
   class BuildTransactionRequest < ApplicationService
-    def initialize(transaction_strings)
-      @transaction_strings = transaction_strings
+    def initialize(transactions)
+      @transactions = transactions
     end
 
-    def self.call(transaction_string)
-      new(transaction_string).call
+    def self.call(transactions)
+      new(transactions).call
     end
 
     def call
-      transaction_strings.map do |csv_string|
-        params = build_params(csv_string)
-        TransactionServices::BuildTransactionParcels.call(params)
+      transactions.map do |transaction|
+        # params = transaction(csv_string)
+        # binding.pry
+        TransactionServices::BuildTransactionParcels.call(transaction)
       end
     end
 
     private
 
-    attr_reader :transaction_strings
+    attr_reader :transactions
 
-    def build_params(csv_string)
-      keys = %i[account kind title category value date parcels]
-      values = csv_string.split(',')
-      keys.zip(values).to_h
-    end
+    # def build_params(csv_string)
+    #   keys = %i[account kind title category value date parcels]
+    #   values = csv_string.split(',')
+    #   keys.zip(values).to_h
+    # end
   end
 end

@@ -30,6 +30,7 @@ module FilesServices
     end
 
     def process_file(content)
+      puts '+++++', content.inspect
       FilesServices::ProcessContent.call(content, user_id)
     end
   end

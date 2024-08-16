@@ -1,12 +1,12 @@
 module TransferenceServices
   class BuildTransferenceRequest
-    def initialize(csv_strings, user_id)
-      @csv_strings = csv_strings
+    def initialize(transferences, user_id)
+      @transferences = transferences
       @user_id = user_id
     end
 
-    def self.call(csv_strings, user_id)
-      new(csv_strings, user_id).call
+    def self.call(transferences, user_id)
+      new(transferences, user_id).call
     end
 
     def call
@@ -15,27 +15,27 @@ module TransferenceServices
 
     private
 
-    attr_reader :csv_strings, :user_id
+    attr_reader :transferences, :user_id
 
     def build_transferences
-      csv_strings.map do |csv_string|
-        transference_params = build_params(csv_string)
-        build_transference(transference_params)
+      transferences.map do |transference|
+        # transference_params = build_params(transference)
+        build_transference(transference)
       end
     end
 
-    def build_params(csv_string)
-      keys = %i[sender receiver value date]
-      values = csv_string.split(',')
-      keys.zip(values).to_h
-    end
+    # def build_params( )
+    #   keys = %i[sender receiver amount date]
+    #   values =  .split(',')
+    #   keys.zip(values).to_h
+    # end
 
     def build_transference(transference)
       {
         sender_id: account_id(transference[:sender]),
         receiver_id: account_id(transference[:receiver]),
         date: transference[:date],
-        value_cents: transference[:value],
+        amount: transference[:amount],
         user_id: user_id
       }
     end

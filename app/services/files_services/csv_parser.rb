@@ -23,23 +23,55 @@ module FilesServices
     def parse_file
       content = { transactions: [],
                   transferences: [],
-                  credit: [],
                   invoices: [] }
 
-      CSV.foreach(Rails.root + file.path, headers: csv_headers) do |row|
-        content[:transactions] << row.to_h
+      CSV.foreach(Rails.root + file.path, headers: false) do |row|
+        case row[0]
+        when 'transaction'
+          content[:transactions] << parse_transaction(row)
+        when 'transference'
+          content[:transferences] << parse_transference(row)
+        when 'invoice'
+          content[:invoices] << parse_invoice(row)
+        else
+          handle_unknown_type(row)
+        end
       end
       content
     end
 
-    def csv_headers
-      %i[ kind
-          account
-          date
-          value
-          title
-          category
-          parcels]
+    def parse_transaction(row)
+      {
+        kind: row[1],
+        account: row[2],
+        date: row[3],
+        amount: row[4],
+        title: row[5],
+        category: row[6],
+        parcels: row[7]
+      }
+    end
+
+    def parse_transference(row)
+      {
+        sender: row[1],
+        receiver: row[2],
+        date: row[3],
+        amount: row[4]
+      }
+    end
+
+    def parse_invoice(row)
+      {
+        account: row[1],
+        card: row[2],
+        date: row[3],
+        amount: row[4]
+      }
+    end
+
+    def handle_unknown_type(row)
+      Rails.logger.error("Unknown type: #{row[0]}")
     end
   end
 end

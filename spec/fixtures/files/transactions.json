@@ -1,0 +1,29 @@
+{
+  "invoices": [
+    {
+      "account": "First Account",
+      "card": "Card Account",
+      "date": "2023-02-12",
+      "amount": "22.1"
+    }
+  ],
+  "transactions": [
+    {
+      "kind": "income",
+      "account": "First Account",
+      "date": "2023-02-12",
+      "amount": "22.1",
+      "title": "ticket to mars",
+      "category": "fun",
+      "parcels": "1"
+    }
+  ],
+  "transferences": [
+    {
+      "sender": "First Account",
+      "receiver": "Second Account",
+      "amount": "10.0",
+      "date": "2023-02-12"
+    }
+  ]
+}

@@ -1,11 +1,11 @@
 module InvoiceServices
   class BuildInvoicePayment
-    def initialize(csv_strings)
-      @csv_strings = csv_strings
+    def initialize(invoices)
+      @invoices = invoices
     end
 
-    def self.call(csv_strings)
-      new(csv_strings).call
+    def self.call(invoices)
+      new(invoices).call
     end
 
     def call
@@ -14,32 +14,33 @@ module InvoiceServices
 
     private
 
-    attr_reader :csv_strings
+    attr_reader :invoices
 
-    def build_params(csv_string)
-      keys = %i[sender receiver value date]
-      values = csv_string.split(',')
-      keys.zip(values).to_h
-    end
+    # def build_params(csv_string)
+    #   keys = %i[sender receiver value date]
+    #   values = csv_string.split(',')
+    #   keys.zip(values).to_h
+    # end
 
     def build_invoice_payments
-      csv_strings.map do |csv_string|
-        params = build_params(csv_string)
-        build_invoice_payment(params)
+      invoices.map do |invoice|
+        # params = build_params(csv_string)
+        build_invoice_payment(invoice)
       end
     end
 
     def build_invoice_payment(payment)
       {
-        sender_id: account_id(payment[:sender]),
-        receiver_id: account_id(payment[:receiver]),
+        sender_id: account_id(payment[:account]),
+        receiver_id: account_id(payment[:card]),
         date: payment[:date],
-        value: payment[:value]
+        amount: payment[:amount]
       }
     end
 
     def account_id(account_name)
       downcased_name = account_name.downcase.strip
+      # binding.pry
       Account::Account.find_by('LOWER(name) = ?', downcased_name)&.id
     end
   end

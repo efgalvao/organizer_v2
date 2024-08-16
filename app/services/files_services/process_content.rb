@@ -20,15 +20,12 @@ module FilesServices
     attr_reader :content, :user_id
 
     def process_transactions
-      transaction_strings = content[:transactions]
-      transactions = TransactionServices::BuildTransactionRequest.call(transaction_strings)
+      # transactions = content[:transactions]
+      transactions = TransactionServices::BuildTransactionRequest.call(content[:transactions])
 
       transactions.flatten.each do |transaction|
-        next unless process_transaction?(
-          date: transaction[:date],
-          value: transaction[:value],
-          account_id: transaction[:account_id]
-        )
+        # binding.pry
+        next unless process_transaction?(transaction)
 
         TransactionServices::ProcessTransactionRequest.call(transaction)
       end
@@ -46,31 +43,26 @@ module FilesServices
     def process_invoice_payments
       payments = InvoiceServices::BuildInvoicePayment.call(content[:invoices])
       payments.each do |payment|
-        next unless process_transaction?(
-          date: payment[:date],
-          value: payment[:value],
-          account_id: payment[:sender_id]
-        )
+        # binding.pry
+        next unless process_transaction?(payment)
+
+        puts '=====>', payment.inspect
 
         InvoiceServices::ProcessInvoicePayment.call(payment)
       end
     end
 
-    def process_transaction?(date: nil, value: nil, account_id: nil)
-      Account::Transaction.find_by(date: date, value_cents: to_cents(value),
-                                   account_id: account_id).nil?
+    def process_transaction?(transaction)
+      Account::Transaction.find_by(date: transaction[:date], amount: transaction[:amount].to_d,
+                                   account_id: transaction[:account_id] || transaction[:sender_id]).nil?
     end
 
     def process_transference?(transference:)
       Transference.find_by(
         sender_id: transference[:sender_id],
         receiver_id: transference[:receiver_id], date: transference[:date],
-        value_cents: to_cents(transference[:value_cents]), user_id: user_id
+        amount: transference[:amount].to_d, user_id: user_id
       ).nil?
-    end
-
-    def to_cents(value)
-      value * 100
     end
   end
 end
