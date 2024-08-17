@@ -8,7 +8,7 @@ RSpec.describe FilesServices::CsvParser, type: :service do
   context 'with valid data' do
     let(:file) { File.new("#{file_fixture_path}/transactions.csv") }
     let(:expected_content) do
-      { invoices: [{ account: 'First Account', amount: '22.12', card: ' First Card', date: '2024-02-12' }],
+      { invoices: [{ account: 'First Account', amount: '22.12', card: 'Card Account', date: '2024-02-12' }],
         transactions: [{ account: 'First Account', category: 'fun', date: '2023-02-12', kind: 'income', title: 'ticket to mars', amount: '22.1', parcels: '1' }],
         transferences: [{ amount: '22.1', date: '2023-02-11', receiver: 'Second Account', sender: 'First Account' }] }
     end

@@ -8,7 +8,7 @@ RSpec.describe FilesServices::JsonParser, type: :service do
   context 'with valid data' do
     let(:file) { File.new("#{file_fixture_path}/transactions.json") }
     let(:expected_content) do
-      { invoices: [{ account: 'First Account', amount: '22.1', card: 'First Card', date: '2023-02-12' }],
+      { invoices: [{ account: 'First Account', amount: '22.1', card: 'Card Account', date: '2023-02-12' }],
         transactions: [{ account: 'First Account', category: 'fun', date: '2023-02-12', kind: 'income', title: 'ticket to mars', amount: '22.1', parcels: '1' }],
         transferences: [{ amount: '10.0', date: '2023-02-12', receiver: 'Second Account', sender: 'First Account' }] }
     end
