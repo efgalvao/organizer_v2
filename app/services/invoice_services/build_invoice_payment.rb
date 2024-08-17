@@ -16,15 +16,8 @@ module InvoiceServices
 
     attr_reader :invoices
 
-    # def build_params(csv_string)
-    #   keys = %i[sender receiver value date]
-    #   values = csv_string.split(',')
-    #   keys.zip(values).to_h
-    # end
-
     def build_invoice_payments
       invoices.map do |invoice|
-        # params = build_params(csv_string)
         build_invoice_payment(invoice)
       end
     end
