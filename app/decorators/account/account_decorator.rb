@@ -24,7 +24,6 @@ module Account
     end
 
     def past_reports
-      # binding.pry
       AccountServices::FetchAccountReports.fetch_reports(object.id, 6).map(&:decorate)
     end
 

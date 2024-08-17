@@ -40,7 +40,6 @@ module InvoiceServices
 
     def account_id(account_name)
       downcased_name = account_name.downcase.strip
-      # binding.pry
       Account::Account.find_by('LOWER(name) = ?', downcased_name)&.id
     end
   end

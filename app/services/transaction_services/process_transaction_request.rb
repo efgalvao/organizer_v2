@@ -11,7 +11,6 @@ module TransactionServices
     def call
       create_transaction
     rescue StandardError => e
-      # binding.pry
       Rails.logger.error(e.message)
       Account::Transaction.new
     end

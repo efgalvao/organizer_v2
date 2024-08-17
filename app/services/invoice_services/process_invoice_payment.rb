@@ -12,7 +12,6 @@ module InvoiceServices
     end
 
     def self.call(params)
-      puts '----->', params.inspect
       new(params).call
     end
 
