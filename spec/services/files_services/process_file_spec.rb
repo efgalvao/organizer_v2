@@ -57,4 +57,18 @@ RSpec.describe FilesServices::ProcessFile, type: :service do
       expect(FilesServices::ProcessContent).to have_received(:call).with(expected_content, user.id)
     end
   end
+
+  context 'when filetype is Unknown' do
+    let(:file) do
+      ActionDispatch::Http::UploadedFile.new(
+        filename: 'transactions.csv',
+        type: 'application/xpto',
+        tempfile: File.new("#{file_fixture_path}/transactions.json")
+      )
+    end
+
+    it 'raises error' do
+      expect { process_file }.to raise_error(FilesServices::ProcessFile::UnknownFileTypeError)
+    end
+  end
 end
