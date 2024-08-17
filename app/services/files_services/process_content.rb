@@ -20,11 +20,9 @@ module FilesServices
     attr_reader :content, :user_id
 
     def process_transactions
-      # transactions = content[:transactions]
       transactions = TransactionServices::BuildTransactionRequest.call(content[:transactions])
 
       transactions.flatten.each do |transaction|
-        # binding.pry
         next unless process_transaction?(transaction)
 
         TransactionServices::ProcessTransactionRequest.call(transaction)
@@ -43,10 +41,7 @@ module FilesServices
     def process_invoice_payments
       payments = InvoiceServices::BuildInvoicePayment.call(content[:invoices])
       payments.each do |payment|
-        # binding.pry
         next unless process_transaction?(payment)
-
-        puts '=====>', payment.inspect
 
         InvoiceServices::ProcessInvoicePayment.call(payment)
       end
