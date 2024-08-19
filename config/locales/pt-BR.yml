@@ -201,8 +201,10 @@ pt-BR:
     cards:
       title: Resumo dos cartões
       account: Cartão
-      balance: Saldo no mês
-      total: Total
+      month_income: Receita do mês
+      month_expense: Despesa do mês
+      month_balance: Saldo do mês
+      card_balance: Saldo do cartão
   invoice:
     pay_invoice: Pagar fatura
     invoice_payment: Pagamento de fatura
