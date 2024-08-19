@@ -15,11 +15,14 @@ module UserServices
         .includes(:account_reports)
         .order(:name)
         .map do |card|
+        current_report = card.current_report
         {
           id: card.id,
           name: card.name,
-          balance: calculate_month_balance(card),
-          total: card.balance
+          month_incomes: current_report.month_income,
+          month_expenses: current_report.month_expense,
+          month_balance: current_report.month_balance,
+          card_balance: card.balance
         }
       end
     end
@@ -27,10 +30,5 @@ module UserServices
     private
 
     attr_reader :user_id
-
-    def calculate_month_balance(card)
-      current_report = card.current_report
-      current_report.month_income - current_report.month_expense
-    end
   end
 end

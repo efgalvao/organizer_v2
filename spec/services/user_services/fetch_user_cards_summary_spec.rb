@@ -18,7 +18,9 @@ RSpec.describe UserServices::FetchUserCardsSummary do
     expect(response).to be_a(Array)
     expect(response[0][:id]).to eq(card.id)
     expect(response[0][:name]).to eq(card.name)
-    expect(response[0][:balance]).to eq(1.00)
-    expect(response[0][:total]).to eq(card.balance)
+    expect(response[0][:month_incomes]).to eq(2.00)
+    expect(response[0][:month_expenses]).to eq(1.00)
+    expect(response[0][:month_balance]).to eq(report.month_balance)
+    expect(response[0][:card_balance]).to eq(card.balance)
   end
 end
