@@ -227,8 +227,10 @@ en:
     cards:
       title: Cards Summary
       account: Card
-      balance: Month Balance
-      total: Total Balance
+      month_income: Month income
+      month_expense: Month expense
+      month_balance: Month balance
+      card_balance: Card balance
   invoice:
     pay_invoice: Pay invoice
     invoice_payment: Invoice payment

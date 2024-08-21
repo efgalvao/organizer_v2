@@ -3,16 +3,20 @@
   <thead>
     <tr>
       <th><%= t('home.cards.account') %></th>
-      <th><%= t('home.cards.balance') %></th>
-      <th><%= t('home.cards.total') %></th>
+      <th><%= t('home.cards.month_income') %></th>
+      <th><%= t('home.cards.month_expense') %></th>
+      <th><%= t('home.cards.month_balance') %></th>
+      <th><%= t('home.cards.card_balance') %></th>
     </tr>
   </thead>
   <tbody>
     <% cards.each do |card| %>
     <tr>
       <td><%= link_to card[:name], card_path(card[:id]) %></td>
-      <td><%= card[:balance] %></td>
-      <td><%= card[:total] %></td>
+      <td><%= card[:month_incomes] %></td>
+      <td><%= card[:month_expenses] %></td>
+      <td><%= card[:month_balance] %></td>
+      <td><%= card[:card_balance] %></td>
     </tr>
     <% end %>
   </tbody>
