@@ -205,8 +205,10 @@ en:
         month_balance: Balance
     past_month_reports:
       title: Past month reports
+      month: Month
       incomes: Incomes
       expenses: Expenses
+      card_expenses: Card expenses
       invested: Invested
       month_balance: Balance
       charts:
