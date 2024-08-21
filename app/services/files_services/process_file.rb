@@ -1,5 +1,8 @@
 module FilesServices
   class ProcessFile
+    class UnknownFileTypeError < StandardError
+    end
+
     def initialize(file, user_id)
       @file = file
       @user_id = user_id
@@ -25,7 +28,7 @@ module FilesServices
       when 'text/csv'
         FilesServices::CsvParser.call(file)
       else
-        raise StandardError, 'Invalid content type'
+        raise UnknownFileTypeError, 'Invalid content type'
       end
     end
 

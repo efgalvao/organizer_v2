@@ -7,7 +7,7 @@ module InvoiceServices
       @params = params
       @sender_id = params[:sender_id]
       @receiver = Account::Account.find(params[:receiver_id])
-      @value = params.fetch(:value, 0).to_f
+      @amount = params.fetch(:amount, 0).to_f
       @date = set_date
     end
 
@@ -24,15 +24,15 @@ module InvoiceServices
 
     private
 
-    attr_reader :params, :sender_id, :receiver, :value, :date
+    attr_reader :params, :sender_id, :receiver, :amount, :date
 
     def sender_params
-      { account_id: sender_id, value: value, kind: 0, receiver: false,
+      { account_id: sender_id, amount: amount, kind: 0, receiver: false,
         title: "#{I18n.t('transactions.invoice.invoice_payment')} - #{receiver.name}", date: date }
     end
 
     def receiver_params
-      { account_id: receiver.id, value: value, kind: 1, receiver: true,
+      { account_id: receiver.id, amount: amount, kind: 1, receiver: true,
         title: I18n.t('transactions.invoice.invoice_payment'), date: date }
     end
 

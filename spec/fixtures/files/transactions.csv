@@ -1,1 +1,4 @@
-income,BB Fer,2023-02-12,22.1,ticket to mars,diversao,1
+transaction,income,First Account,2023-02-12,22.1,ticket to mars,fun,1
+transference,First Account,Second Account,2023-02-11,22.1
+invoice,First Account,Card Account,2024-02-12,22.12
+xpto
