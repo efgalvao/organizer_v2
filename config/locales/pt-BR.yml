@@ -179,8 +179,10 @@ pt-BR:
         month_balance: Saldo
     past_month_reports:
       title: Relatórios do mês passado
+      month: Mês
       incomes: Receitas
       expenses: Despesas
+      card_expenses: Despesas no cartão
       invested: Investido
       month_balance: Saldo
       charts:

@@ -37,6 +37,10 @@ class UserReportDecorator < Draper::Decorator
     format_currency(object.card_expenses)
   end
 
+  def report_date
+    object.date.strftime('%B/%Y')
+  end
+
   def format_currency(value)
     ActionController::Base.helpers.number_to_currency(value, unit: 'R$ ', separator: ',', delimiter: '.')
   end
