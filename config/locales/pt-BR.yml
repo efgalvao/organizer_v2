@@ -106,6 +106,10 @@ pt-BR:
       new_financing: Novo financiamento
       create_financing: Criar financiamento
       edit_financing: Editar financiamento
+      name: Nome
+      parcels: Parcelas
+      borrowed_amount: Valor financiado
+      paid_parcels: Parcelas pagas
     form:
       name: Nome
       borrowed_amount: Valor financiado
