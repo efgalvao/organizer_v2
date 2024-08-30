@@ -1,7 +1,7 @@
 module Account
   class AccountsController < ApplicationController
     before_action :authenticate_user!
-    before_action :set_account, only: %i[show edit update destroy]
+    before_action :set_account, only: %i[show edit update destroy consolidate_report]
 
     def index
       accounts = Account.where(user_id: current_user.id).except_card_accounts.order(:name)
@@ -48,6 +48,14 @@ module Account
       respond_to do |format|
         format.html { redirect_to accounts_path, notice: 'Conta removida.' }
         format.turbo_stream { flash.now[:notice] = 'Conta removida.' }
+      end
+    end
+
+    def consolidate_report
+      AccountServices::ConsolidateAccountReport.call(@account, Date.current)
+      respond_to do |format|
+        format.html { redirect_to account_path(@account), notice: 'Report_updated.' }
+        format.turbo_stream { flash.now[:notice] = 'Report_updated' }
       end
     end
 

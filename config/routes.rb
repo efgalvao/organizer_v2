@@ -18,7 +18,9 @@ Rails.application.routes.draw do
 
   scope module: 'account' do
     resources :accounts do
-
+      member do
+        get 'consolidate_report', to: 'accounts#consolidate_report', as: 'consolidate_report'
+      end
       resources :transactions, only: %i[index new create edit update]
     end
   end
