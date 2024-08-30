@@ -68,6 +68,7 @@ en:
       create_invetmment: Create investment
       create_transference: Create Transference
       consolidate_report: Consolidate report
+      report_updated: Report updated
       chart:
         past_month:
           title: Past month
