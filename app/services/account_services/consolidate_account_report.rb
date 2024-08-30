@@ -40,7 +40,8 @@ module AccountServices
         month_income: month_income(report),
         month_expense: month_expense(report),
         month_invested: month_invested(report),
-        month_dividends: month_dividends
+        month_dividends: month_dividends,
+        date: Date.current
       }
     end
 

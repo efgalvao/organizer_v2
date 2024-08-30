@@ -20,6 +20,10 @@
                   method: :get,
                   class: "btn btn--light",
                   data: { turbo_frame: "invoice_payment" } %>
+    <%= link_to t('card.show.consolidate_report'),
+                  consolidate_report_account_path(@card.id),
+                  method: :get,
+                  class: "btn btn--light" %>
   <% end %>
 </div>
 
