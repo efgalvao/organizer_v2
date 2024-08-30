@@ -28,6 +28,10 @@
                   method: :get,
                   data: { turbo_frame: "new_transference" },
                   class: "btn btn--light" %>
+      <%= link_to t('account.show.consolidate_report'),
+                  consolidate_report_account_path(@account.id),
+                  method: :get,
+                  class: "btn btn--light" %>
       </div>
     <%= turbo_frame_tag "new_investment" %>
     <%= turbo_frame_tag "new_transference" %>
