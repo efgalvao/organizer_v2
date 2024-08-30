@@ -9,7 +9,7 @@ module TransactionServices
     end
 
     def call
-      transaction_params = build_transaction(params)
+      transaction_params = build_transaction
 
       transactions = TransactionServices::BuildTransactionParcels.call(transaction_params)
       response = transactions.flatten.map do |transaction|
@@ -24,14 +24,14 @@ module TransactionServices
 
     attr_reader :params
 
-    def build_transaction(params)
+    def build_transaction
       {
         title: params.fetch(:title),
         category: category_name(params.fetch(:category_id)),
         account: account_name(params.fetch(:account_id)),
         kind: params.fetch(:kind),
         amount: params.fetch(:amount),
-        date: params[:date],
+        date: date,
         parcels: params[:parcels]
       }
     end
@@ -48,6 +48,10 @@ module TransactionServices
       transaction = Account::Transaction.new
       transaction.errors.add(:base, message)
       transaction
+    end
+
+    def date
+      params[:date].presence || Date.current.strftime('%Y-%m-%d')
     end
   end
 end
