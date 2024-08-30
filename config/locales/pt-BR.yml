@@ -44,6 +44,7 @@ pt-BR:
       transactions: Transações
       create_investment: Criar investimento
       create_transference: Criar transferência
+      consolidate_report: Consolidar relatório
     chart:
       past_month:
         title: Mêses anteriores
@@ -92,6 +93,7 @@ pt-BR:
           card_balance: Saldo do cartão
       transactions: Transações
       pay_invoice: Pagar fatura
+      consolidate_report: Consolidar relatório
   category:
     index:
       categories: Categorias

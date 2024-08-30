@@ -67,6 +67,7 @@ en:
       transactions: Transactions
       create_invetmment: Create investment
       create_transference: Create Transference
+      consolidate_report: Consolidate report
       chart:
         past_month:
           title: Past month
@@ -118,6 +119,7 @@ en:
           card_balance: Card balance
       transactions: Transactions
       pay_invoice: Pay invoice
+      consolidate_report: Consolidate report
   category:
     index:
       categories: Categories
