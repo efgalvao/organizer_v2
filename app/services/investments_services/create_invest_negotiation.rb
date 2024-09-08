@@ -1,5 +1,5 @@
 module InvestmentsServices
-  class CreateNegotiation
+  class CreateInvestNegotiation
     INVESTMENT_CODE = 3
     def initialize(params)
       @params = params
@@ -10,6 +10,8 @@ module InvestmentsServices
     end
 
     def call
+      return if params[:kind] != 'buy'
+
       ActiveRecord::Base.transaction do
         negotiation = Investments::Negotiation.create(formated_params)
         TransactionServices::ProcessTransactionRequest.call(transaction_params)
@@ -46,7 +48,7 @@ module InvestmentsServices
       { account_id: negotiable.account_id,
         amount: amount_by_origin,
         kind: INVESTMENT_CODE,
-        title: "#{I18n.t('investments.negotiation')} - #{negotiable.name} -> #{params[:amount]}*#{params[:shares]}",
+        title: transaction_title,
         date: date }
     end
 
@@ -72,6 +74,10 @@ module InvestmentsServices
       else
         params[:amount] * params[:shares]
       end
+    end
+
+    def transaction_title
+      "#{I18n.t('investments.invest_negotiation')} - #{negotiable.name} -> #{params[:amount]}*#{params[:shares]}"
     end
   end
 end

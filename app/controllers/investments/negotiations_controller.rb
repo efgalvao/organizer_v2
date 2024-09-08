@@ -15,7 +15,7 @@ module Investments
     end
 
     def create
-      @negotiation = InvestmentsServices::CreateNegotiation.call(negotiation_params)
+      @negotiation = InvestmentsServices::ProcessCreateNegotiationRequest.call(negotiation_params)
       if @negotiation.valid?
         @negotiation = Investments::NegotiationDecorator.decorate(@negotiation)
         respond_to do |format|

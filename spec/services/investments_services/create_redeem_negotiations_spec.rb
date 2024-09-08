@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe InvestmentsServices::CreateNegotiation do
+RSpec.describe InvestmentsServices::CreateRedeemNegotiation do
   subject(:create_negotiation) { described_class.call(params) }
 
   let(:account) { create(:account) }
@@ -12,7 +12,7 @@ RSpec.describe InvestmentsServices::CreateNegotiation do
       let(:params) do
         {
           date: Date.current.strftime('%d/%m/%Y'),
-          kind: 'buy',
+          kind: 'sell',
           amount: '10.01',
           investment_id: investment.id,
           shares: 1
@@ -24,7 +24,7 @@ RSpec.describe InvestmentsServices::CreateNegotiation do
 
         expect(response).to be_a(Investments::Negotiation)
         expect(response.date).to eq(Date.current)
-        expect(response.kind).to eq('buy')
+        expect(response.kind).to eq('sell')
         expect(response.amount).to eq(10.01)
         expect(response.negotiable_id).to eq(investment.id)
         expect(response.shares).to eq(1)
@@ -36,7 +36,7 @@ RSpec.describe InvestmentsServices::CreateNegotiation do
       let(:params) do
         {
           date: '',
-          kind: 'buy',
+          kind: 'sell',
           amount: '10.01',
           investment_id: investment.id,
           shares: 1
@@ -48,7 +48,7 @@ RSpec.describe InvestmentsServices::CreateNegotiation do
 
         expect(response).to be_a(Investments::Negotiation)
         expect(response.date).to eq(Date.current)
-        expect(response.kind).to eq('buy')
+        expect(response.kind).to eq('sell')
         expect(response.amount).to eq(10.01)
         expect(response.negotiable_id).to eq(investment.id)
         expect(response.shares).to eq(1)
@@ -64,7 +64,7 @@ RSpec.describe InvestmentsServices::CreateNegotiation do
       let(:params) do
         {
           date: Date.current.strftime('%d/%m/%Y'),
-          kind: 'buy',
+          kind: 'sell',
           amount: '10.01',
           investment_id: investment.id,
           shares: 1
@@ -76,7 +76,7 @@ RSpec.describe InvestmentsServices::CreateNegotiation do
 
         expect(response).to be_a(Investments::Negotiation)
         expect(response.date).to eq(Date.current)
-        expect(response.kind).to eq('buy')
+        expect(response.kind).to eq('sell')
         expect(response.amount).to eq(10.01)
         expect(response.negotiable_id).to eq(investment.id)
         expect(response.shares).to eq(1)
@@ -88,7 +88,7 @@ RSpec.describe InvestmentsServices::CreateNegotiation do
       let(:params) do
         {
           date: '',
-          kind: 'buy',
+          kind: 'sell',
           amount: '10.01',
           investment_id: investment.id,
           shares: 1
@@ -100,7 +100,7 @@ RSpec.describe InvestmentsServices::CreateNegotiation do
 
         expect(response).to be_a(Investments::Negotiation)
         expect(response.date).to eq(Date.current)
-        expect(response.kind).to eq('buy')
+        expect(response.kind).to eq('sell')
         expect(response.amount).to eq(10.01)
         expect(response.negotiable_id).to eq(investment.id)
         expect(response.shares).to eq(1)

@@ -236,7 +236,8 @@ pt-BR:
       sender: Remetente
       receiver: Destinatário
   investments:
-    negotiation: Negociação
+    invest_negotiation: Investimento
+    redeem_negotiation: Resgate
     dividends:
       dividends: Dividendos
       index:
