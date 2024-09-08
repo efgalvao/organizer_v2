@@ -258,7 +258,8 @@ en:
       sender: Sender
       receiver: Receiver
   investments:
-    negotiation: negotiation
+    invest_negotiation: Investment
+    redeem_negotiation: Redeem
     dividends:
       dividends: Dividends
       index:
