@@ -12,9 +12,9 @@
     <% accounts.each do |account| %>
     <tr>
       <td><%= link_to account[:name], account_path(account[:id]) %></td>
-      <td><%= account[:balance] %></td>
-      <td><%= account[:investments] %></td>
-      <td><%= account[:total] %></td>
+      <td>R$ <%= account[:balance] %></td>
+      <td>R$ <%= account[:investments] %></td>
+      <td>R$ <%= account[:total] %></td>
     </tr>
     <% end %>
   </tbody>
