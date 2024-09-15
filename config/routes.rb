@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  mount Coverband::Reporters::Web.new, at: '/coverage'
-
   devise_for :users
   devise_scope :user do
     get 'sign_in', to: 'devise/sessions#new'
