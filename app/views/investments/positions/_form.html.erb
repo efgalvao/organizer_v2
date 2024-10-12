@@ -5,9 +5,9 @@
 
   <%= form_error_notification(position) %>
 
-  <%= f.input :date, label: "Data", as: :date, html5: true, input_html: { autofocus: true } %>
-  <%= f.input :amount, as: :float, label: "Valor" %>
-  <%= f.input :shares, as: :integer, label: "Cotas" %>
+  <%= f.input :date, label: t('investments.investments.show.position_form.date'), as: :date, html5: true, input_html: { autofocus: true } %>
+  <%= f.input :amount, as: :float, label: t('investments.investments.show.position_form.amount') %>
+  <%= f.input :shares, as: :integer, label: t('investments.investments.show.position_form.shares') %>
   <%= f.input :investment_id, as: :hidden, input_html: { value: params[:investment_id] } %>
 
   <%= f.submit t('buttons.save'), class: "btn btn--secondary" %>
