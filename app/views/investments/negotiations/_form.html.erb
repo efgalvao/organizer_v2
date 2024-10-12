@@ -5,10 +5,10 @@
 
   <%= form_error_notification(negotiation) %>
 
-  <%= f.input :date, label: "Data", as: :date, html5: true, input_html: { autofocus: true } %>
-  <%= f.input :amount, as: :float, label: "Valor por cota" %>
-  <%= f.input :shares, as: :integer, label: "Cotas" %>
-  <%= f.input :kind, as: :select, collection: [    ["Compra", "buy"], ["Venda", "sell"]], label: "Tipo" %>
+  <%= f.input :date, label: t('investments.investments.show.negotiation_form.date'), as: :date, html5: true, input_html: { autofocus: true } %>
+  <%= f.input :amount, as: :float, label: t('investments.investments.show.negotiation_form.amount') %>
+  <%= f.input :shares, as: :integer, label: t('investments.investments.show.negotiation_form.shares') %>
+  <%= f.input :kind, as: :select, collection: [    ["Compra", "buy"], ["Venda", "sell"]], label: t('investments.investments.show.negotiation_form.kind') %>
   <%= f.input :investment_id, as: :hidden, input_html: { value: params[:investment_id] } %>
 
   <%= f.submit t('buttons.save'), class: "btn btn--secondary" %>
