@@ -263,6 +263,15 @@ pt-BR:
         new_position: Nova posição
         new_negotiation: Nova negociação
         new_dividend: Novo dividendo
+        negotiation_form:
+          date: Data
+          amount: Valor
+          shares: Cotas
+          kind: Tipo
+        position_form:
+          date: Data
+          amount: Valor
+          shares: Cotas
         summary:
           title: Resumo
           balance: Saldo

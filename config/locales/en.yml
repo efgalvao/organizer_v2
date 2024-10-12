@@ -285,6 +285,15 @@ en:
         new_position: New position
         new_negotiation: New negotiation
         new_dividend: New dividend
+        negotiation_form:
+          date: Date
+          amount: Amount
+          shares: Shares
+          kind: Kind
+        position_form:
+          date: Date
+          amount: Amount
+          shares: Shares
         summary:
           title: Summary
           balance: Balance
