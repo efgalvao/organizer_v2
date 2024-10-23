@@ -3,7 +3,7 @@
   <div class="item">
     <%= render 'summary', :user_report => @report_data.user_report %>
 
-    <%= render 'expense_by_category', :user_report => @report_data.expense_by_category %>
+    <%= render 'expenses_by_category_chart', :expense_by_category => @report_data.expense_by_category %>
 
     <%= render 'accounts', :accounts => @report_data.accounts %>
 
