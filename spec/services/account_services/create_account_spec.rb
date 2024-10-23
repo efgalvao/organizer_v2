@@ -7,16 +7,16 @@ RSpec.describe AccountServices::CreateAccount do
   let(:account_params) do
     {
       name: 'My Account',
-      kind: 'savings',
+      type: 'Account::Savings',
       user_id: user.id
     }
   end
 
-  it 'createss a new account', :aggregate_failures do
+  it 'creates a new account', :aggregate_failures do
     response = create_account
 
-    expect(response).to be_a(Account::Account)
-    expect(response.kind).to eq('savings')
+    expect(response).to be_a(Account::Savings)
+    expect(response.type).to eq('Account::Savings')
     expect(response.name).to eq('My Account')
     expect(response.user_id).to eq(user.id)
     expect(response.balance).to eq(0)
