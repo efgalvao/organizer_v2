@@ -4,7 +4,7 @@ module Account
     before_action :set_account, only: %i[show edit update destroy consolidate_report]
 
     def index
-      accounts = Account.where(user_id: current_user.id).except_card_accounts.order(:name)
+      accounts = Account::Savings.where(user_id: current_user.id).or(Account::Broker.where(user_id: current_user.id)).order(:name)
       @accounts = AccountDecorator.decorate_collection(accounts)
     end
 
@@ -14,13 +14,14 @@ module Account
     end
 
     def new
-      @account = Account.new
+      @account = Account::Account.new
     end
 
     def edit; end
 
     def create
-      @account = AccountServices::CreateAccount.create(account_params).decorate
+      account_class = account_params[:type].constantize
+      @account = AccountServices::CreateAccount.create(account_params.merge(type: account_class)).decorate
       if @account.valid?
         respond_to do |format|
           format.html { redirect_to accounts_path, notice: 'Conta cadastrada.' }
@@ -32,8 +33,9 @@ module Account
     end
 
     def update
+      account_class = account_params[:type].constantize
       @account = AccountServices::UpdateAccount
-                 .update(account_params.merge(id: @account.id))
+                 .update(account_params.merge(id: @account.id, type: account_class))
                  .decorate
 
       if @account.valid?
@@ -63,7 +65,7 @@ module Account
     private
 
     def account_params
-      params.require(:account).permit(:name, :kind).merge(user_id: current_user.id)
+      params.require(:account).permit(:name, :type).merge(user_id: current_user.id)
     end
 
     def set_account

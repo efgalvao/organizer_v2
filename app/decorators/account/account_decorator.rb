@@ -2,9 +2,6 @@ module Account
   class AccountDecorator < Draper::Decorator
     decorates_association :account_reports, with: AccountReportDecorator
 
-    ACCOUNT_KINDS = { 'savings' => 'Banco',
-                      'broker' => 'Corretora',
-                      'card' => 'Cartão' }.freeze
     delegate_all
 
     def balance
@@ -12,7 +9,16 @@ module Account
     end
 
     def kind
-      ACCOUNT_KINDS[object.kind]
+      case object
+      when Account::Savings
+        'Banco'
+      when Account::Broker
+        'Corretora'
+      when Account::Card
+        'Cartão'
+      else
+        'Desconhecido'
+      end
     end
 
     def current_report
