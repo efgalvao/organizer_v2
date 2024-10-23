@@ -35,6 +35,4 @@
   <%= turbo_frame_tag "transactions" do %>
     <%= render partial: 'transaction', collection: @transactions %>
   <% end %>
-
-  <%= render partial: 'expenses_by_category_chart', :expense_by_category => @expense_by_category %>
 </main>

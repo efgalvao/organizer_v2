@@ -12,7 +12,6 @@ module Account
       )
       @parent = Account.find(params[:account_id])
       @transactions = TransactionDecorator.decorate_collection(transactions)
-      @expenses_by_category = CategoryServices::FetchExpensesByCategory.call(current_user.id, params[:account_id])
     end
 
     def new
