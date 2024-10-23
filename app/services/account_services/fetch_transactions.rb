@@ -27,7 +27,7 @@ module AccountServices
     end
 
     def past_transactions
-      account.transactions.where('date <= ?', Time.zone.today).order(date: :desc)
+      account.transactions.where('date <= ?', Time.zone.today).where('date >= ?', Time.zone.today.beginning_of_month).order(date: :desc)
     end
 
     def account

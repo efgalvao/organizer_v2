@@ -1,0 +1,4 @@
+<div class="chart-container">
+  <h2><%= t('home.charts.expense_by_category') %></h2>
+  <%= pie_chart expenses_by_category, height: "500px", library: {legend: {position: 'bottom'}} %>
+</div>

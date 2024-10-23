@@ -14,6 +14,11 @@ RSpec.describe 'Financings::Transaction' do
       get account_transactions_path(account_id: account.id)
       expect(response).to be_successful
     end
+
+    it 'assigns @expenses_by_category' do
+      get account_transactions_path(account_id: account.id)
+      expect(assigns(:expenses_by_category)).to be_present
+    end
   end
 
   describe 'GET /new' do

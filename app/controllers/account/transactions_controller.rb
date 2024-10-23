@@ -12,6 +12,7 @@ module Account
       )
       @parent = Account.find(params[:account_id])
       @transactions = TransactionDecorator.decorate_collection(transactions)
+      @expenses_by_category = CategoryServices::FetchExpensesByCategory.call(current_user.id, params[:account_id])
     end
 
     def new
@@ -44,6 +45,10 @@ module Account
       else
         render :edit, status: :unprocessable_entity
       end
+    end
+
+    def expenses_by_category
+      @expenses_by_category = CategoryServices::FetchExpensesByCategory.call(current_user.id)
     end
 
     private
