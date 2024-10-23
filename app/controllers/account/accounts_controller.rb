@@ -10,6 +10,7 @@ module Account
 
     def show
       @account = @account.decorate
+      @expenses_by_category = CategoryServices::FetchExpensesByCategory.call(current_user.id, params[:id])
     end
 
     def new
