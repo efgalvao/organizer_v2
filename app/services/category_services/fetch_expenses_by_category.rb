@@ -19,7 +19,8 @@ module CategoryServices
 
     def expenses_by_category
       expenses = Account::Transaction.where(account: account_scope, kind: :expense)
-                                     .where('date >= ? AND date <= ?', Date.current.beginning_of_month, Date.current.end_of_month)
+                                     .where('date >= ? AND date <= ?', Date.current.beginning_of_month,
+                                            Date.current.end_of_month)
                                      .joins(:category)
                                      .group('categories.name')
                                      .sum(:amount)
@@ -35,7 +36,7 @@ module CategoryServices
     end
 
     def format_data(expenses)
-      expenses.transform_keys { |key| key.titleize }
+      expenses.transform_keys(&:titleize)
     end
   end
 end
