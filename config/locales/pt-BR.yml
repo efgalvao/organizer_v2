@@ -214,6 +214,8 @@ pt-BR:
       month_expense: Despesa do mês
       month_balance: Saldo do mês
       card_balance: Saldo do cartão
+    charts:
+      expense_by_category: Despesas por Categoria
   invoice:
     pay_invoice: Pagar fatura
     invoice_payment: Pagamento de fatura
