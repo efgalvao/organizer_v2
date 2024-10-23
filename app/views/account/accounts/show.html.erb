@@ -40,6 +40,8 @@
 
     <%= render 'summary', :account => @account %>
 
+    <%= render 'expenses_by_category_chart', :expenses_by_category => @expenses_by_category %>
+
     <%= render 'past_month_reports', :past_reports => @account.past_reports %>
 
     <%= render 'past_month_reports_charts', :semester_summary => @account.past_reports_chart_data %>

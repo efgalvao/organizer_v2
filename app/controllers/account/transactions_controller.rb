@@ -46,6 +46,10 @@ module Account
       end
     end
 
+    def expenses_by_category
+      @expenses_by_category = CategoryServices::FetchExpensesByCategory.call(current_user.id)
+    end
+
     private
 
     def transactions_params

@@ -236,6 +236,8 @@ en:
       month_expense: Month expense
       month_balance: Month balance
       card_balance: Card balance
+    charts:
+      expense_by_category: Expenses by Category
   invoice:
     pay_invoice: Pay invoice
     invoice_payment: Invoice payment
