@@ -9,10 +9,8 @@ module UserServices
     end
 
     def fetch_cards_summary
-      Account::Account
+      Account::Card
         .where(user_id: user_id)
-        .card_accounts
-        .includes(:account_reports)
         .order(:name)
         .map do |card|
         current_report = card.current_report
