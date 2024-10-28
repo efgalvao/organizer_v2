@@ -8,13 +8,13 @@ module Account
       format_currency(object.balance)
     end
 
-    def kind
-      case object
-      when Account::Savings
+    def type
+      case object.type
+      when 'Account::Savings'
         'Banco'
-      when Account::Broker
+      when 'Account::Broker'
         'Corretora'
-      when Account::Card
+      when 'Account::Card'
         'Cartão'
       else
         'Desconhecido'
@@ -41,6 +41,9 @@ module Account
     def format_currency(value)
       ActionController::Base.helpers.number_to_currency(value, unit: 'R$ ', separator: ',', delimiter: '.')
     end
-    delegate :broker?, to: :object
+
+    def broker?
+      object.type == 'Account::Broker'
+    end
   end
 end
