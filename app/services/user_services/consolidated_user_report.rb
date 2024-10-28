@@ -34,7 +34,7 @@ module UserServices
     end
 
     def accounts
-      @accounts ||= user.accounts.includes(:account_reports, :investments)
+      @accounts ||= Account::Account.where(user_id: user_id)
     end
 
     def create_report
@@ -55,18 +55,19 @@ module UserServices
     end
 
     def consolidate_month_report
-      user.accounts.except_card_accounts.each do |account|
+      accounts.each do |account|
         account_report = account.current_report
-        @savings += account.balance
-        @investments += calculate_investments(account)
-        @incomes += account_report.month_income
-        @expenses += account_report.month_expense
-        @invested += account_report.month_invested
-        @dividends += account_report.month_dividends
-      end
-
-      user.accounts.card_accounts.each do |card|
-        @card_expenses += card.current_report.month_expense
+        case account
+        when Account::Savings, Account::Broker
+          @savings += account.balance
+          @investments += calculate_investments(account)
+          @incomes += account_report.month_income
+          @expenses += account_report.month_expense
+          @invested += account_report.month_invested
+          @dividends += account_report.month_dividends
+        when Account::Card
+          @card_expenses += account_report.month_expense
+        end
       end
 
       @balance = @incomes - @expenses - @invested
