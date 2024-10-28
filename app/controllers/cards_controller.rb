@@ -31,7 +31,7 @@ class CardsController < ApplicationController
 
   def update
     @card = AccountServices::UpdateAccount
-            .update(card_params.merge(id: @card.id, type: 'Account::Card'))
+            .update(card_params.merge(id: @card.id))
             .decorate
 
     if @card.valid?
@@ -45,8 +45,8 @@ class CardsController < ApplicationController
     @card.destroy
 
     respond_to do |format|
-      format.html { redirect_to cards_path, notice: 'Conta removida.' }
-      format.turbo_stream { flash.now[:notice] = 'Conta removida.' }
+      format.html { redirect_to cards_path, notice: 'Cartão removido.' }
+      format.turbo_stream { flash.now[:notice] = 'Cartão removido.' }
     end
   end
 
