@@ -2,7 +2,7 @@
   <%= turbo_frame_tag "first_turbo_frame" do %>
 
     <%= link_to t('buttons.back'),
-      @parent.kind == 'card' ? card_path(@parent) : account_path(@parent),
+      account_path(@parent),
       data: { turbo_frame: "_top" },
       class: "btn btn--primary" %>
 

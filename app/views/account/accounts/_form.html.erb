@@ -6,8 +6,8 @@
   <%= form_error_notification(account) %>
 
   <%= f.input :name, label: t('account.form.name'), input_html: { autofocus: true } %>
-  <%= f.input :kind, as: :select, collection: [[t('account.form.kind.bank'), "savings"],
-   [t('account.form.kind.broker'), "broker"]], label: t('account.form.account_kind') %>
+  <%= f.input :type, as: :select, collection: [[t('account.form.type.bank'), "Account::Savings"],
+   [t('account.form.type.broker'), "Account::Broker"]], label: t('account.form.account_type') %>
 
   <%= f.submit t('buttons.save'), class: "btn btn--secondary" %>
   <%= link_to t('buttons.cancel'), accounts_path, class: "btn btn--light" %>
