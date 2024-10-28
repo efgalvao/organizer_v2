@@ -11,28 +11,28 @@ RSpec.describe Account::AccountDecorator do
     end
   end
 
-  describe '#kind' do
-    context 'when the kind is broker' do
-      let(:account) { create(:account, kind: 'broker') }
+  describe '#type' do
+    context 'when the type is broker' do
+      let(:account) { create(:account, :broker) }
 
-      it 'returns the kind in the correct format' do
-        expect(decorated_account.kind).to eq('Corretora')
+      it 'returns the type in the correct format' do
+        expect(decorated_account.type).to eq('Corretora')
       end
     end
 
-    context 'when the kind is savings' do
-      let(:account) { create(:account, kind: 'savings') }
+    context 'when the type is savings' do
+      let(:account) { create(:account) }
 
-      it 'returns the kind in the correct format' do
-        expect(decorated_account.kind).to eq('Banco')
+      it 'returns the type in the correct format' do
+        expect(decorated_account.type).to eq('Banco')
       end
     end
 
-    context 'when the kind is card' do
-      let(:account) { create(:account, kind: 'card') }
+    context 'when the type is card' do
+      let(:account) { create(:account, :card) }
 
-      it 'returns the kind in the correct format' do
-        expect(decorated_account.kind).to eq('Cartão')
+      it 'returns the type in the correct format' do
+        expect(decorated_account.type).to eq('Cartão')
       end
     end
   end

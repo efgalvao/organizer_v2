@@ -48,10 +48,10 @@ RSpec.describe Account::TransactionDecorator do
   describe '#parent_path' do
     context 'when the account kind is card' do
       let(:transaction) { create(:transaction, account: card_account) }
-      let(:card_account) { create(:account, kind: 'card') }
+      let(:card_account) { create(:account, :card) }
 
       it 'returns the correct path' do
-        expect(decorated_transaction.parent_path).to eq("/cards/#{card_account.id}")
+        expect(decorated_transaction.parent_path).to eq("/accounts/#{card_account.id}")
       end
     end
 
