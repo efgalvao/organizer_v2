@@ -17,8 +17,8 @@ pt-BR:
   account:
     form:
       name: Nome
-      account_kind: Tipo
-      kind:
+      account_type: Tipo
+      type:
         bank: Banco
         broker: Corretora
     summary:

@@ -40,8 +40,8 @@ en:
   account:
     form:
       name: Name
-      account_kind: Kind
-      kind:
+      account_type: Account type
+      type:
         bank: Bank
         broker: Broker
     summary:
