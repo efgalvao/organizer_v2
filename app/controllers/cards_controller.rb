@@ -8,7 +8,7 @@ class CardsController < ApplicationController
   end
 
   def show
-    @card = Account::AccountDecorator.decorate(@card)
+    @card = Account::CardDecorator.decorate(@card)
   end
 
   def new
