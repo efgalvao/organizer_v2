@@ -21,3 +21,18 @@
     gap: var(--space-xs);
   }
 }
+
+.card-months-list-header {
+  display: grid;
+  gap: var(--space-s);
+  margin-bottom: var(--space-m);
+  padding: var(--space-xs);
+
+  @include media(tabletAndUp) {
+    padding: var(--space-xs) var(--space-m);
+  }
+}
+
+.card-months-header-grid {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}

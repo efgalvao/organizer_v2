@@ -1,4 +1,3 @@
-<div class="item">
   <div class="subtitle">
     <%= t('card.show.summary_title') %>
   </div>
@@ -25,7 +24,6 @@
       <tr>
         <th><%= t('card.show.summary.current_month.month_incomes') %></th>
         <th><%= t('card.show.summary.current_month.month_expenses') %></th>
-        <th><%= t('card.show.summary.current_month.month_invested') %></th>
         <th><%= t('card.show.summary.current_month.month_balance') %></th>
         <th><%= t('card.show.summary.current_month.card_balance') %></th>
       </tr>
@@ -34,10 +32,8 @@
       <tr>
         <td><%= card.current_report.month_income %></td>
         <td><%= card.current_report.month_expense %></td>
-        <td><%= card.current_report.month_invested %></td>
         <td><%= card.current_report.month_balance %></td>
         <td><%= card.current_report.final_account_balance %></td>
       </tr>
     </tbody>
   </table>
-</div>

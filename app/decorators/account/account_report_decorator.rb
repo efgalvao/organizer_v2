@@ -30,6 +30,10 @@ module Account
       format_currency(object.month_dividends)
     end
 
+    def formated_date
+      object.date.strftime('%B, %Y')
+    end
+
     def format_currency(value)
       ActionController::Base.helpers.number_to_currency(value, unit: 'R$ ', separator: ',', delimiter: '.')
     end

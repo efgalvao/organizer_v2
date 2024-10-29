@@ -95,12 +95,23 @@ pt-BR:
           initial_balance: Saldo inicial
           month_incomes: Receitas
           month_expenses: Despesas
-          month_invested: Investido
           month_balance: Saldo
           card_balance: Saldo do cartão
       transactions: Transações
       pay_invoice: Pagar fatura
       consolidate_report: Consolidar relatório
+      past_reports:
+        title: Relatórios de meses anteriores
+        date: Data
+        incomes: Receitas
+        expenses: Despesas
+        month_balance: Saldo
+      future_reports:
+        title: Relatórios parciais futuros
+        date: Data
+        incomes: Receitas
+        expenses: Despesas
+        month_balance: Saldo
   category:
     index:
       categories: Categorias

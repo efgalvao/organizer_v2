@@ -1,0 +1,25 @@
+<div class="subtitle">
+  <%= t('card.show.future_reports.title') %>
+</div>
+
+<div class="card-months-list-header card-months-header-grid" >
+    <div class="list-header-item">
+    <%= t('card.show.future_reports.date') %>
+  </div>
+
+  <div class="list-header-item">
+    <%= t('card.show.future_reports.incomes') %>
+  </div>
+
+  <div class="list-header-item">
+    <%= t('card.show.future_reports.expenses') %>
+  </div>
+
+  <div class="list-header-item">
+    <%= t('card.show.future_reports.month_balance') %>
+  </div>
+</div>
+
+<%= turbo_frame_tag "future_reports" do %>
+  <%= render partial: 'future_report', collection: future_reports, as: :future_report %>
+<% end %>
