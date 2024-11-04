@@ -11,7 +11,16 @@ module Account
     end
 
     def kind
-      object.kind.humanize
+      case object.kind
+      when 'income'
+        I18n.t('transactions.kinds.income')
+      when 'expense'
+        I18n.t('transactions.kinds.expense')
+      when 'transfer'
+        I18n.t('transactions.kinds.transfer')
+      when 'investment'
+        I18n.t('transactions.kinds.investment')
+      end
     end
 
     def title

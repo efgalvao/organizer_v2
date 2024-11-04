@@ -83,6 +83,11 @@ en:
         current_amount: Current amount
         kind: Kind
   transactions:
+    kinds:
+      income: Income
+      expense: Expense
+      transfer: Transference
+      investment: Investment
     index:
       transactions: Transactions
       create_transaction: Create transaction

@@ -60,6 +60,11 @@ pt-BR:
         current_amount: Atual
         kind: Tipo
   transactions:
+    kinds:
+      income: Receita
+      expense: Despesa
+      transfer: Transferência
+      investment: Investimento
     index:
       transactions: Transações
       create_transaction: Criar transação
