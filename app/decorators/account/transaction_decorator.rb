@@ -27,7 +27,7 @@ module Account
     end
 
     def category_name
-      object.category.name.humanize
+      object.category&.name&.humanize
     end
   end
 end
