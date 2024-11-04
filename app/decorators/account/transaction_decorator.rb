@@ -25,5 +25,9 @@ module Account
         "/accounts/#{object.account.id}"
       end
     end
+
+    def category_name
+      object.category.name.humanize
+    end
   end
 end
