@@ -16,7 +16,7 @@ RSpec.describe Account::TransactionDecorator do
       let(:transaction) { create(:transaction, kind: 0) }
 
       it 'returns the kind in the correct format' do
-        expect(decorated_transaction.kind).to eq('Expense')
+        expect(decorated_transaction.kind).to eq('Despesa')
       end
     end
 
@@ -24,7 +24,7 @@ RSpec.describe Account::TransactionDecorator do
       let(:transaction) { create(:transaction, kind: 1) }
 
       it 'returns the kind in the correct format' do
-        expect(decorated_transaction.kind).to eq('Income')
+        expect(decorated_transaction.kind).to eq('Receita')
       end
     end
 
@@ -32,7 +32,7 @@ RSpec.describe Account::TransactionDecorator do
       let(:transaction) { create(:transaction, kind: 2) }
 
       it 'returns the kind in the correct format' do
-        expect(decorated_transaction.kind).to eq('Transfer')
+        expect(decorated_transaction.kind).to eq('Transferência')
       end
     end
 
@@ -40,7 +40,7 @@ RSpec.describe Account::TransactionDecorator do
       let(:transaction) { create(:transaction, kind: 3) }
 
       it 'returns the kind in the correct format' do
-        expect(decorated_transaction.kind).to eq('Investment')
+        expect(decorated_transaction.kind).to eq('Investimento')
       end
     end
   end
