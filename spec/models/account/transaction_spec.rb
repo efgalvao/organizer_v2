@@ -11,9 +11,11 @@ RSpec.describe Account::Transaction do
   describe 'validations' do
     it { is_expected.to validate_presence_of(:title) }
     it { is_expected.to validate_presence_of(:kind) }
+    it { is_expected.to validate_presence_of(:group) }
   end
 
   describe 'enums' do
     it { is_expected.to define_enum_for(:kind).with_values(expense: 0, income: 1, transfer: 2, investment: 3) }
+    it { is_expected.to define_enum_for(:group).with_values(custos_fixos: 0, conforto: 1, metas: 2, prazeres: 3, liberdade_financeira: 4, conhecimento: 5) }
   end
 end

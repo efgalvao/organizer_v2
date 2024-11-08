@@ -53,12 +53,12 @@ module Account
     private
 
     def transactions_params
-      params.require(:transaction).permit(:title, :category_id, :amount, :kind, :date, :future, :parcels)
+      params.require(:transaction).permit(:title, :category_id, :amount, :kind, :date, :future, :parcels, :group)
             .merge(account_id: params[:account_id])
     end
 
     def update_params
-      params.require(:transaction).permit(:title, :category_id, :date)
+      params.require(:transaction).permit(:title, :category_id, :date, :group)
     end
 
     def set_transaction

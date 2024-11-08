@@ -33,7 +33,8 @@ RSpec.describe 'Financings::Transaction' do
             amount: '100.01',
             kind: 0,
             category_id: 2,
-            parcels: 1
+            parcels: 1,
+            group: 'custos_fixos'
           } }
         end.to change(Account::Transaction, :count).by(1)
       end
@@ -51,9 +52,10 @@ RSpec.describe 'Financings::Transaction' do
     context 'with valid parameters' do
       it 'update payment' do
         put account_transaction_path(account_id: account.id, id: transaction.id),
-            params: { transaction: { title: 'New Title' } }
+            params: { transaction: { title: 'New Title', group: 'conforto' } }
 
         expect(transaction.reload.title).to eq('New Title')
+        expect(transaction.reload.group).to eq('conforto')
       end
     end
   end
