@@ -103,6 +103,7 @@ en:
       expense_kind: Expense
       parcels: Parcels
       category: Category
+      group: Group
   card:
     form:
       name: Name
