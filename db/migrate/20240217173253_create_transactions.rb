@@ -8,7 +8,6 @@ class CreateTransactions < ActiveRecord::Migration[7.0]
       t.integer 'kind', default: 0, null: false
       t.string 'title', null: false
       t.date 'date'
-      t.integer 'group'
       t.timestamps
     end
   end

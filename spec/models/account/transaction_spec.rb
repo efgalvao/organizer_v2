@@ -11,7 +11,6 @@ RSpec.describe Account::Transaction do
   describe 'validations' do
     it { is_expected.to validate_presence_of(:title) }
     it { is_expected.to validate_presence_of(:kind) }
-    it { is_expected.to validate_presence_of(:group) }
   end
 
   describe 'enums' do
