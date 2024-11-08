@@ -38,5 +38,9 @@ module Account
     def category_name
       object.category&.name&.humanize
     end
+
+    def group_name
+      object.group&.humanize
+    end
   end
 end
