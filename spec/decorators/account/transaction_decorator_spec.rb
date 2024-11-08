@@ -80,4 +80,12 @@ RSpec.describe Account::TransactionDecorator do
       expect(decorated_transaction.title).to eq('Title Title')
     end
   end
+
+  describe '#group_name' do
+    let(:transaction) { create(:transaction, group: 'metas') }
+
+    it 'returns the title in the correct format' do
+      expect(decorated_transaction.group_name).to eq('Metas')
+    end
+  end
 end

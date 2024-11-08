@@ -83,6 +83,7 @@ pt-BR:
       expense_kind: Despesa
       parcels: Parcelas
       category: Categoria
+      group: Grupo
   card:
     form:
       name: Nome

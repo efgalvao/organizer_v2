@@ -48,7 +48,8 @@ module FilesServices
         amount: row[4],
         title: row[5],
         category: row[6],
-        parcels: row[7]
+        group: row[7],
+        parcels: row[8]
       }
     end
 

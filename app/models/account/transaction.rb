@@ -8,6 +8,7 @@ module Account
     validates :kind, presence: true
 
     enum kind: { expense: 0, income: 1, transfer: 2, investment: 3 }
+    enum group: { custos_fixos: 0, conforto: 1, metas: 2, prazeres: 3, liberdade_financeira: 4, conhecimento: 5 }
 
     delegate :user, :name, to: :account, prefix: 'account'
   end
