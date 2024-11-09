@@ -9,4 +9,8 @@ FactoryBot.define do
     date { Time.zone.today }
     group { [0, 1, 2, 3, 4, 5].sample }
   end
+
+  trait :expense do
+    kind { 'expense' }
+  end
 end
