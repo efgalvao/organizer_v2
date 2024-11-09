@@ -34,7 +34,7 @@ RSpec.describe 'Financings::Transaction' do
             kind: 0,
             category_id: 2,
             parcels: 1,
-            group: 0
+            group: 'conforto'
           } }
         end.to change(Account::Transaction, :count).by(1)
       end
