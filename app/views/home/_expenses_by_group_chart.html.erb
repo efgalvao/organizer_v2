@@ -1,0 +1,14 @@
+<div class="summary-item">
+  <div class="subtitle">
+  <%= t('home.charts.expense_by_group') %>
+  </div>
+
+  <div class="chart">
+    <%= pie_chart expenses_by_group, precision: 8, discrete: false, legend: 'bottom' %>
+  </div>
+
+
+  <div class="chart">
+    <%= pie_chart ideal, precision: 8, discrete: false, legend: 'bottom' %>
+  </div>
+</div>

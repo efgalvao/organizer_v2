@@ -5,6 +5,8 @@
 
     <%= render 'expenses_by_category_chart', :expense_by_category => @report_data.expense_by_category %>
 
+    <%= render 'expenses_by_group_chart', :expenses_by_group => @report_data.expenses_by_group, :ideal => @report_data.ideal_expenses_data %>
+
     <%= render 'accounts', :accounts => @report_data.accounts %>
 
     <%= render 'cards', :cards => @report_data.cards %>
