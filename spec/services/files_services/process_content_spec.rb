@@ -9,7 +9,7 @@ RSpec.describe FilesServices::ProcessContent, type: :service do
   let!(:card_account) { create(:account, :card, name: 'Card Account', user: user) }
   let(:content) do
     { invoices: [{ account: 'First Account', card: 'Card Account', amount: '12.40', date: '2024-01-02' }],
-      transactions: [{ account: 'First Account', category: 'fun', date: '2023-02-12', kind: 'income', title: 'ticket to mars', amount: '22.1', parcels: '1' }],
+      transactions: [{ account: 'First Account', category: 'fun', date: '2023-02-12', kind: 'income', title: 'ticket to mars', amount: '22.1', parcels: '1', group: 'confort' }],
       transferences: [{ sender: 'First Account', receiver: 'Second Account', amount: '12.34', date: '2024-01-01' }] }
   end
 

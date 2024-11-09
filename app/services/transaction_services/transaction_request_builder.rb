@@ -32,7 +32,8 @@ module TransactionServices
         kind: params.fetch(:kind),
         amount: params.fetch(:amount),
         date: date,
-        parcels: params[:parcels]
+        parcels: params[:parcels],
+        group: params.fetch(:group)
       }
     end
 
