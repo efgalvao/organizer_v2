@@ -13,7 +13,9 @@ RSpec.describe ApplicationHelper, type: :helper do
     end
 
     it 'returns all accounts formated_arrays' do
-      expect(helper.all_accounts(user.id)).to eq([first_account, second_account].map { |account| [account.name, account.id] })
+      expect(helper.all_accounts(user.id)).to contain_exactly(
+        [first_account.name, first_account.id], [second_account.name, second_account.id]
+      )
     end
   end
 end

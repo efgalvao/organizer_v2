@@ -20,18 +20,32 @@ RSpec.describe UserServices::FetchExpensesByGroup do
       end
 
       it 'returns the expenses for the group' do
-        expect(service).to eq('Metas' => 300, 'Conforto' => 200)
+        expect(service).to eq(
+          { Conforto: 200.0,
+            Conhecimento: 0.0,
+            'Custos Fixos': 0.0,
+            'Liberdade Financeira': 0.0,
+            Metas: 300.0,
+            Prazeres: 0.0 }
+        )
       end
 
       it 'calculates the total amount of expenses by group' do
-        total_amount = service['Metas']
+        total_amount = service[:Metas]
         expect(total_amount).to eq(300)
       end
     end
 
     context 'when there are no expenses in the group' do
       it 'returns an empty array' do
-        expect(service).to be_empty
+        expect(service).to eq(
+          { Conforto: 0.0,
+            Conhecimento: 0.0,
+            'Custos Fixos': 0.0,
+            'Liberdade Financeira': 0.0,
+            Metas: 0.0,
+            Prazeres: 0.0 }
+        )
       end
     end
   end

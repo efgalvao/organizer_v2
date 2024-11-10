@@ -23,7 +23,6 @@ module UserServices
                                      .where.not(group: nil)
                                      .group(:group)
                                      .sum(:amount)
-      # binding.pry
 
       format_data(expenses)
     end
@@ -33,7 +32,14 @@ module UserServices
     end
 
     def format_data(expenses)
-      expenses.transform_keys(&:titleize)
+      {
+        Metas: expenses['metas'].to_f,
+        Conhecimento: expenses['conhecimento'].to_f,
+        'Liberdade Financeira': expenses['liberdade financeira'].to_f,
+        'Custos Fixos': expenses['custos fixos'].to_f,
+        Conforto: expenses['conforto'].to_f,
+        Prazeres: expenses['prazeres'].to_f
+      }
     end
   end
 end

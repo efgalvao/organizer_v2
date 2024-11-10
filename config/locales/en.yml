@@ -257,6 +257,10 @@ en:
       card_balance: Card balance
     charts:
       expense_by_category: Expenses by Category
+      expenses_by_group:
+        title: Expenses by Group
+        expenses: Expenses
+        ideal: Ideal
   invoice:
     pay_invoice: Pay invoice
     invoice_payment: Invoice payment
