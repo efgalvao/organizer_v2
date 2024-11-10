@@ -239,6 +239,10 @@ pt-BR:
       card_balance: Saldo do cartão
     charts:
       expense_by_category: Despesas por Categoria
+      expenses_by_group:
+        title: Despesas por Grupo
+        expenses: Despesas
+        ideal: Ideal
   invoice:
     pay_invoice: Pagar fatura
     invoice_payment: Pagamento de fatura
