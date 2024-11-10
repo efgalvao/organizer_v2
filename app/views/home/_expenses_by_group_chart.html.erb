@@ -1,14 +1,11 @@
 <div class="summary-item">
   <div class="subtitle">
-  <%= t('home.charts.expense_by_group') %>
+  <%= t('home.charts.expenses_by_group.title') %>
   </div>
 
   <div class="chart">
-    <%= pie_chart expenses_by_group, precision: 8, discrete: false, legend: 'bottom' %>
-  </div>
-
-
-  <div class="chart">
-    <%= pie_chart ideal, precision: 8, discrete: false, legend: 'bottom' %>
+    <%= column_chart [{name: t('home.charts.expenses_by_group.expenses'), data: expenses_by_group},
+    {name: t('home.charts.expenses_by_group.ideal'), data: ideal}],
+     precision: 8, discrete: false, legend: 'bottom' %>
   </div>
 </div>
