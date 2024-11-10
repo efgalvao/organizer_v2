@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe UserServices::FetchIdealExpenseData do
   let(:user) { create(:user) }
   let(:account) { create(:account, user: user) }
-  let(:income_one) { create(:transaction,  amount: 70, account: account) }
-  let(:income_two) { create(:transaction,  amount: 30, account: account) }
+  let(:income_one) { create(:transaction,  amount: 70, account: account, category_id: '11') }
+  let(:income_two) { create(:transaction,  amount: 30, account: account, category_id: '17') }
   let(:other_user_income) { create(:transaction, amount: 200) }
 
   describe '#call' do
@@ -12,6 +12,8 @@ RSpec.describe UserServices::FetchIdealExpenseData do
 
     context 'when there are expenses in the group' do
       before do
+        create(:category, id: 11)
+        create(:category, id: 17)
         income_one
         income_two
         other_user_income

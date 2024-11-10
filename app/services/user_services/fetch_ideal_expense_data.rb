@@ -24,15 +24,13 @@ module UserServices
     attr_reader :user_id
 
     def ideal_expenses_data
-      incomes = Account::Transaction.where(account: account_scope, kind: :income)
-                                    .where('date >= ? AND date <= ?', Date.current.beginning_of_month,
-                                           Date.current.end_of_month)
+      incomes = Account::Transaction.joins(:account)
+                                    .where(accounts: { user_id: user_id }, kind: :income)
+                                    .where('date >= ? AND date <= ?', Date.current.beginning_of_month, Date.current.end_of_month)
+                                    .where(category_id: [11, 17])
                                     .sum(:amount)
-      format_data(incomes)
-    end
 
-    def account_scope
-      Account::Account.where(user_id: user_id)
+      format_data(incomes)
     end
 
     def format_data(incomes)
