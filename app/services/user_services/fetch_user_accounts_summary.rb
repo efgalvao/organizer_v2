@@ -13,11 +13,10 @@ module UserServices
     attr_reader :user_id
 
     def fetch_accounts_summary
-      Account::Account.where(user_id: user_id)
-                      .except_card_accounts
-                      .includes(:account_reports, :investments)
-                      .order(:name)
-                      .map { |account| build_account_summary(account) }
+      accounts = Account::Account.where(user_id: user_id, type: ['Account::Savings', 'Account::Broker'])
+                                 .includes(:account_reports, :investments)
+                                 .order(:name)
+      accounts.map { |account| build_account_summary(account) }
     end
 
     def build_account_summary(account)

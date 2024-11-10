@@ -9,14 +9,14 @@ RSpec.describe AccountServices::UpdateAccount do
     {
       id: account.id,
       name: 'My Other Account',
-      kind: 'broker'
+      type: 'Account::Broker'
     }
   end
 
-  it 'createss a new account', :aggregate_failures do
+  it 'creates a new account', :aggregate_failures do
     response = update_account
 
-    expect(response.kind).to eq('broker')
+    expect(response.type).to eq('Account::Broker')
     expect(response.name).to eq('My Other Account')
     expect(response.user_id).to eq(user.id)
     expect(response.balance).to eq(1.23)

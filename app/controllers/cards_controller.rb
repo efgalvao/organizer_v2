@@ -3,7 +3,7 @@ class CardsController < ApplicationController
   before_action :set_card, only: %i[show edit update destroy]
 
   def index
-    cards = Account::Account.where(user_id: current_user.id).card_accounts
+    cards = Account::Card.where(user_id: current_user.id)
     @cards = Account::AccountDecorator.decorate_collection(cards)
   end
 
@@ -12,13 +12,13 @@ class CardsController < ApplicationController
   end
 
   def new
-    @card = Account::Account.new
+    @card = Account::Card.new
   end
 
   def edit; end
 
   def create
-    @card = AccountServices::CreateAccount.create(card_params).decorate
+    @card = AccountServices::CreateAccount.create(card_params.merge(type: 'Account::Card')).decorate
     if @card.valid?
       respond_to do |format|
         format.html { redirect_to cards_path, notice: 'Cartão cadastrado.' }
@@ -45,15 +45,15 @@ class CardsController < ApplicationController
     @card.destroy
 
     respond_to do |format|
-      format.html { redirect_to cards_path, notice: 'Conta removida.' }
-      format.turbo_stream { flash.now[:notice] = 'Conta removida.' }
+      format.html { redirect_to cards_path, notice: 'Cartão removido.' }
+      format.turbo_stream { flash.now[:notice] = 'Cartão removido.' }
     end
   end
 
   private
 
   def card_params
-    params.require(:card).permit(:name, :kind).merge(user_id: current_user.id)
+    params.require(:card).permit(:name).merge(user_id: current_user.id)
   end
 
   def set_card

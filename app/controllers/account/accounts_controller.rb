@@ -4,7 +4,8 @@ module Account
     before_action :set_account, only: %i[show edit update destroy consolidate_report]
 
     def index
-      accounts = Account.where(user_id: current_user.id).except_card_accounts.order(:name)
+      accounts = Account.where(user_id: current_user.id, type: ['Account::Savings', 'Account::Broker'])
+                        .order(:name)
       @accounts = AccountDecorator.decorate_collection(accounts)
     end
 
@@ -63,7 +64,7 @@ module Account
     private
 
     def account_params
-      params.require(:account).permit(:name, :kind).merge(user_id: current_user.id)
+      params.require(:account).permit(:name, :type).merge(user_id: current_user.id)
     end
 
     def set_account
