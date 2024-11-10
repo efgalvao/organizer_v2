@@ -7,5 +7,10 @@ FactoryBot.define do
     kind { 'income' }
     sequence(:title) { "Transaction_#{_1}" }
     date { Time.zone.today }
+    group { [0, 1, 2, 3, 4, 5].sample }
+  end
+
+  trait :expense do
+    kind { 'expense' }
   end
 end

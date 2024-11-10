@@ -17,8 +17,11 @@
     </div>
 
     <div class="list-item">
-    <%= link_to transaction.account.name, transaction.parent_path,
-                  data: { turbo_frame: "_top" }  %>
+      <%= transaction.category_name %>
+    </div>
+
+    <div class="list-item">
+      <%= transaction.group_name %>
     </div>
 
     <div  class="list-item">

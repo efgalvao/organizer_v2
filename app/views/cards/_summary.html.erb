@@ -1,11 +1,10 @@
-<div class="item">
   <div class="subtitle">
-    <%= t('card.show.summary_tittle') %>
+    <%= t('card.show.summary_title') %>
   </div>
   <table class="striped">
     <thead>
       <tr>
-        <th><%= t('account.show.summary.balance') %></th>
+        <th><%= t('card.show.summary.balance') %></th>
 
       </tr>
     </thead>
@@ -16,28 +15,25 @@
     </tbody>
   </table>
 
-<div class="subtitle"><%= t('account.show.summary.current_month_title') %></div>
-        <p><span class="item-label"><%= t('account.show.summary.current_month.report_date') %>: </span><%= card.current_report&.date %></p>
-        <p><span class="item-label"><%= t('account.show.summary.current_month.initial_balance') %>: </span>
+<div class="subtitle"><%= t('card.show.summary.current_month_title') %></div>
+        <p><span class="item-label"><%= t('card.show.summary.current_month.report_date') %>: </span><%= card.current_report&.date %></p>
+        <p><span class="item-label"><%= t('card.show.summary.current_month.initial_balance') %>: </span>
         <%= card.current_report&.initial_account_balance %></p>
   <table class="striped">
     <thead>
       <tr>
-        <th><%= t('account.show.summary.current_month.month_incomes') %></th>
-        <th><%= t('account.show.summary.current_month.month_expenses') %></th>
-        <th><%= t('account.show.summary.current_month.month_invested') %></th>
-        <th><%= t('account.show.summary.current_month.month_balance') %></th>
-        <th><%= t('account.show.summary.current_month.card_balance') %></th>
+        <th><%= t('card.show.summary.current_month.month_incomes') %></th>
+        <th><%= t('card.show.summary.current_month.month_expenses') %></th>
+        <th><%= t('card.show.summary.current_month.month_balance') %></th>
+        <th><%= t('card.show.summary.current_month.card_balance') %></th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td><%= card.current_report.month_income %></td>
         <td><%= card.current_report.month_expense %></td>
-        <td><%= card.current_report.month_invested %></td>
         <td><%= card.current_report.month_balance %></td>
         <td><%= card.current_report.final_account_balance %></td>
       </tr>
     </tbody>
   </table>
-</div>

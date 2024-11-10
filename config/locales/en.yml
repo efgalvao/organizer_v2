@@ -83,6 +83,11 @@ en:
         current_amount: Current amount
         kind: Kind
   transactions:
+    kinds:
+      income: Income
+      expense: Expense
+      transfer: Transference
+      investment: Investment
     index:
       transactions: Transactions
       create_transaction: Create transaction
@@ -98,6 +103,7 @@ en:
       expense_kind: Expense
       parcels: Parcels
       category: Category
+      group: Group
   card:
     form:
       name: Name
@@ -115,12 +121,25 @@ en:
           month_initial_balance: Initial balance
           month_incomes: Incomes
           month_expenses: Expenses
-          month_invested: Invested
           month_balance: Balance
           card_balance: Card balance
       transactions: Transactions
       pay_invoice: Pay invoice
       consolidate_report: Consolidate report
+      past_reports:
+        title: Past month reports
+        month: Month
+        incomes: Incomes
+        expenses: Expenses
+        invested: Invested
+        month_balance: Balance
+      future_reports:
+        title: Future month reports
+        month: Month
+        incomes: Incomes
+        expenses: Expenses
+        invested: Invested
+        month_balance: Balance
   category:
     index:
       categories: Categories

@@ -20,7 +20,7 @@ module OrganizerV2
     # in config/environments, which are processed later.
     #
     I18n.available_locales = [:en, :'pt-BR']
-    I18n.default_locale = :en
+    I18n.default_locale = :'pt-BR'
 
     config.time_zone = "Brasilia"
     config.eager_load_paths << Rails.root.join("extras")

@@ -12,11 +12,12 @@
   <%= f.input :date, as: :date, html5: true, label: t('transactions.form.date') %>
   <%= f.input :category_id, label: t('transactions.form.category'), as: :select,
     collection: categories.map { |category| [category.name, category.id] } %>
-<%= f.input :kind, as: :select, collection: [[t('transactions.form.income_kind'), 1],
+  <%= f.input :kind, as: :select, collection: [[t('transactions.form.income_kind'), 1],
     [t('transactions.form.expense_kind'), 0]], label: t('transactions.form.kind'),
     disabled: !f.object&.new_record? %>
   <%= f.input :parcels, as: :integer, label: t('transactions.form.parcels'), input_html: { value: 1,
     disabled: !f.object&.new_record? } %>
+  <%= f.input :group, as: :select, collection: Account::Transaction.groups.keys.map { |group| [group.humanize, group] }, label: t('transactions.form.group') %>
 
   <%= f.submit t('buttons.save'), class: "btn btn--secondary" %>
   <%= link_to t('buttons.cancel'), account_transactions_path, class: "btn btn--light" %>

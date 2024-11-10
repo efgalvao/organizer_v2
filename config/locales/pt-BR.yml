@@ -46,14 +46,25 @@ pt-BR:
       create_transference: Criar transferência
       consolidate_report: Consolidar relatório
       report_updated: Relatório atualizado
-    chart:
-      past_month:
-        title: Mêses anteriores
-        incomes: Receitas
-        expenses: Despesas
-        invested: Investido
-        balance: Saldo
+      chart:
+        past_month:
+          title: Mêses anteriores
+          incomes: Receitas
+          expenses: Despesas
+          invested: Investido
+          balance: Saldo
+      investments:
+        title: Investimentos
+        name: Nome
+        invested_amount: Investido
+        current_amount: Atual
+        kind: Tipo
   transactions:
+    kinds:
+      income: Receita
+      expense: Despesa
+      transfer: Transferência
+      investment: Investimento
     index:
       transactions: Transações
       create_transaction: Criar transação
@@ -72,6 +83,7 @@ pt-BR:
       expense_kind: Despesa
       parcels: Parcelas
       category: Categoria
+      group: Grupo
   card:
     form:
       name: Nome
@@ -86,15 +98,26 @@ pt-BR:
         current_month_title: Mês atual
         current_month:
           report_date: Data do relatório
-          month_initial_balance: Saldo inicial
+          initial_balance: Saldo inicial
           month_incomes: Receitas
           month_expenses: Despesas
-          month_invested: Investido
           month_balance: Saldo
           card_balance: Saldo do cartão
       transactions: Transações
       pay_invoice: Pagar fatura
       consolidate_report: Consolidar relatório
+      past_reports:
+        title: Relatórios de meses anteriores
+        date: Data
+        incomes: Receitas
+        expenses: Despesas
+        month_balance: Saldo
+      future_reports:
+        title: Relatórios parciais futuros
+        date: Data
+        incomes: Receitas
+        expenses: Despesas
+        month_balance: Saldo
   category:
     index:
       categories: Categorias
@@ -180,12 +203,12 @@ pt-BR:
         title: Mês atual
         incomes: Receitas
         expenses: Despesas
-        card_expenses: Despesas do cartão
+        card_expenses: Despesas no cartão
         invested: Investido
         dividends: Dividendos
         month_balance: Saldo
     past_month_reports:
-      title: Relatórios do mês passado
+      title: Relatórios do mêses anteriores
       month: Mês
       incomes: Receitas
       expenses: Despesas
@@ -195,16 +218,16 @@ pt-BR:
       charts:
         title: Meses anteriores
         total_balance: Saldo total
-        total_savings: Total na poupança
+        total_savings: Total em contas
         total_invested: Total investido
         incomes: Receitas
         expenses: Despesas
         invested: Investido
-        card_expenses: Despesas do cartão
+        card_expenses: Despesas no cartão
     accounts:
       title: Resumo das contas
       account: Conta
-      balance: Total em contas
+      balance: Total em conta
       investments: Total em investimentos
       total: Total
     cards:

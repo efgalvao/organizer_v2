@@ -27,4 +27,12 @@
   <% end %>
 </div>
 
+<div class="item">
+
     <%= render 'summary', :card => @card %>
+
+    <%= render 'past_reports', :past_reports => @card.past_reports %>
+
+    <%= render 'future_reports', :future_reports => @card.future_reports %>
+
+</div>

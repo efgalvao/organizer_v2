@@ -30,11 +30,11 @@ module Account
     end
 
     def past_reports
-      AccountServices::FetchAccountReports.fetch_reports(object.id, 6).map(&:decorate)
+      AccountServices::FetchPastAccountReports.fetch_past_reports(object.id, 6).map(&:decorate)
     end
 
     def past_reports_chart_data
-      reports = AccountServices::FetchAccountReports.fetch_reports(object.id, 6)
+      reports = AccountServices::FetchPastAccountReports.fetch_past_reports(object.id, 6)
       AccountServices::CreatePastReportsChartData.call(reports: reports)
     end
 
