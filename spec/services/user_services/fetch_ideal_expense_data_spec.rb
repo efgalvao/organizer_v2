@@ -26,7 +26,8 @@ RSpec.describe UserServices::FetchIdealExpenseData do
           Conhecimento: 5.0,
           'Custos Fixos': 30.0,
           'Liberdade Financeira': 25.0,
-          Prazeres: 10.0
+          Prazeres: 10.0,
+          Total: 100.0
         )
       end
     end
@@ -39,7 +40,8 @@ RSpec.describe UserServices::FetchIdealExpenseData do
           Conhecimento: 0.0,
           'Custos Fixos': 0.0,
           'Liberdade Financeira': 0.0,
-          Prazeres: 0.0
+          Prazeres: 0.0,
+          Total: 0.0
         )
       end
     end

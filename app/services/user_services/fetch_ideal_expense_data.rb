@@ -40,7 +40,8 @@ module UserServices
         Metas: (incomes * OBJECTIVES_PERCENTAGE).round(2),
         Prazeres: (incomes * PLEASURES_PERCENTAGE).round(2),
         'Liberdade Financeira': (incomes * FREEDOM_PERCENTAGE).round(2),
-        Conhecimento: (incomes * KNOWLEDGE_PERCENTAGE).round(2) }
+        Conhecimento: (incomes * KNOWLEDGE_PERCENTAGE).round(2),
+        Total: incomes.round(2) }
     end
   end
 end
