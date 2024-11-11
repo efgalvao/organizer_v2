@@ -26,7 +26,8 @@ RSpec.describe UserServices::FetchExpensesByGroup do
             'Custos Fixos': 0.0,
             'Liberdade Financeira': 0.0,
             Metas: 300.0,
-            Prazeres: 0.0 }
+            Prazeres: 0.0,
+            Total: 500.0 }
         )
       end
 
@@ -44,7 +45,8 @@ RSpec.describe UserServices::FetchExpensesByGroup do
             'Custos Fixos': 0.0,
             'Liberdade Financeira': 0.0,
             Metas: 0.0,
-            Prazeres: 0.0 }
+            Prazeres: 0.0,
+            Total: 0.0 }
         )
       end
     end

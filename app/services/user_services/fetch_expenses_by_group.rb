@@ -38,7 +38,8 @@ module UserServices
         'Liberdade Financeira': expenses['liberdade_financeira'].to_f,
         'Custos Fixos': expenses['custos_fixos'].to_f,
         Conforto: expenses['conforto'].to_f,
-        Prazeres: expenses['prazeres'].to_f
+        Prazeres: expenses['prazeres'].to_f,
+        Total: expenses.values.sum.to_f
       }
     end
   end
