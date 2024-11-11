@@ -35,12 +35,12 @@ module UserServices
     end
 
     def format_data(incomes)
-      { 'Custos Fixos': incomes * FIXED_COSTS_PERCENTAGE,
-        Conforto: incomes * CONFORT_PERCENTAGE,
-        Metas: incomes * OBJECTIVES_PERCENTAGE,
-        Prazeres: incomes * PLEASURES_PERCENTAGE,
-        'Liberdade Financeira': incomes * FREEDOM_PERCENTAGE,
-        Conhecimento: incomes * KNOWLEDGE_PERCENTAGE }
+      { 'Custos Fixos': (incomes * FIXED_COSTS_PERCENTAGE).round(2),
+        Conforto: (incomes * CONFORT_PERCENTAGE).round(2),
+        Metas: (incomes * OBJECTIVES_PERCENTAGE).round(2),
+        Prazeres: (incomes * PLEASURES_PERCENTAGE).round(2),
+        'Liberdade Financeira': (incomes * FREEDOM_PERCENTAGE).round(2),
+        Conhecimento: (incomes * KNOWLEDGE_PERCENTAGE).round(2) }
     end
   end
 end
