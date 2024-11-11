@@ -22,15 +22,15 @@ module AccountServices
 
     def transaction_class
       case params[:type]
-      when 'Income'
+      when 'Account::Income'
         Account::Income
-      when 'Expense'
+      when 'Account::Expense'
         Account::Expense
-      when 'Transference'
+      when 'Account::Transference'
         Account::Transference
-      when 'Investment'
+      when 'Account::Investment'
         Account::Investment
-      when 'Invoice'
+      when 'Account::Invoice'
         Account::Invoice
       else
         Account::Transaction
