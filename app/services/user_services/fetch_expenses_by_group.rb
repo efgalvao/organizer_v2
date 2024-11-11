@@ -35,8 +35,8 @@ module UserServices
       {
         Metas: expenses['metas'].to_f,
         Conhecimento: expenses['conhecimento'].to_f,
-        'Liberdade Financeira': expenses['liberdade financeira'].to_f,
-        'Custos Fixos': expenses['custos fixos'].to_f,
+        'Liberdade Financeira': expenses['liberdade_financeira'].to_f,
+        'Custos Fixos': expenses['custos_fixos'].to_f,
         Conforto: expenses['conforto'].to_f,
         Prazeres: expenses['prazeres'].to_f
       }
