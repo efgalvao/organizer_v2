@@ -14,4 +14,9 @@ RSpec.describe CreditServices::ProcessInvoicePayment do
     expect(sender.reload.balance).to eq(-100.11)
     expect(receiver.reload.balance).to eq(100.11)
   end
+
+  it 'creates transactions of type Invoice' do
+    service
+    expect(Account::Transaction.last(2).all? { |t| t.type == 'Account::Invoice' }).to be true
+  end
 end

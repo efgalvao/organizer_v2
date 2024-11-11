@@ -27,12 +27,12 @@ module InvoiceServices
     attr_reader :params, :sender_id, :receiver, :amount, :date
 
     def sender_params
-      { account_id: sender_id, amount: amount, kind: 0, receiver: false,
+      { account_id: sender_id, amount: amount, type: 'Account::Invoice', kind: 0, receiver: false,
         title: "#{I18n.t('transactions.invoice.invoice_payment')} - #{receiver.name}", date: date }
     end
 
     def receiver_params
-      { account_id: receiver.id, amount: amount, kind: 1, receiver: true,
+      { account_id: receiver.id, amount: amount, type: 'Account::Invoice', kind: 1, receiver: true,
         title: I18n.t('transactions.invoice.invoice_payment'), date: date }
     end
 

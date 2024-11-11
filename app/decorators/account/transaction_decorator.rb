@@ -11,15 +11,17 @@ module Account
     end
 
     def kind
-      case object.kind
-      when 'income'
+      case object
+      when Account::Income
         I18n.t('transactions.kinds.income')
-      when 'expense'
+      when Account::Expense
         I18n.t('transactions.kinds.expense')
-      when 'transfer'
+      when Account::Transference
         I18n.t('transactions.kinds.transfer')
-      when 'investment'
+      when Account::Investment
         I18n.t('transactions.kinds.investment')
+      when Account::Invoice
+        I18n.t('transactions.kinds.invoice')
       end
     end
 

@@ -56,7 +56,7 @@ module TransactionServices
                 params[:amount]
               end
 
-      params[:kind].to_i.in?([0, 3]) ? -value_to_decimal(value) : value_to_decimal(value)
+      params[:type].in?(['Account::Expense', 'Account::Investment']) ? -value_to_decimal(value) : value_to_decimal(value)
     end
 
     def consolidate_account_report(transaction)

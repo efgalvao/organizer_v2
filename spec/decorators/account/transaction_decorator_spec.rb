@@ -12,35 +12,35 @@ RSpec.describe Account::TransactionDecorator do
   end
 
   describe '#kind' do
-    context 'when the kind is 0' do
-      let(:transaction) { create(:transaction, kind: 0) }
+    context 'when the transaction is an Income' do
+      let(:transaction) { create(:income) }
 
       it 'returns the kind in the correct format' do
-        expect(decorated_transaction.kind).to eq('Despesa')
+        expect(decorated_transaction.kind).to eq(I18n.t('transactions.kinds.income'))
       end
     end
 
-    context 'when the kind is 1' do
-      let(:transaction) { create(:transaction, kind: 1) }
+    context 'when the transaction is an Expense' do
+      let(:transaction) { create(:expense) }
 
       it 'returns the kind in the correct format' do
-        expect(decorated_transaction.kind).to eq('Receita')
+        expect(decorated_transaction.kind).to eq(I18n.t('transactions.kinds.expense'))
       end
     end
 
-    context 'when the kind is 2' do
-      let(:transaction) { create(:transaction, kind: 2) }
+    context 'when the transaction is a Transference' do
+      let(:transaction) { create(:transference) }
 
       it 'returns the kind in the correct format' do
-        expect(decorated_transaction.kind).to eq('Transferência')
+        expect(decorated_transaction.kind).to eq(I18n.t('transactions.kinds.transfer'))
       end
     end
 
-    context 'when the kind is 3' do
-      let(:transaction) { create(:transaction, kind: 3) }
+    context 'when the transaction is an Investment' do
+      let(:transaction) { create(:investment) }
 
       it 'returns the kind in the correct format' do
-        expect(decorated_transaction.kind).to eq('Investimento')
+        expect(decorated_transaction.kind).to eq(I18n.t('transactions.kinds.investment'))
       end
     end
   end

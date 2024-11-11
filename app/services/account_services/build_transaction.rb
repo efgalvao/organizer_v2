@@ -17,14 +17,30 @@ module AccountServices
     attr_reader :params
 
     def build_transaction
-      Account::Transaction.new(transaction_params)
+      transaction_class.new(transaction_params)
+    end
+
+    def transaction_class
+      case params[:type]
+      when 'Income'
+        Account::Income
+      when 'Expense'
+        Account::Expense
+      when 'Transference'
+        Account::Transference
+      when 'Investment'
+        Account::Investment
+      when 'Invoice'
+        Account::Invoice
+      else
+        Account::Transaction
+      end
     end
 
     def transaction_params
       {
         account_id: params[:account_id],
         amount: params[:amount].to_d,
-        kind: params[:kind].to_i,
         date: date,
         category_id: params[:category_id],
         title: params[:title],
