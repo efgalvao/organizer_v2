@@ -31,7 +31,7 @@ module TransactionServices
     end
 
     def build_transaction
-      AccountServices::BuildTransaction.build(params)
+      TransactionServices::BuildTransaction.build(params)
     end
 
     def value_to_decimal(value)
@@ -56,7 +56,12 @@ module TransactionServices
                 params[:amount]
               end
 
-      params[:type].in?(['Account::Expense', 'Account::Investment']) ? -value_to_decimal(value) : value_to_decimal(value)
+      if params[:type].in?(['Account::Expense',
+                            'Account::Investment'])
+        -value_to_decimal(value)
+      else
+        value_to_decimal(value)
+      end
     end
 
     def consolidate_account_report(transaction)

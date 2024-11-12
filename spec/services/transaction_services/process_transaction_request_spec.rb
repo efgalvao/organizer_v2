@@ -68,7 +68,7 @@ RSpec.describe TransactionServices::ProcessTransactionRequest do
     end
 
     before do
-      allow(AccountServices::BuildTransaction).to receive(:build).and_raise(StandardError)
+      allow(TransactionServices::BuildTransaction).to receive(:build).and_raise(StandardError)
       allow(Rails.logger).to receive(:error)
     end
 
