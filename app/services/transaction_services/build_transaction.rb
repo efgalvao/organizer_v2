@@ -21,7 +21,6 @@ module TransactionServices
     end
 
     def transaction_class
-      puts '----build_transaction----', params[:type].inspect
       case params[:type]
       when 'Account::Income'
         ::Account::Income
