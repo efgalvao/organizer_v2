@@ -10,18 +10,20 @@ module Account
       object.date.strftime('%d/%m/%Y')
     end
 
-    def kind
-      case object
-      when Account::Income
+    def type
+      return 'Transaction' if object.type.nil?
+
+      case object.type
+      when 'Account::Income'
         I18n.t('transactions.kinds.income')
-      when Account::Expense
+      when 'Account::Expense'
         I18n.t('transactions.kinds.expense')
-      when Account::Transference
+      when 'Account::Transference'
         I18n.t('transactions.kinds.transfer')
-      when Account::Investment
+      when 'Account::Investment'
         I18n.t('transactions.kinds.investment')
-      when Account::Invoice
-        I18n.t('transactions.kinds.invoice')
+      when 'Account::InvoicePayment'
+        I18n.t('transactions.kinds.invoice_payment')
       end
     end
 

@@ -11,36 +11,44 @@ RSpec.describe Account::TransactionDecorator do
     end
   end
 
-  describe '#kind' do
+  describe '#type' do
     context 'when the transaction is an Income' do
       let(:transaction) { create(:income) }
 
-      it 'returns the kind in the correct format' do
-        expect(decorated_transaction.kind).to eq(I18n.t('transactions.kinds.income'))
+      it 'returns the type in the correct format' do
+        expect(decorated_transaction.type).to eq(I18n.t('transactions.kinds.income'))
       end
     end
 
     context 'when the transaction is an Expense' do
       let(:transaction) { create(:expense) }
 
-      it 'returns the kind in the correct format' do
-        expect(decorated_transaction.kind).to eq(I18n.t('transactions.kinds.expense'))
+      it 'returns the type in the correct format' do
+        expect(decorated_transaction.type).to eq(I18n.t('transactions.kinds.expense'))
       end
     end
 
     context 'when the transaction is a Transference' do
-      let(:transaction) { create(:transference) }
+      let(:transaction) { create(:transaction_transference) }
 
-      it 'returns the kind in the correct format' do
-        expect(decorated_transaction.kind).to eq(I18n.t('transactions.kinds.transfer'))
+      it 'returns the type in the correct format' do
+        expect(decorated_transaction.type).to eq(I18n.t('transactions.kinds.transfer'))
       end
     end
 
     context 'when the transaction is an Investment' do
-      let(:transaction) { create(:investment) }
+      let(:transaction) { create(:transaction_investment) }
 
-      it 'returns the kind in the correct format' do
-        expect(decorated_transaction.kind).to eq(I18n.t('transactions.kinds.investment'))
+      it 'returns the type in the correct format' do
+        expect(decorated_transaction.type).to eq(I18n.t('transactions.kinds.investment'))
+      end
+    end
+
+    context 'when the transaction is an InvoicePayment' do
+      let(:transaction) { create(:invoice_payment) }
+
+      it 'returns the type in the correct format' do
+        expect(decorated_transaction.type).to eq(I18n.t('transactions.kinds.invoice_payment'))
       end
     end
   end
@@ -78,6 +86,15 @@ RSpec.describe Account::TransactionDecorator do
 
     it 'returns the title in the correct format' do
       expect(decorated_transaction.title).to eq('Title Title')
+    end
+  end
+
+  describe '#category_name' do
+    let(:transaction) { create(:transaction, category_id: category.id) }
+    let(:category) { create(:category) }
+
+    it 'returns the title in the correct format' do
+      expect(decorated_transaction.category_name).to eq(category.name.humanize)
     end
   end
 
