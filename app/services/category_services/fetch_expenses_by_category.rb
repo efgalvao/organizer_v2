@@ -18,12 +18,12 @@ module CategoryServices
     attr_reader :user_id, :account_id
 
     def expenses_by_category
-      expenses = Account::Transaction.where(account: account_scope, kind: :expense)
-                                     .where('date >= ? AND date <= ?', Date.current.beginning_of_month,
-                                            Date.current.end_of_month)
-                                     .joins(:category)
-                                     .group('categories.name')
-                                     .sum(:amount)
+      expenses = Account::Expense.where(account: account_scope)
+                                 .where('date >= ? AND date <= ?', Date.current.beginning_of_month,
+                                        Date.current.end_of_month)
+                                 .joins(:category)
+                                 .group('categories.name')
+                                 .sum(:amount)
       format_data(expenses)
     end
 
