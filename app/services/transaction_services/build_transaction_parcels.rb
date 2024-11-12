@@ -23,7 +23,7 @@ module TransactionServices
         account_id: account_id(params.fetch(:account)),
         type: transaction_type(params.fetch(:type)),
         amount: params.fetch(:amount).to_d / params[:parcels].to_i,
-        date: calculate_date(params[:date], parcel),
+        date: calculate_date(parcel),
         group: params.fetch(:group)
       }
     end
@@ -44,8 +44,12 @@ module TransactionServices
       Category.find_by('LOWER(name) = ?', downcased_name)&.id.presence || Category.find_by(name: 'Diversos')&.id
     end
 
-    def calculate_date(date, parcel)
-      (Date.parse(date) + (parcel - 1).months).strftime('%Y-%m-%d')
+    def date
+      params[:date].presence || Date.current
+    end
+
+    def calculate_date(parcel)
+      (date.to_date + (parcel - 1).months).strftime('%Y-%m-%d')
     end
 
     def transaction_type(type)
