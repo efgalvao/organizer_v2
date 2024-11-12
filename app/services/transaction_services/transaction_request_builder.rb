@@ -9,6 +9,7 @@ module TransactionServices
     end
 
     def call
+      # Is this needed ?
       transaction_params = build_transaction
 
       transactions = TransactionServices::BuildTransactionParcels.call(transaction_params)
