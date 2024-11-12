@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe AccountServices::BuildTransaction do
+RSpec.describe BuildServices::BuildTransaction do
   subject(:build_transaction) { described_class.build(params) }
 
   let(:account) { create(:account) }
@@ -18,7 +18,7 @@ RSpec.describe AccountServices::BuildTransaction do
   it 'build a new transaction', :aggregate_failures do
     response = build_transaction
 
-    expect(response).to be_a(Account::Transaction)
+    expect(response).to be_a(Transaction::Transaction)
     expect(response.kind).to eq('income')
     expect(response.title).to eq('My Transaction')
     expect(response.amount).to eq(123.45)
