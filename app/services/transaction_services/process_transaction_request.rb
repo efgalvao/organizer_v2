@@ -1,11 +1,12 @@
 module TransactionServices
   class ProcessTransactionRequest
-    def initialize(params)
+    def initialize(params:, value_to_update_balance:)
       @params = params
+      @value_to_update_balance = value_to_update_balance
     end
 
-    def self.call(params)
-      new(params).call
+    def self.call(params:, value_to_update_balance:)
+      new(params: params, value_to_update_balance: value_to_update_balance).call
     end
 
     def call
@@ -17,7 +18,7 @@ module TransactionServices
 
     private
 
-    attr_reader :params
+    attr_reader :params, :value_to_update_balance
 
     def create_transaction
       transaction = nil
@@ -34,10 +35,6 @@ module TransactionServices
       TransactionServices::BuildTransaction.build(params)
     end
 
-    def value_to_decimal(value)
-      value.to_d
-    end
-
     def update_account_balance
       AccountServices::UpdateAccountBalance.call(update_account_balance_params)
     end
@@ -45,23 +42,8 @@ module TransactionServices
     def update_account_balance_params
       {
         account_id: params[:account_id],
-        amount: value_to_update_balance
+        amount: value_to_update_balance.to_d
       }
-    end
-
-    def value_to_update_balance
-      value = if params.key?(:value_to_update_balance)
-                params[:value_to_update_balance]
-              else
-                params[:amount]
-              end
-
-      if params[:type].in?(['Account::Expense',
-                            'Account::Investment'])
-        -value_to_decimal(value)
-      else
-        value_to_decimal(value)
-      end
     end
 
     def consolidate_account_report(transaction)
