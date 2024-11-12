@@ -9,12 +9,12 @@ module TransactionServices
     end
 
     def call
-      # Is this needed ?
       transaction_params = build_transaction
 
       transactions = TransactionServices::BuildTransactionParcels.call(transaction_params)
       response = transactions.flatten.map do |transaction|
-        TransactionServices::ProcessTransactionRequest.call(transaction)
+        TransactionServices::ProcessTransactionRequest.call(params: transaction,
+                                                            value_to_update_balance: value_to_update(transaction))
       end
       response.first
     rescue StandardError => e
@@ -54,6 +54,14 @@ module TransactionServices
 
     def date
       params[:date].presence || Date.current.strftime('%Y-%m-%d')
+    end
+
+    def value_to_update(transaction)
+      if transaction[:type] == 'Account::Expense'
+        -transaction[:amount].to_d
+      else
+        transaction[:amount].to_d
+      end
     end
   end
 end
