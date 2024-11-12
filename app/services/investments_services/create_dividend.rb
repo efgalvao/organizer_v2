@@ -1,6 +1,5 @@
 module InvestmentsServices
   class CreateDividend
-    INCOME_CODE = 1
     def initialize(params)
       @params = params
     end
@@ -12,7 +11,8 @@ module InvestmentsServices
     def call
       ActiveRecord::Base.transaction do
         dividend = Investments::Dividend.create(formated_params)
-        TransactionServices::ProcessTransactionRequest.call(transaction_params)
+        TransactionServices::ProcessTransactionRequest.call(params: transaction_params,
+                                                            value_to_update_balance: transaction_amount)
         dividend
       end
     end
@@ -42,10 +42,14 @@ module InvestmentsServices
 
     def transaction_params
       { account_id: investment.account_id,
-        amount: params[:amount].to_d * params[:shares].to_i,
-        kind: INCOME_CODE,
+        amount: transaction_amount,
+        type: 'Account::Income',
         title: "#{I18n.t('investments.dividends.dividends')} - #{investment.name}",
         date: date }
+    end
+
+    def transaction_amount
+      params[:amount].to_d * params[:shares].to_i
     end
   end
 end

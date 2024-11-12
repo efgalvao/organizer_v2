@@ -6,7 +6,7 @@ RSpec.describe InvestmentsServices::CreateDividend do
   let(:investment) { create(:investment, account: account) }
   let(:account) { create(:account) }
 
-  context 'when date is prsent' do
+  context 'when date is present' do
     let(:params) do
       {
         date: Date.current.strftime('%d/%m/%Y'),
@@ -23,6 +23,10 @@ RSpec.describe InvestmentsServices::CreateDividend do
       expect(response.amount).to eq(10.01)
       expect(response.investment_id).to eq(investment.id)
       expect(response).to be_persisted
+    end
+
+    it 'create income transaction' do
+      expect { create_dividend }.to change(Account::Income, :count).by(1)
     end
   end
 
@@ -43,6 +47,10 @@ RSpec.describe InvestmentsServices::CreateDividend do
       expect(response.amount).to eq(10.01)
       expect(response.investment_id).to eq(investment.id)
       expect(response).to be_persisted
+    end
+
+    it 'create income transaction' do
+      expect { create_dividend }.to change(Account::Income, :count).by(1)
     end
   end
 end
