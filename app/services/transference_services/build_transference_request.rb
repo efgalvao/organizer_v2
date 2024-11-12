@@ -19,16 +19,9 @@ module TransferenceServices
 
     def build_transferences
       transferences.map do |transference|
-        # transference_params = build_params(transference)
         build_transference(transference)
       end
     end
-
-    # def build_params( )
-    #   keys = %i[sender receiver amount date]
-    #   values =  .split(',')
-    #   keys.zip(values).to_h
-    # end
 
     def build_transference(transference)
       {
