@@ -14,8 +14,10 @@ module TransferenceServices
     def call
       ActiveRecord::Base.transaction do
         transference = build_transference
-        TransactionServices::ProcessTransactionRequest.call(sender_transaction_params)
-        TransactionServices::ProcessTransactionRequest.call(receiver_transaction_params)
+        TransactionServices::ProcessTransactionRequest.call(params: sender_transaction_params,
+                                                            value_to_update_balance: -amount)
+        TransactionServices::ProcessTransactionRequest.call(params: receiver_transaction_params,
+                                                            value_to_update_balance: amount)
         transference.save!
         transference
       end
@@ -36,29 +38,31 @@ module TransferenceServices
     def sender_transaction_params
       {
         account_id: params[:sender_id],
-        kind: TRANSFERENCE_CODE,
-        amount: params[:amount],
+        type: 'Account::Transference',
+        amount: amount,
         date: params[:date],
         category_id: nil,
-        title: "Transferência para #{account(params[:receiver_id]).name}",
-        value_to_update_balance: "-#{params[:amount]}"
+        title: "Transferência para #{account(params[:receiver_id]).name}"
       }
     end
 
     def receiver_transaction_params
       {
         account_id: params[:receiver_id],
-        kind: TRANSFERENCE_CODE,
-        amount: params[:amount],
+        type: 'Account::Transference',
+        amount: amount,
         date: params[:date],
         category_id: nil,
-        title: "Transferência de #{account(params[:sender_id]).name}",
-        value_to_update_balance: params[:amount]
+        title: "Transferência de #{account(params[:sender_id]).name}"
       }
     end
 
     def account(account_id)
       Account::Account.find(account_id)
+    end
+
+    def amount
+      @amount ||= params.fetch(:amount, 0).to_d
     end
   end
 end
