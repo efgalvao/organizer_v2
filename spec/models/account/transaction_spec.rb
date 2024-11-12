@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'rails_helper'
+
 RSpec.describe Account::Transaction do
   subject { create(:transaction) }
 
@@ -21,14 +23,14 @@ RSpec.describe Account::Transaction do
     end
 
     it 'allows creating Expense as a type of Transaction' do
-      expense = Account::Expense.create(title: 'Groceries', account: create(:account), account_report: create(:account_report), amount: 100)
+      expense = Account::Expense.create(title: 'Groceries', account: create(:account), account_report: create(:account_report), amount: 100, group: 0)
       expect(expense).to be_valid
       expect(expense).to be_a(Account::Expense)
       expect(expense.type).to eq('Account::Expense')
     end
 
     it 'allows creating Transference as a type of Transaction' do
-      transference = Account::Transference.create(title: 'Transfer', account: create(:account), account_report: create(:account_report), amount: 200, sender: create(:account), receiver: create(:account), user: create(:user))
+      transference = Account::Transference.create(title: 'Transfer', account: create(:account), account_report: create(:account_report), amount: 200)
       expect(transference).to be_valid
       expect(transference).to be_a(Account::Transference)
       expect(transference.type).to eq('Account::Transference')
@@ -42,10 +44,10 @@ RSpec.describe Account::Transaction do
     end
 
     it 'allows creating Invoice as a type of Transaction' do
-      invoice = Account::Invoice.create(title: 'Invoice Payment', account: create(:account), account_report: create(:account_report), amount: 300)
+      invoice = Account::InvoicePayment.create(title: 'Invoice Payment', account: create(:account), account_report: create(:account_report), amount: 300)
       expect(invoice).to be_valid
-      expect(invoice).to be_a(Account::Invoice)
-      expect(invoice.type).to eq('Account::Invoice')
+      expect(invoice).to be_a(Account::InvoicePayment)
+      expect(invoice.type).to eq('Account::InvoicePayment')
     end
   end
 

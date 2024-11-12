@@ -31,12 +31,12 @@ RSpec.describe 'Financings::Transaction' do
             title: 'Transaction',
             date: '2024-01-01',
             amount: '100.01',
-            type: 'Account::Income',
+            type: 1,
             category_id: 2,
             parcels: 1,
             group: 'conforto'
           } }
-        end.to change(Account::Transaction, :count).by(1)
+        end.to change(Account::Income, :count).by(1)
       end
     end
 
