@@ -30,6 +30,10 @@ RSpec.describe InvestmentsServices::CreateRedeemNegotiation do
         expect(response.shares).to eq(1)
         expect(response).to be_persisted
       end
+
+      it 'create a income transaction', :aggregate_failures do
+        expect { create_negotiation }.to change(Account::Income, :count).by(1)
+      end
     end
 
     context 'when date is not present' do
