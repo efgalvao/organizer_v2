@@ -21,7 +21,7 @@ module TransactionServices
         title: title(params.fetch(:title), parcel, params[:parcels]),
         category_id: category_id(params.fetch(:category)),
         account_id: account_id(params.fetch(:account)),
-        kind: params.fetch(:kind),
+        type: transaction_type(params.fetch(:type)),
         amount: params.fetch(:amount).to_d / params[:parcels].to_i,
         date: calculate_date(params[:date], parcel),
         group: params.fetch(:group)
@@ -46,6 +46,23 @@ module TransactionServices
 
     def calculate_date(date, parcel)
       (Date.parse(date) + (parcel - 1).months).strftime('%Y-%m-%d')
+    end
+
+    def transaction_type(type)
+      case type.to_i
+      when 0
+        'Account::Expense'
+      when 1
+        'Account::Income'
+      when 2
+        'Account::Transference'
+      when 3
+        'Account::Investment'
+      when 4
+        'Account::InvoicePayment'
+      else
+        Account::Transaction
+      end
     end
   end
 end
