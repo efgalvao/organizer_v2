@@ -1,5 +1,5 @@
 module Account
-  class Invoice < Transaction
+  class InvoicePayment < Transaction
     # Add validations for Invoice specific attributes
   end
 end
