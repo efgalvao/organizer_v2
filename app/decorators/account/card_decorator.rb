@@ -28,5 +28,9 @@ module Account
     def broker?
       object.type == 'Account::Broker'
     end
+
+    def back_path
+      "/cards/#{object.id}"
+    end
   end
 end
