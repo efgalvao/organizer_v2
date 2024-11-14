@@ -41,7 +41,8 @@ module AccountServices
         month_expense: month_expense(report),
         month_invested: month_invested(report),
         month_dividends: month_dividends,
-        date: Date.current
+        date: Date.current,
+        invoice_payment: invoice_payment(report)
       }
     end
 
@@ -56,19 +57,23 @@ module AccountServices
     end
 
     def month_balance(report)
-      month_income(report) - month_expense(report) - month_invested(report)
+      if account.type == 'Account::Card'
+        month_income(report) + invoice_payment(report) - month_expense(report)
+      else
+        month_income(report) - month_expense(report) - month_invested(report) - invoice_payment(report)
+      end
     end
 
     def month_income(report)
-      report.transactions.where(type: 'Account::Income').sum(:amount)
+      @month_income ||= report.transactions.where(type: 'Account::Income').sum(:amount)
     end
 
     def month_expense(report)
-      report.transactions.where(type: 'Account::Expense').sum(:amount)
+      @month_expense ||= report.transactions.where(type: 'Account::Expense').sum(:amount)
     end
 
     def month_invested(report)
-      report.transactions.where(type: 'Account::Investment').sum(:amount)
+      @month_invested ||= report.transactions.where(type: 'Account::Investment').sum(:amount)
     end
 
     def month_dividends
@@ -111,8 +116,13 @@ module AccountServices
         month_expense: 0,
         month_invested: 0,
         month_dividends: 0,
+        invoice_payment: 0,
         reference: current_reference
       }
+    end
+
+    def invoice_payment(report)
+      report.transactions.where(type: 'Account::InvoicePayment').sum(:amount)
     end
   end
 end

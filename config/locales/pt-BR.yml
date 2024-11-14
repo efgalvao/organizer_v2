@@ -32,6 +32,7 @@ pt-BR:
         month_invested: Investido
         month_balance: Saldo
         account_balance: Saldo da conta
+        invoice_payments: Pagamento de fatura
       total: Total
       invested: Investido
       balance: Saldo
@@ -53,6 +54,7 @@ pt-BR:
           expenses: Despesas
           invested: Investido
           balance: Saldo
+          invoice_payment: Pagamento de fatura
       investments:
         title: Investimentos
         name: Nome
@@ -102,6 +104,7 @@ pt-BR:
           initial_balance: Saldo inicial
           month_incomes: Receitas
           month_expenses: Despesas
+          invoice_payments: Pagamento de faturas
           month_balance: Saldo
           card_balance: Saldo do cartão
       transactions: Transações
@@ -112,6 +115,7 @@ pt-BR:
         date: Data
         incomes: Receitas
         expenses: Despesas
+        invoice_payments: Pagamento de faturas
         month_balance: Saldo
       future_reports:
         title: Relatórios parciais futuros
@@ -205,6 +209,7 @@ pt-BR:
         incomes: Receitas
         expenses: Despesas
         card_expenses: Despesas no cartão
+        invoice_payments: Pagamento de faturas
         invested: Investido
         dividends: Dividendos
         month_balance: Saldo
@@ -214,6 +219,7 @@ pt-BR:
       incomes: Receitas
       expenses: Despesas
       card_expenses: Despesas no cartão
+      invoice_payments: Pagamento de faturas
       invested: Investido
       month_balance: Saldo
       charts:

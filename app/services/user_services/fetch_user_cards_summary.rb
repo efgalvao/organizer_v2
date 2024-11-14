@@ -17,7 +17,7 @@ module UserServices
         {
           id: card.id,
           name: card.name,
-          month_incomes: current_report.month_income,
+          month_incomes: card_incomes(current_report),
           month_expenses: current_report.month_expense,
           month_balance: current_report.month_balance,
           card_balance: card.balance
@@ -28,5 +28,9 @@ module UserServices
     private
 
     attr_reader :user_id
+
+    def card_incomes(current_report)
+      current_report.month_income + current_report.invoice_payment
+    end
   end
 end

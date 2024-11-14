@@ -55,6 +55,7 @@ en:
         month_invested: Invested
         month_balance: Balance
         account_balance: Account balance
+        invoice_payments: Invoice payment
       total: Total
       invested: Invested
       balance: Balance
@@ -76,6 +77,7 @@ en:
           expenses: Expenses
           invested: Invested
           balance: Balance
+          invoice_payment: Invoice payment
       investments:
         title: Investments
         name: Name
@@ -122,6 +124,7 @@ en:
           month_initial_balance: Initial balance
           month_incomes: Incomes
           month_expenses: Expenses
+          invoice_payments: Invoice payments
           month_balance: Balance
           card_balance: Card balance
       transactions: Transactions
@@ -132,6 +135,7 @@ en:
         month: Month
         incomes: Incomes
         expenses: Expenses
+        invoice_payments: Invoice payments
         invested: Invested
         month_balance: Balance
       future_reports:
@@ -223,6 +227,7 @@ en:
         incomes: Incomes
         expenses: Expenses
         card_expenses: Card expenses
+        invoice_payments: Invoice payments
         invested: Invested
         dividends: Dividends
         month_balance: Balance
@@ -232,6 +237,7 @@ en:
       incomes: Incomes
       expenses: Expenses
       card_expenses: Card expenses
+      invoice_payments: Invoice payments
       invested: Invested
       month_balance: Balance
       charts:
