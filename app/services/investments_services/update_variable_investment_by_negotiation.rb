@@ -18,7 +18,8 @@ module InvestmentsServices
 
     def new_invested_value
       if params[:invested_amount].to_d.negative? && params[:shares_total].to_i.negative?
-        [investment.invested_amount - (params[:invested_amount].to_d * params[:shares_total].to_i), 0].max
+        [investment.invested_amount - (params[:invested_amount].to_d * params[:shares_total].to_i),
+         0].max
       else
         investment.invested_amount + (params[:invested_amount].to_d * params[:shares_total].to_i)
       end
