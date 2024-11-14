@@ -74,7 +74,7 @@ module InvestmentsServices
       if negotiable.fixed?
         params[:amount]
       else
-        params[:amount] * params[:shares]
+        params[:amount].to_d * params[:shares].to_i
       end
     end
   end
