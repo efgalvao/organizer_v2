@@ -24,5 +24,9 @@ module Account
     def format_currency(value)
       ActionController::Base.helpers.number_to_currency(value, unit: 'R$ ', separator: ',', delimiter: '.')
     end
+
+    def broker?
+      object.type == 'Account::Broker'
+    end
   end
 end
