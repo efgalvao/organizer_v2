@@ -2,7 +2,7 @@ class InvoicesController < ApplicationController
   before_action :authenticate_user!
 
   def new
-    @accounts = Account::Account.where(user_id: current_user.id).except_card_accounts
+    @accounts = Account::Account.where(type: ['Account::Savings', 'Account::Broker'], user_id: current_user.id)
     @card_id = params[:card_id]
     respond_to do |format|
       format.turbo_stream
