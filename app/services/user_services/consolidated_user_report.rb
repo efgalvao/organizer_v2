@@ -13,6 +13,7 @@ module UserServices
       @card_expenses = DEFAULT_VALUE
       @balance = DEFAULT_VALUE
       @total = DEFAULT_VALUE
+      @invoice_payments = DEFAULT_VALUE
     end
 
     def call
@@ -23,7 +24,7 @@ module UserServices
     private
 
     attr_reader :user_id, :savings, :investments, :incomes, :expenses,
-                :invested, :dividends, :card_expenses, :balance, :total
+                :invested, :dividends, :card_expenses, :balance, :total, :invoice_payments
 
     def user
       @user ||= User.find(user_id)
@@ -47,6 +48,7 @@ module UserServices
         expenses: @expenses,
         invested: @invested,
         dividends: @dividends,
+        invoice_payments: @invoice_payments,
         card_expenses: @card_expenses,
         balance: @balance,
         total: @total
@@ -65,12 +67,13 @@ module UserServices
           @expenses += account_report.month_expense
           @invested += account_report.month_invested
           @dividends += account_report.month_dividends
+          @invoice_payments += account_report.invoice_payment
         when Account::Card
           @card_expenses += account_report.month_expense
         end
       end
 
-      @balance = @incomes - @expenses - @invested
+      @balance = @incomes + @dividends - @expenses - @invested - @invoice_payments
       @total = @savings + @investments
     end
 
