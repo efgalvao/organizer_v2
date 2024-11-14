@@ -30,6 +30,10 @@ module Account
       format_currency(object.month_dividends)
     end
 
+    def invoice_payment
+      format_currency(object.invoice_payment)
+    end
+
     def formated_date
       object.date.strftime('%B, %Y')
     end
