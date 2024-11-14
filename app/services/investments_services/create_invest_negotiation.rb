@@ -1,6 +1,5 @@
 module InvestmentsServices
   class CreateInvestNegotiation
-    INVESTMENT_CODE = 3
     def initialize(params)
       @params = params
     end
@@ -14,7 +13,8 @@ module InvestmentsServices
 
       ActiveRecord::Base.transaction do
         negotiation = Investments::Negotiation.create(formated_params)
-        TransactionServices::ProcessTransactionRequest.call(transaction_params)
+        TransactionServices::ProcessTransactionRequest.call(params: transaction_params,
+                                                            value_to_update_balance: -amount_by_origin)
         update_investment
         negotiation
       end
@@ -47,7 +47,7 @@ module InvestmentsServices
     def transaction_params
       { account_id: negotiable.account_id,
         amount: amount_by_origin,
-        kind: INVESTMENT_CODE,
+        type: 'Account::Investment',
         title: transaction_title,
         date: date }
     end

@@ -53,7 +53,7 @@ module Account
     private
 
     def transactions_params
-      params.require(:transaction).permit(:title, :category_id, :amount, :kind, :date, :future, :parcels, :group)
+      params.require(:transaction).permit(:title, :category_id, :amount, :type, :date, :future, :parcels, :group)
             .merge(account_id: params[:account_id])
     end
 
@@ -62,7 +62,7 @@ module Account
     end
 
     def set_transaction
-      @transaction = Transaction.find(params[:id])
+      @transaction = Transaction.find(params[:id]).becomes(Transaction)
     end
 
     def categories

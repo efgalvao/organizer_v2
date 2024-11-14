@@ -7,7 +7,7 @@ module InvoiceServices
       @params = params
       @sender_id = params[:sender_id]
       @receiver = Account::Account.find(params[:receiver_id])
-      @amount = params.fetch(:amount, 0).to_f
+      @amount = params.fetch(:amount, 0).to_d
       @date = set_date
     end
 
@@ -17,8 +17,8 @@ module InvoiceServices
 
     def call
       ActiveRecord::Base.transaction do
-        TransactionServices::ProcessTransactionRequest.call(sender_params)
-        TransactionServices::ProcessTransactionRequest.call(receiver_params)
+        TransactionServices::ProcessTransactionRequest.call(params: sender_params, value_to_update_balance: -amount)
+        TransactionServices::ProcessTransactionRequest.call(params: receiver_params, value_to_update_balance: amount)
       end
     end
 
@@ -27,12 +27,12 @@ module InvoiceServices
     attr_reader :params, :sender_id, :receiver, :amount, :date
 
     def sender_params
-      { account_id: sender_id, amount: amount, kind: 0, receiver: false,
+      { account_id: sender_id, amount: amount, type: 'Account::InvoicePayment',
         title: "#{I18n.t('transactions.invoice.invoice_payment')} - #{receiver.name}", date: date }
     end
 
     def receiver_params
-      { account_id: receiver.id, amount: amount, kind: 1, receiver: true,
+      { account_id: receiver.id, amount: amount, type: 'Account::InvoicePayment',
         title: I18n.t('transactions.invoice.invoice_payment'), date: date }
     end
 

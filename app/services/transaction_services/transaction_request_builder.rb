@@ -13,7 +13,8 @@ module TransactionServices
 
       transactions = TransactionServices::BuildTransactionParcels.call(transaction_params)
       response = transactions.flatten.map do |transaction|
-        TransactionServices::ProcessTransactionRequest.call(transaction)
+        TransactionServices::ProcessTransactionRequest.call(params: transaction,
+                                                            value_to_update_balance: value_to_update(transaction))
       end
       response.first
     rescue StandardError => e
@@ -29,7 +30,7 @@ module TransactionServices
         title: params.fetch(:title),
         category: category_name(params.fetch(:category_id)),
         account: account_name(params.fetch(:account_id)),
-        kind: params.fetch(:kind),
+        type: params.fetch(:type),
         amount: params.fetch(:amount),
         date: date,
         parcels: params[:parcels],
@@ -53,6 +54,14 @@ module TransactionServices
 
     def date
       params[:date].presence || Date.current.strftime('%Y-%m-%d')
+    end
+
+    def value_to_update(transaction)
+      if transaction[:type] == 'Account::Expense'
+        -transaction[:amount].to_d
+      else
+        transaction[:amount].to_d
+      end
     end
   end
 end

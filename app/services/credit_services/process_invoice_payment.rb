@@ -1,8 +1,5 @@
 module CreditServices
   class ProcessInvoicePayment < ApplicationService
-    EXPENSE_CODE = 0
-    INCOME_CODE = 1
-
     def initialize(params)
       @params = params
     end
@@ -13,8 +10,8 @@ module CreditServices
 
     def call
       ActiveRecord::Base.transaction do
-        TransactionServices::ProcessTransactionRequest.call(sender_params)
-        TransactionServices::ProcessTransactionRequest.call(receiver_params)
+        TransactionServices::ProcessTransactionRequest.call(params: sender_params, value_to_update_balance: -amount)
+        TransactionServices::ProcessTransactionRequest.call(params: receiver_params, value_to_update_balance: amount)
         'success'
       end
     end
@@ -42,7 +39,7 @@ module CreditServices
     def sender_params
       { account_id: params[:sender_id],
         amount: amount,
-        kind: EXPENSE_CODE,
+        type: 'Account::InvoicePayment',
         title: "#{I18n.t('invoice.invoice_payment')} - #{receiver.name}",
         date: date }
     end
@@ -50,7 +47,7 @@ module CreditServices
     def receiver_params
       { account_id: receiver.id,
         amount: amount,
-        kind: INCOME_CODE,
+        type: 'Account::InvoicePayment',
         title: I18n.t('invoice.invoice_payment'),
         date: date }
     end

@@ -17,12 +17,12 @@ module UserServices
     attr_reader :user_id
 
     def expenses_by_group
-      expenses = Account::Transaction.where(account: account_scope, kind: :expense)
-                                     .where('date >= ? AND date <= ?', Date.current.beginning_of_month,
-                                            Date.current.end_of_month)
-                                     .where.not(group: nil)
-                                     .group(:group)
-                                     .sum(:amount)
+      expenses = Account::Expense.where(account: account_scope)
+                                 .where('date >= ? AND date <= ?', Date.current.beginning_of_month,
+                                        Date.current.end_of_month)
+                                 .where.not(group: nil)
+                                 .group(:group)
+                                 .sum(:amount)
 
       format_data(expenses)
     end

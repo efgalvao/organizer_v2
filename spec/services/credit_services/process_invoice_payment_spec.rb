@@ -10,7 +10,7 @@ RSpec.describe CreditServices::ProcessInvoicePayment do
   let(:receiver) { create(:account, balance: 0.0) }
 
   it 'processes the invoice payment', :aggregate_failures do
-    expect { service }.to change(Account::Transaction, :count).by(2)
+    expect { service }.to change(Account::InvoicePayment, :count).by(2)
     expect(sender.reload.balance).to eq(-100.11)
     expect(receiver.reload.balance).to eq(100.11)
   end

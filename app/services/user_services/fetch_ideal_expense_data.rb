@@ -24,12 +24,12 @@ module UserServices
     attr_reader :user_id
 
     def ideal_expenses_data
-      incomes = Account::Transaction.joins(:account)
-                                    .where(accounts: { user_id: user_id }, kind: :income)
-                                    .where('date >= ? AND date <= ?',
-                                           Date.current.beginning_of_month, Date.current.end_of_month)
-                                    .where(category_id: [11, 17])
-                                    .sum(:amount)
+      incomes = Account::Income.joins(:account)
+                               .where(accounts: { user_id: user_id })
+                               .where('date >= ? AND date <= ?',
+                                      Date.current.beginning_of_month, Date.current.end_of_month)
+                               .where(category_id: [11, 17])
+                               .sum(:amount)
 
       format_data(incomes)
     end

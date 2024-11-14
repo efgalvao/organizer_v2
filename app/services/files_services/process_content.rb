@@ -25,7 +25,8 @@ module FilesServices
       transactions.flatten.each do |transaction|
         next unless process_transaction?(transaction)
 
-        TransactionServices::ProcessTransactionRequest.call(transaction)
+        TransactionServices::ProcessTransactionRequest.call(params: transaction,
+                                                            value_to_update_balance: amount_to_update(transaction))
       end
     end
 
@@ -58,6 +59,12 @@ module FilesServices
         receiver_id: transference[:receiver_id], date: transference[:date],
         amount: transference[:amount].to_d, user_id: user_id
       ).nil?
+    end
+
+    def amount_to_update(transaction)
+      return -transaction[:amount].to_d if transaction[:type] == 'Account::Expense'
+
+      transaction[:amount].to_d
     end
   end
 end

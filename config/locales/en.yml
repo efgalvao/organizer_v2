@@ -88,6 +88,7 @@ en:
       expense: Expense
       transfer: Transference
       investment: Investment
+      invoice_payment: Invoice payment
     index:
       transactions: Transactions
       create_transaction: Create transaction

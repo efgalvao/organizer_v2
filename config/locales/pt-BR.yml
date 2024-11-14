@@ -65,6 +65,7 @@ pt-BR:
       expense: Despesa
       transfer: Transferência
       investment: Investimento
+      invoice_payment: Pagamento de fatura
     index:
       transactions: Transações
       create_transaction: Criar transação

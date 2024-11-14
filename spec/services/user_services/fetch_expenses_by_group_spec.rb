@@ -3,10 +3,10 @@ require 'rails_helper'
 RSpec.describe UserServices::FetchExpensesByGroup do
   let(:user) { create(:user) }
   let(:account) { create(:account, user: user) }
-  let(:expense_one) { create(:transaction, :expense, group: 'metas', amount: 100, account: account) }
-  let(:expense_two) { create(:transaction, :expense, group: 'metas', amount: 200, account: account) }
-  let(:expense_three) { create(:transaction, :expense, group: 'conforto', amount: 200, account: account) }
-  let(:other_user_expense) { create(:transaction, :expense, group: 'metas', amount: 200) }
+  let(:expense_one) { create(:expense, group: 'metas', amount: 100, account: account) }
+  let(:expense_two) { create(:expense, group: 'metas', amount: 200, account: account) }
+  let(:expense_three) { create(:expense, group: 'conforto', amount: 200, account: account) }
+  let(:other_user_expense) { create(:expense, group: 'metas', amount: 200) }
 
   describe '#call' do
     subject(:service) { described_class.new(user.id).call }
