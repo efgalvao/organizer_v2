@@ -26,6 +26,8 @@ RSpec.describe 'Investments::Dividend' do
 
   describe 'POST /create' do
     context 'with valid parameters' do
+      before { create(:category, id: 17, user: account.user) }
+
       it 'creates a new dividend' do
         expect do
           post investment_dividends_path(investment_id: investment.id), params: { dividend: {

@@ -24,14 +24,19 @@ module UserServices
                                  .group(:group)
                                  .sum(:amount)
 
-      format_data(expenses)
+      investment = Account::Investment.where(account: account_scope)
+                                      .where('date >= ? AND date <= ?', Date.current.beginning_of_month,
+                                             Date.current.end_of_month)
+                                      .sum(:amount)
+
+      format_data(expenses, investment)
     end
 
     def account_scope
       Account::Account.where(user_id: user_id)
     end
 
-    def format_data(expenses)
+    def format_data(expenses, investment)
       {
         Metas: expenses['metas'].to_f,
         Conhecimento: expenses['conhecimento'].to_f,
@@ -39,7 +44,7 @@ module UserServices
         'Custos Fixos': expenses['custos_fixos'].to_f,
         Conforto: expenses['conforto'].to_f,
         Prazeres: expenses['prazeres'].to_f,
-        Total: expenses.values.sum.to_f
+        Total: (expenses.values.sum.to_f + investment.to_f)
       }
     end
   end

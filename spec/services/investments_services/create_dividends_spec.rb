@@ -6,6 +6,8 @@ RSpec.describe InvestmentsServices::CreateDividend do
   let(:investment) { create(:investment, account: account) }
   let(:account) { create(:account) }
 
+  before { create(:category, id: 17, user: account.user) }
+
   context 'when date is present' do
     let(:params) do
       {
