@@ -6,6 +6,7 @@ module UserServices
     PLEASURES_PERCENTAGE = 0.1
     KNOWLEDGE_PERCENTAGE = 0.05
     FREEDOM_PERCENTAGE = 0.25
+    INCOMES_CATEGORIES_IDS = [11, 17].freeze
 
     def initialize(user_id)
       @user_id = user_id
@@ -28,7 +29,7 @@ module UserServices
                                .where(accounts: { user_id: user_id })
                                .where('date >= ? AND date <= ?',
                                       Date.current.beginning_of_month, Date.current.end_of_month)
-                               .where(category_id: [11, 17])
+                               .where(category_id: INCOMES_CATEGORIES_IDS)
                                .sum(:amount)
 
       format_data(incomes)
