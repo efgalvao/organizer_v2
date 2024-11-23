@@ -159,6 +159,10 @@ en:
       new_financing: New financing
       create_financing: Create financing
       edit_financing: Edit financing
+      name: Name
+      parcels: Parcels
+      borrowed_amount: Borrowed amount
+      outstanding_parcels: Outstanding parcels
       form:
         name: Name
         borrowed_amount: Borrowed amount

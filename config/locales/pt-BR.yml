@@ -140,7 +140,7 @@ pt-BR:
       name: Nome
       parcels: Parcelas
       borrowed_amount: Valor financiado
-      paid_parcels: Parcelas pagas
+      outstanding_parcels: Parcelas remanescentes
     form:
       name: Nome
       borrowed_amount: Valor financiado
