@@ -41,7 +41,7 @@ module AccountServices
         month_expense: month_expense(report),
         month_invested: month_invested(report),
         month_dividends: month_dividends,
-        date: Date.current,
+        date: date,
         invoice_payment: invoice_payment(report)
       }
     end
