@@ -1,7 +1,7 @@
 <%= turbo_frame_tag "report_#{past_report.id}" do %>
   <div class="list card-months-header-grid">
     <div class="list-item">
-      <%= past_report.formated_date %>
+      <%= past_report.report_date %>
     </div>
 
     <div class="list-item">
@@ -10,6 +10,10 @@
 
     <div class="list-item">
       <%= past_report.month_expense %>
+    </div>
+
+    <div class="list-item">
+      <%= past_report.invoice_payment %>
     </div>
 
     <div class="list-item">

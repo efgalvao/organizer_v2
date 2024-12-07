@@ -15,7 +15,7 @@ RSpec.describe AccountServices::FetchPastAccountReports, type: :module do
       past_report_one = create(:account_report, account: account, date: past_date - 1.month, reference: (past_date - 1.month).strftime('%m%y').to_i)
       past_report_two = create(:account_report, account: account, date: past_date - 2.months, reference: (past_date - 2.months).strftime('%m%y').to_i)
       past_reports = described_class.fetch_past_reports(account.id, 6)
-      expect(past_reports).to eq([past_report_two, past_report_one, past_report])
+      expect(past_reports).to eq([past_report, past_report_one, past_report_two])
     end
   end
 end
