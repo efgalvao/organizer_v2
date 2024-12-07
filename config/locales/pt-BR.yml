@@ -50,6 +50,7 @@ pt-BR:
       chart:
         past_month:
           title: Mêses anteriores
+          date: Data
           incomes: Receitas
           expenses: Despesas
           invested: Investido
@@ -211,6 +212,7 @@ pt-BR:
         card_expenses: Despesas no cartão
         invoice_payments: Pagamento de faturas
         invested: Investido
+        redeemed: Resgatado
         dividends: Dividendos
         month_balance: Saldo
     past_month_reports:

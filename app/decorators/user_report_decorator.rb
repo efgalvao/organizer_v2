@@ -41,6 +41,10 @@ class UserReportDecorator < Draper::Decorator
     format_currency(object.card_expenses)
   end
 
+  def invoice_payments
+    format_currency(object.invoice_payments)
+  end
+
   def report_date
     object.date.strftime('%B/%Y')
   end

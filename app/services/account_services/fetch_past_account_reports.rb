@@ -6,7 +6,7 @@ module AccountServices
       Account::Account.find(account_id).account_reports
                       .where('date < ?', Date.current.beginning_of_month)
                       .limit(months.to_i)
-                      .order(date: :asc)
+                      .order(date: :desc)
     end
   end
 end

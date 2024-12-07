@@ -34,7 +34,7 @@ module Account
       format_currency(object.invoice_payment)
     end
 
-    def formated_date
+    def report_date
       object.date.strftime('%B, %Y')
     end
 

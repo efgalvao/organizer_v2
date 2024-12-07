@@ -73,6 +73,7 @@ en:
       chart:
         past_month:
           title: Past month
+          date: Date
           incomes: Incomes
           expenses: Expenses
           invested: Invested
@@ -233,6 +234,7 @@ en:
         card_expenses: Card expenses
         invoice_payments: Invoice payments
         invested: Invested
+        redeemed: Redeemed
         dividends: Dividends
         month_balance: Balance
     past_month_reports:
