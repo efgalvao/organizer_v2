@@ -50,10 +50,14 @@ module UserServices
     end
 
     def objectives
-      @objectives ||= begin
-        investment = Investments::FixedInvestment.find_by(id: OBJECTIVES_INVESTMENT_ID)
-        investment&.current_amount.presence || 0
-      end
+      # Should add Negotiations of the current month For a particular investment
+      # Account::Account.where(user_id: 1, type: 'Account::Broker')
+      # accounts.each.select {|a| a.investments.name == 'Metas'}
+      @objectives ||= Investments::Negotiation.joins('INNER JOIN accounts ON accounts.id = negotiation.negotiable.account_id')
+                                              .where(accounts: { user_id: 1 })
+                                              .where('date >= ? AND date <= ?', Date.current.beginning_of_month, Date.current.end_of_month)
+                                              .where(negotiable_id: 18, negotiable_type: 'Investments::Investment')
+                                              .sum(:amount)
     end
   end
 end
