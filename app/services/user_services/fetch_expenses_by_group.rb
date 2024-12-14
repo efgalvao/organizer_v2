@@ -1,6 +1,6 @@
 module UserServices
   class FetchExpensesByGroup < ApplicationService
-    OBJECTIVES_INVESTMENT_ID = 18
+    OBJECTIVES_INVESTMENT_ID = ENV.fetch('OBJECTIVES_INVESTMENT_ID', nil)
     def initialize(user_id)
       @user_id = user_id
     end
@@ -50,14 +50,14 @@ module UserServices
     end
 
     def objectives
-      # Should add Negotiations of the current month For a particular investment
-      # Account::Account.where(user_id: 1, type: 'Account::Broker')
-      # accounts.each.select {|a| a.investments.name == 'Metas'}
-      @objectives ||= Investments::Negotiation.joins('INNER JOIN accounts ON accounts.id = negotiation.negotiable.account_id')
-                                              .where(accounts: { user_id: 1 })
-                                              .where('date >= ? AND date <= ?', Date.current.beginning_of_month, Date.current.end_of_month)
-                                              .where(negotiable_id: 18, negotiable_type: 'Investments::Investment')
-                                              .sum(:amount)
+      return 0 if OBJECTIVES_INVESTMENT_ID.blank?
+
+      @objectives ||= Investments::Investment
+                      .find(OBJECTIVES_INVESTMENT_ID)
+                      .negotiations
+                      .where('date >= ? AND date <= ?', Date.current.beginning_of_month, Date.current.end_of_month)
+                      .where(kind: 0)
+                      .sum(:amount)
     end
   end
 end
