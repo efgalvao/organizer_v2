@@ -1,6 +1,6 @@
 module UserServices
   class FetchExpensesByGroup < ApplicationService
-    OBJECTIVES_INVESTMENT_ID = 18
+    OBJECTIVES_INVESTMENT_ID = ENV.fetch('OBJECTIVES_INVESTMENT_ID', nil)
     def initialize(user_id)
       @user_id = user_id
     end
@@ -50,10 +50,14 @@ module UserServices
     end
 
     def objectives
-      @objectives ||= begin
-        investment = Investments::FixedInvestment.find_by(id: OBJECTIVES_INVESTMENT_ID)
-        investment&.current_amount.presence || 0
-      end
+      return 0 if OBJECTIVES_INVESTMENT_ID.blank?
+
+      @objectives ||= Investments::Investment
+                      .find(OBJECTIVES_INVESTMENT_ID)
+                      .negotiations
+                      .where('date >= ? AND date <= ?', Date.current.beginning_of_month, Date.current.end_of_month)
+                      .where(kind: 0)
+                      .sum(:amount)
     end
   end
 end
