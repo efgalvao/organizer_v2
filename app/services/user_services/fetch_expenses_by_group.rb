@@ -1,6 +1,5 @@
 module UserServices
   class FetchExpensesByGroup < ApplicationService
-    OBJECTIVES_INVESTMENT_ID = ENV.fetch('OBJECTIVES_INVESTMENT_ID', nil)
     def initialize(user_id)
       @user_id = user_id
     end
@@ -32,13 +31,13 @@ module UserServices
 
     def formated_data
       {
-        Metas: expenses_by_group['metas'].to_f + objectives.to_f,
+        Metas: investments['metas'].to_f,
         Conhecimento: expenses_by_group['conhecimento'].to_f,
-        'Liberdade Financeira': investments.to_f,
+        'Liberdade Financeira': investments['liberdade_financeira'].to_f,
         'Custos Fixos': expenses_by_group['custos_fixos'].to_f,
         Conforto: expenses_by_group['conforto'].to_f,
         Prazeres: expenses_by_group['prazeres'].to_f,
-        Total: (expenses_by_group.values.sum.to_f + investments.to_f + objectives.to_f)
+        Total: (expenses_by_group.values.sum.to_f + investments.values.sum.to_f)
       }
     end
 
@@ -46,18 +45,10 @@ module UserServices
       @investments ||= Account::Investment.where(account: account_scope)
                                           .where('date >= ? AND date <= ?', Date.current.beginning_of_month,
                                                  Date.current.end_of_month)
+                                          .where.not(group: nil)
+                                          .where(kind: 1)
+                                          .group(:group)
                                           .sum(:amount)
-    end
-
-    def objectives
-      return 0 if OBJECTIVES_INVESTMENT_ID.blank?
-
-      @objectives ||= Investments::Investment
-                      .find(OBJECTIVES_INVESTMENT_ID)
-                      .negotiations
-                      .where('date >= ? AND date <= ?', Date.current.beginning_of_month, Date.current.end_of_month)
-                      .where(kind: 0)
-                      .sum(:amount)
     end
   end
 end

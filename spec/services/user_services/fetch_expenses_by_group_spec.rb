@@ -7,6 +7,7 @@ RSpec.describe UserServices::FetchExpensesByGroup do
   let(:expense_two) { create(:expense, group: 'metas', amount: 200, account: account) }
   let(:expense_three) { create(:expense, group: 'conforto', amount: 200, account: account) }
   let(:other_user_expense) { create(:expense, group: 'metas', amount: 200) }
+  let(:objective) { create(:transaction_investment, group: 2, amount: 300, account: account, kind: 1) }
 
   describe '#call' do
     subject(:service) { described_class.new(user.id).call }
@@ -17,6 +18,7 @@ RSpec.describe UserServices::FetchExpensesByGroup do
         expense_two
         expense_three
         other_user_expense
+        objective
       end
 
       it 'returns the expenses for the group' do
@@ -27,7 +29,7 @@ RSpec.describe UserServices::FetchExpensesByGroup do
             'Liberdade Financeira': 0.0,
             Metas: 300.0,
             Prazeres: 0.0,
-            Total: 500.0 }
+            Total: 800.0 }
         )
       end
 
