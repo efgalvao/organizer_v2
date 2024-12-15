@@ -306,6 +306,7 @@ pt-BR:
           amount: Valor
           shares: Cotas
           kind: Tipo
+          group: Grupo
         position_form:
           date: Data
           amount: Valor

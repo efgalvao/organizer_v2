@@ -328,6 +328,7 @@ en:
           amount: Amount
           shares: Shares
           kind: Kind
+          group: Group
         position_form:
           date: Date
           amount: Amount
