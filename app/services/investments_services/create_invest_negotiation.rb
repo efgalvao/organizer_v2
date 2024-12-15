@@ -49,7 +49,8 @@ module InvestmentsServices
         amount: amount_by_origin,
         type: 'Account::Investment',
         title: transaction_title,
-        date: date }
+        date: date,
+        params: group_parse(params[:group]) }
     end
 
     def update_investment_params
@@ -78,6 +79,15 @@ module InvestmentsServices
 
     def transaction_title
       "#{I18n.t('investments.invest_negotiation')} - #{negotiable.name} -> #{params[:amount]}*#{params[:shares]}"
+    end
+
+    def group_parse(param)
+      case param
+      when 'objecives'
+        'Metas'
+      when 'freedom'
+        'Liberdade Financeira'
+      end
     end
   end
 end
