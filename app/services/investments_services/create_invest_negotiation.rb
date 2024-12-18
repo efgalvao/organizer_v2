@@ -50,7 +50,7 @@ module InvestmentsServices
         type: 'Account::Investment',
         title: transaction_title,
         date: date,
-        params: group_parse(params[:group]) }
+        group: group_parse(params[:group]) }
     end
 
     def update_investment_params
@@ -83,10 +83,10 @@ module InvestmentsServices
 
     def group_parse(param)
       case param
-      when 'objecives'
-        'Metas'
+      when 'objectives'
+        2
       when 'freedom'
-        'Liberdade Financeira'
+        4
       end
     end
   end

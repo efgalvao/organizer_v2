@@ -46,7 +46,6 @@ module UserServices
                                           .where('date >= ? AND date <= ?', Date.current.beginning_of_month,
                                                  Date.current.end_of_month)
                                           .where.not(group: nil)
-                                          .where(kind: 1)
                                           .group(:group)
                                           .sum(:amount)
     end
