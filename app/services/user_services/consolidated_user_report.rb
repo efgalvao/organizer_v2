@@ -35,8 +35,20 @@ module UserServices
       @current_reference ||= Date.current.strftime('%m/%y')
     end
 
+    def saving_accounts
+      @saving_accounts ||= Account::Account.where(user_id: user_id, type: 'Account::Savings')
+    end
+
+    def brokers
+      @brokers ||= Account::Account.where(user_id: user_id, type: 'Account::Broker')
+    end
+
+    def cards
+      @cards ||= Account::Account.where(user_id: user_id, type: 'Account::Card')
+    end
+
     def accounts
-      @accounts ||= Account::Account.where(user_id: user_id).includes(:investments)
+      @accounts ||= (saving_accounts + brokers + cards)
     end
 
     def create_report
@@ -60,19 +72,11 @@ module UserServices
 
     def consolidate_month_report
       accounts.each do |account|
-        account_report = account.current_report
         case account
         when Account::Savings, Account::Broker
-          @savings += account.balance
-          @investments += calculate_investments(account)
-          @incomes += account_report.month_income
-          @expenses += account_report.month_expense
-          @dividends += account_report.month_dividends
-          @invoice_payments += account_report.invoice_payment
-          @invested += account_report.month_invested
-          @redeemed += total_redemptions(account)
+          consolidate_savings_and_broker(account)
         when Account::Card
-          @card_expenses += account_report.month_expense
+          consolidate_card(account)
         end
       end
 
@@ -80,9 +84,22 @@ module UserServices
       @total = savings + investments
     end
 
-    def calculate_investments(account)
-      return 0 if account.investments.empty?
+    def consolidate_savings_and_broker(account)
+      @savings += account.balance
+      @redeemed += total_redemptions(account) if broker_with_investment?(account)
+      @investments += calculate_investments(account) if broker_with_investment?(account)
+      @incomes += account.current_report.month_income
+      @expenses += account.current_report.month_expense
+      @dividends += account.current_report.month_dividends
+      @invoice_payments += account.current_report.invoice_payment
+      @invested += account.current_report.month_invested
+    end
 
+    def consolidate_card(account)
+      @card_expenses += account.current_report.month_expense
+    end
+
+    def calculate_investments(account)
       account.investments.sum do |investment|
         if investment.type == 'Investments::VariableInvestment'
           investment.current_amount * investment.shares_total
@@ -93,14 +110,16 @@ module UserServices
     end
 
     def total_redemptions(account)
-      return 0 unless account.is_a?(Account::Broker) && account.investments.any?
-
       account.investments.sum do |investment|
         investment.negotiations
                   .where(kind: 1)
                   .where('date >= ? AND date <= ?', Date.current.beginning_of_month, Date.current.end_of_month)
                   .sum(:amount)
       end
+    end
+
+    def broker_with_investment?(account)
+      account.is_a?(Account::Broker) && account.investments.any?
     end
   end
 end

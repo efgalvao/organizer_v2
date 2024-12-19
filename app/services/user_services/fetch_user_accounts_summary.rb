@@ -14,7 +14,6 @@ module UserServices
 
     def fetch_accounts_summary
       accounts = Account::Account.where(user_id: user_id, type: ['Account::Savings', 'Account::Broker'])
-                                 .includes(:account_reports, :investments)
                                  .order(:name)
       accounts.map { |account| build_account_summary(account) }
     end
