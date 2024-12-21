@@ -236,6 +236,7 @@ en:
         invested: Invested
         redeemed: Redeemed
         dividends: Dividends
+        investments_balance: Investments balance
         month_balance: Balance
     past_month_reports:
       title: Past month reports
