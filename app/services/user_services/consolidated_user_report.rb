@@ -80,7 +80,7 @@ module UserServices
         end
       end
 
-      @balance = incomes + dividends - expenses - invested - invoice_payments
+      @balance = incomes - expenses - invested - invoice_payments
       @total = savings + investments
     end
 
