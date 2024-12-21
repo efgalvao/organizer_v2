@@ -27,9 +27,6 @@
         <th><%= t('home.summary.current_month.expenses') %></th>
         <th><%= t('home.summary.current_month.card_expenses') %></th>
         <th><%= t('home.summary.current_month.invoice_payments') %></th>
-        <th><%= t('home.summary.current_month.invested') %></th>
-        <th><%= t('home.summary.current_month.redeemed') %></th>
-        <th><%= t('home.summary.current_month.dividends') %></th>
         <th><%= t('home.summary.current_month.month_balance') %></th>
       </tr>
     </thead>
@@ -39,10 +36,29 @@
         <td><%= user_report.month_expense %></td>
         <td><%= user_report.month_card_expenses %></td>
         <td><%= user_report.invoice_payments %></td>
-        <td><%= user_report.month_invested %></td>
-        <td><%= user_report.month_redeemed %></td>
-        <td><%= user_report.month_dividends %></td>
         <td><%= user_report.month_balance %></td>
       </tr>
     </tbody>
   </table>
+</div>
+
+<div class="subtitle"><%= t('home.summary.current_month.investments_balance') %></div>
+  <table class="striped">
+    <thead>
+      <tr>
+        <th><%= t('home.summary.current_month.invested') %></th>
+        <th><%= t('home.summary.current_month.redeemed') %></th>
+        <th><%= t('home.summary.current_month.dividends') %></th>
+        <th><%= t('home.summary.current_month.investments_balance') %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= user_report.month_invested %></td>
+        <td><%= user_report.month_redeemed %></td>
+        <td><%= user_report.month_dividends %></td>
+        <td><%= user_report.month_investments_balance %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
