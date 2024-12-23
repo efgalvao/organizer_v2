@@ -23,7 +23,11 @@ Rails.application.routes.draw do
       member do
         get 'consolidate_report', to: 'accounts#consolidate_report', as: 'consolidate_report'
       end
-      resources :transactions, only: %i[index new create edit update]
+      resources :transactions, only: %i[index new create edit update] do
+        member do
+          post 'anticipate', to: 'transactions#anticipate', as: 'anticipate'
+        end
+      end
     end
   end
 
