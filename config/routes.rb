@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       end
       resources :transactions, only: %i[index new create edit update] do
         member do
+          get 'anticipate_form', to: 'transactions#anticipate_form', as: 'anticipate_form'
           post 'anticipate', to: 'transactions#anticipate', as: 'anticipate'
         end
       end

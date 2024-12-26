@@ -1,6 +1,7 @@
-<%= simple_form_for [@transaction.account, @transaction], url: anticipate_account_transaction_path(@transaction.account, @transaction), method: :post, html: { class: "anticipate-form" } do |f| %>
+<%= simple_form_for :anticipate_transaction, url: anticipate_account_transaction_path(@transaction.account, @transaction), method: :post, html: { class: "anticipate-form" } do |f| %>
   <%= form_error_notification(@transaction) %>
 
+  <%= f.hidden_field :id, value: @transaction.id %>
   <%= f.input :anticipate_date, as: :date, html5: true, label: t('transactions.form.anticipate_date') %>
 
   <%= f.submit t('buttons.anticipate'), class: "btn btn--secondary" %>

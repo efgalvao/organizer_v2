@@ -1,7 +1,7 @@
 module Account
   class TransactionsController < ApplicationController
     before_action :authenticate_user!
-    before_action :set_transaction, only: %i[edit update anticipate]
+    before_action :set_transaction, only: %i[edit update anticipate anticipate_form]
     before_action :categories, only: %i[new create edit anticipate]
 
     def index
@@ -46,8 +46,11 @@ module Account
       end
     end
 
+    def anticipate_form; end
+
     def anticipate
-      @transaction = TransactionServices::AnticipateTransaction.call(@transaction, transactions_params[:anticipate_date])
+      @transaction = TransactionServices::AnticipateTransaction.call(@transaction,
+                                                                     anticipate_params[:anticipate_date])
 
       if @transaction.valid?
         @transaction = @transaction.decorate
@@ -67,12 +70,16 @@ module Account
     private
 
     def transactions_params
-      params.require(:transaction).permit(:title, :category_id, :amount, :type, :date, :future, :parcels, :group, :anticipate_date)
+      params.require(:transaction).permit(:title, :category_id, :amount, :type, :date, :future, :parcels, :group)
             .merge(account_id: params[:account_id])
     end
 
     def update_params
       params.require(:transaction).permit(:title, :category_id, :date, :group)
+    end
+
+    def anticipate_params
+      params.require(:anticipate_transaction).permit(:anticipate_date, :id)
     end
 
     def set_transaction

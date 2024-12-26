@@ -1,0 +1,12 @@
+<main class="container">
+
+  <%= turbo_frame_tag @transaction do %>
+
+    <div class="header">
+      <h3><%= t('transactions.anticipate') %></h3>
+    </div>
+
+    <%= render "anticipate_form", transaction: @transaction %>
+
+  <% end %>
+</main>

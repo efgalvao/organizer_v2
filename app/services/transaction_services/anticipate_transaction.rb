@@ -36,7 +36,7 @@ module TransactionServices
     def new_account_report
       Account::AccountReport.month_report(
         account_id: transaction.account_id,
-        reference_date: anticipate_date
+        reference_date: Date.parse(anticipate_date)
       ) || AccountServices::CreateAccountReport.create_report(transaction.account_id, anticipate_date)
     end
 

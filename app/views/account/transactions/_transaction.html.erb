@@ -29,5 +29,11 @@
                   edit_account_transaction_path(id: transaction.id),
                   class: "btn btn--light" %>
     </div>
+
+        <div  class="list-item">
+      <%= link_to t('buttons.anticipate'),
+                  anticipate_form_account_transaction_path(id: transaction.id),
+                  class: "btn btn--light" %>
+    </div>
   </div>
 <% end %>
