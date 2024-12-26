@@ -14,6 +14,7 @@ pt-BR:
     back: Voltar
     delete: Remover
     edit: Editar
+    anticipate: Antecipar
   account:
     form:
       name: Nome
@@ -63,6 +64,7 @@ pt-BR:
         current_amount: Atual
         kind: Tipo
   transactions:
+    anticipate: Antecipar
     kinds:
       income: Receita
       expense: Despesa
@@ -88,6 +90,7 @@ pt-BR:
       parcels: Parcelas
       category: Categoria
       group: Grupo
+      anticipate_date: Data de antecipação
   card:
     form:
       name: Nome
