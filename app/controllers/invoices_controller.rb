@@ -11,7 +11,7 @@ class InvoicesController < ApplicationController
   end
 
   def create
-    response = CreditServices::ProcessInvoicePayment.call(invoice_params)
+    response = InvoiceServices::ProcessInvoicePayment.call(invoice_params)
     if response == 'success'
       respond_to do |format|
         format.html { redirect_to card_path(id: params[:card_id]), notice: 'Pagamento efetuado.' }
