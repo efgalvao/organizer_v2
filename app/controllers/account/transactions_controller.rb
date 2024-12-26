@@ -51,7 +51,6 @@ module Account
     def anticipate
       @transaction = TransactionServices::AnticipateTransaction.call(@transaction,
                                                                      anticipate_params[:anticipate_date])
-
       if @transaction.valid?
         @transaction = @transaction.decorate
         respond_to do |format|
