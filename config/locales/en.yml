@@ -37,6 +37,7 @@ en:
     back: Back
     delete: Remove
     edit: Edit
+    anticipate: Anticipate
   account:
     form:
       name: Name
@@ -86,6 +87,7 @@ en:
         current_amount: Current amount
         kind: Kind
   transactions:
+    anticipate: Anticipate
     kinds:
       income: Income
       expense: Expense
@@ -108,6 +110,7 @@ en:
       parcels: Parcels
       category: Category
       group: Group
+      anticipate_date: Anticipate date
   card:
     form:
       name: Name

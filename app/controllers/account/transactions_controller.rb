@@ -1,8 +1,8 @@
 module Account
   class TransactionsController < ApplicationController
     before_action :authenticate_user!
-    before_action :set_transaction, only: %i[edit update]
-    before_action :categories, only: %i[new create edit]
+    before_action :set_transaction, only: %i[edit update anticipate anticipate_form]
+    before_action :categories, only: %i[new create edit anticipate]
 
     def index
       transactions = AccountServices::FetchTransactions.call(
@@ -46,6 +46,22 @@ module Account
       end
     end
 
+    def anticipate_form; end
+
+    def anticipate
+      @transaction = TransactionServices::AnticipateTransaction.call(@transaction,
+                                                                     anticipate_params[:anticipate_date])
+      if @transaction.valid?
+        @transaction = @transaction.decorate
+        respond_to do |format|
+          format.html { redirect_to account_transactions_path, notice: 'Transação antecipada.' }
+          format.turbo_stream { flash.now[:notice] = 'Transação antecipada.' }
+        end
+      else
+        render :edit, status: :unprocessable_entity
+      end
+    end
+
     def expenses_by_category
       @expenses_by_category = CategoryServices::FetchExpensesByCategory.call(current_user.id)
     end
@@ -59,6 +75,10 @@ module Account
 
     def update_params
       params.require(:transaction).permit(:title, :category_id, :date, :group)
+    end
+
+    def anticipate_params
+      params.require(:anticipate_transaction).permit(:anticipate_date, :id)
     end
 
     def set_transaction
