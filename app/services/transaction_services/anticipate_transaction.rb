@@ -10,11 +10,13 @@ module TransactionServices
     end
 
     def call
+      original_date = transaction.date.strftime('%y-%m-%d')
+
       ActiveRecord::Base.transaction do
         update_transaction
         update_account_report
-        consolidate_reports
       end
+      consolidate_reports(original_date)
       transaction
     end
 
@@ -25,7 +27,8 @@ module TransactionServices
     def update_transaction
       transaction.update!(
         title: "#{transaction.title} (anticipated)",
-        date: anticipate_date
+        date: anticipate_date,
+        account_report_id: new_account_report.id
       )
     end
 
@@ -36,12 +39,16 @@ module TransactionServices
     def new_account_report
       Account::AccountReport.month_report(
         account_id: transaction.account_id,
-        reference_date: Date.parse(anticipate_date)
+        reference_date: new_reference_date
       ) || AccountServices::CreateAccountReport.create_report(transaction.account_id, anticipate_date)
     end
 
-    def consolidate_reports
-      AccountServices::ConsolidateAccountReport.call(transaction.account, transaction.date)
+    def new_reference_date
+      Date.parse(anticipate_date)
+    end
+
+    def consolidate_reports(original_date)
+      AccountServices::ConsolidateAccountReport.call(transaction.account, original_date)
       AccountServices::ConsolidateAccountReport.call(transaction.account, anticipate_date)
     end
   end
