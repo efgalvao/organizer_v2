@@ -43,4 +43,28 @@ RSpec.describe Account::CardDecorator, type: :decorator do
       expect(decorated_card.account_reports).to all(be_a(Account::AccountReportDecorator))
     end
   end
+
+  describe '#broker?' do
+    it 'returns true if the account is a broker' do
+      broker = create(:account, :broker)
+      decorated_broker = described_class.decorate(broker)
+      expect(decorated_broker.broker?).to be(true)
+    end
+
+    it 'returns false if the account is not a broker' do
+      expect(decorated_card.broker?).to be(false)
+    end
+  end
+
+  describe '#back_path' do
+    it 'returns the path to the card' do
+      expect(decorated_card.back_path).to eq("/cards/#{card.id}")
+    end
+  end
+
+  describe '#report_date' do
+    it 'returns the report date' do
+      expect(decorated_card.date).to eq(card.current_report.report_date)
+    end
+  end
 end
