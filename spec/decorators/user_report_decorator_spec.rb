@@ -72,7 +72,6 @@ RSpec.describe UserReportDecorator do
     end
   end
 
-
   describe '#month_redeemed' do
     it 'returns the balance in the correct format' do
       expect(decorate_user_report.month_redeemed).to eq('R$ 6,00')
