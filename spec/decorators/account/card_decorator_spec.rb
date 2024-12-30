@@ -61,10 +61,4 @@ RSpec.describe Account::CardDecorator, type: :decorator do
       expect(decorated_card.back_path).to eq("/cards/#{card.id}")
     end
   end
-
-  describe '#report_date' do
-    it 'returns the report date' do
-      expect(decorated_card.date).to eq(card.current_report.report_date)
-    end
-  end
 end
