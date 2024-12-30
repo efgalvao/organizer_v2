@@ -55,4 +55,10 @@ RSpec.describe Account::AccountReportDecorator do
       expect(decorate_account_report.month_dividends).to eq('R$ 7,89')
     end
   end
+
+  describe 'report_date' do
+    it 'returns the date in the correct format' do
+      expect(decorate_account_report.report_date).to eq(account_report.date.strftime('%B, %Y'))
+    end
+  end
 end
