@@ -21,14 +21,6 @@ module Investments
       format_currency(object.current_amount)
     end
 
-    def current_total_amount
-      if object.type == 'Investments::VariableInvestment'
-        format_currency(object.current_amount * object.shares_total)
-      else
-        format_currency(object.current_amount)
-      end
-    end
-
     def balance
       if object.type == 'Investments::VariableInvestment'
         format_currency(object.current_amount * object.shares_total)

@@ -11,9 +11,11 @@ RSpec.describe UserReportDecorator do
            incomes: 4.56,
            expenses: 5.67,
            invested: 6.78,
+           redeemed: 6.00,
            dividends: 7.89,
            balance: 8.90,
-           card_expenses: 9.01)
+           card_expenses: 9.01,
+           invoice_payments: 1.23)
   end
 
   describe '#savings_balance' do
@@ -67,6 +69,30 @@ RSpec.describe UserReportDecorator do
   describe '#month_card_expenses' do
     it 'returns the balance in the correct format' do
       expect(decorate_user_report.month_card_expenses).to eq('R$ 9,01')
+    end
+  end
+
+  describe '#month_redeemed' do
+    it 'returns the balance in the correct format' do
+      expect(decorate_user_report.month_redeemed).to eq('R$ 6,00')
+    end
+  end
+
+  describe '#month_investments_balance' do
+    it 'returns the balance in the correct format' do
+      expect(decorate_user_report.month_investments_balance).to eq('R$ 0,78')
+    end
+  end
+
+  describe '#invoice_payments' do
+    it 'returns the balance in the correct format' do
+      expect(decorate_user_report.invoice_payments).to eq('R$ 1,23')
+    end
+  end
+
+  describe '#report_date' do
+    it 'returns the date in the correct format' do
+      expect(decorate_user_report.report_date).to eq(user_report.date.strftime('%B/%Y'))
     end
   end
 end

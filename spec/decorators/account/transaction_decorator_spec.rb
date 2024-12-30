@@ -53,26 +53,6 @@ RSpec.describe Account::TransactionDecorator do
     end
   end
 
-  describe '#parent_path' do
-    context 'when the account kind is card' do
-      let(:transaction) { create(:transaction, account: card_account) }
-      let(:card_account) { create(:account, :card) }
-
-      it 'returns the correct path' do
-        expect(decorated_transaction.parent_path).to eq("/accounts/#{card_account.id}")
-      end
-    end
-
-    context 'when the account kind is not card' do
-      let(:transaction) { create(:transaction, account: account) }
-      let(:account) { create(:account) }
-
-      it 'returns the path' do
-        expect(decorated_transaction.parent_path).to eq("/accounts/#{account.id}")
-      end
-    end
-  end
-
   describe '#date' do
     let(:transaction) { create(:transaction, date: Date.parse('2001-01-01')) }
 

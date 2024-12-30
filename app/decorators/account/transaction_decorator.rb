@@ -31,14 +31,6 @@ module Account
       object.title.split(/(\s|-)/).map(&:capitalize).join
     end
 
-    def parent_path
-      if object.account.kind == 'card'
-        "/cards/#{object.account.id}"
-      else
-        "/accounts/#{object.account.id}"
-      end
-    end
-
     def category_name
       object.category&.name&.humanize
     end
