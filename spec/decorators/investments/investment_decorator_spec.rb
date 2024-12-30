@@ -59,4 +59,20 @@ RSpec.describe Investments::InvestmentDecorator do
       end
     end
   end
+
+  describe '#balance' do
+    context 'when the kind is FixedInvestment' do
+      it 'returns the balance in the correct format' do
+        expect(decorated_investment.balance).to eq('R$ 300,01')
+      end
+    end
+
+    context 'when the kind is VariableInvestment' do
+      let(:investment) { create(:investment, :variable, shares_total: 2, current_amount: 111.01) }
+
+      it 'returns the balance in the correct format' do
+        expect(decorated_investment.balance).to eq('R$ 222,02')
+      end
+    end
+  end
 end
