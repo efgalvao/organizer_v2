@@ -35,6 +35,14 @@ RSpec.describe Account::AccountDecorator do
         expect(decorated_account.type).to eq('Cartão')
       end
     end
+
+    context 'when the type is unknown' do
+      let(:account) { create(:account, type: 'unknown') }
+
+      it 'returns the type in the correct format' do
+        expect(decorated_account.type).to eq('Desconhecido')
+      end
+    end
   end
 
   describe '#current_report' do
@@ -94,6 +102,28 @@ RSpec.describe Account::AccountDecorator do
 
     it 'returns the balance in the correct format' do
       expect(decorated_account.past_reports_chart_data).to eq(chart_data)
+    end
+  end
+
+  describe '#broker?' do
+    let(:account) { create(:account) }
+
+    it 'returns true if the account is a broker' do
+      broker = create(:account, :broker)
+      decorated_broker = described_class.decorate(broker)
+      expect(decorated_broker.broker?).to be(true)
+    end
+
+    it 'returns false if the account is not a broker' do
+      expect(decorated_account.broker?).to be(false)
+    end
+  end
+
+  describe '#back_path' do
+    let(:account) { create(:account) }
+
+    it 'returns the path to the card' do
+      expect(decorated_account.back_path).to eq("/accounts/#{account.id}")
     end
   end
 end
