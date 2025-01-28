@@ -182,6 +182,7 @@ en:
         total_interest_paid: Total interest paid
         total_monetary_correction_paid: Total monetary correction paid
         non_ordinary_parcels_paid: Non ordinary parcels paid
+        amortized_parcels: Amortized parcels
         total_amortized: Total amortized
       payments: Payments
       payments_header:

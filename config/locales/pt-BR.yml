@@ -160,7 +160,8 @@ pt-BR:
         paid_parcels: Parcelas pagas
         total_interest_paid: Total de juros pagos
         total_monetary_correction_paid: Total pago em correção monetária
-        non_ordinary_parcels_paid: Amortiações pagas
+        non_ordinary_parcels_paid: Amortizações realizadas
+        amortized_parcels: Parcelas amortizadas
         total_amortized: Total amortizado
       payments: Pagamentos
       payments_header:
