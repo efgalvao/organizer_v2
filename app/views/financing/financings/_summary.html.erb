@@ -6,25 +6,26 @@
   <table class="striped">
     <thead>
         <th><%= t('financing.show.summary.borrowed_amount') %></th>
-        <th><%= t('financing.show.summary.parcels') %></th>
         <th><%= t('financing.show.summary.outstanding_amount') %></th>
-        <th><%= t('financing.show.summary.outstanding_parcels') %></th>
+        <th><%= t('financing.show.summary.parcels') %></th>
+        <th><%= t('financing.show.summary.paid_parcels') %></th>
         <th><%= t('financing.show.summary.amortized_parcels') %></th>
+        <th><%= t('financing.show.summary.outstanding_parcels') %></th>
     </thead>
     <tbody>
       <tr>
         <td><%= financing.borrowed_value %></td>
-        <td><%= financing.installments %></td>
         <td><%= financing.outstanding_balance %></td>
-        <td><%= financing.outstanding_parcels %></td>
+        <td><%= financing.installments %></td>
+        <td><%= financing.ordinary_parcels %></td>
         <td><%= financing.amortized_parcels %></td>
+        <td><%= financing.outstanding_parcels %></td>
       </tr>
     </tbody>
   </table>
 
     <table>
     <thead>
-        <th><%= t('financing.show.summary.paid_parcels') %></th>
         <th><%= t('financing.show.summary.total_interest_paid') %></th>
         <th><%= t('financing.show.summary.total_monetary_correction_paid') %></th>
         <th><%= t('financing.show.summary.non_ordinary_parcels_paid') %></th>
@@ -32,7 +33,6 @@
     </thead>
     <tbody>
       <tr>
-        <td><%= financing.ordinary_parcels %></td>
         <td><%= financing.total_interest_paid %></td>
         <td><%= financing.monetary_correction %></td>
         <td><%= financing.non_ordinary_parcels %></td>

@@ -38,7 +38,7 @@ module Financings
     end
 
     def amortized_parcels
-      object.payments.where(ordinary: false).count
+      object.payments.where(ordinary: false).sum(:paid_parcels)
     end
 
     def monetary_correction
