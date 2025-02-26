@@ -11,5 +11,9 @@ module Account
     delegate :user, :name, to: :account, prefix: 'account'
 
     self.inheritance_column = :type
+
+    def self.types
+      %w[Account::Income Account::Expense Account::Transference Account::Investment Account::InvoicePayment]
+    end
   end
 end
