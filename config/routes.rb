@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root 'home#index'
   get 'summary', to: 'home#show', as: 'summary'
-
+  get 'transactions', to: 'home#transactions', as: 'transactions'
 
   resources :categories
   resources :transferences, only: %i[index new create]

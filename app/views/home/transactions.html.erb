@@ -1,0 +1,32 @@
+<main class='item'>
+  <%= turbo_frame_tag "first_turbo_frame" do %>
+    <div class="header">
+      <h1>Transactions</h1>
+    </div>
+  <% end %>
+
+  <%= search_form_for @q, url: transactions_path, method: :get do |f| %>
+    <div class="field">
+      <%= f.label :category_id_eq, 'Category' %>
+      <%= f.collection_select :category_id_eq, Category.where(user_id: current_user.id).order(:name), :id, :name, include_blank: true %>
+    </div>
+
+    <div class="field">
+      <%= f.label :type_eq, 'Type' %>
+      <%= f.select :type_eq, options_for_select(Account::Transaction.types.keys.map { |type| [type.humanize, type] }, params.dig(:q, :type_eq)), include_blank: true %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit 'Filter', class: 'btn btn--primary' %>
+    </div>
+  <% end %>
+
+  <div class="button">
+    <%= link_to 'Back', root_path, class: "btn btn--light" %>
+  </div>
+
+  <%= render partial: 'account/transactions/header' %>
+  <%= turbo_frame_tag "transactions" do %>
+    <%= render partial: 'account/transactions/transaction', collection: @transactions %>
+  <% end %>
+</main>
