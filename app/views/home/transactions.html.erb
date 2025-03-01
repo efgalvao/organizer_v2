@@ -1,32 +1,29 @@
 <main class='item'>
   <%= turbo_frame_tag "first_turbo_frame" do %>
     <div class="header">
-      <h1>Transactions</h1>
+      <h1><%= t('account.show.transactions') %></h1>
     </div>
   <% end %>
 
   <%= search_form_for @q, url: transactions_path, method: :get do |f| %>
     <div class="field">
-      <%= f.label :category_id_eq, 'Category' %>
-      <%= f.collection_select :category_id_eq, Category.where(user_id: current_user.id).order(:name), :id, :name, include_blank: true %>
+      <%= f.label :category_id_eq, t('transactions.form.category') %>
+      <% categories = Category.where(user_id: current_user.id).pluck(:name, :id) %>
+
+      <div class="input-field">
+        <%= f.select :category_id_eq, options_for_select(categories, params.dig(:q, :category_id_eq)), { include_blank: true }, { class: "browser-default" } %>
+      </div>
     </div>
 
-    <div class="field">
-      <%= f.label :type_eq, 'Type' %>
-      <%= f.select :type_eq, options_for_select(Account::Transaction.types.keys.map { |type| [type.humanize, type] }, params.dig(:q, :type_eq)), include_blank: true %>
-    </div>
 
-    <div class="actions">
-      <%= f.submit 'Filter', class: 'btn btn--primary' %>
-    </div>
+    <div class="button">
+      <%= f.submit t('buttons.filter'), class: 'btn btn--primary' %>
+
+      <%= link_to t('buttons.back'), root_path, class: "btn btn--light" %>
   <% end %>
 
-  <div class="button">
-    <%= link_to 'Back', root_path, class: "btn btn--light" %>
-  </div>
-
-  <%= render partial: 'account/transactions/header' %>
+  <%= render partial: 'home/header' %>
   <%= turbo_frame_tag "transactions" do %>
-    <%= render partial: 'account/transactions/transaction', collection: @transactions %>
+    <%= render partial: 'transaction', collection: @transactions %>
   <% end %>
 </main>

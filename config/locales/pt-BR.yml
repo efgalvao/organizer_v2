@@ -15,6 +15,7 @@ pt-BR:
     delete: Remover
     edit: Editar
     anticipate: Antecipar
+    filter: Filtrar
   account:
     form:
       name: Nome
