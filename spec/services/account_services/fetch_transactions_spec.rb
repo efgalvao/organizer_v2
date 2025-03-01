@@ -11,17 +11,17 @@ RSpec.describe AccountServices::FetchTransactions do
     let(:past_transaction) { create(:transaction, account: account, date: 1.day.ago) }
     let(:future_transaction) { create(:transaction, account: account, date: 1.day.from_now) }
 
-    it 'returns categories ordered by name in ascending order' do
+    it 'returns transactions in ascending order' do
       expect(fetch_transactions).to eq([future_transaction])
     end
   end
 
   context 'when future is not true' do
     let(:time) { 'false' }
-    let(:past_transaction) { create(:transaction, account: account, date: 1.day.ago) }
+    let!(:past_transaction) { create(:transaction, account: account, date: Date.current) }
     let(:future_transaction) { create(:transaction, account: account, date: 1.day.from_now) }
 
-    it 'returns categories ordered by name in ascending order' do
+    it 'returns transaction in ascending order' do
       expect(fetch_transactions).to eq([past_transaction])
     end
   end
