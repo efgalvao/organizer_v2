@@ -252,6 +252,7 @@ en:
       card_expenses: Card expenses
       invoice_payments: Invoice payments
       invested: Invested
+      redeemed: Redeemed
       month_balance: Balance
       charts:
         title: Past months
