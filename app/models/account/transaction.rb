@@ -12,10 +12,6 @@ module Account
 
     self.inheritance_column = :type
 
-    def self.types
-      %w[Account::Income Account::Expense Account::Transference Account::Investment Account::InvoicePayment]
-    end
-
     def self.ransackable_attributes(_auth_object = nil)
       %w[account category_id group title type]
     end
