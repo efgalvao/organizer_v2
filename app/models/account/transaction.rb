@@ -11,5 +11,9 @@ module Account
     delegate :user, :name, to: :account, prefix: 'account'
 
     self.inheritance_column = :type
+
+    def self.ransackable_attributes(_auth_object = nil)
+      %w[account category_id group title type]
+    end
   end
 end

@@ -35,5 +35,15 @@ class HomeController < ApplicationController
     @report_data = data
   end
 
+  def transactions
+    @q = Account::Transaction.ransack(params[:q])
+    transactions = @q.result.joins(:account, :category)
+                     .where(account: { user_id: current_user.id })
+                     .where('date >= ? AND date <= ?', Time.zone.today.beginning_of_month, Time.zone.today.end_of_month)
+                     .order(date: :desc)
+
+    @transactions = Account::TransactionDecorator.decorate_collection(transactions)
+  end
+
   delegate :id, to: :current_user, prefix: true
 end

@@ -38,6 +38,7 @@ en:
     delete: Remove
     edit: Edit
     anticipate: Anticipate
+    filter: Filter
   account:
     form:
       name: Name

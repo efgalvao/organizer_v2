@@ -1,0 +1,28 @@
+<%= turbo_frame_tag transaction do %>
+  <div class="home-transaction-list home-transaction-list-grid">
+    <div class="list-item">
+      <%= transaction.title %>
+    </div>
+
+    <div class="list-item">
+      <%= transaction.amount %>
+    </div>
+
+    <div class="list-item">
+      <%= transaction.type %>
+    </div>
+
+    <div class="list-item">
+      <%= transaction.date %>
+    </div>
+
+    <div class="list-item">
+      <%= transaction.category_name %>
+    </div>
+
+    <div class="list-item">
+      <%= transaction.group_name %>
+    </div>
+
+  </div>
+<% end %>
