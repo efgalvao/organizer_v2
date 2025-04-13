@@ -31,7 +31,7 @@ module UserServices
 
     def formated_data
       {
-        Metas: investments['metas'].to_f,
+        Metas: (investments['metas'].to_f + expenses_by_group['metas'].to_f),
         Conhecimento: expenses_by_group['conhecimento'].to_f,
         'Liberdade Financeira': investments['liberdade_financeira'].to_f,
         'Custos Fixos': expenses_by_group['custos_fixos'].to_f,

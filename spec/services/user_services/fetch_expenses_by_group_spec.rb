@@ -27,7 +27,7 @@ RSpec.describe UserServices::FetchExpensesByGroup do
             Conhecimento: 0.0,
             'Custos Fixos': 0.0,
             'Liberdade Financeira': 0.0,
-            Metas: 300.0,
+            Metas: 600.0,
             Prazeres: 0.0,
             Total: 800.0 }
         )
@@ -35,7 +35,7 @@ RSpec.describe UserServices::FetchExpensesByGroup do
 
       it 'calculates the total amount of expenses by group' do
         total_amount = service[:Metas]
-        expect(total_amount).to eq(300)
+        expect(total_amount).to eq(600)
       end
     end
 
