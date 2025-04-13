@@ -11,7 +11,7 @@ module ApplicationHelper
     end
   end
 
-  def all_accounts(user_id)
-    Account::Account.where(user_id: user_id).all.map { |account| [account.name, account.id] }
+  def all_accounts_except_cards(user_id)
+    Account::Account.except_cards(user_id).map { |account| [account.name, account.id] }
   end
 end

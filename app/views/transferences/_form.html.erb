@@ -3,8 +3,8 @@
 
   <%= f.input :amount, as: :float, label: t('transference.form.amount'), input_html: { autofocus: true } %>
   <%= f.input :date, as: :date, html5: true, label: t('transference.form.date') %>
-  <%= f.input :sender_id, as: :select, collection: all_accounts(current_user.id), label: t('transference.form.sender') %>
-  <%= f.input :receiver_id, as: :select, collection: all_accounts(current_user.id), label: t('transference.form.receiver') %>
+  <%= f.input :sender_id, as: :select, collection: all_accounts_except_cards(current_user.id), label: t('transference.form.sender') %>
+  <%= f.input :receiver_id, as: :select, collection: all_accounts_except_cards(current_user.id), label: t('transference.form.receiver') %>
 
   <%= f.submit t('buttons.save'), class: "btn btn--secondary" %>
   <%= link_to t('buttons.cancel'), transferences_path, class: "btn btn--light" %>

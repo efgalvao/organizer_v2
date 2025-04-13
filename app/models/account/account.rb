@@ -7,6 +7,10 @@ module Account
 
     validates :name, presence: true, uniqueness: { scope: :user_id }
 
+    scope :except_cards, lambda { |user_id|
+      where(user_id: user_id).where.not(type: 'Account::Card')
+    }
+
     def current_report
       current_report = account_reports.find_by(reference: Time.zone.now.strftime('%m%y'))
       return AccountServices::CreateAccountReport.create_report(id) if current_report.nil?
