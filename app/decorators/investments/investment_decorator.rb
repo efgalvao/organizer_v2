@@ -2,7 +2,11 @@ module Investments
   class InvestmentDecorator < Draper::Decorator
     delegate :shares_total
     def name
-      object.name.capitalize
+      if object.name.length <= 7 || object.type == 'Investments::VariableInvestment'
+        object.name.upcase
+      else
+        object.name.capitalize
+      end
     end
 
     def path
