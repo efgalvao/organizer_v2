@@ -77,6 +77,14 @@ module Investments
       investment_chart_data[:dividends]
     end
 
+    def average_price
+      if object.type == 'Investments::VariableInvestment'
+        format_currency(object.invested_amount / object.shares_total)
+      else
+        format_currency(object.invested_amount)
+      end
+    end
+
     def format_currency(value)
       ActionController::Base.helpers.number_to_currency(value, unit: 'R$ ', separator: ',', delimiter: '.')
     end
