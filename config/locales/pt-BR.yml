@@ -322,12 +322,11 @@ pt-BR:
         summary:
           title: Resumo
           balance: Saldo
-          current_month: Mês atual
           kind: Tipo
           invested: Investido
           current_amount: Valor atual
-          current_total_amount: Total atual
           shares: Cotas
+          average_price: Preço médio
           positions:
             title: Posições
             date: Data

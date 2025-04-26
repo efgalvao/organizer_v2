@@ -75,4 +75,20 @@ RSpec.describe Investments::InvestmentDecorator do
       end
     end
   end
+
+  describe '#avergae_price' do
+    context 'when the kind is FixedInvestment' do
+      it 'returns the average_price in the correct format' do
+        expect(decorated_investment.average_price).to eq('R$ 123,45')
+      end
+    end
+
+    context 'when the kind is VariableInvestment' do
+      let(:investment) { create(:investment, :variable, shares_total: 2, invested_amount: 100.02) }
+
+      it 'returns the average_price in the correct format' do
+        expect(decorated_investment.average_price).to eq('R$ 50,01')
+      end
+    end
+  end
 end

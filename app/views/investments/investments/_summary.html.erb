@@ -3,22 +3,6 @@
   <div class="subtitle">
     <%= t('investments.investments.show.summary.title') %>
   </div>
-
-  <table class="striped">
-    <thead>
-      <tr>
-        <th><%= t('investments.investments.show.summary.balance') %></th>
-
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><%= investment.balance %></td>
-        </tr>
-    </tbody>
-  </table>
-
-<div class="subtitle"><%= t('investments.investments.show.summary.current_month') %></div>
         <p><span class="item-label"><%= t('investments.investments.show.summary.kind') %>:
          </span>
          <%= investment.kind %></p>
@@ -26,19 +10,20 @@
     <thead>
       <tr>
         <th><%= t('investments.investments.show.summary.invested') %> </th>
-        <th><%= t('investments.investments.show.summary.current_amount') %></th>
-        <th><%= t('investments.investments.show.summary.current_total_amount') %></th>
+        <th><%= t('investments.investments.show.summary.average_price') %></th>
         <th><%= t('investments.investments.show.summary.shares') %></th>
+        <th><%= t('investments.investments.show.summary.current_amount') %></th>
+        <th><%= t('investments.investments.show.summary.balance') %></th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td><%= investment.invested_amount %></td>
-        <td><%= investment.current_amount %></td>
-        <td><%= investment.balance %></td>
-        <td><%= investment.shares_total %></td>
-      </tr>
+        <tr>
+          <td><%= investment.invested_amount %></td>
+          <td><%= investment.average_price %></td>
+          <td><%= investment.shares_total %></td>
+          <td><%= investment.current_amount %></td>
+          <td><%= investment.balance %></td>
+        </tr>
     </tbody>
   </table>
-</div>
 <% end %>
