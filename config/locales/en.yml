@@ -84,6 +84,8 @@ en:
       investments:
         title: Investments
         name: Name
+        average_price: Average price
+        shares_total: Shares total
         invested_amount: Invested
         current_amount: Current amount
         kind: Kind

@@ -64,6 +64,8 @@ pt-BR:
         invested_amount: Investido
         current_amount: Atual
         kind: Tipo
+        shares_total: Total de cotas
+        average_price: Preço médio
   transactions:
     anticipate: Antecipar
     kinds:
