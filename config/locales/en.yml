@@ -344,12 +344,11 @@ en:
         summary:
           title: Summary
           balance: Balance
-          current_month: Current month
           kind: Kind
           invested: Invested
           current_amount: Current amount
-          current_total_amount: Current total
           shares: Shares
+          average_price: Average price
           positions:
             title: Positions
             date: Date
