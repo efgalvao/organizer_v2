@@ -39,6 +39,7 @@ en:
     edit: Edit
     anticipate: Anticipate
     filter: Filter
+    expenses: Expenses
   account:
     form:
       name: Name
