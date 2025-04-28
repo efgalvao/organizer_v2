@@ -5,24 +5,40 @@
     </div>
   <% end %>
 
-  <%= search_form_for @q, url: transactions_path, method: :get do |f| %>
-    <div class="field">
-      <%= f.label :category_id_eq, t('transactions.form.category') %>
-      <% categories = Category.where(user_id: current_user.id).pluck(:name, :id) %>
+<%= form_with url: transactions_path, method: :get, local: true do |f| %>
+  <div class="field">
+    <%= f.label :groups, t('transactions.form.group') %>
 
-      <div class="input-field">
-        <%= f.select :category_id_eq, options_for_select(categories, params.dig(:q, :category_id_eq)), { include_blank: true }, { class: "browser-default" } %>
-      </div>
+    <div class="input-field">
+      <% groups_for_select.each do |name, value| %>
+          <%= check_box_tag 'groups[]', value, params[:groups]&.include?(value), class: 'filled-in', id: "groups_#{value}" %>
+          <%= label_tag "groups_#{value}", name %>
+      <% end %>
     </div>
+  </div>
+
+  <div class="field">
+          <%= f.label :category_id_eq, t('transactions.form.category') %>
+
+    <div class="input-field">
+      <% user_categories(current_user.id).each do |category| %>
+          <%= check_box_tag 'categories[]', category.id, params[:category_]&.include?(category.name), class: 'filled-in', id: "categories_#{category.id}" %>
+          <%= label_tag "categories_#{category.id}", category.name %>
+      <% end %>
+    </div>
+  </div>
 
 
     <div class="button">
       <%= f.submit t('buttons.filter'), class: 'btn btn--primary' %>
 
       <%= link_to t('buttons.back'), root_path, class: "btn btn--light" %>
+    </div>
   <% end %>
 
+
   <%= render partial: 'home/header' %>
+
   <%= turbo_frame_tag "transactions" do %>
     <%= render partial: 'transaction', collection: @transactions %>
   <% end %>

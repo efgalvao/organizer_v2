@@ -14,4 +14,12 @@ module ApplicationHelper
   def all_accounts_except_cards(user_id)
     Account::Account.except_cards(user_id).map { |account| [account.name, account.id] }
   end
+
+  def groups_for_select
+    Account::Transaction.groups.map { |group, number| [group.humanize, number] }
+  end
+
+  def user_categories(user_id)
+    Category.where(user_id: user_id)
+  end
 end

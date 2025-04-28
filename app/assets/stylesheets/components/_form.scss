@@ -26,3 +26,27 @@
     }
   }
 }
+
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+}
+
+.input-field {
+  width: auto;
+  padding: 10px;
+  display: block;
+}
+
+.input-field label {
+  margin-right: 5px;
+  position: relative !important;
+}
+
+input[type="checkbox"]:not(:checked),
+input[type="checkbox"]:checked {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  position: relative !important;
+}
