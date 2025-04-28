@@ -28,8 +28,8 @@ module TransactionServices
           user_id: user_id,
           groups: groups,
           categories: categories,
-          start_date: Date.today.beginning_of_month,
-          end_date: Date.today.end_of_month
+          start_date: Time.zone.today.beginning_of_month,
+          end_date: Time.zone.today.end_of_month
         }
       ).to_a
     end
