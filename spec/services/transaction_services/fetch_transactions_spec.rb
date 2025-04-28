@@ -22,7 +22,7 @@ RSpec.describe TransactionServices::FetchTransactions do
     it 'fetch filtered transactions', :aggregate_failures do
       response = fetch_transactions
 
-      expect(response.size).to eq(1)
+      expect(response.length).to eq(1)
     end
   end
 end
