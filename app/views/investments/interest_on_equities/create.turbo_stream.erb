@@ -1,0 +1,10 @@
+<%= turbo_stream.update 'new_interest_on_equity', '' %>
+
+<%= turbo_stream.update "interest_on_equities" do %>
+    <%= render partial: 'investments/investments/interest_on_equities', locals: { investment: @interest_on_equity.investment.decorate } %>
+<% end %>
+<%= turbo_stream.update "investment_summary" do %>
+    <%= render partial: 'investments/investments/summary', locals: { investment: @interest_on_equity.investment.reload.decorate } %>
+<% end %>
+
+<%= render_turbo_stream_flash_messages %>
