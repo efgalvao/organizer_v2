@@ -23,7 +23,11 @@ module TransactionServices
     def fetch_transactions
       Account::Transaction.joins(:account, :category)
                           .where(accounts: { user_id: user_id })
-                          .where('date >= ? AND date <= ?', Time.zone.today.beginning_of_month, Time.zone.today.end_of_month)
+                          .where(
+                            'date >= ? AND date <= ?',
+                            Time.zone.today.beginning_of_month,
+                            Time.zone.today.end_of_month
+                          )
                           .where(groups.present? ? { group: groups } : nil)
                           .where(categories.present? ? { category_id: categories } : nil)
                           .order(date: :desc)
