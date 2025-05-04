@@ -1,0 +1,10 @@
+<main class="container">
+  <%= turbo_frame_tag "new_interest_on_equity" do %>
+
+    <div class="header">
+      <h3><%= t('investments.interest_on_equity.index.create_interest_on_equity') %></h3>
+    </div>
+
+    <%= render "form", interest_on_equity: @interest_on_equity %>
+  <% end %>
+</main>

@@ -28,9 +28,16 @@
                   method: :get,
                   class: "btn btn--light" %>
 
+      <%= link_to t('investments.investments.show.new_interest_on_equity'),
+                  new_investment_interest_on_equity_path(@investment),
+                  data: { turbo_frame: "new_interest_on_equity" },
+                  method: :get,
+                  class: "btn btn--light" %>
+
     <%= turbo_frame_tag "new_position" %>
     <%= turbo_frame_tag "new_negotiation" %>
     <%= turbo_frame_tag "new_dividend" %>
+    <%= turbo_frame_tag "new_interest_on_equity" %>
   </div>
 
 <div class="item">

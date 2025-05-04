@@ -297,6 +297,15 @@ pt-BR:
         date: Data
         amount: Valor
         shares: Cotas
+    interest_on_equity:
+      interest_on_equity: Juros sobre capital próprio
+      index:
+        title: Juros sobre capital próprio
+        new_interest_on_equity: Novo juros sobre capital próprio
+        create_interest_on_equity: Criar juros sobre capital próprio
+      form:
+        date: Data
+        amount: Valor
     investments:
       index:
         title: Investimentos
@@ -312,6 +321,7 @@ pt-BR:
         new_position: Nova posição
         new_negotiation: Nova negociação
         new_dividend: Novo dividendo
+        new_interest_on_equity: Novo juros sobre capital próprio
         negotiation_form:
           date: Data
           amount: Valor

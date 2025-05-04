@@ -44,6 +44,8 @@ Rails.application.routes.draw do
       resources :negotiations, only: [:index, :new, :create]
       resources :positions, only: [:index, :new, :create]
       resources :dividends, only: [:index, :new, :create]
+      resources :interest_on_equities, only: [:index, :new, :create]
+
     end
     get '/investments/:account_id/new', to: 'investments#new', as: 'new_investment'
 
