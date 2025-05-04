@@ -319,6 +319,15 @@ en:
         date: Date
         amount: Amount
         shares: Shares
+    interest_on_equity:
+      interest_on_equity: Interest on equity
+      index:
+        title: Interest on equity
+        new_interest_on_equity: New interest on equity
+        create_interest_on_equity: Create interest on equity
+      form:
+        date: Date
+        amount: Amount
     investments:
       index:
         title: Investments
@@ -334,6 +343,7 @@ en:
         new_position: New position
         new_negotiation: New negotiation
         new_dividend: New dividend
+        new_interest_on_equity: New interest on equity
         negotiation_form:
           date: Date
           amount: Amount
