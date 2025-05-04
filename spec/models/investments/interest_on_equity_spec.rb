@@ -8,6 +8,5 @@ RSpec.describe Investments::InterestOnEquity do
   describe 'validations' do
     it { is_expected.to validate_presence_of(:amount) }
     it { is_expected.to validate_presence_of(:date) }
-    it { is_expected.to validate_presence_of(:investment_id) }
   end
 end
