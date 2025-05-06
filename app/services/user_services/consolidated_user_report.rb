@@ -10,7 +10,7 @@ module UserServices
       @expenses = DEFAULT_VALUE
       @invested = DEFAULT_VALUE
       @redeemed = DEFAULT_VALUE
-      @dividends = DEFAULT_VALUE
+      @earnings = DEFAULT_VALUE
       @card_expenses = DEFAULT_VALUE
       @balance = DEFAULT_VALUE
       @total = DEFAULT_VALUE
@@ -25,7 +25,7 @@ module UserServices
     private
 
     attr_reader :user_id, :savings, :investments, :incomes, :expenses, :redeemed,
-                :invested, :dividends, :card_expenses, :balance, :total, :invoice_payments
+                :invested, :earnings, :card_expenses, :balance, :total, :invoice_payments
 
     def user
       @user ||= User.find(user_id)
@@ -61,7 +61,7 @@ module UserServices
         expenses: expenses,
         invested: invested,
         redeemed: redeemed,
-        dividends: dividends,
+        earnings: earnings,
         invoice_payments: invoice_payments,
         card_expenses: card_expenses,
         balance: balance,
@@ -90,7 +90,7 @@ module UserServices
       @investments += calculate_investments(account) if broker_with_investment?(account)
       @incomes += account.current_report.month_income
       @expenses += account.current_report.month_expense
-      @dividends += account.current_report.month_dividends
+      @earnings += account.current_report.month_earnings
       @invoice_payments += account.current_report.invoice_payment
       @invested += account.current_report.month_invested
     end

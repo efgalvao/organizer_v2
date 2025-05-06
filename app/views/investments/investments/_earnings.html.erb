@@ -1,0 +1,28 @@
+<div class="item">
+  <div class="subtitle">
+    <%= t('investments.investments.show.summary.earnings.title') %>
+  </div>
+</div>
+
+<div class="earnings-list-header earnings-header-grid">
+  <div class="list-header-item">
+    <%= t('investments.investments.show.summary.earnings.date') %>
+  </div>
+
+  <div class="list-header-item">
+    <%= t('investments.investments.show.summary.earnings.amount') %>
+  </div>
+
+  <div class="list-header-item">
+    <%= t('investments.investments.show.summary.earnings.shares') %>
+  </div>
+
+  <div class="list-header-item">
+    <%= t('investments.investments.show.summary.earnings.kind') %>
+  </div>
+
+</div>
+
+  <%= turbo_frame_tag "earnings" do %>
+    <%= render partial: 'earning', collection: investment.earnings %>
+  <% end %>

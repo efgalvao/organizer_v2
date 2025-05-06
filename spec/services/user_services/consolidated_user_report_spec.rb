@@ -16,7 +16,7 @@ RSpec.describe UserServices::ConsolidatedUserReport do
            month_income: 4,
            month_expense: 5,
            month_invested: 6,
-           month_dividends: 7,
+           month_earnings: 7,
            reference: Date.current.strftime('%m%y'))
   end
   let(:broker_account) { create(:account, :broker, user: user, balance: 2) }
@@ -30,7 +30,7 @@ RSpec.describe UserServices::ConsolidatedUserReport do
            month_income: 4,
            month_expense: 5,
            month_invested: 6,
-           month_dividends: 7,
+           month_earnings: 7,
            reference: Date.current.strftime('%m%y'))
   end
   let!(:fixed_investment) { create(:investment, account: broker_account, current_amount: 2) }

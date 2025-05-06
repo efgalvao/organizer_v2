@@ -222,7 +222,7 @@ pt-BR:
         invoice_payments: Pagamento de faturas
         invested: Investido
         redeemed: Resgatado
-        dividends: Dividendos
+        earnings: Proventos
         investments_balance: Balanço de investimentos
         month_balance: Saldo
     past_month_reports:
@@ -287,6 +287,9 @@ pt-BR:
   investments:
     invest_negotiation: Investimento
     redeem_negotiation: Resgate
+    earnings:
+      dividend: Dividendo
+      interest_on_equity: Juros sobre capital próprio
     dividends:
       dividends: Dividendos
       index:
@@ -353,12 +356,15 @@ pt-BR:
             shares: Cotas
             kind: Tipo
             monthly_balance: Saldo mensal
-          dividends:
-            title: Dividendos
+          earnings:
+            title: Proventos
             date: Data
             amount: Valor
             shares: Cotas
+            kind: Tipo
             monthly_balance: Saldo mensal
+            dividends: Dividendos
+            interests_on_equity: Juros sobre capital próprio
   layouts:
     header:
       zukunft: ZUKUNFT

@@ -40,7 +40,7 @@ module AccountServices
         month_income: month_income(report),
         month_expense: month_expense(report),
         month_invested: month_invested(report),
-        month_dividends: month_dividends,
+        month_earnings: month_earnings,
         date: date,
         invoice_payment: invoice_payment(report)
       }
@@ -76,13 +76,18 @@ module AccountServices
       @month_invested ||= report.transactions.where(type: 'Account::Investment').sum(:amount)
     end
 
-    def month_dividends
+    def month_earnings
       return 0 if account.type != 'Account::Broker'
 
       dividends = account.investments.map do |investment|
         investment.dividends.where(date: month_range).sum { |dividend| dividend.amount * dividend.shares }
       end
-      dividends.sum
+
+      interests = account.investments.map do |investment|
+        investment.interests_on_equities.where(date: month_range).sum(&:amount)
+      end
+
+      dividends.sum + interests.sum
     end
 
     def reference_date
@@ -115,7 +120,7 @@ module AccountServices
         month_income: 0,
         month_expense: 0,
         month_invested: 0,
-        month_dividends: 0,
+        month_earnings: 0,
         invoice_payment: 0,
         reference: current_reference
       }

@@ -25,3 +25,18 @@
 .investment-index-list-grid {
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
+
+.earnings-list-header {
+  display: grid;
+  gap: var(--space-s);
+  margin-bottom: var(--space-m);
+  padding: var(--space-xs);
+
+  @include media(tabletAndUp) {
+    padding: var(--space-xs) var(--space-m);
+  }
+}
+
+.earnings-header-grid {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}

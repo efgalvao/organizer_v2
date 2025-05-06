@@ -37,7 +37,7 @@ module AccountServices
         month_income: 0,
         month_expense: 0,
         month_invested: 0,
-        month_dividends: 0,
+        month_earnings: 0,
         invoice_payment: 0
       }
     end

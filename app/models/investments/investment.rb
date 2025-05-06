@@ -2,6 +2,7 @@ module Investments
   class Investment < ApplicationRecord
     # self.abstract_class = true
     has_many :dividends, class_name: 'Investments::Dividend', dependent: :destroy
+    has_many :interests_on_equities, class_name: 'Investments::InterestOnEquity', dependent: :destroy
 
     belongs_to :account, class_name: 'Account::Account', touch: true
 
@@ -13,6 +14,10 @@ module Investments
 
     def fixed?
       type == 'Investments::FixedInvestment'
+    end
+
+    def earnings
+      dividends.sum(:value)
     end
   end
 end

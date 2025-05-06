@@ -10,7 +10,7 @@ FactoryBot.define do
     invested { rand(1000..100_000) }
     balance { rand(1000..100_000) }
     card_expenses { rand(1000..100_000) }
-    dividends { rand(1000..100_000) }
+    earnings { rand(1000..100_000) }
     reference { Time.zone.now.strftime('%m/%y') }
   end
 end
