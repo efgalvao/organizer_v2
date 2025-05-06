@@ -26,8 +26,8 @@ module Account
       format_currency(object.month_invested)
     end
 
-    def month_dividends
-      format_currency(object.month_dividends)
+    def month_earnings
+      format_currency(object.month_earnings)
     end
 
     def invoice_payment

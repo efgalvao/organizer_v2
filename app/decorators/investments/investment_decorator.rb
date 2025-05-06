@@ -53,8 +53,10 @@ module Investments
       object.negotiations.order(date: :desc).limit(5).map { |negotiation| NegotiationDecorator.new(negotiation) }
     end
 
-    def dividends
-      object.dividends.order(date: :desc).limit(5).map { |dividend| DividendDecorator.new(dividend) }
+    def earnings
+      object.dividends.order(date: :desc).limit(5).flat_map { |dividend| DividendDecorator.new(dividend) } +
+        object.interests_on_equities.order(date: :desc).limit(5)
+              .flat_map { |interest| InterestOnEquityDecorator.new(interest) }
     end
 
     def positions
@@ -74,7 +76,8 @@ module Investments
     end
 
     def dividends_chart_data
-      investment_chart_data[:dividends]
+      # must be dividends and interests
+      investment_chart_data[:earnings]
     end
 
     def average_price

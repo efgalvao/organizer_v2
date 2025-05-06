@@ -33,8 +33,8 @@ class UserReportDecorator < Draper::Decorator
     format_currency(object.invested - object.redeemed)
   end
 
-  def month_dividends
-    format_currency(object.dividends)
+  def month_earnings
+    format_currency(object.earnings)
   end
 
   def month_balance
