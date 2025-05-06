@@ -1,0 +1,9 @@
+<div class="summary-item">
+  <div class="chart">
+  <%= line_chart [
+    { name: t('investments.investments.show.summary.earnings.dividends'), data: earnings[:dividends] },
+        { name: t('investments.investments.show.summary.earnings.interests_on_equity'), data: earnings[:interests] }
+        ], precision: 8, discrete: false, legend: 'bottom', spanGaps: true %>
+  </div>
+</div>
+
