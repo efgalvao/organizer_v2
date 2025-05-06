@@ -9,7 +9,7 @@ module InvestmentsServices
     end
 
     def call
-      { positions: fetch_positions, negotiations: fetch_negotiations, dividends: fetch_dividends }
+      { positions: fetch_positions, negotiations: fetch_negotiations, earnings: fetch_earnings }
     end
 
     private
@@ -38,10 +38,13 @@ module InvestmentsServices
       summary
     end
 
-    def fetch_dividends
-      summary = { amounts: {} }
-      investment.dividends.order(:date).map do |dividend|
-        summary[:amounts][dividend.date.strftime('%d/%m/%Y').to_s] = dividend.amount
+    def fetch_earnings
+      summary = { dividends: {}, interests: {} }
+      investment.dividends.order(date: :desc).limit(5).map do |dividend|
+        summary[:dividends][dividend.date.strftime('%m/%d/%Y').to_s] = dividend.amount
+      end
+      investment.interests_on_equities.order(date: :desc).limit(5).map do |interest|
+        summary[:interests][interest.date.strftime('%m/%d/%Y').to_s] = interest.amount
       end
       summary
     end
