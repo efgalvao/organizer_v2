@@ -11,7 +11,7 @@ RSpec.describe Account::AccountReportDecorator do
            month_income: 4.56,
            month_expense: 5.67,
            month_invested: 6.78,
-           month_dividends: 7.89)
+           month_earnings: 7.89)
   end
 
   describe '#initial_account_balance' do
@@ -50,9 +50,9 @@ RSpec.describe Account::AccountReportDecorator do
     end
   end
 
-  describe '#month_dividends' do
+  describe '#month_earnings' do
     it 'returns the balance in the correct format' do
-      expect(decorate_account_report.month_dividends).to eq('R$ 7,89')
+      expect(decorate_account_report.month_earnings).to eq('R$ 7,89')
     end
   end
 

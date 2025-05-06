@@ -12,7 +12,7 @@ RSpec.describe UserReportDecorator do
            expenses: 5.67,
            invested: 6.78,
            redeemed: 6.00,
-           dividends: 7.89,
+           earnings: 7.89,
            balance: 8.90,
            card_expenses: 9.01,
            invoice_payments: 1.23)
@@ -54,9 +54,9 @@ RSpec.describe UserReportDecorator do
     end
   end
 
-  describe '#month_dividends' do
+  describe '#month_earnings' do
     it 'returns the balance in the correct format' do
-      expect(decorate_user_report.month_dividends).to eq('R$ 7,89')
+      expect(decorate_user_report.month_earnings).to eq('R$ 7,89')
     end
   end
 

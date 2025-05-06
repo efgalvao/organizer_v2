@@ -244,7 +244,7 @@ en:
         invoice_payments: Invoice payments
         invested: Invested
         redeemed: Redeemed
-        dividends: Dividends
+        earnings: Earnings
         investments_balance: Investments balance
         month_balance: Balance
     past_month_reports:
@@ -309,6 +309,8 @@ en:
   investments:
     invest_negotiation: Investment
     redeem_negotiation: Redeem
+    dividend: Dividend
+    interest_on_equity: Interest on equity
     dividends:
       dividends: Dividends
       index:
@@ -375,12 +377,15 @@ en:
             shares: Shares
             kind: Kind
             monthly_balance: Monthly balance
-          dividends:
-            title: Dividends
+          earnings:
+            title: Earnings
             date: Date
             amount: Amount
             shares: Shares
+            kind: Kind
             monthly_balance: Monthly balance
+            dividends: Dividends
+            interests_on_equity: Interests on equity
   layouts:
     header:
       zukunft: ZUKUNFT

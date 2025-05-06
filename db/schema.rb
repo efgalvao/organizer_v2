@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_05_04_194350) do
+ActiveRecord::Schema[7.0].define(version: 2025_05_05_001206) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,7 +23,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_05_04_194350) do
     t.decimal "month_income", precision: 15, scale: 2, default: "0.0", null: false
     t.decimal "month_expense", precision: 15, scale: 2, default: "0.0", null: false
     t.decimal "month_invested", precision: 15, scale: 2, default: "0.0", null: false
-    t.decimal "month_dividends", precision: 15, scale: 2, default: "0.0", null: false
+    t.decimal "month_earnings", precision: 15, scale: 2, default: "0.0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "reference"
@@ -173,7 +173,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_05_04_194350) do
     t.decimal "invested", precision: 15, scale: 2, default: "0.0", null: false
     t.decimal "balance", precision: 15, scale: 2, default: "0.0", null: false
     t.decimal "card_expenses", precision: 15, scale: 2, default: "0.0", null: false
-    t.decimal "dividends", precision: 15, scale: 2, default: "0.0", null: false
+    t.decimal "earnings", precision: 15, scale: 2, default: "0.0", null: false
     t.string "reference", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
