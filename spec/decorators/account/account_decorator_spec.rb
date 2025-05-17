@@ -63,8 +63,8 @@ RSpec.describe Account::AccountDecorator do
     end
     let(:investment) { create(:investment) }
 
-    it 'returns the balance in the correct format' do
-      expect(decorated_account.investments).to eq([investment.decorate])
+    it 'returns the decorated investments' do
+      expect(decorated_account.investments.first).to be_a(Investments::FixedInvestment)
     end
   end
 

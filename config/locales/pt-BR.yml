@@ -380,4 +380,6 @@ pt-BR:
       log_out: Sair
   files:
     file_upload:
+      title: Upload de arquivo
+      disclaimer: 'Importante: Este upload é apenas para arquivos de transações. Não é possível importar arquivos de investimentos.'
       upload: Upload

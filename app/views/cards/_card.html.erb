@@ -1,8 +1,10 @@
 <%= turbo_frame_tag card do %>
 
-<div class="card">
-  <%= link_to card.name, card_path(card),
-                data: { turbo_frame: "_top" }  %>
+<div class="card-index-list card-index-grid">
+  <div class="card-index-list-item">
+    <%= link_to card.name, card_path(card),
+                  data: { turbo_frame: "_top" }  %>
+  </div>
 
   <div>
     <%= card.balance %>

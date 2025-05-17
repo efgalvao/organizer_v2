@@ -26,7 +26,7 @@ module Account
     end
 
     def investments
-      Investments::InvestmentDecorator.decorate_collection(object.investments)
+      Investments::InvestmentDecorator.decorate_collection(object.investments.order(:type, :name))
     end
 
     def past_reports

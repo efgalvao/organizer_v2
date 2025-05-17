@@ -3,7 +3,7 @@ class CardsController < ApplicationController
   before_action :set_card, only: %i[show edit update destroy]
 
   def index
-    cards = Account::Card.where(user_id: current_user.id)
+    cards = Account::Card.where(user_id: current_user.id).order(:name)
     @cards = Account::AccountDecorator.decorate_collection(cards)
   end
 
