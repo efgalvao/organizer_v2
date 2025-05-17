@@ -1,22 +1,26 @@
-<div class="title">
-  <%= t('.title') %>
-</div>
-
-<h4>
-  <%= simple_format t('.disclaimer') %>
-</h4>
-
-<%= form_with( url: upload_path, multipart: true)  do |form| %>
-  <br />
-
-  <div class="form-group">
-    <%= form.file_field :file, accept: 'application/json,text/csv',  class: "form-control"%>
+<main class="container">
+  <div class="title">
+    <h1>
+    <%= t('files.file_upload.title') %>
+    </h1>
   </div>
 
-  <br />
+  <h4>
+    <%= simple_format t('files.file_upload.disclaimer') %>
+  </h4>
 
-  <div class="actions">
-    <%= form.submit t('files.file_upload.upload'), class: "btn primary-btn" %>
-    <%= link_to t('buttons.cancel'), :back, :class => "btn danger-btn" %>
-  </div>
-<% end %>
+  <%= form_with( url: upload_path, multipart: true)  do |form| %>
+    <br />
+
+    <div class="form-group">
+      <%= form.file_field :file, accept: 'application/json,text/csv',  class: "form-control"%>
+    </div>
+
+    <br />
+
+    <div class="actions">
+      <%= form.submit t('files.file_upload.upload'), class: "btn primary-btn" %>
+      <%= link_to t('buttons.cancel'), :back, :class => "btn danger-btn" %>
+    </div>
+  <% end %>
+</main>
