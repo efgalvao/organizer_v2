@@ -18,7 +18,7 @@ module AccountServices
 
     def mount_summary
       summary = { incomes: {}, expenses: {}, invested: {}, balances: {} }
-      reports.each do |report|
+      reports.reverse.each do |report|
         summary[:incomes][report.date.strftime('%B-%Y').to_s] = report.month_income
         summary[:expenses][report.date.strftime('%B-%Y').to_s] = report.month_expense
         summary[:invested][report.date.strftime('%B-%Y').to_s] = report.month_invested
