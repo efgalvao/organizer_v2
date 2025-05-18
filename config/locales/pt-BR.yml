@@ -259,6 +259,8 @@ pt-BR:
       card_balance: Saldo do cartão
     charts:
       expense_by_category: Despesas por Categoria
+      card_expenses_by_category: Despesas do Cartão por Categoria
+      account_expenses_by_category: Despesas da Conta por Categoria
       expenses_by_group:
         title: Despesas por Grupo
         expenses: Despesas
