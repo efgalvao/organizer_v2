@@ -1,0 +1,16 @@
+.charts-container {
+  display: flex;
+  gap: 2rem;
+  justify-content: space-between;
+  margin-top: 1rem;
+
+  .chart {
+    flex: 1;
+    min-width: 0; // Prevents flex items from overflowing
+
+    h4 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+  }
+}
