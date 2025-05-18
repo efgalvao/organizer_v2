@@ -10,15 +10,18 @@ module CategoryServices
     end
 
     def call
-      expenses_by_category
+      {
+        card_expenses: card_expenses_by_category,
+        account_expenses: account_expenses_by_category
+      }
     end
 
     private
 
     attr_reader :user_id, :account_id
 
-    def expenses_by_category
-      expenses = Account::Expense.where(account: account_scope)
+    def card_expenses_by_category
+      expenses = Account::Expense.where(account: card_accounts)
                                  .where('date >= ? AND date <= ?', Date.current.beginning_of_month,
                                         Date.current.end_of_month)
                                  .joins(:category)
@@ -27,11 +30,31 @@ module CategoryServices
       format_data(expenses)
     end
 
-    def account_scope
+    def account_expenses_by_category
+      expenses = Account::Expense.where(account: savings_and_broker_accounts)
+                                 .where('date >= ? AND date <= ?', Date.current.beginning_of_month,
+                                        Date.current.end_of_month)
+                                 .joins(:category)
+                                 .group('categories.name')
+                                 .sum(:amount)
+      format_data(expenses)
+    end
+
+    def card_accounts
+      if account_id
+        Account::Account.where(id: account_id, user_id: user_id, type: 'Account::Card')
+      else
+        Account::Account.where(user_id: user_id, type: 'Account::Card')
+      end
+    end
+
+    def savings_and_broker_accounts
       if account_id
         Account::Account.where(id: account_id, user_id: user_id)
+                        .where(type: ['Account::Savings', 'Account::Broker'])
       else
         Account::Account.where(user_id: user_id)
+                        .where(type: ['Account::Savings', 'Account::Broker'])
       end
     end
 
