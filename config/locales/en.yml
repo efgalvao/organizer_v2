@@ -281,6 +281,8 @@ en:
       card_balance: Card balance
     charts:
       expense_by_category: Expenses by Category
+      card_expenses_by_category: Card Expenses by Category
+      account_expenses_by_category: Account Expenses by Category
       expenses_by_group:
         title: Expenses by Group
         expenses: Expenses
