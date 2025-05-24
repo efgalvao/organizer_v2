@@ -3,12 +3,12 @@ class CardsController < ApplicationController
   before_action :set_card, only: %i[show edit update destroy]
 
   def index
-    cards = Account::Card.where(user_id: current_user.id).order(:name)
-    @cards = Account::AccountDecorator.decorate_collection(cards)
+    @cards = fetch_cards.decorate
   end
 
   def show
-    @card = Account::CardDecorator.decorate(@card)
+    @card = @card.decorate
+    @expenses_by_category = fetch_expenses_by_category
   end
 
   def new
@@ -18,15 +18,16 @@ class CardsController < ApplicationController
   def edit; end
 
   def create
-    @card = AccountServices::CreateAccount.create(card_params.merge(type: 'Account::Card')).decorate
-    if @card.valid?
-      respond_to do |format|
-        format.html { redirect_to cards_path, notice: 'Cartão cadastrado.' }
-        format.turbo_stream { flash.now[:notice] = 'Cartão cadastrado.' }
-      end
+    result = AccountServices::CreateAccount.create(card_params.merge(type: 'Account::Card'))
+    @card = result[:account].decorate
+
+    if result[:success?]
+      handle_successful_creation
     else
-      render :new, status: :unprocessable_entity
+      handle_failed_creation(result[:errors])
     end
+  rescue StandardError => e
+    handle_creation_error(e)
   end
 
   def update
@@ -52,11 +53,49 @@ class CardsController < ApplicationController
 
   private
 
+  def fetch_cards
+    Account::Card.where(user_id: current_user.id)
+                 .order(:name)
+                 .includes(:user)
+  end
+
+  def fetch_expenses_by_category
+    CategoryServices::FetchExpensesByCategory.call(current_user.id, @card.id)
+  end
+
+  def handle_successful_creation
+    respond_to do |format|
+      format.html { redirect_to cards_path, notice: t('.success') }
+      format.turbo_stream { flash.now[:notice] = t('.success') }
+    end
+  end
+
+  def handle_failed_creation(errors)
+    flash.now[:error] = format_errors(errors)
+    render :new, status: :unprocessable_entity
+  end
+
+  def handle_creation_error(error)
+    Rails.logger.error("Error creating card: #{error.message}")
+    flash.now[:error] = t('.error')
+    render :new, status: :unprocessable_entity
+  end
+
+  def format_errors(errors)
+    if errors.is_a?(Array)
+      errors.join(', ')
+    else
+      errors.to_s
+    end
+  end
+
   def card_params
     params.require(:card).permit(:name).merge(user_id: current_user.id)
   end
 
   def set_card
     @card = AccountServices::FetchAccount.call(params[:id], current_user.id)
+  rescue ActiveRecord::RecordNotFound
+    raise ActionController::RoutingError, 'Not Found'
   end
 end

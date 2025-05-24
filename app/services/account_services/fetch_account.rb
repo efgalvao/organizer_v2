@@ -10,7 +10,6 @@ module AccountServices
     end
 
     def call
-      AccountServices::CreateAccountReport.create_report(account.id) if account.current_report.nil?
       account
     end
 
