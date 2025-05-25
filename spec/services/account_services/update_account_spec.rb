@@ -88,7 +88,7 @@ RSpec.describe AccountServices::UpdateAccount do
 
       before do
         allow(Account::Account).to receive(:find).with(account.id).and_return(account)
-        expect(account).to receive(:update).and_raise(StandardError, 'Test error')
+        allow(account).to receive(:update!).and_raise(StandardError, 'Test error')
       end
 
       it 'returns failure result with error message' do
