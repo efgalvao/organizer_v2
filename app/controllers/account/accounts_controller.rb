@@ -4,14 +4,12 @@ module Account
     before_action :set_account, only: %i[show edit update destroy consolidate_report]
 
     def index
-      accounts = Account.where(user_id: current_user.id, type: ['Account::Savings', 'Account::Broker'])
-                        .order(:name)
-      @accounts = AccountDecorator.decorate_collection(accounts)
+      @accounts = fetch_accounts.decorate
     end
 
     def show
       @account = @account.decorate
-      @expenses_by_category = CategoryServices::FetchExpensesByCategory.call(current_user.id, params[:id])
+      @expenses_by_category = fetch_expenses_by_category
     end
 
     def new
@@ -21,27 +19,31 @@ module Account
     def edit; end
 
     def create
-      @account = AccountServices::CreateAccount.create(account_params).decorate
-      if @account.valid?
-        respond_to do |format|
-          format.html { redirect_to accounts_path, notice: 'Conta cadastrada.' }
-          format.turbo_stream { flash.now[:notice] = 'Conta cadastrada.' }
-        end
+      result = create_account
+      @account = result[:account].decorate
+
+      if result[:success?]
+        handle_successful_creation
       else
-        render :new, status: :unprocessable_entity
+        handle_failed_creation(result[:errors])
       end
+    rescue StandardError => e
+      handle_creation_error(e)
     end
 
     def update
-      @account = AccountServices::UpdateAccount
-                 .update(account_params.merge(id: @account.id))
-                 .decorate
+      result = AccountServices::UpdateAccount
+               .update(account_params.merge(id: @account.id))
 
-      if @account.valid?
-        redirect_to accounts_path, notice: 'Conta atualizada.'
+      @account = result[:account].decorate
+
+      if result[:success?]
+        handle_successful_update
       else
-        render :edit, status: :unprocessable_entity
+        handle_failed_update(result[:errors])
       end
+    rescue StandardError => e
+      handle_update_error(e)
     end
 
     def destroy
@@ -63,12 +65,72 @@ module Account
 
     private
 
+    def fetch_accounts
+      Account.where(user_id: current_user.id, type: ['Account::Savings', 'Account::Broker'])
+             .order(:name)
+             .includes(:user)
+    end
+
+    def fetch_expenses_by_category
+      CategoryServices::FetchExpensesByCategory.call(current_user.id, @account.id)
+    end
+
+    def create_account
+      AccountServices::CreateAccount.create(account_params)
+    end
+
+    def handle_successful_creation
+      respond_to do |format|
+        format.html { redirect_to accounts_path, notice: t('.success') }
+        format.turbo_stream { flash.now[:notice] = t('.success') }
+      end
+    end
+
+    def handle_failed_creation(errors)
+      flash.now[:error] = format_errors(errors)
+      render :new, status: :unprocessable_entity
+    end
+
+    def handle_creation_error(error)
+      Rails.logger.error("Error creating account: #{error.message}")
+      flash.now[:error] = t('.error')
+      render :new, status: :unprocessable_entity
+    end
+
+    def format_errors(errors)
+      if errors.is_a?(Array)
+        errors.join(', ')
+      else
+        errors.to_s
+      end
+    end
+
     def account_params
       params.require(:account).permit(:name, :type).merge(user_id: current_user.id)
     end
 
     def set_account
       @account = AccountServices::FetchAccount.call(params[:id], current_user.id)
+    rescue ActiveRecord::RecordNotFound
+      raise ActionController::RoutingError, 'Not Found'
+    end
+
+    def handle_successful_update
+      respond_to do |format|
+        format.html { redirect_to accounts_path, notice: t('.success') }
+        format.turbo_stream { flash.now[:notice] = t('.success') }
+      end
+    end
+
+    def handle_failed_update(errors)
+      flash.now[:error] = format_errors(errors)
+      render :edit, status: :unprocessable_entity
+    end
+
+    def handle_update_error(error)
+      Rails.logger.error("Error updating account: #{error.message}")
+      flash.now[:error] = t('.error')
+      render :edit, status: :unprocessable_entity
     end
   end
 end

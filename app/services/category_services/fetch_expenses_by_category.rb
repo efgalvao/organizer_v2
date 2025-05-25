@@ -1,5 +1,15 @@
 module CategoryServices
   class FetchExpensesByCategory < ApplicationService
+    ACCOUNT_TYPES = {
+      card: 'Account::Card',
+      savings: ['Account::Savings', 'Account::Broker']
+    }.freeze
+
+    DATE_RANGE = {
+      start: -> { Date.current.beginning_of_month },
+      end: -> { Date.current.end_of_month }
+    }.freeze
+
     def initialize(user_id, account_id = nil)
       @user_id = user_id
       @account_id = account_id
@@ -21,41 +31,35 @@ module CategoryServices
     attr_reader :user_id, :account_id
 
     def card_expenses_by_category
-      expenses = Account::Expense.where(account: card_accounts)
-                                 .where('date >= ? AND date <= ?', Date.current.beginning_of_month,
-                                        Date.current.end_of_month)
-                                 .joins(:category)
-                                 .group('categories.name')
-                                 .sum(:amount)
+      expenses = expenses_query(card_accounts)
       format_data(expenses)
     end
 
     def account_expenses_by_category
-      expenses = Account::Expense.where(account: savings_and_broker_accounts)
-                                 .where('date >= ? AND date <= ?', Date.current.beginning_of_month,
-                                        Date.current.end_of_month)
-                                 .joins(:category)
-                                 .group('categories.name')
-                                 .sum(:amount)
+      expenses = expenses_query(savings_and_broker_accounts)
       format_data(expenses)
     end
 
+    def expenses_query(accounts)
+      Account::Expense.where(account: accounts)
+                      .where('date >= ? AND date <= ?', DATE_RANGE[:start].call, DATE_RANGE[:end].call)
+                      .joins(:category)
+                      .group('categories.name')
+                      .sum(:amount)
+    end
+
     def card_accounts
-      if account_id
-        Account::Account.where(id: account_id, user_id: user_id, type: 'Account::Card')
-      else
-        Account::Account.where(user_id: user_id, type: 'Account::Card')
-      end
+      fetch_accounts(ACCOUNT_TYPES[:card])
     end
 
     def savings_and_broker_accounts
-      if account_id
-        Account::Account.where(id: account_id, user_id: user_id)
-                        .where(type: ['Account::Savings', 'Account::Broker'])
-      else
-        Account::Account.where(user_id: user_id)
-                        .where(type: ['Account::Savings', 'Account::Broker'])
-      end
+      fetch_accounts(ACCOUNT_TYPES[:savings])
+    end
+
+    def fetch_accounts(type)
+      query = Account::Account.where(user_id: user_id)
+      query = query.where(id: account_id) if account_id
+      query.where(type: type)
     end
 
     def format_data(expenses)
