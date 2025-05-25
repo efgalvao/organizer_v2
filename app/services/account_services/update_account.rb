@@ -51,13 +51,11 @@ module AccountServices
     end
 
     def update_account
-      puts "Checking user_id: #{@account.user_id} vs #{account_params[:user_id]}"
       if @account.user_id != account_params[:user_id]
         errors << 'Você não tem permissão para atualizar esta conta'
-        return false
+        raise ActiveRecord::RecordNotAuthorized, 'Você não tem permissão para atualizar este registro'
       end
 
-      puts "About to call update on account #{@account.id}"
       return false unless @account.update(account_params)
 
       true
