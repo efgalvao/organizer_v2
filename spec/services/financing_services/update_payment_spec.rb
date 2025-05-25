@@ -17,7 +17,7 @@ RSpec.describe FinancingServices::UpdatePayment do
           fees: '56.78',
           interest: '90.12',
           insurance: '34.56',
-          adjustment: '78.90',
+          adjustment: '78.91',
           monetary_correction: '12.34'
         }
       end
@@ -35,7 +35,7 @@ RSpec.describe FinancingServices::UpdatePayment do
         expect(response.fees).to eq(56.78)
         expect(response.interest).to eq(90.12)
         expect(response.insurance).to eq(34.56)
-        expect(response.adjustment).to eq(78.90)
+        expect(response.adjustment).to eq(78.91)
         expect(response.monetary_correction).to eq(12.34)
       end
     end
