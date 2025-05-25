@@ -44,7 +44,7 @@ module FinancingServices
     def value_to_decimal(value)
       return 0 if value.nil?
 
-      value.to_d
+      value.to_d.round(2)
     end
   end
 end
