@@ -41,7 +41,7 @@ RSpec.describe 'Financings::Transaction' do
     end
 
     context 'with invalid parameters' do
-      it 'does not create a new Financing' do
+      it 'does not create a new transaction' do
         post account_transactions_path(account_id: account.id), params: { transaction: { category_id: '002' } }
         expect(response).to be_unprocessable
       end
