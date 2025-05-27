@@ -95,11 +95,11 @@ module AccountServices
 
       investment_ids = account.investments.pluck(:id)
 
-      dividends_total = Dividend.where(investment_id: investment_ids, date: month_range)
-                                .sum('amount * shares')
+      dividends_total = Investments::Dividend.where(investment_id: investment_ids, date: month_range)
+                                             .sum('amount * shares')
 
-      interests_total = InterestOnEquity.where(investment_id: investment_ids, date: month_range)
-                                        .sum(:amount)
+      interests_total = Investments::InterestOnEquity.where(investment_id: investment_ids, date: month_range)
+                                                     .sum(:amount)
 
       dividends_total + interests_total
     end
