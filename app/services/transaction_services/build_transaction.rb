@@ -2,6 +2,7 @@ module TransactionServices
   class BuildTransaction
     def initialize(params)
       @params = params
+      @date = parse_date(params[:date])
     end
 
     def self.build(params)
@@ -9,38 +10,33 @@ module TransactionServices
     end
 
     def build
-      build_transaction
+      transaction_class.new(transaction_params)
     end
 
     private
 
-    attr_reader :params
+    attr_reader :params, :date
 
-    def build_transaction
-      transaction_class.new(transaction_params)
+    def parse_date(raw_date)
+      raw_date.present? ? Date.parse(raw_date) : Date.current
+    rescue ArgumentError
+      Date.current
     end
 
     def transaction_class
-      case params[:type]
-      when 'Account::Income'
-        ::Account::Income
-      when 'Account::Expense'
-        ::Account::Expense
-      when 'Account::Transference'
-        ::Account::Transference
-      when 'Account::Investment'
-        ::Account::Investment
-      when 'Account::InvoicePayment'
-        ::Account::InvoicePayment
-      else
-        ::Account::Transaction
-      end
+      {
+        'Account::Income' => ::Account::Income,
+        'Account::Expense' => ::Account::Expense,
+        'Account::Transference' => ::Account::Transference,
+        'Account::Investment' => ::Account::Investment,
+        'Account::InvoicePayment' => ::Account::InvoicePayment
+      }.fetch(params[:type], ::Account::Transaction)
     end
 
     def transaction_params
       {
         account_id: params[:account_id],
-        amount: params[:amount].to_d,
+        amount: BigDecimal(params[:amount].to_s),
         date: date,
         category_id: params[:category_id],
         title: params[:title],
@@ -49,16 +45,13 @@ module TransactionServices
       }
     end
 
-    def date
-      @date ||= params[:date].present? ? Date.parse(params[:date]) : Date.current
-    end
-
     def account_report
-      report = Account::AccountReport.month_report(account_id: params[:account_id],
-                                                   reference_date: date)
-      return report unless report.nil?
-
-      AccountServices::CreateAccountReport.create_report(params[:account_id], date.strftime('%Y-%m-%d'))
+      @account_report ||= Account::AccountReport.month_report(
+        account_id: params[:account_id],
+        reference_date: date
+      ) || AccountServices::CreateAccountReport.create_report(
+        params[:account_id], date.strftime('%Y-%m-%d')
+      )
     end
   end
 end

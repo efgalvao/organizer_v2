@@ -2,7 +2,7 @@ module AccountServices
   class ConsolidateAccountReport
     def initialize(account, date)
       @account = account
-      @date = date
+      @date = parse_date(date)
     end
 
     def self.call(account, date)
@@ -12,31 +12,33 @@ module AccountServices
     def call
       report = find_or_create_report
       report.update(default_account_report_attributes) if report.new_record?
-      consolidated_attributes = consolidate(report)
-      report.update(consolidated_attributes)
+
+      report.update(consolidated_attributes(report))
     end
 
     private
 
     attr_reader :account, :date
 
+    def parse_date(date)
+      date.is_a?(String) ? Date.parse(date) : date
+    rescue ArgumentError
+      Date.current
+    end
+
     def find_or_create_report
-      account.account_reports.find_or_initialize_by(reference: month_reference)
+      @find_or_create_report ||= account.account_reports.find_or_initialize_by(reference: month_reference)
     end
 
     def month_reference
-      if date.is_a?(String)
-        Date.parse(date).strftime('%m%y')
-      else
-        date.strftime('%m%y')
-      end
+      date.strftime('%m%y')
     end
 
-    def consolidate(report)
+    def consolidated_attributes(report)
       {
-        initial_account_balance: initial_account_balance,
-        final_account_balance: final_account_balance,
-        month_balance: month_balance(report),
+        initial_account_balance: past_final_balance,
+        final_account_balance: current_account_balance,
+        month_balance: calculated_month_balance(report),
         month_income: month_income(report),
         month_expense: month_expense(report),
         month_invested: month_invested(report),
@@ -46,70 +48,72 @@ module AccountServices
       }
     end
 
-    def initial_account_balance
-      return 0 if past_month_report.nil?
-
-      past_month_report.final_account_balance
+    def past_final_balance
+      past_report = past_month_report
+      past_report ? past_report.final_account_balance : 0
     end
 
-    def final_account_balance
-      account.reload.balance
+    def current_account_balance
+      @current_account_balance ||= account.reload.balance
     end
 
-    def month_balance(report)
+    def calculated_month_balance(report)
+      income = month_income(report)
+      expense = month_expense(report)
+      invested = month_invested(report)
+      invoice = invoice_payment(report)
+
       if account.type == 'Account::Card'
-        month_income(report) + invoice_payment(report) - month_expense(report)
+        income + invoice - expense
       else
-        month_income(report) - month_expense(report) - month_invested(report) - invoice_payment(report)
+        income - expense - invested - invoice
       end
     end
 
     def month_income(report)
-      @month_income ||= report.transactions.where(type: 'Account::Income').sum(:amount)
+      @month_income ||= sum_transactions(report, 'Account::Income')
     end
 
     def month_expense(report)
-      @month_expense ||= report.transactions.where(type: 'Account::Expense').sum(:amount)
+      @month_expense ||= sum_transactions(report, 'Account::Expense')
     end
 
     def month_invested(report)
-      @month_invested ||= report.transactions.where(type: 'Account::Investment').sum(:amount)
+      @month_invested ||= sum_transactions(report, 'Account::Investment')
+    end
+
+    def invoice_payment(report)
+      @invoice_payment ||= sum_transactions(report, 'Account::InvoicePayment')
+    end
+
+    def sum_transactions(report, type)
+      report.transactions.where(type: type).sum(:amount)
     end
 
     def month_earnings
-      return 0 if account.type != 'Account::Broker'
+      return 0 unless account.type == 'Account::Broker'
 
-      dividends = account.investments.map do |investment|
-        investment.dividends.where(date: month_range).sum { |dividend| dividend.amount * dividend.shares }
-      end
+      investment_ids = account.investments.pluck(:id)
 
-      interests = account.investments.map do |investment|
-        investment.interests_on_equities.where(date: month_range).sum(&:amount)
-      end
+      dividends_total = Dividend.where(investment_id: investment_ids, date: month_range)
+                                .sum('amount * shares')
 
-      dividends.sum + interests.sum
-    end
+      interests_total = InterestOnEquity.where(investment_id: investment_ids, date: month_range)
+                                        .sum(:amount)
 
-    def reference_date
-      if date.is_a?(String)
-        Date.parse(date)
-      else
-        date
-      end
+      dividends_total + interests_total
     end
 
     def month_range
-      start_of_month = reference_date.beginning_of_month
-      end_of_month = reference_date.end_of_month
-      start_of_month..end_of_month
+      date.all_month
     end
 
     def past_month_reference
-      reference_date.prev_month.strftime('%m%y')
+      date.prev_month.strftime('%m%y')
     end
 
     def past_month_report
-      account.account_reports.find_by(reference: past_month_reference)
+      @past_month_report ||= account.account_reports.find_by(reference: past_month_reference)
     end
 
     def default_account_report_attributes
@@ -122,12 +126,8 @@ module AccountServices
         month_invested: 0,
         month_earnings: 0,
         invoice_payment: 0,
-        reference: current_reference
+        reference: month_reference
       }
-    end
-
-    def invoice_payment(report)
-      report.transactions.where(type: 'Account::InvoicePayment').sum(:amount)
     end
   end
 end

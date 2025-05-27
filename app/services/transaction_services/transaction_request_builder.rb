@@ -9,14 +9,20 @@ module TransactionServices
     end
 
     def call
-      transaction_params = build_transaction
+      ActiveRecord::Base.transaction do
+        transaction_params = build_transaction
 
-      transactions = TransactionServices::BuildTransactionParcels.call(transaction_params)
-      response = transactions.flatten.map do |transaction|
-        TransactionServices::ProcessTransactionRequest.call(params: transaction,
-                                                            value_to_update_balance: value_to_update(transaction))
+        transactions = TransactionServices::BuildTransactionParcels.call(transaction_params)
+
+        response = transactions.flat_map do |transaction|
+          TransactionServices::ProcessTransactionRequest.call(
+            params: transaction,
+            value_to_update_balance: value_to_update(transaction)
+          )
+        end
+
+        response.first
       end
-      response.first
     rescue StandardError => e
       error_response(e.message)
     end
@@ -57,11 +63,7 @@ module TransactionServices
     end
 
     def value_to_update(transaction)
-      if transaction[:type] == 'Account::Expense'
-        -transaction[:amount].to_d
-      else
-        transaction[:amount].to_d
-      end
+      transaction[:type] == 'Account::Expense' ? -transaction[:amount].to_d : transaction[:amount].to_d
     end
   end
 end

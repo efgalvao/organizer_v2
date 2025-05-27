@@ -2,6 +2,15 @@ module TransactionServices
   class BuildTransactionParcels
     def initialize(params)
       @params = params
+      @parcels = params[:parcels].to_i
+      @amount_per_parcel = BigDecimal(params[:amount].to_s) / @parcels
+      @base_date = (params[:date].presence || Date.current).to_date
+      @title = params.fetch(:title)
+      @group = params.fetch(:group)
+      @type = resolve_transaction_type(params.fetch(:type))
+
+      @account_id = resolve_account_id(params[:account])
+      @category_id = resolve_category_id(params[:category])
     end
 
     def self.call(params)
@@ -9,63 +18,56 @@ module TransactionServices
     end
 
     def call
-      (1..params[:parcels].to_i).map { |parcel| build_transaction(params, parcel) }
+      return [] if @parcels.zero?
+
+      Array.new(@parcels) { |i| build_transaction(i + 1) }
     end
 
     private
 
     attr_reader :params
 
-    def build_transaction(params, parcel)
+    def build_transaction(parcel)
       {
-        title: title(params.fetch(:title), parcel, params[:parcels]),
-        category_id: category_id(params.fetch(:category)),
-        account_id: account_id(params.fetch(:account)),
-        type: transaction_type(params.fetch(:type)),
-        amount: params.fetch(:amount).to_d / params[:parcels].to_i,
-        date: calculate_date(parcel),
-        group: params.fetch(:group)
+        title: title_with_parcel(parcel),
+        category_id: @category_id,
+        account_id: @account_id,
+        type: @type,
+        amount: @amount_per_parcel,
+        date: (@base_date + (parcel - 1).months).strftime('%Y-%m-%d'),
+        group: @group
       }
     end
 
-    def title(title, parcel, total_parcels)
-      total_parcels.to_i > 1 ? title + " - #{I18n.t('parcel')} #{parcel}/#{total_parcels}" : title
+    def title_with_parcel(parcel)
+      return @title if @parcels == 1
+
+      "#{@title} - #{I18n.t('parcel')} #{parcel}/#{@parcels}"
     end
 
-    def account_id(account_name)
-      downcased_name = account_name.downcase.strip
-      Account::Account.find_by('LOWER(name) = ?', downcased_name)&.id
+    def resolve_account_id(account_name)
+      return nil if account_name.blank?
+
+      downcased = account_name.to_s.downcase.strip
+      Account::Account.find_by('LOWER(name) = ?', downcased)&.id
     end
 
-    def category_id(category_name)
+    def resolve_category_id(category_name)
       return nil if category_name.blank?
 
-      downcased_name = category_name.downcase.strip
-      Category.find_by('LOWER(name) = ?', downcased_name)&.id.presence || Category.find_by(name: 'Diversos')&.id
+      downcased = category_name.to_s.downcase.strip
+      Category.find_by('LOWER(name) = ?', downcased)&.id ||
+        Category.find_by(name: 'Diversos')&.id
     end
 
-    def date
-      params[:date].presence || Date.current
-    end
-
-    def calculate_date(parcel)
-      (date.to_date + (parcel - 1).months).strftime('%Y-%m-%d')
-    end
-
-    def transaction_type(type)
+    def resolve_transaction_type(type)
       case type.to_i
-      when 0
-        'Account::Expense'
-      when 1
-        'Account::Income'
-      when 2
-        'Account::Transference'
-      when 3
-        'Account::Investment'
-      when 4
-        'Account::InvoicePayment'
-      else
-        Account::Transaction
+      when 0 then 'Account::Expense'
+      when 1 then 'Account::Income'
+      when 2 then 'Account::Transference'
+      when 3 then 'Account::Investment'
+      when 4 then 'Account::InvoicePayment'
+      else Account::Transaction
       end
     end
   end
