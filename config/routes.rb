@@ -6,7 +6,6 @@ Rails.application.routes.draw do
     get 'sign_in', to: 'devise/sessions#new'
   end
 
-  # Defines the root path route ("/")
   root 'home#index'
   get 'summary', to: 'home#show', as: 'summary'
   get 'transactions', to: 'home#transactions', as: 'transactions'
