@@ -17,6 +17,7 @@ pt-BR:
     anticipate: Antecipar
     filter: Filtrar
     expenses: Despesas
+    investments: Investimentos
   account:
     form:
       name: Nome
@@ -67,6 +68,7 @@ pt-BR:
         kind: Tipo
         shares_total: Total de cotas
         average_price: Preço médio
+        investment_allocation: Alocação dos investimentos
   transactions:
     anticipate: Antecipar
     kinds:
@@ -265,6 +267,7 @@ pt-BR:
         title: Despesas por Grupo
         expenses: Despesas
         ideal: Ideal
+      investments_allocation: Alocação dos Investimentos
   invoice:
     pay_invoice: Pagar fatura
     invoice_payment: Pagamento de fatura
