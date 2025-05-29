@@ -5,5 +5,7 @@
 <%= render partial: 'investment_header' %>
 
 <%= turbo_frame_tag "investments" do %>
-    <%= render partial: 'investment', collection: investments %>
+    <%= render partial: 'investment', collection: account.investments %>
 <% end %>
+
+<%= render partial: 'investment_allocation_chart', locals: { investment_allocation: account.investment_allocation_by_kind } %>
