@@ -101,7 +101,7 @@ module UserServices
 
     def calculate_redeemed_total(account, current_month)
       account.investments.sum do |inv|
-        inv.negotiations.select { |n| n.kind == 1 && current_month.cover?(n.date) }.sum(&:amount)
+        inv.negotiations.select { |n| n.kind == 'sell' && current_month.cover?(n.date) }.sum(&:amount)
       end
     end
 
