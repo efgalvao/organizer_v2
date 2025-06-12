@@ -21,5 +21,13 @@ module Account
     def month_report(reference)
       account_reports.find_by(reference: reference.strftime('%m%y'))
     end
+
+    def investments?
+      investments.any?
+    end
+
+    def broker_with_investment?
+      type == 'Account::Broker' && investments?
+    end
   end
 end

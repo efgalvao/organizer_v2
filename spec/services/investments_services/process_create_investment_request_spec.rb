@@ -14,7 +14,8 @@ RSpec.describe InvestmentsServices::ProcessCreateInvestmentRequest do
         current_amount: 2.0,
         account_id: account.id,
         shares_total: 1,
-        type: 'FixedInvestment'
+        type: 'FixedInvestment',
+        kind: 'fixed'
       }
     end
 
@@ -39,7 +40,8 @@ RSpec.describe InvestmentsServices::ProcessCreateInvestmentRequest do
         current_amount: 2.0,
         account_id: account.id,
         shares_total: 1,
-        type: 'VariableInvestment'
+        type: 'VariableInvestment',
+        kind: 'stock'
       }
     end
 

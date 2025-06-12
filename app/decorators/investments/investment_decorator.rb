@@ -91,5 +91,9 @@ module Investments
     def format_currency(value)
       ActionController::Base.helpers.number_to_currency(value, unit: 'R$ ', separator: ',', delimiter: '.')
     end
+
+    def group
+      I18n.t("investments.kinds.#{object.kind}")
+    end
   end
 end

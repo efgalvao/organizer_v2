@@ -92,6 +92,7 @@ en:
         current_amount: Current amount
         kind: Kind
         investment_allocation: Investments Allocation
+        group: Group
   transactions:
     anticipate: Anticipate
     kinds:
@@ -391,6 +392,15 @@ en:
             monthly_balance: Monthly balance
             dividends: Dividends
             interests_on_equity: Interests on equity
+    kinds:
+      stock: Stock
+      fii: FII
+      reit: REIT
+      fixed: Fixed Income
+      fixed_international: International Fixed Income
+      stock_international: International Stock
+      crypto: Cryptocurrency
+      other: Other
   layouts:
     header:
       zukunft: ZUKUNFT

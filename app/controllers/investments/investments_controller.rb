@@ -52,7 +52,7 @@ module Investments
 
     def investment_params
       params.require(:investment).permit(:name, :account_id, :invested_amount,
-                                         :current_amount, :type, :shares_total)
+                                         :current_amount, :type, :shares_total, :kind)
     end
   end
 end

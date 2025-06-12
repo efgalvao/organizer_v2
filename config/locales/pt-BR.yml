@@ -69,6 +69,7 @@ pt-BR:
         shares_total: Total de cotas
         average_price: Preço médio
         investment_allocation: Alocação dos investimentos
+        group: Grupo
   transactions:
     anticipate: Antecipar
     kinds:
@@ -370,6 +371,15 @@ pt-BR:
             monthly_balance: Saldo mensal
             dividends: Dividendos
             interests_on_equity: Juros sobre capital próprio
+    kinds:
+      stock: Ações
+      fii: FII
+      reit: REIT
+      fixed: Renda Fixa
+      fixed_international: Renda Fixa Internacional
+      stock_international: Ações Internacionais
+      crypto: Criptomoedas
+      other: Outros
   layouts:
     header:
       zukunft: ZUKUNFT

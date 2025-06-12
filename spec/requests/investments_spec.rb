@@ -33,7 +33,8 @@ RSpec.describe 'Investments::Investment' do
             name: 'Fixed Investment',
             current_amount: '100',
             invested_amount: '100',
-            type: 'FixedInvestment'
+            type: 'FixedInvestment',
+            kind: 'fixed'
           } }
         end.to change(Investments::FixedInvestment, :count).by(1)
       end

@@ -28,6 +28,7 @@ module InvestmentsServices
     def update_attributes
       investment.name = new_name
       investment.shares_total = new_shares_total
+      investment.kind = new_kind
     end
 
     def investment
@@ -40,6 +41,10 @@ module InvestmentsServices
 
     def new_shares_total
       params[:shares_total].presence || investment.shares_total
+    end
+
+    def new_kind
+      params[:kind].presence || investment.kind
     end
   end
 end
