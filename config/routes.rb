@@ -6,7 +6,6 @@ Rails.application.routes.draw do
     get 'sign_in', to: 'devise/sessions#new'
   end
 
-  # Defines the root path route ("/")
   root 'home#index'
   get 'summary', to: 'home#show', as: 'summary'
   get 'transactions', to: 'home#transactions', as: 'transactions'
@@ -50,7 +49,4 @@ Rails.application.routes.draw do
     get '/investments/:account_id/new', to: 'investments#new', as: 'new_investment'
 
   end
-
-  get '/file_upload', to: 'files#file_upload'
-  post '/upload', to: 'files#upload'
 end

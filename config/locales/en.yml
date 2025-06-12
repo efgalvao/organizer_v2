@@ -411,11 +411,6 @@ en:
       financings: Financings
       investments: Investments
       transferences: Transferences
-      file_upload: File upload
       edit_profile: Edit profile
       log_out: Log out
-  files:
-    file_upload:
-      title: File upload
-      disclaimer: 'Important: This upload is only for transaction files. It is not possible to import investment files.'
-      upload: Upload
+

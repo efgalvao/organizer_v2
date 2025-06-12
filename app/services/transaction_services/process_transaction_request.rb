@@ -2,7 +2,7 @@ module TransactionServices
   class ProcessTransactionRequest
     def initialize(params:, value_to_update_balance:)
       @params = params
-      @value_to_update_balance = value_to_update_balance
+      @value_to_update_balance = BigDecimal(value_to_update_balance.to_s)
     end
 
     def self.call(params:, value_to_update_balance:)
@@ -10,9 +10,14 @@ module TransactionServices
     end
 
     def call
-      create_transaction
+      ActiveRecord::Base.transaction do
+        transaction = build_and_save_transaction
+        update_account_balance
+        consolidate_account_report(transaction)
+        transaction
+      end
     rescue StandardError => e
-      Rails.logger.error(e.message)
+      Rails.logger.error(e.full_message)
       Account::Transaction.new
     end
 
@@ -20,30 +25,17 @@ module TransactionServices
 
     attr_reader :params, :value_to_update_balance
 
-    def create_transaction
-      transaction = nil
-      ActiveRecord::Base.transaction do
-        transaction = build_transaction
-        transaction.save!
-        update_account_balance
-      end
-      consolidate_account_report(transaction)
+    def build_and_save_transaction
+      transaction = TransactionServices::BuildTransaction.build(params)
+      transaction.save!
       transaction
     end
 
-    def build_transaction
-      TransactionServices::BuildTransaction.build(params)
-    end
-
     def update_account_balance
-      AccountServices::UpdateAccountBalance.call(update_account_balance_params)
-    end
-
-    def update_account_balance_params
-      {
+      AccountServices::UpdateAccountBalance.call(
         account_id: params[:account_id],
-        amount: value_to_update_balance.to_d
-      }
+        amount: value_to_update_balance
+      )
     end
 
     def consolidate_account_report(transaction)

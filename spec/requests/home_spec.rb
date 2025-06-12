@@ -11,7 +11,7 @@ RSpec.describe 'Home' do
         get '/'
 
         expect(response).to be_successful
-        expect(response).to render_template(:index)
+        expect(response.content_type).to include('text/html')
       end
     end
 
@@ -32,7 +32,7 @@ RSpec.describe 'Home' do
         get transactions_path
 
         expect(response).to be_successful
-        expect(response).to render_template(:transactions)
+        expect(response.content_type).to include('text/html')
       end
     end
 

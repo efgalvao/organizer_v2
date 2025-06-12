@@ -4,17 +4,7 @@ module UserServices
 
     def initialize(user_id)
       @user_id = user_id
-      @savings = DEFAULT_VALUE
-      @investments = DEFAULT_VALUE
-      @incomes = DEFAULT_VALUE
-      @expenses = DEFAULT_VALUE
-      @invested = DEFAULT_VALUE
-      @redeemed = DEFAULT_VALUE
-      @earnings = DEFAULT_VALUE
-      @card_expenses = DEFAULT_VALUE
-      @balance = DEFAULT_VALUE
-      @total = DEFAULT_VALUE
-      @invoice_payments = DEFAULT_VALUE
+      reset_aggregates
     end
 
     def call
@@ -24,8 +14,12 @@ module UserServices
 
     private
 
-    attr_reader :user_id, :savings, :investments, :incomes, :expenses, :redeemed,
-                :invested, :earnings, :card_expenses, :balance, :total, :invoice_payments
+    attr_reader :user_id
+
+    def reset_aggregates
+      @savings = @investments = @incomes = @expenses = @invested = @redeemed = DEFAULT_VALUE
+      @earnings = @card_expenses = @balance = @total = @invoice_payments = DEFAULT_VALUE
+    end
 
     def user
       @user ||= User.find(user_id)
@@ -35,70 +29,87 @@ module UserServices
       @current_reference ||= Date.current.strftime('%m/%y')
     end
 
-    def saving_accounts
-      @saving_accounts ||= Account::Account.where(user_id: user_id, type: 'Account::Savings')
-    end
-
-    def brokers
-      @brokers ||= Account::Account.where(user_id: user_id, type: 'Account::Broker')
-    end
-
-    def cards
-      @cards ||= Account::Account.where(user_id: user_id, type: 'Account::Card')
-    end
-
     def accounts
-      @accounts ||= (saving_accounts + brokers + cards)
+      @accounts ||= Account::Account
+                    .where(user_id: user_id)
+                    .includes(investments: [:negotiations])
     end
 
     def create_report
       report = user.user_reports.find_or_initialize_by(reference: current_reference)
       report.update(
         date: Date.current,
-        savings: savings,
-        investments: investments,
-        incomes: incomes,
-        expenses: expenses,
-        invested: invested,
-        redeemed: redeemed,
-        earnings: earnings,
-        invoice_payments: invoice_payments,
-        card_expenses: card_expenses,
-        balance: balance,
-        total: total
+        savings: @savings,
+        investments: @investments,
+        incomes: @incomes,
+        expenses: @expenses,
+        invested: @invested,
+        redeemed: @redeemed,
+        earnings: @earnings,
+        invoice_payments: @invoice_payments,
+        card_expenses: @card_expenses,
+        balance: @balance,
+        total: @total
       )
       report
     end
 
     def consolidate_month_report
+      accounts_by_type = accounts.group_by(&:type)
+
+      savings_and_brokers = accounts_by_type['Account::Savings'].to_a + accounts_by_type['Account::Broker'].to_a
+      consolidate_savings_and_brokers(savings_and_brokers)
+      consolidate_cards(accounts_by_type['Account::Card'].to_a)
+
+      @balance = @incomes - @expenses - @invested - @invoice_payments
+      @total = @savings + @investments
+    end
+
+    def consolidate_savings_and_brokers(accounts)
+      current_month = Date.current.all_month
+
       accounts.each do |account|
-        case account
-        when Account::Savings, Account::Broker
-          consolidate_savings_and_broker(account)
-        when Account::Card
-          consolidate_card(account)
-        end
+        process_account_report(account)
+        process_broker_investments(account, current_month) if account.is_a?(Account::Broker)
       end
-
-      @balance = incomes - expenses - invested - invoice_payments
-      @total = savings + investments
     end
 
-    def consolidate_savings_and_broker(account)
+    def process_account_report(account)
+      current_report = account.current_report
+      return unless current_report
+
       @savings += account.balance
-      if account.broker_with_investment?
-        @redeemed += account.total_redemptions
-        @investments += account.calculate_investments
-      end
-      @incomes += account.current_report.month_income
-      @expenses += account.current_report.month_expense
-      @earnings += account.current_report.month_earnings
-      @invoice_payments += account.current_report.invoice_payment
-      @invested += account.current_report.month_invested
+      @incomes += current_report.month_income
+      @expenses += current_report.month_expense
+      @earnings += current_report.month_earnings
+      @invoice_payments += current_report.invoice_payment
+      @invested += current_report.month_invested
     end
 
-    def consolidate_card(account)
-      @card_expenses += account.current_report.month_expense
+    def process_broker_investments(account, current_month)
+      return unless account.investments.loaded?
+
+      @investments += calculate_investments_total(account)
+      @redeemed += calculate_redeemed_total(account, current_month)
+    end
+
+    def calculate_investments_total(account)
+      account.investments.sum do |inv|
+        inv.type == 'Investments::VariableInvestment' ? inv.current_amount * inv.shares_total : inv.current_amount
+      end
+    end
+
+    def calculate_redeemed_total(account, current_month)
+      account.investments.sum do |inv|
+        inv.negotiations.select { |n| n.kind == 'sell' && current_month.cover?(n.date) }.sum(&:amount)
+      end
+    end
+
+    def consolidate_cards(cards)
+      cards.each do |account|
+        current_report = account.current_report
+        @card_expenses += current_report.month_expense if current_report
+      end
     end
   end
 end
