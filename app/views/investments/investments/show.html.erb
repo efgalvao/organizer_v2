@@ -33,6 +33,10 @@
                   data: { turbo_frame: "new_interest_on_equity" },
                   method: :get,
                   class: "btn btn--light" %>
+      <%= link_to t('investments.investments.show.fetch_quote'),
+                    update_quote_investment_path(@investment),
+                    method: :get,
+                    class: "btn btn--light" %>
 
     <%= turbo_frame_tag "new_position" %>
     <%= turbo_frame_tag "new_negotiation" %>

@@ -327,6 +327,7 @@ pt-BR:
         new_negotiation: Nova negociação
         new_dividend: Novo dividendo
         new_interest_on_equity: Novo juros sobre capital próprio
+        fetch_quote: Buscar cotação
         negotiation_form:
           date: Data
           amount: Valor
