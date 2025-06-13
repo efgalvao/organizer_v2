@@ -38,15 +38,15 @@ Rails.application.routes.draw do
   end
 
   scope module: 'investments' do
-
     resources :investments, except: [:destroy, :new] do
       resources :negotiations, only: [:index, :new, :create]
       resources :positions, only: [:index, :new, :create]
       resources :dividends, only: [:index, :new, :create]
       resources :interest_on_equities, only: [:index, :new, :create]
-
+      member do
+        get 'update_quote'
+      end
     end
     get '/investments/:account_id/new', to: 'investments#new', as: 'new_investment'
-
   end
 end

@@ -44,6 +44,14 @@ module Investments
       redirect_to investments_path, notice: 'Investimento atualizado.'
     end
 
+    def update_quote
+      investment = InvestmentsServices::UpdateQuote.call(params[:id])
+
+      @investment = Investments::InvestmentDecorator.decorate(investment)
+
+      redirect_to investment_path(@investment), notice: 'Investimento atualizada.'
+    end
+
     private
 
     def set_investment
