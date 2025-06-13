@@ -30,9 +30,7 @@ module InvestmentsServices
         request['Authorization'] = "Bearer #{BRAPI_TOKEN}"
         http.request(request)
       end
-      # binding.pry
       parsed_response = JSON.parse(response.body)
-      # puts '------', parsed_response.inspect
       validate_response(parsed_response)
       parsed_response
     end
@@ -42,9 +40,8 @@ module InvestmentsServices
     attr_reader :ticker
 
     def validate_response(json)
-      # puts '------', ticker.strip.upcase, json['results'][0]['symbol'].strip.upcase
       return unless ticker.strip.upcase != json['results'][0]['symbol'].strip.upcase
-# binding.pry
+
       raise InvalidTickerError,
             "Ticker retornado (#{json['results'][0]['symbol']}) não confere com o solicitado (#{ticker})"
     end

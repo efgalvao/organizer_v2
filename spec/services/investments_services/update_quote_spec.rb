@@ -4,7 +4,7 @@ RSpec.describe InvestmentsServices::UpdateQuote do
   subject(:service) { described_class.new(investment.id) }
 
   let(:investment) { create(:investment, name: 'TEST11', shares_total: 10) }
-  let(:quote) { { value: 100.0, date: Date.today.to_s } }
+  let(:quote) { { value: 100.0, date: Time.zone.today.to_s } }
 
   before do
     allow(Investments::Investment).to receive(:find).with(investment.id).and_return(investment)
