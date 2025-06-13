@@ -348,6 +348,7 @@ en:
         new_negotiation: New negotiation
         new_dividend: New dividend
         new_interest_on_equity: New interest on equity
+        fetch_quote: Fetch Quote
         negotiation_form:
           date: Date
           amount: Amount
