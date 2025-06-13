@@ -5,8 +5,8 @@ module InvestmentsServices
   class FetchStockQuote < ApplicationService
     class InvalidTickerError < StandardError; end
 
-    BASE_URL = ENV.fetch('BRAPI_BASE_URL')
-    BRAPI_TOKEN = ENV.fetch('BRAPI_TOKEN')
+    BASE_URL = ENV.fetch('BRAPI_BASE_URL', 'base_url')
+    BRAPI_TOKEN = ENV.fetch('BRAPI_TOKEN', 'my_token')
 
     def initialize(ticker)
       @ticker = ticker
