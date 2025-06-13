@@ -40,6 +40,7 @@ en:
     anticipate: Anticipate
     filter: Filter
     expenses: Expenses
+    investments: Investments
   account:
     form:
       name: Name
@@ -90,6 +91,8 @@ en:
         invested_amount: Invested
         current_amount: Current amount
         kind: Kind
+        investment_allocation: Investments Allocation
+        group: Group
   transactions:
     anticipate: Anticipate
     kinds:
@@ -287,6 +290,7 @@ en:
         title: Expenses by Group
         expenses: Expenses
         ideal: Ideal
+      investments_allocation: Investments Allocation
   invoice:
     pay_invoice: Pay invoice
     invoice_payment: Invoice payment
@@ -389,6 +393,15 @@ en:
             monthly_balance: Monthly balance
             dividends: Dividends
             interests_on_equity: Interests on equity
+    kinds:
+      stock: Stock
+      fii: FII
+      reit: REIT
+      fixed: Fixed Income
+      fixed_international: International Fixed Income
+      stock_international: International Stock
+      crypto: Cryptocurrency
+      other: Other
   layouts:
     header:
       zukunft: ZUKUNFT

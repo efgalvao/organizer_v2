@@ -3,12 +3,13 @@ module Account
     decorates_association :account_reports, with: AccountReportDecorator
 
     delegate_all
+    delegate :investment_allocation_by_kind, to: :object
 
     def balance
       format_currency(object.balance)
     end
 
-    def type
+    def formatted_type
       case object.type
       when 'Account::Savings'
         'Banco'
@@ -26,7 +27,8 @@ module Account
     end
 
     def investments
-      Investments::InvestmentDecorator.decorate_collection(object.investments.order(:type, :name))
+      Investments::InvestmentDecorator
+        .decorate_collection(object.investments.where(released: false).order(:type, :name))
     end
 
     def past_reports

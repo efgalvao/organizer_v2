@@ -27,7 +27,8 @@ module InvestmentsServices
         invested_amount: params[:invested_amount].to_d,
         current_amount: params[:current_amount].to_d,
         type: 'Investments::FixedInvestment',
-        shares_total: params[:shares_total]
+        shares_total: params[:shares_total],
+        kind: params[:kind]
       }
     end
   end

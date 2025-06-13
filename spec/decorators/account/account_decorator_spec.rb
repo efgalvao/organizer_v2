@@ -11,12 +11,12 @@ RSpec.describe Account::AccountDecorator do
     end
   end
 
-  describe '#type' do
+  describe '#formatted_type' do
     context 'when the type is broker' do
       let(:account) { create(:account, :broker) }
 
       it 'returns the type in the correct format' do
-        expect(decorated_account.type).to eq('Corretora')
+        expect(decorated_account.formatted_type).to eq('Corretora')
       end
     end
 
@@ -24,7 +24,7 @@ RSpec.describe Account::AccountDecorator do
       let(:account) { create(:account) }
 
       it 'returns the type in the correct format' do
-        expect(decorated_account.type).to eq('Banco')
+        expect(decorated_account.formatted_type).to eq('Banco')
       end
     end
 
@@ -32,7 +32,7 @@ RSpec.describe Account::AccountDecorator do
       let(:account) { create(:account, :card) }
 
       it 'returns the type in the correct format' do
-        expect(decorated_account.type).to eq('Cartão')
+        expect(decorated_account.formatted_type).to eq('Cartão')
       end
     end
 
@@ -40,7 +40,7 @@ RSpec.describe Account::AccountDecorator do
       let(:account) { create(:account, type: 'unknown') }
 
       it 'returns the type in the correct format' do
-        expect(decorated_account.type).to eq('Desconhecido')
+        expect(decorated_account.formatted_type).to eq('Desconhecido')
       end
     end
   end

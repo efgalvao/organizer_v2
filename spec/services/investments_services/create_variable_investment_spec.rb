@@ -11,7 +11,8 @@ RSpec.describe InvestmentsServices::CreateVariableInvestment do
       invested_amount: 0.0,
       current_amount: 2.0,
       account_id: account.id,
-      shares_total: 1
+      shares_total: 1,
+      kind: 'stock'
     }
   end
 

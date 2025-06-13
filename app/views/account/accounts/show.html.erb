@@ -48,7 +48,7 @@
 
 
     <% if @account.broker? %>
-    <%= render 'investments', :investments => @account.investments %>
+    <%= render 'investments', :account => @account %>
     <% end %>
 
 </div>

@@ -17,6 +17,7 @@ pt-BR:
     anticipate: Antecipar
     filter: Filtrar
     expenses: Despesas
+    investments: Investimentos
   account:
     form:
       name: Nome
@@ -67,6 +68,8 @@ pt-BR:
         kind: Tipo
         shares_total: Total de cotas
         average_price: Preço médio
+        investment_allocation: Alocação dos investimentos
+        group: Grupo
   transactions:
     anticipate: Antecipar
     kinds:
@@ -265,6 +268,7 @@ pt-BR:
         title: Despesas por Grupo
         expenses: Despesas
         ideal: Ideal
+      investments_allocation: Alocação dos Investimentos
   invoice:
     pay_invoice: Pagar fatura
     invoice_payment: Pagamento de fatura
@@ -368,6 +372,15 @@ pt-BR:
             monthly_balance: Saldo mensal
             dividends: Dividendos
             interests_on_equity: Juros sobre capital próprio
+    kinds:
+      stock: Ações
+      fii: FII
+      reit: REIT
+      fixed: Renda Fixa
+      fixed_international: Renda Fixa Internacional
+      stock_international: Ações Internacionais
+      crypto: Criptomoedas
+      other: Outros
   layouts:
     header:
       zukunft: ZUKUNFT
