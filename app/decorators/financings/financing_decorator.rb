@@ -14,6 +14,10 @@ module Financings
       object.payments.reduce(object.installments) { |result, parcel| result - parcel.paid_parcels }
     end
 
+    def outstanding_time
+      "#{outstanding_parcels.div(12)}a#{outstanding_parcels % 12}m"
+    end
+
     def outstanding_balance
       value = object.payments.order(payment_date: :asc).reduce(object.borrowed_value) do |result, parcel|
         (result - parcel.amortization) + parcel.monetary_correction
