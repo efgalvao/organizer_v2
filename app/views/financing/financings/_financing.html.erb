@@ -1,23 +1,22 @@
 <%= turbo_frame_tag financing do %>
+  <tr>
+    <td>
+      <%= link_to financing.name, financing_path(financing),
+                  data: { turbo_frame: "_top" } %>
+    </td>
 
-<div class="list financing-index-header-grid">
-  <div class="list-item">
-    <%= link_to financing.name, financing_path(financing),
-                data: { turbo_frame: "_top" }  %>
-  </div>
+    <td><%= financing.installments %></td>
+    <td><%= financing.borrowed_value %></td>
+    <td><%= financing.outstanding_parcels %></td>
 
-        <div class="list-item"><%= financing.installments %></div>
-        <div class="list-item"><%= financing.borrowed_value %></div>
-        <div class="list-item"><%= financing.outstanding_parcels %></div>
-
-  <div  class="list-button">
-    <%= button_to t('buttons.delete'),
-                  financing_path(financing),
-                  method: :delete,
-                  class: "btn btn--light" %>
-    <%= link_to t('buttons.edit'),
-                edit_financing_path(financing),
-                class: "btn btn--light" %>
-  </div>
-</div>
+    <td class="lcars-financing-actions">
+      <%= link_to t('buttons.edit'),
+                  edit_financing_path(financing),
+                  class: "lcars-button lcars-button--secondary" %>
+      <%= button_to t('buttons.delete'),
+                    financing_path(financing),
+                    method: :delete,
+                    class: "lcars-button lcars-button--danger" %>
+    </td>
+  </tr>
 <% end %>

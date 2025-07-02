@@ -1,15 +1,15 @@
 <%= simple_form_for financing,
   as: :financing,
   url: financing.new_record? ? financings_path : financing_path(financing),
-  html: { class: "financing long-form" } do |f| %>
+  html: { class: "form" } do |f| %>
 
   <%= form_error_notification(financing) %>
 
   <%= f.input :name, label: t('financing.form.name'),input_html: { autofocus: true } %>
   <%= f.input :borrowed_value, label: t('financing.form.borrowed_amount'),
-   input_html: { value: (financing.borrowed_value if financing.borrowed_value)
-    } %>
+   input_html: { value: (financing.borrowed_value if financing.borrowed_value) } %>
   <%= f.input :installments, label: t('financing.form.parcels') %>
-  <%= f.submit t('buttons.save'), class: "btn btn--secondary" %>
-  <%= link_to t('buttons.cancel'), financings_path, class: "btn btn--light" %>
+
+  <%= f.submit t('buttons.save'), class: "lcars-button lcars-button--secondary" %>
+  <%= link_to t('buttons.cancel'), financings_path, class: "lcars-button lcars-button--danger" %>
 <% end %>

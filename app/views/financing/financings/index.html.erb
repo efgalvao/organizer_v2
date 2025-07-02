@@ -1,18 +1,28 @@
-<main class="container">
+<main class="lcars-container">
   <%= turbo_frame_tag "first_turbo_frame" do %>
 
-    <div class="header">
+    <div class="lcars-header--section">
       <h1><%= t('financing.index.financings')%></h1>
       <%= link_to t('financing.index.new_financing'),
                   new_financing_path,
                   data: { turbo_frame: "new_financing" },
-                  class: "btn btn--primary" %>
+                  class: "lcars-button lcars-button--secondary" %>
     </div>
   <% end %>
 
-  <%= render partial: 'index_header' %>
   <%= turbo_frame_tag "new_financing" %>
-  <%= turbo_frame_tag "financings" do %>
-    <%= render partial: 'financing', collection: @financings %>
-  <% end %>
+  <div class="lcars-content">
+    <div class="lcars-table-container">
+      <table class="lcars-table">
+        <thead>
+          <%= render partial: 'index_header' %>
+        </thead>
+        <tbody>
+          <%= turbo_frame_tag "financings" do %>
+            <%= render partial: 'financing', collection: @financings %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </main>
