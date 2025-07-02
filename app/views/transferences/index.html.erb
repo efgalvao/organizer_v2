@@ -1,18 +1,27 @@
-<main class="container">
+<main class="lcars-container">
   <%= turbo_frame_tag "first_turbo_frame" do %>
-
-    <div class="header">
+    <div class="lcars-header--section">
       <h1><%= t('transference.index.title') %></h1>
       <%= link_to t('transference.index.new_transference'),
                   new_transference_path,
                   data: { turbo_frame: "new_transference" },
-                  class: "btn btn--primary" %>
+                  class: "lcars-button lcars-button--secondary" %>
     </div>
   <% end %>
 
-  <%= render partial: 'header' %>
   <%= turbo_frame_tag "new_transference" %>
-  <%= turbo_frame_tag "transferences" do %>
-    <%= render @transferences %>
-  <% end %>
+  <div class="lcars-content">
+    <div class="lcars-table-container">
+      <table class="lcars-table">
+        <thead>
+          <%= render partial: 'header' %>
+        </thead>
+        <%= turbo_frame_tag "transferences" do %>
+        <tbody>
+          <%= render @transferences %>
+        </tbody>
+        <% end %>
+      </table>
+    </div>
+  </div>
 </main>
