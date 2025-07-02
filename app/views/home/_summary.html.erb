@@ -1,7 +1,10 @@
-  <div class="subtitle">
-    <%= t('home.summary.title') %>
-  </div>
-  <table class="striped">
+<div class="lcars-content">
+<div class="lcars-subtitle">
+  <%= t('home.summary.title') %>
+</div>
+
+<div class="lcars-table-container">
+  <table class="lcars-table">
     <thead>
       <tr>
         <th><%= t('home.summary.savings') %></th>
@@ -17,10 +20,14 @@
         </tr>
     </tbody>
   </table>
+</div>
 
-<div class="subtitle"><%= t('home.summary.current_month.title') %></div>
+<div class="lcars-subtitle">
+  <%= t('home.summary.current_month.title') %>
+</div>
 
-  <table class="striped">
+<div class="lcars-table-container">
+  <table class="lcars-table">
     <thead>
       <tr>
         <th><%= t('home.summary.current_month.incomes') %></th>
@@ -41,9 +48,12 @@
     </tbody>
   </table>
 </div>
+<div class="lcars-subtitle">
+  <%= t('home.summary.current_month.investments_balance') %>
+</div>
 
-<div class="subtitle"><%= t('home.summary.current_month.investments_balance') %></div>
-  <table class="striped">
+<div class="lcars-table-container">
+  <table class="lcars-table">
     <thead>
       <tr>
         <th><%= t('home.summary.current_month.invested') %></th>
@@ -61,4 +71,5 @@
       </tr>
     </tbody>
   </table>
+</div>
 </div>

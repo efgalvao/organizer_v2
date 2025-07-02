@@ -1,19 +1,11 @@
 <%= turbo_frame_tag "report_#{future_report.id}" do %>
-  <div class="list card-months-header-grid">
-    <div class="list-item">
-      <%= future_report.report_date %>
-    </div>
+  <tr>
+    <td><%= future_report.report_date %></td>
 
-    <div class="list-item">
-      <%= future_report.month_income %>
-    </div>
+    <td><%= future_report.month_income %></td>
 
-    <div class="list-item">
-      <%= future_report.month_expense %>
-    </div>
+    <td><%= future_report.month_expense %></td>
 
-    <div class="list-item">
-      <%= future_report.month_balance %>
-    </div>
-  </div>
+    <td><%= future_report.month_balance %></td>
+  </tr>
 <% end %>

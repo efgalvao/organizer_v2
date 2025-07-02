@@ -1,9 +1,9 @@
-<div class="summary-item">
-  <div class="subtitle">
-  <%= t('account.show.investments.investment_allocation') %>
+<div class="lcars-summary-item">
+  <div class="lcars-subtitle">
+    <%= t('account.show.investments.investment_allocation') %>
   </div>
 
-  <div class="chart">
+  <div class="lcars-chart">
     <%= pie_chart investment_allocation, precision: 8, discrete: false, legend: 'bottom' %>
   </div>
 </div>

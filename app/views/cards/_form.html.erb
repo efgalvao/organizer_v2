@@ -1,13 +1,13 @@
 <%= simple_form_for card,
   as: :card,
   url: card.new_record? ? cards_path : card_path(card),
-  html: { class: "card form" } do |f| %>
+  html: { class: "form" } do |f| %>
 
   <%= form_error_notification(card) %>
 
   <%= f.input :name, label: t('card.form.name'), input_html: { autofocus: true } %>
   <%= f.hidden_field :type, value: "Card" %>
 
-  <%= f.submit t('buttons.save'), class: "btn btn--secondary" %>
-  <%= link_to t('buttons.cancel'), cards_path, class: "btn btn--light" %>
+  <%= f.submit t('buttons.save'), class: "lcars-button lcars-button--secondary" %>
+  <%= link_to t('buttons.cancel'), cards_path, class: "lcars-button lcars-button--danger" %>
 <% end %>

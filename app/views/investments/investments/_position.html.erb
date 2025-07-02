@@ -1,15 +1,15 @@
 <%= turbo_frame_tag "position_#{position.id}" do %>
-<div  class="list positions-header-grid">
-  <div class="list-item">
+<tr>
+  <td>
     <%= position.date %>
-  </div>
+  </td>
 
-  <div class="list-item">
+  <td>
     <%= position.amount %>
-  </div>
+  </td>
 
-  <div class="list-item">
+  <td>
     <%= position.shares %>
-  </div>
-</div>
+  </td>
+</tr>
 <% end %>

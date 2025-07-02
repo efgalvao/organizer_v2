@@ -1,25 +1,27 @@
-  <div class="subtitle">
+<div class="lcars-content">
+  <div class="lcars-subtitle">
     <%= t('account.summary.title') %>
   </div>
-  <table class="striped">
+
+  <table class="lcars-table">
     <thead>
       <tr>
         <th><%= t('account.summary.balance') %></th>
-
       </tr>
     </thead>
     <tbody>
-        <tr>
-          <td><%= account.balance %></td>
-        </tr>
+      <tr>
+        <td><%= account.balance %></td>
+      </tr>
     </tbody>
   </table>
 
-<div class="subtitle"><%= t('account.summary.current_month_title') %></div>
-        <p><span class="item-label"><%= t('account.summary.current_month.report_date') %>: </span><%= account.current_report&.date %></p>
-        <p><span class="item-label"><%= t('account.summary.current_month.initial_balance') %>: </span>
-        <%= account.current_report&.initial_account_balance %></p>
-  <table class="striped">
+  <div class="lcars-subtitle"><%= t('account.summary.current_month_title') %></div>
+
+  <p><span class="lcars-item-label"><%= t('account.summary.current_month.report_date') %>: </span><%= account.current_report&.date %></p>
+  <p><span class="lcars-item-label"><%= t('account.summary.current_month.initial_balance') %>: </span><%= account.current_report&.initial_account_balance %></p>
+
+  <table class="lcars-table">
     <thead>
       <tr>
         <th><%= t('account.summary.current_month.month_incomes') %></th>
@@ -41,3 +43,4 @@
       </tr>
     </tbody>
   </table>
+</div>

@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get 'summary', to: 'home#show', as: 'summary'
   get 'transactions', to: 'home#transactions', as: 'transactions'
 
-  resources :categories
+  resources :categories, except: %i[show]
   resources :transferences, only: %i[index new create]
 
   resources :cards do
@@ -43,9 +43,7 @@ Rails.application.routes.draw do
       resources :positions, only: [:index, :new, :create]
       resources :dividends, only: [:index, :new, :create]
       resources :interest_on_equities, only: [:index, :new, :create]
-      member do
-        get 'update_quote'
-      end
+      get :update_quote, on: :member
     end
     get '/investments/:account_id/new', to: 'investments#new', as: 'new_investment'
   end

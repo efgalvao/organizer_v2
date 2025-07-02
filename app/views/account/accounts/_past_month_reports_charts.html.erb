@@ -1,6 +1,6 @@
-<div class="summary-item">
-  <p class="subtitle"><%= t('account.show.chart.past_month.title') %></p>
-  <div class="chart">
+<div class="lcars-summary-item">
+  <p class="lcars-subtitle"><%= t('account.show.chart.past_month.title') %></p>
+  <div class="lcars-chart">
     <%= line_chart [
           { name: t('account.show.chart.past_month.incomes'), data: semester_summary[:incomes] },
           { name: t('account.show.chart.past_month.expenses'), data: semester_summary[:expenses] },

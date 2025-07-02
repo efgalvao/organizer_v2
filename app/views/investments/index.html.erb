@@ -1,41 +1,51 @@
-<main class="container">
+<main class="lcars-container">
   <%= turbo_frame_tag "first_turbo_frame" do %>
-    <div class="header">
+    <div class="lcars-header lcars-header--section">
           <h1><%= t('investments.investments.index.title') %></h1>
     </div>
   <% end %>
 
-  <div class="account-investments-list-header investment-index-list-grid">
-    <div class="list-header-item">
+  <div class="lcars-table-container">
+  <table class="lcars-table">
+  <thead>
+    <tr>
+    <th>
       <%= t('account.show.investments.name')  %>
-    </div>
+    </th>
 
-    <div class="list-header-item">
+    <th>
       <%= t('account.show.investments.kind') %>
-    </div>
+    </th>
 
-    <div class="list-header-item">
+    <th>
       <%= t('account.show.investments.invested_amount') %>
-    </div>
+    </th>
 
-    <div class="list-header-item">
+    <th>
       <%= t('account.show.investments.current_amount') %>
-    </div>
+    </th>
 
-    <div class="list-header-item">
+    <th>
       <%= t('account.show.investments.shares_total') %>
-    </div>
+    </th>
 
-    <div class="list-header-item">
+    <th>
       <%= t('account.show.investments.average_price') %>
-    </div>
+    </th>
 
-    <div  class="list-header-item">
+    <th>
       <%= t('investments.investments.index.account') %>
-    </div>
-  </div>
+    </th>
+
+    <th></th>
+  </tr>
+  </thead>
 
   <%= turbo_frame_tag "investments" do %>
+  <tbody>
     <%= render partial: '/investments/investment', collection: @investments %>
+  </tbody>
   <% end %>
+  </table>
+  </div>
 </main>

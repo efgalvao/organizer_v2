@@ -1,41 +1,50 @@
-<div class="subtitle">
-  <%= t('home.past_month_reports.title') %>
+<div class="lcars-content">
+  <div class="lcars-subtitle">
+    <%= t('home.past_month_reports.title') %>
 </div>
 
-<div class="home-list-header past-months-header-grid">
-  <div class="list-header-item">
-    <%= t('home.past_month_reports.month') %>
-  </div>
+<div class="lcars-table-container">
+  <table class="lcars-table">
+    <thead>
+      <tr>
+        <th>
+          <%= t('home.past_month_reports.month') %>
+        </th>
 
-  <div class="list-header-item">
-    <%= t('home.past_month_reports.incomes') %>
-  </div>
+        <th>
+          <%= t('home.past_month_reports.incomes') %>
+        </th>
 
-  <div class="list-header-item">
-    <%= t('home.past_month_reports.expenses') %>
-  </div>
+        <th>
+          <%= t('home.past_month_reports.expenses') %>
+        </th>
 
-  <div class="list-header-item">
-    <%= t('home.past_month_reports.card_expenses') %>
-  </div>
+        <th>
+          <%= t('home.past_month_reports.card_expenses') %>
+        </th>
 
-  <div class="list-header-item">
-    <%= t('home.past_month_reports.invoice_payments') %>
-  </div>
+        <th>
+          <%= t('home.past_month_reports.invoice_payments') %>
+        </th>
 
-  <div class="list-header-item">
-    <%= t('home.past_month_reports.invested') %>
-  </div>
+        <th>
+          <%= t('home.past_month_reports.invested') %>
+        </th>
 
-  <div class="list-header-item">
-    <%= t('home.past_month_reports.redeemed') %>
-  </div>
+        <th>
+          <%= t('home.past_month_reports.redeemed') %>
+        </th>
 
-  <div class="list-header-item">
-    <%= t('home.past_month_reports.month_balance') %>
-  </div>
+        <th>
+          <%= t('home.past_month_reports.month_balance') %>
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <%= turbo_frame_tag "past_month_reports" do %>
+        <%= render partial: 'past_month_report', collection: past_reports, as: :past_report %>
+      <% end %>
+    </tbody>
+  </table>
 </div>
-
-  <%= turbo_frame_tag "past_month_reports" do %>
-    <%= render partial: 'past_month_report', collection: past_reports, as: :past_report %>
-  <% end %>

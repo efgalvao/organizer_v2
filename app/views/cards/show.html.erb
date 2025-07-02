@@ -1,29 +1,30 @@
-<div class="item">
-  <div class="header">
+<div class="lcars-container">
+  <%= turbo_frame_tag "first_turbo_frame" do %>
+    <div class="lcars-header lcars-header--section">
   <%= link_to t('buttons.back'),
       cards_path,
       data: { turbo_frame: "_top" },
-      class: "btn btn--primary" %>
+      class: "lcars-button" %>
   <h1><%= @card.name %></h1>
   </div>
 </div>
 
-<div class="button">
+  <div class="lcars-actions">
   <%= link_to t('card.show.transactions'),
               account_transactions_path(@card, future: 'false'),
               method: :get,
-              class: "btn btn--light" %>
+              class: "lcars-button lcars-button--secondary" %>
 
   <%= turbo_frame_tag "invoice_payment" do %>
     <%= link_to t('card.show.pay_invoice'),
                   new_card_invoice_path(@card),
                   method: :get,
-                  class: "btn btn--light",
+                  class: "lcars-button lcars-button--secondary",
                   data: { turbo_frame: "invoice_payment" } %>
     <%= link_to t('card.show.consolidate_report'),
                   consolidate_report_account_path(@card.id),
                   method: :get,
-                  class: "btn btn--light" %>
+                  class: "lcars-button lcars-button--secondary" %>
   <% end %>
 </div>
 
@@ -36,3 +37,4 @@
     <%= render 'future_reports', :future_reports => @card.future_reports %>
 
 </div>
+<% end %>

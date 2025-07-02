@@ -1,15 +1,16 @@
-<div class="summary-item">
-  <div class="subtitle">
+<div class="lcars-content">
+  <div class="lcars-subtitle">
     <%= t('home.charts.investments_allocation') %>
     <%= link_to t('buttons.investments'),
      investments_path,
     data: { turbo_frame: "_top" },
-    class: "btn btn--secondary" %>
+    class: "lcars-button lcars-button--secondary" %>
   </div>
 
   <div class="charts-container">
     <div class="chart">
       <%= pie_chart investments_allocation, precision: 8, discrete: false, legend: 'bottom' %>
     </div>
+  </div>
   </div>
 </div>

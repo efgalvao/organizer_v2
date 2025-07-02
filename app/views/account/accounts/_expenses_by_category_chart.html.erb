@@ -1,9 +1,7 @@
-<div class="summary-item">
-  <div class="subtitle">
-  <%= t('home.charts.expense_by_category') %>
+<div class="lcars-summary-item">
+  <div class="lcars-subtitle">
+    <%= t('home.charts.expense_by_category') %>
   </div>
 
-  <div class="chart">
     <%= pie_chart expenses_by_category, precision: 8, discrete: false, legend: 'bottom' %>
-  </div>
 </div>

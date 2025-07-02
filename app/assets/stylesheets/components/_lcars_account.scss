@@ -1,0 +1,327 @@
+/* ===== LCARS ACCOUNTS STYLE ===== */
+
+.lcars-container {
+  background-color: #000;
+  color: #fff;
+  /* padding: 2rem;  REMOVIDO! */
+}
+
+/* Header comum (index/show) */
+.lcars-header--section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #FF6600;
+  color: #000;
+  padding: 1rem 2rem;
+  border-bottom-right-radius: 50px;
+}
+
+.lcars-header--section h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+/* Botões padrão */
+.lcars-button {
+  display: inline-flex;
+  align-items: center;
+  /* Centraliza verticalmente */
+  justify-content: center;
+  /* Opcional: centraliza horizontalmente */
+  background-color: #9932CC;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 20px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.lcars-button:hover {
+  background-color: #CC33FF;
+}
+
+.lcars-button--danger {
+  background-color: #FF3300;
+}
+
+.lcars-button--danger:hover {
+  background-color: #FF6666;
+}
+
+.lcars-button--secondary {
+  background-color: #00CCCC;
+  color: #000;
+}
+
+.lcars-button--secondary:hover {
+  background-color: #66FFFF;
+}
+
+/* Lista de contas no index */
+.lcars-list {
+  margin-top: 2rem;
+  border: 2px solid #9932CC;
+  border-radius: 20px;
+  padding: 1rem;
+}
+
+/* Linha de cabeçalho opcional da lista */
+.lcars-account-header {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr auto;
+  background-color: #FF6600;
+  color: #000;
+  padding: 1rem 2rem;
+  border-radius: 20px 20px 0 0;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+/* Cada item de conta */
+.lcars-account-item {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr auto;
+  align-items: center;
+  gap: 2rem;
+  background-color: #111;
+  border: 2px solid #9932CC;
+  border-radius: 20px;
+  padding: 1rem 2rem;
+  margin-bottom: 1rem;
+}
+
+.lcars-account-field {
+  color: #FF9900;
+  font-weight: bold;
+}
+
+.lcars-link {
+  color: #FF9900;
+  text-decoration: none;
+}
+
+.lcars-link:hover {
+  text-decoration: underline;
+}
+
+.lcars-account-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Ações no show */
+.lcars-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+/* Bloco de conteúdo no show */
+.lcars-content {
+  background-color: #111;
+  border: 2px solid #9932CC;
+  border-radius: 20px;
+  padding: 2rem;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .lcars-header--section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .lcars-account-item {
+    grid-template-columns: 1fr;
+  }
+
+  .lcars-account-actions {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .lcars-account-header {
+    display: none;
+    /* Cabeçalho de colunas pode desaparecer no mobile */
+  }
+}
+
+
+/* ===== LCARS ACCOUNT SHOW PARTIALS ===== */
+
+/* Subtítulo LCARS */
+.lcars-subtitle {
+  font-size: 1.2rem;
+  color: #FF9900;
+  margin: 2rem 0 1rem 0;
+  border-left: 6px solid #9932CC;
+  padding-left: 1rem;
+}
+
+/* Blocos de sumário e gráficos */
+.lcars-summary-item {
+  background-color: #111;
+  border: 2px solid #9932CC;
+  border-radius: 20px;
+  padding: 1rem 2rem;
+  margin-bottom: 2rem;
+}
+
+/* Tabelas LCARS */
+.lcars-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #111;
+  color: #fff;
+  border: 2px solid #9932CC;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.lcars-table th {
+  background-color: #FF6600;
+  color: #000;
+  text-align: left;
+  padding: 0.75rem 1rem;
+}
+
+.lcars-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #9932CC;
+}
+
+.lcars-table tr:nth-child(even) {
+  background-color: #222;
+}
+
+/* Gráficos LCARS */
+.lcars-chart {
+  margin-top: 1rem;
+  background-color: #000;
+  border: 2px solid #9932CC;
+  border-radius: 20px;
+  padding: 1rem;
+}
+
+/* Cabeçalho de lista de meses */
+.lcars-past-months-header {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  background-color: #FF6600;
+  color: #000;
+  padding: 1rem 2rem;
+  border-radius: 20px 20px 0 0;
+  font-weight: bold;
+}
+
+.lcars-list-header-item {
+  padding: 0 0.5rem;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .lcars-past-months-header {
+    display: none;
+    /* Some no mobile para mostrar cada linha separada */
+  }
+}
+
+
+/* ===== LCARS INVESTMENTS E RELATÓRIOS ===== */
+
+/* Subtítulo */
+.lcars-subtitle {
+  font-size: 1.2rem;
+  color: #FF9900;
+  margin: 2rem 0 1rem 0;
+  border-left: 6px solid #9932CC;
+  padding-left: 1rem;
+}
+
+/* Bloco resumo/gráfico */
+.lcars-summary-item {
+  background-color: #111;
+  border: 2px solid #9932CC;
+  border-radius: 20px;
+  padding: 1rem 2rem;
+  margin-bottom: 2rem;
+}
+
+/* Blocos de gráfico */
+.lcars-chart {
+  margin-top: 1rem;
+  background-color: #000;
+  border: 2px solid #9932CC;
+  border-radius: 20px;
+  padding: 1rem;
+}
+
+/* Cabeçalho da lista de investimentos */
+.lcars-account-investments-list-header {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  background-color: #FF6600;
+  color: #000;
+  padding: 1rem 2rem;
+  border-radius: 20px 20px 0 0;
+  font-weight: bold;
+}
+
+/* Itens da lista investimentos */
+.lcars-account-investment-list-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 1rem;
+  background-color: #111;
+  border: 2px solid #9932CC;
+  border-radius: 0 0 20px 20px;
+  padding: 1rem 2rem;
+  margin-bottom: 1rem;
+}
+
+.lcars-list-item {
+  color: #FF9900;
+  align-self: center;
+}
+
+.lcars-link {
+  color: #FF9900;
+  text-decoration: none;
+}
+
+.lcars-link:hover {
+  text-decoration: underline;
+}
+
+/* Botão pequeno LCARS */
+.lcars-btn-light {
+  background-color: #9932CC;
+  color: white;
+  border: none;
+  padding: 0.3rem 0.7rem;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.lcars-btn-light:hover {
+  background-color: #CC33FF;
+}
+
+/* Relatórios passados - linhas */
+.lcars-account-past-months-list {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem;
+  background-color: #111;
+  border: 2px solid #9932CC;
+  border-radius: 20px;
+  padding: 1rem 2rem;
+  margin-bottom: 1rem;
+  color: #FF9900;
+}

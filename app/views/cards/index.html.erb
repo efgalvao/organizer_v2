@@ -1,18 +1,19 @@
-<main class="container">
+<main class="lcars-container">
   <%= turbo_frame_tag "first_turbo_frame" do %>
-
-    <div class="header">
+    <div class="lcars-header lcars-header--section">
       <h1>Cartões</h1>
       <%= link_to t('card.index.create_card'),
                   new_card_path,
                   data: { turbo_frame: "new_card" },
-                  class: "btn btn--primary" %>
+                  class: "lcars-button" %>
     </div>
   <% end %>
 
   <%= turbo_frame_tag "new_card" %>
   <%= turbo_frame_tag "cards" do %>
+      <div class="lcars-list">
     <%= render partial: 'card', collection: @cards %>
+    </div>
   <% end %>
 
 </main>

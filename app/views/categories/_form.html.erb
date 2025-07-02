@@ -1,7 +1,7 @@
-<%= simple_form_for category, html: { class: "category form" } do |f| %>
+<%= simple_form_for category, html: { class: "form" } do |f| %>
   <%= form_error_notification(category) %>
 
   <%= f.input :name, label: t('category.form.name'), input_html: { autofocus: true } %>
-  <%= f.submit t('buttons.save'), class: "btn btn--secondary" %>
-  <%= link_to t('buttons.cancel'), categories_path, class: "btn btn--light" %>
+  <%= f.submit t('buttons.save'), class: "lcars-button lcars-button--secondary" %>
+  <%= link_to t('buttons.cancel'), categories_path, class: "lcars-button lcars-button--danger" %>
 <% end %>
