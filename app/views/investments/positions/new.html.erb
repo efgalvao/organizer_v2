@@ -1,8 +1,8 @@
 <main class="container">
   <%= turbo_frame_tag "new_position" do %>
 
-    <div class="header">
-      <h3>Cadastrar Posição</h3>
+    <div class="lcars-subtitle">
+      <h3><%= t('investments.positions.new.create_position') %></h3>
     </div>
 
     <%= render "form", position: @position %>

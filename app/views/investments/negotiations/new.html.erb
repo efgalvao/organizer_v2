@@ -1,8 +1,8 @@
 <main class="container">
   <%= turbo_frame_tag "new_negotiation" do %>
 
-    <div class="header">
-      <h3>Cadastrar Negociação</h3>
+    <div class="lcars-subtitle">
+      <h3><%= t('investments.negotiations.new.create_negotiation') %></h3>
     </div>
 
     <%= render "form", negotiation: @negotiation %>

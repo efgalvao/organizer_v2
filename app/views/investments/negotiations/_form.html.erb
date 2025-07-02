@@ -1,7 +1,7 @@
 <%= simple_form_for negotiation,
   as: :negotiation,
   url: negotiation.new_record? ? investment_negotiations_path : investment_negotiation_path(negotiation),
-  html: { class: "negotiation form" } do |f| %>
+  html: { class: "form" } do |f| %>
 
   <%= form_error_notification(negotiation) %>
 
@@ -12,6 +12,6 @@
   <%= f.input :group, as: :select, collection: [["Metas", "objectives"], ["Liberdade", "freedom"]], label: t('investments.investments.show.negotiation_form.group') %>
   <%= f.input :investment_id, as: :hidden, input_html: { value: params[:investment_id] } %>
 
-  <%= f.submit t('buttons.save'), class: "btn btn--secondary" %>
-  <%= link_to t('buttons.cancel'), investment_negotiations_path(investment_id: params[:investment_id]), class: "btn btn--light" %>
+  <%= f.submit t('buttons.save'), class: "lcars-button lcars-button--secondary" %>
+  <%= link_to t('buttons.cancel'), investment_negotiations_path(investment_id: params[:investment_id]), class: "lcars-button lcars-button--danger" %>
 <% end %>

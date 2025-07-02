@@ -1,7 +1,7 @@
 <%= simple_form_for dividend,
   as: :dividend,
   url: dividend.new_record? ? investment_dividends_path : investment_dividend_path(dividend),
-  html: { class: "dividend form" } do |f| %>
+  html: { class: "form" } do |f| %>
 
   <%= form_error_notification(dividend) %>
 
@@ -9,6 +9,7 @@
   <%= f.input :amount, as: :float, label: t('investments.dividends.form.amount') %>
   <%= f.input :shares, label: t('investments.dividends.form.shares'), as: :integer %>
   <%= f.input :investment_id, as: :hidden, input_html: { value: params[:investment_id] } %>
-  <%= f.submit t('buttons.save'), class: "btn btn--secondary" %>
-  <%= link_to t('buttons.cancel'), investment_dividends_path(investment_id: params[:investment_id]), class: "btn btn--light" %>
+
+  <%= f.submit t('buttons.save'), class: "lcars-button lcars-button--secondary" %>
+  <%= link_to t('buttons.cancel'), investment_dividends_path(investment_id: params[:investment_id]), class: "lcars-button lcars-button--danger" %>
 <% end %>

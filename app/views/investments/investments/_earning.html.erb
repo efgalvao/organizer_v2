@@ -1,19 +1,19 @@
 <%= turbo_frame_tag "earning_#{earning.id}" do %>
-  <div class="list earnings-header-grid">
-  <div class="list-item">
+<tr>
+  <td>
     <%= earning.date %>
-  </div>
+  </td>
 
-  <div class="list-item">
+  <td>
     <%= earning.amount %>
-  </div>
+  </td>
 
-  <div class="list-item">
+  <td>
     <%= earning.shares %>
-  </div>
+  </td>
 
-  <div class="list-item">
+  <td>
     <%= earning.kind %>
-  </div>
-</div>
+  </td>
+  </tr>
 <% end %>

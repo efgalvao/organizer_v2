@@ -1,19 +1,19 @@
 <%= turbo_frame_tag "negotiation_#{negotiation.id}" do %>
-  <div class="list negotiations-header-grid">
-    <div class="list-item">
+  <tr>
+    <td>
       <%= negotiation.date %>
-    </div>
+    </td>
 
-    <div class="list-item">
+    <td>
       <%= negotiation.amount %>
-    </div>
+    </td>
 
-    <div class="list-item">
+    <td>
       <%= negotiation.shares %>
-    </div>
+    </td>
 
-    <div class="list-item">
+    <td>
       <%= negotiation.kind %>
-    </div>
-  </div>
+    </td>
+  </tr>
 <% end %>

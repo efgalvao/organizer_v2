@@ -1,13 +1,14 @@
 <%= simple_form_for interest_on_equity,
   as: :interest_on_equity,
   url: interest_on_equity.new_record? ? investment_interest_on_equities_path : investment_interest_on_equity_path(interest_on_equity),
-  html: { class: "interest_on_equity form" } do |f| %>
+  html: { class: "form" } do |f| %>
 
   <%= form_error_notification(interest_on_equity) %>
 
   <%= f.input :date, label: t('investments.interest_on_equity.form.date'), as: :date, html5: true, input_html: { autofocus: true } %>
   <%= f.input :amount, as: :float, label: t('investments.interest_on_equity.form.amount') %>
   <%= f.input :investment_id, as: :hidden, input_html: { value: params[:investment_id] } %>
-  <%= f.submit t('buttons.save'), class: "btn btn--secondary" %>
-  <%= link_to t('buttons.cancel'), investment_dividends_path(investment_id: params[:investment_id]), class: "btn btn--light" %>
+
+  <%= f.submit t('buttons.save'), class: "lcars-button lcars-button--secondary" %>
+  <%= link_to t('buttons.cancel'), investment_dividends_path(investment_id: params[:investment_id]), class: "lcars-button lcars-button--danger" %>
 <% end %>

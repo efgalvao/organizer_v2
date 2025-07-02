@@ -3,7 +3,7 @@
   <%= link_to t('buttons.back'),
       account_path(@investment.account_id),
       data: { turbo_frame: "_top" },
-      class: "btn btn--primary" %>
+      class: "lcars-button lcars-button" %>
 
       <h1><%= @investment.name %></h1>
     </div>
@@ -37,12 +37,12 @@
                     update_quote_investment_path(@investment),
                     method: :get,
                     class: "lcars-button lcars-button--secondary" %>
+  </div>
 
     <%= turbo_frame_tag "new_position" %>
     <%= turbo_frame_tag "new_negotiation" %>
     <%= turbo_frame_tag "new_dividend" %>
     <%= turbo_frame_tag "new_interest_on_equity" %>
-  </div>
 
 <div class="item">
     <%= render 'summary', :investment => @investment %>
