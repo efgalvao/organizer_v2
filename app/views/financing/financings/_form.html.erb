@@ -11,5 +11,6 @@
   <%= f.input :installments, label: t('financing.form.parcels') %>
 
   <%= f.submit t('buttons.save'), class: "lcars-button lcars-button--secondary" %>
-  <%= link_to t('buttons.cancel'), financings_path, class: "lcars-button lcars-button--danger" %>
+  <%= link_to t('buttons.cancel'), financings_path, class: "lcars-button lcars-button--danger",
+            data: { turbo_frame: "_top" }  %>
 <% end %>

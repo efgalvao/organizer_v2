@@ -25,21 +25,33 @@
 /* Botões padrão */
 .lcars-button {
   display: inline-flex;
+  /* Para alinhar texto verticalmente */
   align-items: center;
-  /* Centraliza verticalmente */
   justify-content: center;
-  /* Opcional: centraliza horizontalmente */
+
   background-color: #9932CC;
   color: #fff;
   border: none;
+  /* Remove borda nativa */
   padding: 0.75rem 1.5rem;
   border-radius: 20px;
   font-weight: bold;
   text-decoration: none;
+  /* É inofensivo para <button> */
+  cursor: pointer;
+  /* Para manter o cursor de botão */
 }
 
 .lcars-button:hover {
   background-color: #CC33FF;
+}
+
+.lcars-button--secondary {
+  background-color: #3366FF;
+}
+
+.lcars-button--secondary:hover {
+  background-color: #6699FF;
 }
 
 .lcars-button--danger {
@@ -50,14 +62,14 @@
   background-color: #FF6666;
 }
 
-.lcars-button--secondary {
-  background-color: #00CCCC;
-  color: #000;
-}
+// .lcars-button--secondary {
+//   background-color: #00CCCC;
+//   color: #000;
+// }
 
-.lcars-button--secondary:hover {
-  background-color: #66FFFF;
-}
+// .lcars-button--secondary:hover {
+//   background-color: #66FFFF;
+// }
 
 /* Lista de contas no index */
 .lcars-list {
