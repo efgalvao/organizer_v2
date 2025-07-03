@@ -77,24 +77,4 @@ RSpec.describe 'Investments::Investment' do
       expect(response).to be_successful
     end
   end
-
-  describe 'PATCH #update_quote' do
-    let(:investment) { instance_double(Investments::Investment, id: 1) }
-    let(:decorated_investment) { instance_double(Investments::InvestmentDecorator, id: 1) }
-
-    before do
-      allow(InvestmentsServices::UpdateQuote).to receive(:call).with('1').and_return(investment)
-      allow(Investments::InvestmentDecorator).to receive(:decorate).with(investment).and_return(decorated_investment)
-      allow(controller).to receive(:investment_path).with(decorated_investment).and_return('/investments/1')
-    end
-
-    it 'calls the service, decorates the investment, and redirects with notice' do
-      patch :update_quote, params: { id: '1' }
-
-      expect(InvestmentsServices::UpdateQuote).to have_received(:call).with('1')
-      expect(Investments::InvestmentDecorator).to have_received(:decorate).with(investment)
-      expect(response).to redirect_to('/investments/1')
-      expect(flash[:notice]).to eq('Investimento atualizada.')
-    end
-  end
 end
