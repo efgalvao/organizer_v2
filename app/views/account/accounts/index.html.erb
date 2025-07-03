@@ -1,18 +1,19 @@
-<main class="container">
+<main class="lcars-container">
   <%= turbo_frame_tag "first_turbo_frame" do %>
-
-    <div class="header">
+    <div class="lcars-header lcars-header--section">
       <h1><%= t('account.index.accounts') %></h1>
       <%= link_to t('account.index.new_account'),
                   new_account_path,
                   data: { turbo_frame: "new_account" },
-                  class: "btn btn--primary" %>
+                  class: "lcars-button lcars-button--secondary" %>
     </div>
   <% end %>
 
   <%= turbo_frame_tag "new_account" %>
-  <%= turbo_frame_tag "accounts" do %>
-    <%= render partial: 'account', collection: @accounts %>
-  <% end %>
 
+  <%= turbo_frame_tag "accounts" do %>
+    <div class="lcars-list">
+      <%= render partial: 'account', collection: @accounts %>
+    </div>
+  <% end %>
 </main>

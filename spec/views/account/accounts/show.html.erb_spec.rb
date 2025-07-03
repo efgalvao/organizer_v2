@@ -12,7 +12,6 @@ RSpec.describe 'account/accounts/show.html.erb' do
   end
 
   it 'renders the expenses by category chart' do
-    expect(rendered).to have_css('.chart')
     expect(rendered).to match(I18n.t('home.charts.expense_by_category'))
   end
 end

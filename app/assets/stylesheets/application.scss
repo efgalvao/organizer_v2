@@ -9,23 +9,19 @@
 
 
 // Components
-@import "components/btn";
 @import "components/error_message";
 @import "components/flash";
-
 @import "components/form";
 @import "components/long_form";
-@import "components/visually_hidden";
-@import "components/category";
-@import "components/financing";
 @import "components/payment";
-@import "components/account";
-@import "components/card";
-@import "components/transaction";
-@import "components/transference";
-@import "components/investment";
-@import "components/table";
-@import "components/home";
+@import "components/visually_hidden";
+
+@import "components/lcars_account";
+@import "components/lcars_card";
+@import "components/lcars_category";
+@import "components/lcars_financing";
+@import "components/lcars_table";
+@import "components/lcars";
 
 // Layouts
 @import "layouts/container";

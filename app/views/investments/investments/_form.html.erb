@@ -1,7 +1,7 @@
 <%= simple_form_for investment,
   as: :investment,
   url: investment.new_record? ? investments_path : investment_path(investment),
-  html: { class: "investment form" } do |f| %>
+  html: { class: "form" } do |f| %>
 
   <%= form_error_notification(investment) %>
 
@@ -16,6 +16,6 @@
   <%= f.input :account_id, as: :hidden, input_html: { value: investment.account_id } %>
   <%= f.input :kind, as: :select, collection: Investments::Investment.kinds.keys.map { |k| [k.titleize, k] }, label: "Tipo de Investimento" %>
 
-  <%= f.submit t('buttons.save'), class: "btn btn--secondary" %>
-  <%= link_to t('buttons.cancel'), account_path(investment.account_id), class: "btn btn--light" %>
+  <%= f.submit t('buttons.save'), class: "lcars-button lcars-button--secondary" %>
+  <%= link_to t('buttons.cancel'), account_path(investment.account_id), class: "lcars-button lcars-button--danger" %>
 <% end %>

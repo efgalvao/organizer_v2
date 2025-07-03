@@ -3,10 +3,10 @@
 
     <div class="header">
       <h1><%= t('payment.index.payments')%></h1>
-      <%= link_to <%= t('payment.index.new_payment')%>,
+      <%= link_to <%= t('payment.index.new_payment'),
                   new_financing_path,
                   data: { turbo_frame: "new_financing" },
-                  class: "btn btn--primary" %>
+                  class: "lcars-button" %>
     </div>
   <% end %>
 

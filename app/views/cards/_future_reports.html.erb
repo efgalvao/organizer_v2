@@ -1,25 +1,24 @@
-<div class="subtitle">
-  <%= t('card.show.future_reports.title') %>
+<div class="lcars-content">
+  <div class="lcars-subtitle">
+    <%= t('card.show.future_reports.title') %>
+  </div>
+
+  <div class="lcars-table-container" >
+    <table class="lcars-table">
+      <thead>
+        <tr>
+          <th><%= t('card.show.future_reports.date') %></th>
+          <th><%= t('card.show.future_reports.incomes') %></th>
+          <th><%= t('card.show.future_reports.expenses') %></th>
+          <th><%= t('card.show.future_reports.month_balance') %></th>
+        </tr>
+      </thead>
+
+      <%= turbo_frame_tag "future_reports" do %>
+        <tbody>
+          <%= render partial: 'future_report', collection: future_reports, as: :future_report %>
+        </tbody>
+      <% end %>
+    </table>
+  </div>
 </div>
-
-<div class="card-months-list-header card-months-header-grid" >
-    <div class="list-header-item">
-    <%= t('card.show.future_reports.date') %>
-  </div>
-
-  <div class="list-header-item">
-    <%= t('card.show.future_reports.incomes') %>
-  </div>
-
-  <div class="list-header-item">
-    <%= t('card.show.future_reports.expenses') %>
-  </div>
-
-  <div class="list-header-item">
-    <%= t('card.show.future_reports.month_balance') %>
-  </div>
-</div>
-
-<%= turbo_frame_tag "future_reports" do %>
-  <%= render partial: 'future_report', collection: future_reports, as: :future_report %>
-<% end %>

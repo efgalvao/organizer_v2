@@ -1,7 +1,7 @@
 <%= simple_form_for transaction,
   as: :transaction,
   url: transaction.new_record? ? account_transactions_path : account_transaction_path(transaction),
-  html: { class: "transaction form" } do |f| %>
+  html: { class: "form" } do |f| %>
 
   <%= form_error_notification(transaction) %>
 
@@ -19,6 +19,6 @@
     disabled: !f.object&.new_record? } %>
   <%= f.input :group, as: :select, collection: Account::Transaction.groups.keys.map { |group| [group.humanize, group] }, label: t('transactions.form.group') %>
 
-  <%= f.submit t('buttons.save'), class: "btn btn--secondary" %>
-  <%= link_to t('buttons.cancel'), account_transactions_path, class: "btn btn--light" %>
+  <%= f.submit t('buttons.save'), class: "lcars-button lcars-button--secondary" %>
+  <%= link_to t('buttons.cancel'), account_transactions_path, class: "lcars-button lcars-button--danger" %>
 <% end %>

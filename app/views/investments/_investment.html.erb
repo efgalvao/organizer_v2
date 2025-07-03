@@ -1,39 +1,41 @@
 <%= turbo_frame_tag "investment_#{investment.id}" do %>
 
-  <div class="list account-investments-list-header investment-index-list-grid">
-    <div class="list-item">
+  <tr>
+    <td>
       <%= link_to investment.name, investment_path(investment),
                   data: { turbo_frame: "_top" }  %>
-    </div>
+    </td>
 
-    <div class="list-item">
+    <td>
       <%= investment.kind %>
-    </div>
+    </td>
 
-    <div class="list-item">
+    <td>
       <%= investment.invested_amount %>
-    </div>
+    </td>
 
-    <div class="list-item">
+    <td>
       <%= investment.balance %>
-    </div>
+    </td>
 
-    <div class="list-item">
+    <td>
       <%= investment.shares_total %>
-    </div>
+    </td>
 
-    <div class="list-item">
+    <td>
       <%= investment.average_price %>
-    </div>
+    </td>
 
-    <div>
+    <td>
       <%= link_to investment.account_name, account_path(investment.account_id),
                   data: { turbo_frame: "_top" } %>
-    </div>
+    </td>
 
-    <%= link_to t('buttons.edit'),
-                investment.edit_path,
-                class: "btn btn--light" %>
-
-  </div>
+    <td>
+      <%= link_to t('buttons.edit'),
+                  investment.edit_path,
+                  class: "lcars-button lcars-button--secondary",
+                  data: { turbo_frame: "investment_#{investment.id}" } %>
+    </td>
+  </tr>
 <% end %>

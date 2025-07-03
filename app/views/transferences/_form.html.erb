@@ -1,4 +1,4 @@
-<%= simple_form_for transference, html: { class: "transference form" }, data: { turbo: false }  do |f| %>
+<%= simple_form_for transference, html: { class: "form" }, data: { turbo: false }  do |f| %>
   <%= form_error_notification(transference) %>
 
   <%= f.input :amount, as: :float, label: t('transference.form.amount'), input_html: { autofocus: true } %>
@@ -6,6 +6,6 @@
   <%= f.input :sender_id, as: :select, collection: all_accounts_except_cards(current_user.id), label: t('transference.form.sender') %>
   <%= f.input :receiver_id, as: :select, collection: all_accounts_except_cards(current_user.id), label: t('transference.form.receiver') %>
 
-  <%= f.submit t('buttons.save'), class: "btn btn--secondary" %>
-  <%= link_to t('buttons.cancel'), transferences_path, class: "btn btn--light" %>
+  <%= f.submit t('buttons.save'), class: "lcars-button lcars-button--secondary" %>
+  <%= link_to t('buttons.cancel'), transferences_path, class: "lcars-button lcars-button--danger" %>
 <% end %>

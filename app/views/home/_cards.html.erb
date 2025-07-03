@@ -1,23 +1,30 @@
-<p class="subtitle"><%= t('home.cards.title') %></p>
-<table class="striped responsive-table">
-  <thead>
-    <tr>
-      <th><%= t('home.cards.account') %></th>
-      <th><%= t('home.cards.month_income') %></th>
-      <th><%= t('home.cards.month_expense') %></th>
-      <th><%= t('home.cards.month_balance') %></th>
-      <th><%= t('home.cards.card_balance') %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% cards.each do |card| %>
-    <tr>
-      <td><%= link_to card[:name], card_path(card[:id]) %></td>
-      <td>R$ <%= card[:month_incomes] %></td>
-      <td>R$ <%= card[:month_expenses] %></td>
-      <td>R$ <%= card[:month_balance] %></td>
-      <td>R$ <%= card[:card_balance] %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="lcars-content">
+  <div class="lcars-subtitle">
+    <%= t('home.cards.title') %>
+  </div>
+
+<div class="lcars-table-container">
+  <table class="lcars-table">
+    <thead>
+      <tr>
+        <th><%= t('home.cards.account') %></th>
+        <th><%= t('home.cards.month_income') %></th>
+        <th><%= t('home.cards.month_expense') %></th>
+        <th><%= t('home.cards.month_balance') %></th>
+        <th><%= t('home.cards.card_balance') %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% cards.each do |card| %>
+      <tr>
+        <td><%= link_to card[:name], card_path(card[:id]) %></td>
+        <td>R$ <%= card[:month_incomes] %></td>
+        <td>R$ <%= card[:month_expenses] %></td>
+        <td>R$ <%= card[:month_balance] %></td>
+        <td>R$ <%= card[:card_balance] %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+</div>

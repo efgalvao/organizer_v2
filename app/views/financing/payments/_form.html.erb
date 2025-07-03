@@ -1,7 +1,7 @@
 <%= simple_form_for payment,
   as: :payment,
   url: payment.new_record? ? financing_payments_path : financing_payment_path(payment),
-  html: { class: "payment long-form" } do |f| %>
+  html: { class: "long-form" } do |f| %>
 
   <%= form_error_notification(payment) %>
 
@@ -18,6 +18,6 @@
   <%= f.input :adjustment, as: :float, label: t('payment.form.adjustment') %>
   <%= f.input :monetary_correction, as: :float, label: t('payment.form.monetary_correction') %>
 
-  <%= f.submit t('buttons.save'), class: "btn btn--secondary" %>
-  <%= link_to t('buttons.cancel'), financing_path(financing), class: "btn btn--light" %>
+  <%= f.submit t('buttons.save'), class: "lcars-button lcars-button--secondary" %>
+  <%= link_to t('buttons.cancel'), financing_path(financing), class: "lcars-button lcars-button--danger" %>
 <% end %>

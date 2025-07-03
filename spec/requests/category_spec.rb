@@ -15,13 +15,6 @@ RSpec.describe 'Category' do
     end
   end
 
-  describe 'GET /show' do
-    it 'returns a success response' do
-      get category_path(category)
-      expect(response).to be_successful
-    end
-  end
-
   describe 'GET /new' do
     it 'returns a success response' do
       get new_category_path

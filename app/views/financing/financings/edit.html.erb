@@ -1,12 +1,8 @@
-<main class="container">
-
+<main class="lcars-container">
   <%= turbo_frame_tag @financing do %>
-
-    <div class="header">
+    <div class="lcars-subtitle">
       <h3><%= t('financing.index.edit_financing') %></h3>
     </div>
-
     <%= render "form", financing: @financing %>
-
   <% end %>
 </main>

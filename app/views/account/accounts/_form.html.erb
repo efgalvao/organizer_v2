@@ -9,6 +9,6 @@
   <%= f.input :type, as: :select, collection: [[t('account.form.type.bank'), "Account::Savings"],
    [t('account.form.type.broker'), "Account::Broker"]], label: t('account.form.account_type') %>
 
-  <%= f.submit t('buttons.save'), class: "btn btn--secondary" %>
-  <%= link_to t('buttons.cancel'), accounts_path, class: "btn btn--light" %>
+  <%= f.submit t('buttons.save'), class: "lcars-button lcars-button--secondary" %>
+  <%= link_to t('buttons.cancel'), accounts_path, class: "lcars-button lcars-button--danger" %>
 <% end %>

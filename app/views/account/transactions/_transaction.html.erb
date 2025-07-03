@@ -1,38 +1,37 @@
 <%= turbo_frame_tag transaction do %>
-  <div class="account-transaction-list account-transaction-list-grid">
-    <div class="list-item">
+<tr>
+    <td>
       <%= transaction.title %>
-    </div>
+    </td>
 
-    <div class="list-item">
+    <td>
       <%= transaction.amount %>
-    </div>
+    </td>
 
-    <div class="list-item">
+    <td>
       <%= transaction.type %>
-    </div>
+    </td>
 
-    <div class="list-item">
+    <td>
       <%= transaction.date %>
-    </div>
+    </td>
 
-    <div class="list-item">
+    <td>
       <%= transaction.category_name %>
-    </div>
+    </td>
 
-    <div class="list-item">
+    <td>
       <%= transaction.group_name %>
-    </div>
+    </td>
 
-    <div  class="list-button">
+    <td>
       <%= link_to t('buttons.edit'),
                   edit_account_transaction_path(id: transaction.id),
-                  class: "btn btn--light" %>
+                  class: "lcars-button lcars-button--secondary" %>
 
       <%= link_to t('buttons.anticipate'),
                   anticipate_form_account_transaction_path(id: transaction.id),
-                  class: "btn btn--light" %>
-    </div>
-
-  </div>
+                  class: "lcars-button lcars-button--secondary" %>
+    </td>
+</tr>
 <% end %>

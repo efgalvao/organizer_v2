@@ -1,11 +1,41 @@
-<div class="subtitle">
+<div class="lcars-subtitle">
   <%= t('account.show.investments.title') %>
 </div>
 
-<%= render partial: 'investment_header' %>
+<div class="lcars-table-container">
+  <table class="lcars-table">
+  <thead>
+    <tr>
+  <th>
+    <%= t('account.show.investments.name') %>
+  </th>
+  <th>
+    <%= t('account.show.investments.kind') %>
+  </th>
+  <th>
+    <%= t('account.show.investments.invested_amount') %>
+  </th>
+  <th>
+    <%= t('account.show.investments.current_amount') %>
+  </th>
+  <th>
+    <%= t('account.show.investments.shares_total') %>
+  </th>
+  <th>
+    <%= t('account.show.investments.average_price') %>
+  </th>
+  <th>
+    <%= t('account.show.investments.group') %>
+  </th>
+  <th></th>
+  </thead>
 
+  <tbody>
 <%= turbo_frame_tag "investments" do %>
-    <%= render partial: 'investment', collection: account.investments %>
+  <%= render partial: 'investment', collection: account.investments %>
 <% end %>
+</tbody>
+</table>
+</div>
 
 <%= render partial: 'investment_allocation_chart', locals: { investment_allocation: account.investment_allocation_by_kind } %>

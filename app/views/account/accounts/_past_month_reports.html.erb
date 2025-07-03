@@ -1,33 +1,37 @@
-<div class="subtitle">
-<%= t('account.show.chart.past_month.title') %>
+<div class="lcars-subtitle">
+  <%= t('account.show.chart.past_month.title') %>
 </div>
 
-<div class="account-past-months-list-header account-past-months-header-grid" >
-    <div class="list-header-item">
+<div class="lcars-table-container">
+  <table class="lcars-table">
+  <thead>
+    <tr>
+        <th>
     <%= t('account.show.chart.past_month.date') %>
-  </div>
-
-  <div class="list-header-item">
+  </th>
+  <th>
     <%= t('account.show.chart.past_month.incomes') %>
-  </div>
-
-  <div class="list-header-item">
+  </th>
+  <th>
     <%= t('account.show.chart.past_month.expenses') %>
-  </div>
-
-  <div class="list-header-item">
+  </th>
+  <th>
     <%= t('account.show.chart.past_month.invoice_payment') %>
-  </div>
-
-  <div class="list-header-item">
+  </th>
+  <th>
     <%= t('account.show.chart.past_month.invested') %>
-  </div>
-
-  <div class="list-header-item">
+  </th>
+  <th>
     <%= t('account.show.chart.past_month.balance') %>
-  </div>
-</div>
+  </th>
+  </tr>
+  </thead>
 
+<tbody>
 <%= turbo_frame_tag "past_month_reports" do %>
   <%= render partial: 'past_month_report', collection: past_reports, as: :past_report %>
 <% end %>
+</tbody>
+  </table>
+
+</div>

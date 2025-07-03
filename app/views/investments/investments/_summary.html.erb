@@ -1,12 +1,13 @@
 <%= turbo_frame_tag 'investment_summary' do %>
-<div class="item">
-  <div class="subtitle">
+<div class="lcars-content">
+  <div class="lcars-subtitle">
     <%= t('investments.investments.show.summary.title') %>
   </div>
-        <p><span class="item-label"><%= t('investments.investments.show.summary.kind') %>:
-         </span>
-         <%= investment.kind %></p>
-  <table class="striped">
+  <div >
+    <%= t('investments.investments.show.summary.kind') %>: <%= investment.kind %>
+  </div>
+  <div class="lcars-table-container">
+  <table class="lcars-table">
     <thead>
       <tr>
         <th><%= t('investments.investments.show.summary.invested') %> </th>
@@ -26,4 +27,6 @@
         </tr>
     </tbody>
   </table>
+  </div>
+</div>
 <% end %>

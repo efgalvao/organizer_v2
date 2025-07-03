@@ -1,6 +1,6 @@
-<main class='item'>
+<main class='lcars-container'>
   <%= turbo_frame_tag "first_turbo_frame" do %>
-    <div class="header">
+    <div class="lcars-header--section">
       <h1><%= t('account.show.transactions') %></h1>
     </div>
   <% end %>
@@ -28,18 +28,23 @@
     </div>
   </div>
 
-
     <div class="button">
-      <%= f.submit t('buttons.filter'), class: 'btn btn--primary' %>
+      <%= f.submit t('buttons.filter'), class: 'lcars-button lcars-button--secondary' %>
 
-      <%= link_to t('buttons.back'), root_path, class: "btn btn--light" %>
+      <%= link_to t('buttons.back'), root_path, class: "lcars-button" %>
     </div>
   <% end %>
 
-
-  <%= render partial: 'home/header' %>
-
+  <div class="lcars-table-container">
+    <table class="lcars-table">
+      <thead>
+        <%= render partial: 'home/header' %>
+      </thead>
   <%= turbo_frame_tag "transactions" do %>
+  <tbody>
     <%= render partial: 'transaction', collection: @transactions %>
+  </tbody>
   <% end %>
+  </table>
+  </div>
 </main>

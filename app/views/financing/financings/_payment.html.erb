@@ -1,27 +1,28 @@
-<%= turbo_frame_tag "financings_payment_#{payment.id}" do %>
+<tbody>
+  <%= turbo_frame_tag "financings_payment_#{payment.id}" do %>
+    <tr>
+      <td><%= payment.parcel %></td>
+      <td><%= payment.parcel_value %></td>
+      <td><%= payment.paid_parcels %></td>
+      <td><%= payment.kind %></td>
+      <td><%= payment.payment_date %></td>
+      <td><%= payment.interest %></td>
+      <td><%= payment.amortization %></td>
+      <td><%= payment.insurance %></td>
+      <td><%= payment.fees %></td>
+      <td><%= payment.adjustment %></td>
+      <td><%= payment.monetary_correction %></td>
 
-  <div class="list financing-payment-list-header-grid">
-    <div class="list-item"><%= payment.parcel %></div>
-    <div class="list-item"><%= payment.parcel_value %></div>
-    <div class="list-item"><%= payment.paid_parcels %></div>
-    <div class="list-item"><%= payment.kind %></div>
-    <div class="list-item"><%= payment.payment_date %></div>
-    <div class="list-item"><%= payment.interest %></div>
-    <div class="list-item"><%= payment.amortization %></div>
-    <div class="list-item"><%= payment.insurance %></div>
-    <div class="list-item"><%= payment.fees %></div>
-    <div class="list-item"><%= payment.adjustment %></div>
-    <div class="list-item"><%= payment.monetary_correction %></div>
-
-    <div class="list-button">
-      <%= button_to t('buttons.delete'),
-                    financing_payment_path(financing, payment),
-                    method: :delete,
-                    class: "btn btn--light" %>
-      <%= link_to t('buttons.edit'),
-                  edit_financing_payment_path(financing, payment),
-                  method: :edit,
-                  class: "btn btn--light" %>
-    </div>
-  </div>
-<% end %>
+      <td>
+<%= link_to t('buttons.edit'),
+            edit_financing_payment_path(financing, payment),
+            data: { turbo_frame: "financings_payment_#{payment.id}" },
+            class: "lcars-button lcars-button--secondary" %>
+        <%= button_to t('buttons.delete'),
+                      financing_payment_path(financing, payment),
+                      method: :delete,
+                      class: "lcars-button lcars-button--danger" %>
+      </td>
+    </tr>
+  <% end %>
+</tbody>

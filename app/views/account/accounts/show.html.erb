@@ -1,54 +1,51 @@
-<div class="item">
+<div class="lcars-container">
   <%= turbo_frame_tag "first_turbo_frame" do %>
-
-    <div class="header">
-  <%= link_to t('buttons.back'),
-      accounts_path,
-      data: { turbo_frame: "_top" },
-      class: "btn btn--primary" %>
+    <div class="lcars-header lcars-header--section">
+      <%= link_to t('buttons.back'),
+          accounts_path,
+          data: { turbo_frame: "_top" },
+          class: "lcars-button" %>
       <h1><%= @account.name %></h1>
     </div>
   <% end %>
-</div>
 
-  <div class="button">
-      <%= link_to t('account.show.transactions'),
-                  account_transactions_path(@account, future: 'false'),
-                  method: :get,
-                  class: "btn btn--light" %>
-      <% if @account.broker? %>
-        <%= link_to t('account.show.create_investment'),
-        new_investment_path(account_id: @account.id),
-                          data: { turbo_frame: "new_investment" },
-        method: :get,
-        class: "btn btn--light" %>
-      <% end %>
-            <%= link_to t('account.show.create_transference'),
-                  new_transference_path,
-                  method: :get,
-                  data: { turbo_frame: "new_transference" },
-                  class: "btn btn--light" %>
-      <%= link_to t('account.show.consolidate_report'),
-                  consolidate_report_account_path(@account.id),
-                  method: :get,
-                  class: "btn btn--light" %>
-      </div>
-    <%= turbo_frame_tag "new_investment" %>
-    <%= turbo_frame_tag "new_transference" %>
-
-<div class="item">
-
-    <%= render 'summary', :account => @account %>
-
-    <%= render 'expenses_by_category_chart', :expenses_by_category => @expenses_by_category %>
-
-    <%= render 'past_month_reports', :past_reports => @account.past_reports %>
-
-    <%= render 'past_month_reports_charts', :semester_summary => @account.past_reports_chart_data %>
-
+  <div class="lcars-actions">
+    <%= link_to t('account.show.transactions'),
+                account_transactions_path(@account, future: 'false'),
+                method: :get,
+                class: "lcars-button" %>
 
     <% if @account.broker? %>
-    <%= render 'investments', :account => @account %>
+      <%= link_to t('account.show.create_investment'),
+                  new_investment_path(account_id: @account.id),
+                  data: { turbo_frame: "new_investment" },
+                  method: :get,
+                  class: "lcars-button" %>
     <% end %>
 
+    <%= link_to t('account.show.create_transference'),
+                new_transference_path,
+                method: :get,
+                data: { turbo_frame: "new_transference" },
+                class: "lcars-button" %>
+
+    <%= link_to t('account.show.consolidate_report'),
+                consolidate_report_account_path(@account.id),
+                method: :get,
+                class: "lcars-button lcars-button--secondary" %>
+  </div>
+
+  <%= turbo_frame_tag "new_investment" %>
+  <%= turbo_frame_tag "new_transference" %>
+
+  <div class="lcars-content">
+    <%= render 'summary', :account => @account %>
+    <%= render 'expenses_by_category_chart', :expenses_by_category => @expenses_by_category %>
+    <%= render 'past_month_reports', :past_reports => @account.past_reports %>
+    <%= render 'past_month_reports_charts', :semester_summary => @account.past_reports_chart_data %>
+
+    <% if @account.broker? %>
+      <%= render 'investments', :account => @account %>
+    <% end %>
+  </div>
 </div>

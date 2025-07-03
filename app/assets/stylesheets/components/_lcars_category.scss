@@ -1,0 +1,22 @@
+.lcars-category-item {
+  display: grid;
+  grid-template-columns: 2fr 1fr auto;
+  align-items: center;
+  gap: 2rem;
+  background-color: #111;
+  border: 2px solid #9932CC;
+  border-radius: 20px;
+  padding: 1rem 2rem;
+  margin-bottom: 1rem;
+}
+
+.lcars-category-field {
+  color: #FF9900;
+  font-weight: bold;
+}
+
+.lcars-category-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}

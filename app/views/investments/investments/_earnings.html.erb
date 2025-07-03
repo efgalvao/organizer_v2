@@ -1,27 +1,33 @@
-<div class="item">
-  <div class="subtitle">
+<div class="lcars-content">
+  <div class="lcars-subtitle">
     <%= t('investments.investments.show.summary.earnings.title') %>
   </div>
-</div>
 
-<div class="earnings-list-header earnings-header-grid">
-  <div class="list-header-item">
+<div class="lcars-table-container">
+  <table class="lcars-table">
+    <thead>
+      <tr>
+        <th>
     <%= t('investments.investments.show.summary.earnings.date') %>
-  </div>
+  </th>
 
-  <div class="list-header-item">
+  <th>
     <%= t('investments.investments.show.summary.earnings.amount') %>
-  </div>
+  </th>
 
-  <div class="list-header-item">
+  <th>
     <%= t('investments.investments.show.summary.earnings.shares') %>
-  </div>
+  </th>
 
-  <div class="list-header-item">
+  <th>
     <%= t('investments.investments.show.summary.earnings.kind') %>
-  </div>
-</div>
-
+  </th>
+</tr>
+</thead>
   <%= turbo_frame_tag "earnings" do %>
+<tbody>
     <%= render partial: 'earning', collection: investment.earnings %>
+  </tbody>
   <% end %>
+  </table>
+</div>

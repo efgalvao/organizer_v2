@@ -1,7 +1,7 @@
 <%= simple_form_for position,
   as: :position,
   url: position.new_record? ? investment_positions_path : investment_position_path(position),
-  html: { class: "position form" } do |f| %>
+  html: { class: "form" } do |f| %>
 
   <%= form_error_notification(position) %>
 
@@ -10,6 +10,6 @@
   <%= f.input :shares, as: :integer, label: t('investments.investments.show.position_form.shares') %>
   <%= f.input :investment_id, as: :hidden, input_html: { value: params[:investment_id] } %>
 
-  <%= f.submit t('buttons.save'), class: "btn btn--secondary" %>
-  <%= link_to t('buttons.cancel'), investment_positions_path(investment_id: params[:investment_id]), class: "btn btn--light" %>
+  <%= f.submit t('buttons.save'), class: "lcars-button lcars-button--secondary" %>
+  <%= link_to t('buttons.cancel'), investment_positions_path(investment_id: params[:investment_id]), class: "lcars-button lcars-button--danger" %>
 <% end %>

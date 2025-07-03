@@ -1,0 +1,21 @@
+.lcars-financing-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  border-bottom: 0cap !important;
+}
+
+@media (max-width: 768px) {
+  .lcars-investment-item {
+    grid-template-columns: 1fr;
+  }
+
+  .lcars-investment-actions {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .lcars-investment-header {
+    display: none;
+  }
+}

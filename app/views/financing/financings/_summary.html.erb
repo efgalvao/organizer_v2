@@ -1,9 +1,10 @@
 <%= turbo_frame_tag 'financing_summary' do %>
-  <div class="subtitle">
+  <div class="lcars-subtitle">
     <%= t('financing.show.summary.summary_title') %>
   </div>
 
-  <table class="striped">
+<div class="lcars-table-container">
+  <table class="lcars-table">
     <thead>
         <th><%= t('financing.show.summary.borrowed_amount') %></th>
         <th><%= t('financing.show.summary.outstanding_amount') %></th>
@@ -24,7 +25,7 @@
     </tbody>
   </table>
 
-    <table>
+    <table class="lcars-table">
     <thead>
         <th><%= t('financing.show.summary.total_interest_paid') %></th>
         <th><%= t('financing.show.summary.total_monetary_correction_paid') %></th>
@@ -42,3 +43,4 @@
   </table>
 
 <% end %>
+</div>

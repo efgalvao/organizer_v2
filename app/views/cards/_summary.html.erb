@@ -1,7 +1,8 @@
-  <div class="subtitle">
-    <%= t('card.show.summary_title') %>
+<div class="lcars-content">
+  <div class="lcars-subtitle">
+        <%= t('card.show.summary_title') %>
   </div>
-  <table class="striped">
+  <table class="lcars-table">
     <thead>
       <tr>
         <th><%= t('card.show.summary.balance') %></th>
@@ -15,11 +16,13 @@
     </tbody>
   </table>
 
-<div class="subtitle"><%= t('card.show.summary.current_month_title') %></div>
+  <div class="lcars-subtitle">
+    <%= t('card.show.summary.current_month_title') %>
+  </div>
         <p><span class="item-label"><%= t('card.show.summary.current_month.report_date') %>: </span><%= card.current_report&.date %></p>
         <p><span class="item-label"><%= t('card.show.summary.current_month.initial_balance') %>: </span>
         <%= card.current_report&.initial_account_balance %></p>
-  <table class="striped">
+  <table class="lcars-table">
     <thead>
       <tr>
         <th><%= t('card.show.summary.current_month.month_incomes') %></th>
@@ -39,3 +42,4 @@
       </tr>
     </tbody>
   </table>
+</div>

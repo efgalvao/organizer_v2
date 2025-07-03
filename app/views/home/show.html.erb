@@ -1,5 +1,8 @@
-<main>
-
+<main class="lcars-container">
+  <div class="lcars-header lcars-header--section">
+    <h1><%= t('home.summary.title') %></h1>
+  </div>
+  <div class="lcars-content">
     <%= render 'summary', :user_report => @report_data.user_report %>
 
     <%= render 'expenses_by_category_chart', :expense_by_category => @report_data.expense_by_category %>
@@ -15,4 +18,5 @@
     <%= render 'past_month_reports_charts', :semester_summary => @report_data.past_reports_chart_data %>
 
     <%= render 'investments_allocation_chart', :investments_allocation => @report_data.investments_allocation_chart_data %>
+  </div>
 </main>
