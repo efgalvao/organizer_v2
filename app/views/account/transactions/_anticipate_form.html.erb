@@ -5,5 +5,5 @@
   <%= f.input :anticipate_date, as: :date, html5: true, label: t('transactions.form.anticipate_date') %>
 
   <%= f.submit t('buttons.anticipate'), class: "lcars-button lcars-button--secondary" %>
-  <%= link_to t('buttons.cancel'), account_transactions_path(transaction.account), class: "lcars-button lcars-button--secondary" %>
+  <%= link_to t('buttons.cancel'), account_transactions_path(transaction.account), class: "lcars-button lcars-button--danger" %>
 <% end %>

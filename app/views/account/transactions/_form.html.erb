@@ -1,7 +1,7 @@
 <%= simple_form_for transaction,
   as: :transaction,
   url: transaction.new_record? ? account_transactions_path : account_transaction_path(transaction),
-  html: { class: "transaction form" } do |f| %>
+  html: { class: "form" } do |f| %>
 
   <%= form_error_notification(transaction) %>
 

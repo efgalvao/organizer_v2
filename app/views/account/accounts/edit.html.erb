@@ -1,12 +1,9 @@
 <main class="container">
 
-  <%= turbo_frame_tag @account do %>
-
-    <div class="header">
+<%= turbo_frame_tag "account_account_#{@account.id}" do %>
+    <div class="lcars-subtitle">
       <h3><%= t('account.index.edit') %></h3>
     </div>
-
     <%= render "form", account: @account %>
-
   <% end %>
 </main>

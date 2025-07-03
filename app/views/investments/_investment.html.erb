@@ -34,7 +34,8 @@
     <td>
       <%= link_to t('buttons.edit'),
                   investment.edit_path,
-                  class: "lcars-button lcars-button--secondary" %>
+                  class: "lcars-button lcars-button--secondary",
+                  data: { turbo_frame: "investment_#{investment.id}" } %>
     </td>
   </tr>
 <% end %>
