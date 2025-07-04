@@ -1,51 +1,53 @@
-<main class="lcars-container">
+<div class="lcars-container">
   <%= turbo_frame_tag "first_turbo_frame" do %>
     <div class="lcars-header lcars-header--section">
           <h1><%= t('investments.investments.index.title') %></h1>
     </div>
   <% end %>
 
-  <div class="lcars-table-container">
-  <table class="lcars-table">
-  <thead>
-    <tr>
-    <th>
-      <%= t('account.show.investments.name')  %>
-    </th>
+  <div class="lcars-list">
+    <div class="lcars-table-container">
+      <table class="lcars-table">
+        <thead>
+          <tr>
+            <th>
+              <%= t('account.show.investments.name')  %>
+            </th>
 
-    <th>
-      <%= t('account.show.investments.kind') %>
-    </th>
+            <th>
+              <%= t('account.show.investments.kind') %>
+            </th>
 
-    <th>
-      <%= t('account.show.investments.invested_amount') %>
-    </th>
+            <th>
+              <%= t('account.show.investments.invested_amount') %>
+            </th>
 
-    <th>
-      <%= t('account.show.investments.current_amount') %>
-    </th>
+            <th>
+              <%= t('account.show.investments.current_amount') %>
+            </th>
 
-    <th>
-      <%= t('account.show.investments.shares_total') %>
-    </th>
+            <th>
+              <%= t('account.show.investments.shares_total') %>
+            </th>
 
-    <th>
-      <%= t('account.show.investments.average_price') %>
-    </th>
+            <th>
+              <%= t('account.show.investments.average_price') %>
+            </th>
 
-    <th>
-      <%= t('investments.investments.index.account') %>
-    </th>
+            <th>
+              <%= t('investments.investments.index.account') %>
+            </th>
 
-    <th></th>
-  </tr>
-  </thead>
+            <th></th>
+          </tr>
+        </thead>
 
-  <%= turbo_frame_tag "investments" do %>
-  <tbody>
-    <%= render partial: '/investments/investment', collection: @investments %>
-  </tbody>
-  <% end %>
-  </table>
+        <%= turbo_frame_tag "investments" do %>
+          <tbody>
+            <%= render partial: '/investments/investment', collection: @investments %>
+          </tbody>
+        <% end %>
+      </table>
+    </div>
   </div>
-</main>
+</div>

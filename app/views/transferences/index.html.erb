@@ -1,4 +1,4 @@
-<main class="lcars-container">
+<div class="lcars-container">
   <%= turbo_frame_tag "first_turbo_frame" do %>
     <div class="lcars-header--section">
       <h1><%= t('transference.index.title') %></h1>
@@ -10,18 +10,20 @@
   <% end %>
 
   <%= turbo_frame_tag "new_transference" %>
-  <div class="lcars-content">
-    <div class="lcars-table-container">
-      <table class="lcars-table">
-        <thead>
-          <%= render partial: 'header' %>
-        </thead>
-        <%= turbo_frame_tag "transferences" do %>
-        <tbody>
-          <%= render @transferences %>
-        </tbody>
-        <% end %>
-      </table>
-    </div>
+
+  <div class="lcars-list">
+      <div class="lcars-table-container">
+        <table class="lcars-table">
+          <thead>
+            <%= render partial: 'header' %>
+          </thead>
+          <%= turbo_frame_tag "transferences" do %>
+          <tbody>
+            <%= render @transferences %>
+          </tbody>
+          <% end %>
+        </table>
+      </div>
+
   </div>
-</main>
+</div>

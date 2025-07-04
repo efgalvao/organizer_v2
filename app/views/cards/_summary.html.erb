@@ -2,19 +2,22 @@
   <div class="lcars-subtitle">
         <%= t('card.show.summary_title') %>
   </div>
-  <table class="lcars-table">
-    <thead>
-      <tr>
-        <th><%= t('card.show.summary.balance') %></th>
 
-      </tr>
-    </thead>
-    <tbody>
+  <div class="lcars-table-container">
+    <table class="lcars-table">
+      <thead>
         <tr>
-          <td><%= card.balance %></td>
+          <th><%= t('card.show.summary.balance') %></th>
+
         </tr>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+          <tr>
+            <td><%= card.balance %></td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
 
   <div class="lcars-subtitle">
     <%= t('card.show.summary.current_month_title') %>
@@ -22,24 +25,27 @@
         <p><span class="item-label"><%= t('card.show.summary.current_month.report_date') %>: </span><%= card.current_report&.date %></p>
         <p><span class="item-label"><%= t('card.show.summary.current_month.initial_balance') %>: </span>
         <%= card.current_report&.initial_account_balance %></p>
-  <table class="lcars-table">
-    <thead>
-      <tr>
-        <th><%= t('card.show.summary.current_month.month_incomes') %></th>
-        <th><%= t('card.show.summary.current_month.month_expenses') %></th>
-        <th><%= t('card.show.summary.current_month.invoice_payments') %></th>
-        <th><%= t('card.show.summary.current_month.month_balance') %></th>
-        <th><%= t('card.show.summary.current_month.card_balance') %></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><%= card.current_report.month_income %></td>
-        <td><%= card.current_report.month_expense %></td>
-        <td><%= card.current_report.invoice_payment %></td>
-        <td><%= card.current_report.month_balance %></td>
-        <td><%= card.current_report.final_account_balance %></td>
-      </tr>
-    </tbody>
-  </table>
+
+  <div class="lcars-table-container">
+    <table class="lcars-table">
+      <thead>
+        <tr>
+          <th><%= t('card.show.summary.current_month.month_incomes') %></th>
+          <th><%= t('card.show.summary.current_month.month_expenses') %></th>
+          <th><%= t('card.show.summary.current_month.invoice_payments') %></th>
+          <th><%= t('card.show.summary.current_month.month_balance') %></th>
+          <th><%= t('card.show.summary.current_month.card_balance') %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= card.current_report.month_income %></td>
+          <td><%= card.current_report.month_expense %></td>
+          <td><%= card.current_report.invoice_payment %></td>
+          <td><%= card.current_report.month_balance %></td>
+          <td><%= card.current_report.final_account_balance %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

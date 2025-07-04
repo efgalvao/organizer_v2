@@ -1,4 +1,4 @@
-<main class="lcars-container">
+<div class="lcars-container">
   <%= turbo_frame_tag "first_turbo_frame" do %>
 
     <div class="lcars-header--section">
@@ -11,18 +11,19 @@
   <% end %>
 
   <%= turbo_frame_tag "new_financing" %>
-  <div class="lcars-content">
-    <div class="lcars-table-container">
-      <table class="lcars-table">
-        <thead>
-          <%= render partial: 'index_header' %>
-        </thead>
-        <tbody>
-          <%= turbo_frame_tag "financings" do %>
-            <%= render partial: 'financing', collection: @financings %>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
+
+    <div class="lcars-content lcars-list">
+      <div class="lcars-table-container">
+        <table class="lcars-table">
+          <thead>
+            <%= render partial: 'index_header' %>
+          </thead>
+          <tbody>
+            <%= turbo_frame_tag "financings" do %>
+              <%= render partial: 'financing', collection: @financings %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
   </div>
-</main>
+</div>

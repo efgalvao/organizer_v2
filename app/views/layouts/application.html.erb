@@ -13,22 +13,24 @@
     <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
   </head>
 
-  <%= render '/layouts/header' %>
+  <body>
+    <header>
+      <%= render '/layouts/header' %>
+    </header>
 
-  <main>
-    <div id="flash" class="flash">
-      <%= render "/layouts/flash" %>
-    </div>
+    <main>
+      <div id="flash" class="flash">
+        <%= render "/layouts/flash" %>
+      </div>
 
-    <div class="container-xl">
-      <body>
-        <%= yield %>
-      </body>
-    </div>
+      <%= yield %>
 
-  </main>
+    </main>
 
-  <%= render '/layouts/footer' %>
+    <footer>
+      EFGalvão © <%= Time.now.year %>
+    </footer>
+  </body>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

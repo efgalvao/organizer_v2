@@ -3,44 +3,49 @@
     <%= t('account.summary.title') %>
   </div>
 
-  <table class="lcars-table">
-    <thead>
-      <tr>
-        <th><%= t('account.summary.balance') %></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><%= account.balance %></td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="lcars-table-container">
+    <table class="lcars-table">
+      <thead>
+        <tr>
+          <th><%= t('account.summary.balance') %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= account.balance %></td>
+        </tr>
+      </tbody>
+    </table>
+  <div>
+  </div>
 
   <div class="lcars-subtitle"><%= t('account.summary.current_month_title') %></div>
 
   <p><span class="lcars-item-label"><%= t('account.summary.current_month.report_date') %>: </span><%= account.current_report&.date %></p>
   <p><span class="lcars-item-label"><%= t('account.summary.current_month.initial_balance') %>: </span><%= account.current_report&.initial_account_balance %></p>
 
-  <table class="lcars-table">
-    <thead>
-      <tr>
-        <th><%= t('account.summary.current_month.month_incomes') %></th>
-        <th><%= t('account.summary.current_month.month_expenses') %></th>
-        <th><%= t('account.summary.current_month.invoice_payments') %></th>
-        <th><%= t('account.summary.current_month.month_invested') %></th>
-        <th><%= t('account.summary.current_month.month_balance') %></th>
-        <th><%= t('account.summary.current_month.account_balance') %></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><%= account.current_report.month_income %></td>
-        <td><%= account.current_report.month_expense %></td>
-        <td><%= account.current_report.invoice_payment %></td>
-        <td><%= account.current_report.month_invested %></td>
-        <td><%= account.current_report.month_balance %></td>
-        <td><%= account.current_report.final_account_balance %></td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="lcars-table-container">
+    <table class="lcars-table">
+      <thead>
+        <tr>
+          <th><%= t('account.summary.current_month.month_incomes') %></th>
+          <th><%= t('account.summary.current_month.month_expenses') %></th>
+          <th><%= t('account.summary.current_month.invoice_payments') %></th>
+          <th><%= t('account.summary.current_month.month_invested') %></th>
+          <th><%= t('account.summary.current_month.month_balance') %></th>
+          <th><%= t('account.summary.current_month.account_balance') %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= account.current_report.month_income %></td>
+          <td><%= account.current_report.month_expense %></td>
+          <td><%= account.current_report.invoice_payment %></td>
+          <td><%= account.current_report.month_invested %></td>
+          <td><%= account.current_report.month_balance %></td>
+          <td><%= account.current_report.final_account_balance %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

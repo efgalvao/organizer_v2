@@ -1,10 +1,10 @@
-<main class="container">
+<main class="lcars-container">
   <%= turbo_frame_tag "invoice_payment" do %>
 
-    <div class="header">
+    <div class="lcars-subtitle">
       <h3><%= t('invoice.pay_invoice') %></h3>
     </div>
 
-  <%= render "form", card_id: @card_id, accounts: @accounts  %>
-<% end %>
+    <%= render "form", card_id: @card_id, accounts: @accounts  %>
+  <% end %>
 </main>
