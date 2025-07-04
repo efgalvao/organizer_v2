@@ -1,0 +1,33 @@
+  <div class="lcars-transaction_preview-item">
+    <div class="lcars-card-field">
+      <%= transaction.title %>
+    </div>
+
+    <div class="lcars-card-field">
+      <%= transaction.amount %>
+    </div>
+
+    <div class="lcars-card-field">
+      <%= transaction.type %>
+    </div>
+
+    <div class="lcars-card-field">
+      <%= transaction.date %>
+    </div>
+    <div class="lcars-card-field">
+      <%= transaction.category_name %>
+    </div>
+    <div class="lcars-card-field">
+      <%= transaction.group_name %>
+    </div>
+
+    <div class="lcars-card-actions">
+      <%= link_to t('buttons.edit'),
+                  edit_account_transaction_path(id: transaction.id),
+                  class: "lcars-button lcars-button--secondary" %>
+
+      <%= link_to t('buttons.anticipate'),
+                  anticipate_form_account_transaction_path(id: transaction.id),
+                  class: "lcars-button lcars-button--secondary" %>
+  </div>
+</div>

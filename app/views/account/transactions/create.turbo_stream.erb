@@ -1,5 +1,5 @@
 <%= turbo_stream.prepend "transactions" do %>
-  <%= render partial: "account/transactions/transaction", locals: { transaction: @transaction } %>
+  <%= render partial: "account/transactions/preview", locals: { transaction: @transaction } %>
 <% end %>
 <%= turbo_stream.update "new_transaction", "" %>
 <%= render_turbo_stream_flash_messages %>
