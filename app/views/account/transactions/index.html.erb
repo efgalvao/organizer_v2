@@ -3,7 +3,7 @@
   <%= turbo_frame_tag "first_turbo_frame" do %>
     <div class="lcars-header lcars-header--section">
       <%= link_to t('buttons.back'),
-          accounts_path,
+          account_path(params[:account_id]),
           data: { turbo_frame: "_top" },
           class: "lcars-button" %>
             <h1><%= t('transactions.index.transactions') %></h1>
@@ -20,15 +20,16 @@
 
   <%= turbo_frame_tag "new_transaction" %>
 
+<%= turbo_frame_tag "transactions" do %>
   <div class="lcars-actions">
     <%= link_to t('transactions.index.consolidated'),
-      account_transactions_path({account_id: params[:account_id], future: 'false'}),
+      account_transactions_path(account_id: params[:account_id], future: 'false'),
       method: :get,
       data: { turbo_frame: "transactions" },
       class: "lcars-button lcars-button--secondary" %>
 
     <%= link_to t('transactions.index.scheduled'),
-      account_transactions_path({account_id: params[:account_id], future: 'true'}),
+      account_transactions_path(account_id: params[:account_id], future: 'true'),
       method: :get,
       data: { turbo_frame: "transactions" },
       class: "lcars-button lcars-button--secondary" %>
@@ -37,12 +38,11 @@
   <table class="lcars-table">
     <thead>
       <tr>
-  <%= render partial: 'header' %>
-        </tr>
+        <%= render partial: 'header' %>
+      </tr>
     </thead>
     <tbody>
-  <%= turbo_frame_tag "transactions" do %>
-    <%= render partial: 'transaction', collection: @transactions %>
-  <% end %>
+      <%= render partial: 'transaction', collection: @transactions %>
     </tbody>
   </table>
+<% end %>
