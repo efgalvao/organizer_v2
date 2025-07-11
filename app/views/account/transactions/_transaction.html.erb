@@ -1,5 +1,5 @@
 <%= turbo_frame_tag transaction do %>
-<tr>
+  <tr>
     <td>
       <%= transaction.title %>
     </td>
@@ -33,5 +33,5 @@
                   anticipate_form_account_transaction_path(id: transaction.id),
                   class: "lcars-button lcars-button--secondary" %>
     </td>
-</tr>
+  </tr>
 <% end %>
