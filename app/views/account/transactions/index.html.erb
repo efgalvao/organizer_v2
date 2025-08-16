@@ -3,7 +3,7 @@
   <%= turbo_frame_tag "first_turbo_frame" do %>
     <div class="lcars-header lcars-header--section">
       <%= link_to t('buttons.back'),
-          account_path(params[:account_id]),
+          @parent.back_path,
           data: { turbo_frame: "_top" },
           class: "lcars-button" %>
             <h1><%= t('transactions.index.transactions') %></h1>
