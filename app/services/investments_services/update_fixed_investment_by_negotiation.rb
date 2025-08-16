@@ -9,15 +9,15 @@ module InvestmentsServices
     end
 
     def new_current_value
-      @investment.current_amount + params[:invested_amount].to_d
+      [@investment.current_amount + params[:invested_amount].to_d, 0].max
     end
 
     def new_invested_value
-      @investment.invested_amount + params[:invested_amount].to_d
+      [@investment.invested_amount + params[:invested_amount].to_d, 0].max
     end
 
     def new_shares_total
-      @investment.shares_total.to_i + params[:shares_total].to_i
+      [@investment.shares_total.to_i + params[:shares_total].to_i, 0].max
     end
   end
 end
