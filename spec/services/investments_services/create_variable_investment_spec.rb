@@ -12,7 +12,8 @@ RSpec.describe InvestmentsServices::CreateVariableInvestment do
       current_amount: 2.0,
       account_id: account.id,
       shares_total: 1,
-      kind: 'stock'
+      kind: 'stock',
+      bucket: 'freedom'
     }
   end
 
@@ -25,6 +26,7 @@ RSpec.describe InvestmentsServices::CreateVariableInvestment do
     expect(response.invested_amount).to eq(0.0)
     expect(response.current_amount).to eq(2.0)
     expect(response.shares_total).to eq(1)
+    expect(response.bucket).to eq('freedom')
     expect(response).to be_persisted
   end
 end

@@ -28,7 +28,8 @@ module InvestmentsServices
         current_amount: params[:current_amount].to_d,
         type: 'Investments::VariableInvestment',
         shares_total: params[:shares_total],
-        kind: params[:kind]
+        kind: params[:kind],
+        bucket: params[:bucket]
       }
     end
   end
