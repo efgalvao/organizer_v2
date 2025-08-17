@@ -1,0 +1,43 @@
+<div class="lcars-content">
+  <div class="lcars-subtitle">
+    <%= t('home.charts.investments_by_bucket') %>
+    <%= link_to t('buttons.investments'),
+     investments_path,
+    data: { turbo_frame: "_top" },
+    class: "lcars-button lcars-button--secondary" %>
+  </div>
+
+  <div class="charts-container">
+    <div class="chart">
+      <%= pie_chart investments_by_bucket.transform_values { |data| data[:total_current] },
+                     precision: 2,
+                     discrete: false,
+                     legend: 'bottom',
+                     colors: ['#FF6B6B', '#4ECDC4', '#45B7D1'] %>
+    </div>
+  </div>
+
+  <div class="investments-summary">
+    <% investments_by_bucket.each do |bucket, data| %>
+      <div class="bucket-item">
+        <div class="bucket-header">
+          <h4><%= t("investments.buckets.#{bucket}") %></h4>
+          <span class="bucket-count">
+            <%= data[:count] %>
+            <%= data[:count] == 1 ? t('investment.singular') : t('investment.plural') %>
+          </span>
+        </div>
+        <div class="bucket-details">
+          <div class="amount-item">
+            <span class="label"><%= t('investments.investments.index.invested') %>:</span>
+            <span class="value"><%= number_to_currency(data[:total_invested]) %></span>
+          </div>
+          <div class="amount-item">
+            <span class="label"><%= t('investments.investments.index.current') %>:</span>
+            <span class="value"><%= number_to_currency(data[:total_current]) %></span>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
