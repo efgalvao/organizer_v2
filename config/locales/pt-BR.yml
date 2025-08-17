@@ -18,6 +18,9 @@ pt-BR:
     filter: Filtrar
     expenses: Despesas
     investments: Investimentos
+  investment:
+    singular: investimento
+    plural: investimentos
   account:
     form:
       name: Nome
@@ -270,6 +273,7 @@ pt-BR:
         expenses: Despesas
         ideal: Ideal
       investments_allocation: Alocação dos Investimentos
+      investments_by_bucket: Investimentos por Carteira
   invoice:
     pay_invoice: Pagar fatura
     invoice_payment: Pagamento de fatura
@@ -347,7 +351,7 @@ pt-BR:
           title: Resumo
           balance: Saldo
           kind: Tipo
-          bucket: Bucket
+          bucket: Carteira
           invested: Investido
           current_amount: Valor atual
           shares: Cotas

@@ -41,6 +41,9 @@ en:
     filter: Filter
     expenses: Expenses
     investments: Investments
+  investment:
+    singular: investment
+    plural: investments
   account:
     form:
       name: Name
@@ -91,7 +94,7 @@ en:
         invested_amount: Invested
         current_amount: Current amount
         kind: Kind
-        bucket: Bucket
+        bucket: Portfolio
         investment_allocation: Investments Allocation
         group: Group
   transactions:
@@ -292,6 +295,7 @@ en:
         expenses: Expenses
         ideal: Ideal
       investments_allocation: Investments Allocation
+      investments_by_bucket: Investments by Portfolio
   invoice:
     pay_invoice: Pay invoice
     invoice_payment: Invoice payment
@@ -368,7 +372,7 @@ en:
           title: Summary
           balance: Balance
           kind: Kind
-          bucket: Bucket
+          bucket: Portfolio
           invested: Invested
           current_amount: Current amount
           shares: Shares
