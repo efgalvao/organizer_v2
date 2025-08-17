@@ -91,6 +91,7 @@ en:
         invested_amount: Invested
         current_amount: Current amount
         kind: Kind
+        bucket: Bucket
         investment_allocation: Investments Allocation
         group: Group
   transactions:
@@ -367,6 +368,7 @@ en:
           title: Summary
           balance: Balance
           kind: Kind
+          bucket: Bucket
           invested: Invested
           current_amount: Current amount
           shares: Shares
@@ -418,4 +420,3 @@ en:
       transferences: Transferences
       edit_profile: Edit profile
       log_out: Log out
-
