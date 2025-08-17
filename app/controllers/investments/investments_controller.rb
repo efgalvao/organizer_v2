@@ -60,7 +60,7 @@ module Investments
 
     def investment_params
       params.require(:investment).permit(:name, :account_id, :invested_amount,
-                                         :current_amount, :type, :shares_total, :kind)
+                                         :current_amount, :type, :shares_total, :kind, :bucket)
     end
   end
 end

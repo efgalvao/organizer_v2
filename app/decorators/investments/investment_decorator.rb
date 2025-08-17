@@ -95,5 +95,9 @@ module Investments
     def group
       I18n.t("investments.kinds.#{object.kind}")
     end
+
+    def bucket
+      I18n.t("investments.buckets.#{object.bucket}")
+    end
   end
 end

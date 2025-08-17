@@ -15,7 +15,8 @@ RSpec.describe InvestmentsServices::ProcessCreateInvestmentRequest do
         account_id: account.id,
         shares_total: 1,
         type: 'FixedInvestment',
-        kind: 'fixed'
+        kind: 'fixed',
+        bucket: 'emergency'
       }
     end
 
@@ -41,7 +42,8 @@ RSpec.describe InvestmentsServices::ProcessCreateInvestmentRequest do
         account_id: account.id,
         shares_total: 1,
         type: 'VariableInvestment',
-        kind: 'stock'
+        kind: 'stock',
+        bucket: 'freedom'
       }
     end
 

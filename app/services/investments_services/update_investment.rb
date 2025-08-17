@@ -29,6 +29,7 @@ module InvestmentsServices
       investment.name = new_name
       investment.shares_total = new_shares_total
       investment.kind = new_kind
+      investment.bucket = new_bucket
     end
 
     def investment
@@ -45,6 +46,10 @@ module InvestmentsServices
 
     def new_kind
       params[:kind].presence || investment.kind
+    end
+
+    def new_bucket
+      params[:bucket].presence || investment.bucket
     end
   end
 end

@@ -9,7 +9,8 @@ RSpec.describe InvestmentsServices::UpdateInvestment do
   let(:investment_params) do
     {
       name: 'My investment updated',
-      id: investment.id
+      id: investment.id,
+      bucket: 'cash'
     }
   end
 
@@ -20,6 +21,7 @@ RSpec.describe InvestmentsServices::UpdateInvestment do
     expect(response.name).to eq('My investment updated')
     expect(response.account_id).to eq(account.id)
     expect(response.invested_amount).to eq(investment.invested_amount)
+    expect(response.bucket).to eq('cash')
     expect(response).to be_persisted
   end
 end

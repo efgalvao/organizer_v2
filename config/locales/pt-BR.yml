@@ -66,6 +66,7 @@ pt-BR:
         invested_amount: Investido
         current_amount: Atual
         kind: Tipo
+        bucket: Carteira
         shares_total: Total de cotas
         average_price: Preço médio
         investment_allocation: Alocação dos investimentos
@@ -346,6 +347,7 @@ pt-BR:
           title: Resumo
           balance: Saldo
           kind: Tipo
+          bucket: Bucket
           invested: Investido
           current_amount: Valor atual
           shares: Cotas
@@ -397,4 +399,3 @@ pt-BR:
       transferences: Transferências
       edit_profile: Editar perfil
       log_out: Sair
-
