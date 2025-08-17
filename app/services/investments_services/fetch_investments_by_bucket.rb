@@ -25,9 +25,19 @@ module InvestmentsServices
         {
           investments: bucket_investments,
           total_invested: bucket_investments.sum(&:invested_amount),
-          total_current: bucket_investments.sum(&:current_amount),
+          total_current: calculate_total_current(bucket_investments),
           count: bucket_investments.count
         }
+      end
+    end
+
+    def calculate_total_current(investments)
+      investments.sum do |investment|
+        if investment.fixed?
+          investment.current_amount
+        else
+          investment.current_amount * (investment.shares_total.presence || 1)
+        end
       end
     end
   end
