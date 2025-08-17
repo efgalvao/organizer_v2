@@ -402,6 +402,10 @@ en:
       stock_international: International Stock
       crypto: Cryptocurrency
       other: Other
+    buckets:
+      emergency: Emergency Reserve
+      freedom: Freedom
+      cash: Cash
   layouts:
     header:
       zukunft: ZUKUNFT

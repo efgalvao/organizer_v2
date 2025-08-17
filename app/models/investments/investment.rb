@@ -23,6 +23,12 @@ module Investments
       other: 7
     }
 
+    enum bucket: {
+      emergency: 0,
+      freedom: 1,
+      cash: 2
+    }
+
     def fixed?
       type == 'Investments::FixedInvestment'
     end
