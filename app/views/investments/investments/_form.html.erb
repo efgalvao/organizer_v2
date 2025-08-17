@@ -15,6 +15,7 @@
   <%= f.input :shares_total, as: :integer, label: "Total de cotas" %>
   <%= f.input :account_id, as: :hidden, input_html: { value: investment.account_id } %>
   <%= f.input :kind, as: :select, collection: Investments::Investment.kinds.keys.map { |k| [k.titleize, k] }, label: "Tipo de Investimento" %>
+  <%= f.input :bucket, as: :select, collection: Investments::Investment.buckets.keys.map { |k| [t("investments.buckets.#{k}"), k] }, label: t('account.show.investments.bucket') %>
 
   <%= f.submit t('buttons.save'), class: "lcars-button lcars-button--secondary" %>
   <%= link_to t('buttons.cancel'), account_path(investment.account_id), class: "lcars-button lcars-button--danger" %>
