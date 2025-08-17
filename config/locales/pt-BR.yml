@@ -381,6 +381,10 @@ pt-BR:
       stock_international: Ações Internacionais
       crypto: Criptomoedas
       other: Outros
+    buckets:
+      emergency: Reserva de emergência
+      freedom: Liberdade
+      cash: Caixa
   layouts:
     header:
       zukunft: ZUKUNFT
