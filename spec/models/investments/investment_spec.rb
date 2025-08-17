@@ -19,6 +19,7 @@ RSpec.describe Investments::Investment do
 
   describe 'enums' do
     it { is_expected.to define_enum_for(:kind).with_values(stock: 0, fii: 1, reit: 2, fixed: 3, fixed_international: 4, stock_international: 5, crypto: 6, other: 7) }
+    it { is_expected.to define_enum_for(:bucket).with_values(emergency: 0, freedom: 1, cash: 2) }
   end
 
   describe '#earnings' do
