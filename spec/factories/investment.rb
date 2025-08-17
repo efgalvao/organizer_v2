@@ -8,6 +8,7 @@ FactoryBot.define do
     type { 'Investments::FixedInvestment' }
     shares_total { 0 }
     kind { 'stock' }
+    bucket { 'emergency' }
 
     trait :released do
       released { true }
