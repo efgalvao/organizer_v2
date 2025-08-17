@@ -91,4 +91,10 @@ RSpec.describe Investments::InvestmentDecorator do
       end
     end
   end
+
+  describe '#bucket' do
+    it 'returns the bucket in the correct format' do
+      expect(decorated_investment.bucket).to eq('Reserva de emergência')
+    end
+  end
 end
