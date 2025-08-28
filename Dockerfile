@@ -20,6 +20,7 @@ WORKDIR /app
 
 # Copy the Gemfile and Gemfile.lock and install gems
 COPY Gemfile Gemfile.lock ./
+RUN bundle config set --local without development test
 RUN bundle install
 
 # Copy the rest of the application code
