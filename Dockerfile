@@ -30,7 +30,7 @@ RUN yarn install
 RUN yarn build
 
 # Precompile assets
-RUN bundle exec rake assets:precompile
+RUN bundle exec rake assets:precompile --trace
 
 # Copy the entrypoint script and make it executable
 COPY entrypoint.sh /usr/bin/entrypoint.sh
