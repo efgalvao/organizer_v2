@@ -1,16 +1,11 @@
 #!/bin/sh
-
 set -e
 
-# Remove a potentially pre-existing server.pid for Rails.
+# Remove a potentially pre-existing server.pid for Rails
 rm -f /app/tmp/pids/server.pid
 
-# Precompile assets if needed
-yarn build
+# Garante que o banco está ok (cria + migra)
+bundle exec rails db:prepare
 
-# Migrate the database
-bundle exec rails db:migrate
-
-bundle exec rake assets:precompile
-
-bundle exec bin/rails server -b 0.0.0.0 -p $PORT
+# Start o servidor
+exec bundle exec rails server -b 0.0.0.0 -p ${PORT:-3000}

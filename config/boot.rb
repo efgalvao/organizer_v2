@@ -4,7 +4,6 @@ require "bundler/setup" # Set up gems listed in the Gemfile.
 require "bootsnap/setup" # Speed up boot time by caching expensive operations.
 
 begin
-  require "debug" if Rails.env.development? || Rails.env.test?
+  require "debug" if %w[development test].include?(ENV["RAILS_ENV"])
 rescue LoadError
-  # ignora em produção
 end
