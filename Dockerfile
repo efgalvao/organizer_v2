@@ -31,7 +31,7 @@ COPY . .
 RUN yarn build
 
 # Precompile Rails assets
-RUN bundle exec rake assets:precompile
+RUN bundle exec rake assets:precompile --trace
 
 # Entrypoint
 COPY entrypoint.sh /usr/bin/entrypoint.sh
