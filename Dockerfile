@@ -1,44 +1,39 @@
-# Use Ruby oficial com Alpine
 FROM ruby:3.0.7-alpine
 
-# Dependências do sistema
+# Install required packages
 RUN apk add --no-cache \
-    build-base \
-    postgresql-dev \
-    tzdata \
-    curl \
-    git \
-    nodejs \
-    npm \
-    yarn \
-    bash \
-    sqlite \
-    sqlite-dev \
-    && rm -rf /var/cache/apk/*
+  build-base \
+  postgresql-dev \
+  tzdata \
+  curl \
+  git \
+  nodejs \
+  npm
 
-# Diretório de trabalho
+# Install Yarn
+RUN npm install -g yarn
+
 WORKDIR /app
 
-# Copia Gemfile e Gemfile.lock e instala gems
+# Gems install (with config to skip dev/test)
 COPY Gemfile Gemfile.lock ./
-RUN bundle install --without development test
+RUN bundle config set --local without 'development test' \
+  && bundle install
 
-# Copia toda a aplicação
+# Node deps
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
+
+# Copy rest of app
 COPY . .
 
-# ARG e ENV para o SECRET_KEY_BASE durante build (necessário para pré-compilar assets)
-ARG SECRET_KEY_BASE
-ENV SECRET_KEY_BASE=$SECRET_KEY_BASE
+# Build frontend
+RUN yarn build
 
-# Pré-compila assets
-RUN bundle exec rake assets:precompile --trace
-
-# Expõe porta padrão
-EXPOSE 3000
-
-# Copia entrypoint e torna executável
+# Entrypoint
 COPY entrypoint.sh /usr/bin/entrypoint.sh
 RUN chmod +x /usr/bin/entrypoint.sh
 
-# Define entrypoint
+EXPOSE 3000
+
 ENTRYPOINT ["sh", "/usr/bin/entrypoint.sh"]
