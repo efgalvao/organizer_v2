@@ -31,6 +31,7 @@ COPY . .
 RUN yarn build
 
 # Precompile Rails assets
+ENV RAILS_ENV=production
 RUN bundle exec rake assets:precompile --trace
 
 # Entrypoint
