@@ -8,4 +8,4 @@ rm -f /app/tmp/pids/server.pid
 bundle exec rails db:prepare
 
 # Start o servidor
-exec bundle exec rails server -b 0.0.0.0 -p ${PORT:-3000}
+bundle exec rails server -b 0.0.0.0 -p ${PORT:-3000}

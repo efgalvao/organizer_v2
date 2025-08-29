@@ -1,44 +1,44 @@
+# Use Ruby oficial com Alpine
 FROM ruby:3.0.7-alpine
 
-# Install required packages
+# Dependências do sistema
 RUN apk add --no-cache \
-  build-base \
-  postgresql-dev \
-  tzdata \
-  curl \
-  git \
-  nodejs \
-  npm
+    build-base \
+    postgresql-dev \
+    tzdata \
+    curl \
+    git \
+    nodejs \
+    npm \
+    yarn \
+    bash \
+    sqlite \
+    sqlite-dev \
+    && rm -rf /var/cache/apk/*
 
-# Install Yarn
-RUN npm install -g yarn
-
+# Diretório de trabalho
 WORKDIR /app
 
-# Gems install (with config to skip dev/test)
+# Copia Gemfile e Gemfile.lock e instala gems
 COPY Gemfile Gemfile.lock ./
-RUN bundle config set --local without 'development test' \
-  && bundle install
+RUN bundle install --without development test
 
-# Node deps
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
-
-# Copy rest of app
+# Copia toda a aplicação
 COPY . .
 
-# Build frontend
-RUN yarn build
-
-# Precompile Rails assets
+# ARG e ENV para o SECRET_KEY_BASE durante build (necessário para pré-compilar assets)
+ARG SECRET_KEY_BASE
 ENV SECRET_KEY_BASE=$SECRET_KEY_BASE
-ENV RAILS_ENV=production
+
+# Pré-compila assets
 RUN bundle exec rake assets:precompile --trace
 
-# Entrypoint
+# Expõe porta padrão
+EXPOSE 3000
+
+# Copia entrypoint e torna executável
 COPY entrypoint.sh /usr/bin/entrypoint.sh
 RUN chmod +x /usr/bin/entrypoint.sh
 
-EXPOSE 3000
-
+# Define entrypoint
 ENTRYPOINT ["sh", "/usr/bin/entrypoint.sh"]
