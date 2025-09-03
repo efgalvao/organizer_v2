@@ -390,6 +390,9 @@ en:
             shares: Shares
             kind: Kind
             monthly_balance: Monthly balance
+            kinds:
+              buy: Buy
+              sell: Sell
           earnings:
             title: Earnings
             date: Date

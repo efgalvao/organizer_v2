@@ -369,6 +369,9 @@ pt-BR:
             shares: Cotas
             kind: Tipo
             monthly_balance: Saldo mensal
+            kinds:
+              buy: Compra
+              sell: Venda
           earnings:
             title: Proventos
             date: Data

@@ -9,5 +9,9 @@ module Investments
     def amount
       ActionController::Base.helpers.number_to_currency(object.amount, unit: 'R$ ', separator: ',', delimiter: '.')
     end
+
+    def formatted_kind
+      I18n.t("investments.investments.show.summary.negotiations.kinds.#{object.kind}")
+    end
   end
 end

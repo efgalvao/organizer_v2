@@ -4,26 +4,23 @@
     <div class="lcars-card-field">
     <%= link_to card.name, card_path(card),
                   data: { turbo_frame: "_top" }  %>
-  </div>
+    </div>
 
     <div class="lcars-card-field">
-
-    <%= card.balance %>
-  </div>
+      <%= card.balance %>
+    </div>
 
     <div class="lcars-card-field">
-
-    <%= card.type %>
-  </div>
+    </div>
 
     <div class="lcars-card-actions">
-    <%= link_to t('buttons.edit'),
-                edit_card_path(card),
-                class: "lcars-button lcars-button--secondary" %>
-    <%= button_to t('buttons.delete'),
-                  card_path(card),
-                  method: :delete,
-                  class: "lcars-button lcars-button--danger" %>
+      <%= link_to t('buttons.edit'),
+                  edit_card_path(card),
+                  class: "lcars-button lcars-button--secondary" %>
+      <%= button_to t('buttons.delete'),
+                    card_path(card),
+                    method: :delete,
+                    class: "lcars-button lcars-button--danger" %>
+    </div>
   </div>
-</div>
 <% end %>

@@ -21,14 +21,17 @@ module InvestmentsServices
                                            .includes(:account)
                                            .where(account: { user_id: user_id }, released: false)
 
-      investments.group_by(&:bucket).transform_values do |bucket_investments|
-        {
-          investments: bucket_investments,
-          total_invested: bucket_investments.sum(&:invested_amount),
-          total_current: calculate_total_current(bucket_investments),
-          count: bucket_investments.count
-        }
-      end
+      grouped = investments.group_by(&:bucket)
+
+      grouped.transform_keys { |bucket| I18n.t("investments.buckets.#{bucket}") }
+             .transform_values do |bucket_investments|
+               {
+                 investments: bucket_investments,
+                 total_invested: bucket_investments.sum(&:invested_amount),
+                 total_current: calculate_total_current(bucket_investments),
+                 count: bucket_investments.count
+               }
+             end
     end
 
     def calculate_total_current(investments)

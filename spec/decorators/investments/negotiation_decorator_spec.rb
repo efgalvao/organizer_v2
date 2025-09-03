@@ -18,4 +18,22 @@ RSpec.describe Investments::NegotiationDecorator do
       expect(decorated_negotiation.date).to eq('16/03/2024')
     end
   end
+
+  describe '#formatted_kind' do
+    context 'when kind is buy' do
+      let(:negotiation) { create(:negotiation, date: '2024-03-16', amount: 1.23, kind: :buy) }
+
+      it 'returns the translated buy kind' do
+        expect(decorated_negotiation.formatted_kind).to eq('Compra')
+      end
+    end
+
+    context 'when kind is sell' do
+      let(:negotiation) { create(:negotiation, date: '2024-03-16', amount: 1.23, kind: :sell) }
+
+      it 'returns the translated sell kind' do
+        expect(decorated_negotiation.formatted_kind).to eq('Venda')
+      end
+    end
+  end
 end
