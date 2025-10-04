@@ -15,9 +15,9 @@ module Investments
     end
 
     def create
-      @negotiation = InvestmentsServices::ProcessCreateNegotiationRequest.call(negotiation_params)
-      if @negotiation.valid?
-        @negotiation = Investments::NegotiationDecorator.decorate(@negotiation)
+      negotiation = InvestmentsServices::ProcessCreateNegotiationRequest.call(negotiation_params)
+      if negotiation.valid?
+        @negotiation = Investments::NegotiationDecorator.decorate(negotiation)
         respond_to do |format|
           format.html do
             redirect_to investment_negotiations_path(@negotiation.negotiable), notice: 'Negociação criada.'
