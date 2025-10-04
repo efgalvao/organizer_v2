@@ -1,7 +1,7 @@
 <%= turbo_stream.update 'new_negotiation', '' %>
 
-<%= turbo_stream.update "negotiations" do %>
-    <%= render partial: 'investments/investments/negotiations', locals: { investment: @negotiation.negotiable.decorate } %>
+<%= turbo_stream.update "preview" do %>
+    <%= render partial: 'investments/negotiations/preview', locals: { negotiation: @negotiation.decorate } %>
 <% end %>
 <%= turbo_stream.update "investment_summary" do %>
     <%= render partial: 'investments/investments/summary', locals: { investment: @negotiation.negotiable.reload.decorate } %>

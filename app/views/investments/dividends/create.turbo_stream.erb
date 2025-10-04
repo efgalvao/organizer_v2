@@ -1,7 +1,7 @@
 <%= turbo_stream.update 'new_dividend', '' %>
 
-<%= turbo_stream.update "dividends" do %>
-    <%= render partial: 'investments/investments/dividends', locals: { investment: @dividend.investment.decorate } %>
+<%= turbo_stream.update "preview" do %>
+    <%= render partial: 'investments/dividends/preview', locals: { earning: @dividend.decorate } %>
 <% end %>
 <%= turbo_stream.update "investment_summary" do %>
     <%= render partial: 'investments/investments/summary', locals: { investment: @dividend.investment.reload.decorate } %>
