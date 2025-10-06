@@ -76,4 +76,25 @@ RSpec.describe FinancingRepository do
       end.to change(Financings::Financing, :count).by(-1)
     end
   end
+
+  describe '#payments_for' do
+    let(:financing) { create(:financing) }
+    let(:other_financing) { create(:financing) }
+
+    let!(:payment_one) { create(:payment, financing: financing, payment_date: 2.days.ago) }
+    let!(:payment_two) { create(:payment, financing: financing, payment_date: 1.day.ago) }
+    let!(:payment_other) { create(:payment, financing: other_financing) }
+
+    it 'returns only the payments belonging to the given financing' do
+      result = repository.payments_for(financing)
+
+      expect(result).to contain_exactly(payment_one, payment_two)
+    end
+
+    it 'returns payments ordered according to the scope' do
+      result = repository.payments_for(financing)
+
+      expect(result).to eq([payment_two, payment_one])
+    end
+  end
 end

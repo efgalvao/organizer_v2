@@ -9,8 +9,7 @@ module Financing
     end
 
     def show
-      # TODO: - change to repository
-      @payments = @financing.payments.ordered.decorate
+      @payments = FinancingRepository.new.payments_for(@financing).decorate
       @financing = Financings::FinancingDecorator.decorate(@financing)
     end
 

@@ -16,6 +16,10 @@ class FinancingRepository
     Financings::Financing.find_by(attributes)
   end
 
+  def payments_for(financing)
+    financing.payments.ordered
+  end
+
   def destroy(id)
     Financings::Financing.delete(id)
   end
