@@ -5,6 +5,7 @@ module FinancingServices
       @borrowed_value = params[:borrowed_value]
       @installments = params[:installments]
       @name = params[:name]
+      @financing_repository = FinancingRepository.new
     end
 
     def self.call(params)
@@ -12,14 +13,14 @@ module FinancingServices
     end
 
     def call
-      financing = Financings::Financing.new(financing_attributes)
-      financing.save
-      financing
+      financing_repository.create!(financing_attributes)
+    rescue StandardError
+      Financings::Financing.new
     end
 
     private
 
-    attr_reader :user_id, :borrowed_value, :installments, :name
+    attr_reader :user_id, :borrowed_value, :installments, :name, :financing_repository
 
     def financing_attributes
       {

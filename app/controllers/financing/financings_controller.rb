@@ -4,10 +4,12 @@ module Financing
     before_action :financing, only: %i[show destroy edit update]
 
     def index
-      @financings = Financings::Financing.where(user_id: current_user.id).all.decorate
+      financings = FinancingRepository.new.all(current_user.id)
+      @financings = financings.decorate
     end
 
     def show
+      # TODO: - change to repository
       @payments = @financing.payments.ordered.decorate
       @financing = Financings::FinancingDecorator.decorate(@financing)
     end
@@ -41,7 +43,7 @@ module Financing
     end
 
     def destroy
-      @financing.destroy
+      FinancingRepository.new.destroy(@financing.id)
 
       respond_to do |format|
         format.html { redirect_to financings_path, notice: 'Financiamento removido.' }
@@ -52,8 +54,7 @@ module Financing
     private
 
     def financing
-      @financing ||= Financings::Financing
-                     .find_by(id: params[:id], user_id: current_user.id)
+      @financing ||= FinancingRepository.new.find_by({ id: params[:id], user_id: current_user.id })
     end
 
     def financing_params
