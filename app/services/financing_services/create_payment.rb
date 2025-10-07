@@ -11,7 +11,7 @@ module FinancingServices
 
     def call
       payment_repository.create!(payment_attributes)
-    rescue StandardError => e
+    rescue StandardError
       Financings::Payment.new
     end
 
