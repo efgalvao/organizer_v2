@@ -17,7 +17,7 @@ module AccountServices
       end
       return failure_result('Nome não pode ficar em branco') if account_params[:name].blank?
 
-      @account = AccountRepository.new.find_by_id_and_user(account_params[:id], account_params[:user_id])
+      @account = AccountRepository.new.find_by(id: account_params[:id], user: account_params[:user_id])
       raise ActiveRecord::RecordNotFound unless @account
 
       ActiveRecord::Base.transaction do

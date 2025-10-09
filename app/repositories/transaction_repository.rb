@@ -1,6 +1,6 @@
 class TransactionRepository
-  def all(account_id, user_id, future = false)
-    account = AccountRepository.new.find_by_id_and_user(account_id, user_id)
+  def all(account_id, user_id, future: false)
+    account = AccountRepository.new.find_by(id: account_id, user: user_id)
     return [] unless account
 
     transactions_scope = account.transactions.includes(:category)

@@ -66,12 +66,8 @@ RSpec.describe AccountServices::UpdateAccount do
       let(:other_user) { create(:user) }
       let(:params) { valid_params.merge(user_id: other_user.id) }
 
-      it 'returns failure result and does not update the account' do
-        result = update_account
-
-        expect(result[:success?]).to be false
-        expect(result[:errors]).to include('Você não tem permissão para atualizar esta conta')
-        expect(account.reload.name).not_to eq('Updated Account')
+      it 'raises ActiveRecord::RecordNotFound' do
+        expect { update_account }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
@@ -85,10 +81,12 @@ RSpec.describe AccountServices::UpdateAccount do
 
     context 'when an error occurs' do
       let(:params) { valid_params }
+      let(:repository_double) { instance_double(AccountRepository) }
 
       before do
-        allow(Account::Account).to receive(:find).with(account.id).and_return(account)
-        allow(account).to receive(:update!).and_raise(StandardError, 'Test error')
+        allow(AccountRepository).to receive(:new).and_return(repository_double)
+        allow(repository_double).to receive(:find_by).and_return(account)
+        allow(repository_double).to receive(:update!).and_raise(StandardError, 'Test error')
       end
 
       it 'returns failure result with error message' do

@@ -104,7 +104,7 @@ module Account
     end
 
     def set_account
-      @account = AccountRepository.new.find_by_id_and_user(params[:id], current_user.id)
+      @account = AccountRepository.new.find_by(id: params[:id], user: current_user.id)
       raise ActionController::RoutingError, 'Not Found' unless @account
     end
 

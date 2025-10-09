@@ -8,9 +8,9 @@ module Account
       transactions = TransactionRepository.new.all(
         params[:account_id],
         current_user.id,
-        params[:future]
+        future: params[:future]
       )
-      @parent = AccountRepository.new.find_by_id_and_user(params[:account_id], current_user.id).decorate
+      @parent = AccountRepository.new.find_by(id: params[:account_id], user: current_user.id).decorate
       @transactions = TransactionDecorator.decorate_collection(transactions)
     end
 

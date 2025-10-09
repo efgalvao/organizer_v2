@@ -14,8 +14,8 @@ class AccountRepository
     account
   end
 
-  def find_by(attributes = {})
-    Account::Account.find_by(attributes)
+  def find_by(*args)
+    Account::Account.find_by(*args)
   end
 
   def find_by_id_and_user(account_id, user_id)

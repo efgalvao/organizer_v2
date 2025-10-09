@@ -91,7 +91,7 @@ class CardsController < ApplicationController
   end
 
   def set_card
-    @card = AccountRepository.new.find_by_id_and_user(params[:id], current_user.id)
+    @card = AccountRepository.new.find_by(id: params[:id], user: current_user.id)
     raise ActionController::RoutingError, 'Not Found' unless @card
   end
 end
