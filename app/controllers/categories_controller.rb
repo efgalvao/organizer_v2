@@ -13,28 +13,27 @@ class CategoriesController < ApplicationController
   def edit; end
 
   def create
-    @category = Category.new(category_params)
+    @category = CategoryRepository.new.create!(category_params)
 
-    if @category.save
-      respond_to do |format|
-        format.html { redirect_to categories_path, notice: 'Category successfully created.' }
-        format.turbo_stream
-      end
-    else
-      render :new, status: :unprocessable_entity
+    respond_to do |format|
+      format.html { redirect_to categories_path, notice: 'Category successfully created.' }
+      format.turbo_stream
     end
+  rescue ActiveRecord::RecordInvalid => e
+    @category = e.record
+    render :new, status: :unprocessable_entity
   end
 
   def update
-    if @category.update(category_params)
-      redirect_to categories_path, notice: 'Category was successfully updated.'
-    else
-      render :edit, status: :unprocessable_entity
-    end
+    CategoryRepository.new.update!(@category, category_params)
+    redirect_to categories_path, notice: 'Category was successfully updated.'
+  rescue ActiveRecord::RecordInvalid => e
+    @category = e.record
+    render :edit, status: :unprocessable_entity
   end
 
   def destroy
-    @category.destroy
+    CategoryRepository.new.destroy(@category.id)
 
     respond_to do |format|
       format.html { redirect_to categories_path, notice: 'Category successfully destroyed.' }
@@ -45,7 +44,7 @@ class CategoriesController < ApplicationController
   private
 
   def set_category
-    @category = Category.find(params[:id])
+    @category = CategoryRepository.new.find(params[:id])
   end
 
   def category_params

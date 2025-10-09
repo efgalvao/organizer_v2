@@ -1,0 +1,41 @@
+class TransactionRepository
+  def all(account_id, user_id, future = false)
+    account = AccountRepository.new.find_by_id_and_user(account_id, user_id)
+    return [] unless account
+
+    transactions_scope = account.transactions.includes(:category)
+                                .select(:id, :title, :date, :amount, :category_id, :group, :type)
+
+    if future
+      transactions_scope.where('date > ?', Time.zone.today)
+    else
+      transactions_scope.where('date BETWEEN ? AND ?', Time.zone.today.beginning_of_month, Time.zone.today)
+    end.order(date: :desc)
+  end
+
+  def create!(attributes)
+    Account::Transaction.create!(attributes)
+  end
+
+  def update!(transaction, attributes)
+    transaction.update!(attributes)
+    transaction
+  end
+
+  def find(id)
+    Account::Transaction.find(id)
+  end
+
+  def find_by(attributes = {})
+    Account::Transaction.find_by(attributes)
+  end
+
+  def destroy(id)
+    Account::Transaction.delete(id)
+  end
+
+  def by_account_and_date_range(account_id, start_date, end_date)
+    Account::Transaction.where(account_id: account_id)
+                        .where('date >= ? AND date <= ?', start_date, end_date)
+  end
+end

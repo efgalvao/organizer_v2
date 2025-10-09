@@ -4,7 +4,7 @@ module Account
     before_action :set_account, only: %i[show edit update destroy consolidate_report]
 
     def index
-      @accounts = fetch_accounts.decorate
+      @accounts = AccountRepository.new.all(current_user.id).decorate
     end
 
     def show
@@ -47,7 +47,7 @@ module Account
     end
 
     def destroy
-      @account.destroy
+      AccountRepository.new.destroy(@account.id)
 
       respond_to do |format|
         format.html { redirect_to accounts_path, notice: 'Conta removida.' }
@@ -64,12 +64,6 @@ module Account
     end
 
     private
-
-    def fetch_accounts
-      Account.where(user_id: current_user.id, type: ['Account::Savings', 'Account::Broker'])
-             .order(:name)
-             .includes(:user)
-    end
 
     def fetch_expenses_by_category
       CategoryServices::FetchExpensesByCategory.call(current_user.id, @account.id)
@@ -110,9 +104,8 @@ module Account
     end
 
     def set_account
-      @account = AccountServices::FetchAccount.call(params[:id], current_user.id)
-    rescue ActiveRecord::RecordNotFound
-      raise ActionController::RoutingError, 'Not Found'
+      @account = AccountRepository.new.find_by_id_and_user(params[:id], current_user.id)
+      raise ActionController::RoutingError, 'Not Found' unless @account
     end
 
     def handle_successful_update

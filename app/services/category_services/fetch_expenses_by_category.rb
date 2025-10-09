@@ -41,11 +41,10 @@ module CategoryServices
     end
 
     def expenses_query(accounts)
-      Account::Expense.where(account: accounts)
-                      .where('date >= ? AND date <= ?', DATE_RANGE[:start].call, DATE_RANGE[:end].call)
-                      .joins(:category)
-                      .group('categories.name')
-                      .sum(:amount)
+      AccountRepository.new.expenses_by_category(accounts, {
+                                                   start: DATE_RANGE[:start].call,
+                                                   end: DATE_RANGE[:end].call
+                                                 })
     end
 
     def card_accounts
@@ -57,9 +56,7 @@ module CategoryServices
     end
 
     def fetch_accounts(type)
-      query = Account::Account.where(user_id: user_id)
-      query = query.where(id: account_id) if account_id
-      query.where(type: type)
+      AccountRepository.new.by_user_and_account_id(user_id, account_id).where(type: type)
     end
 
     def format_data(expenses)

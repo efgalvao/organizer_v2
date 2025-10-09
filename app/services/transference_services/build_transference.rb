@@ -17,7 +17,7 @@ module TransferenceServices
     attr_reader :params
 
     def create_transference
-      Transference.new(transference_params)
+      TransferenceRepository.new.create!(transference_params)
     end
 
     def transference_params

@@ -5,12 +5,12 @@ module Account
     before_action :categories, only: %i[new create edit anticipate]
 
     def index
-      transactions = AccountServices::FetchTransactions.call(
+      transactions = TransactionRepository.new.all(
         params[:account_id],
         current_user.id,
         params[:future]
       )
-      @parent = Account.find(params[:account_id]).decorate
+      @parent = AccountRepository.new.find_by_id_and_user(params[:account_id], current_user.id).decorate
       @transactions = TransactionDecorator.decorate_collection(transactions)
     end
 
@@ -82,11 +82,11 @@ module Account
     end
 
     def set_transaction
-      @transaction = Transaction.find(params[:id]).becomes(Transaction)
+      @transaction = TransactionRepository.new.find(params[:id]).becomes(Transaction)
     end
 
     def categories
-      @categories ||= Category.where(user_id: current_user.id).order(:name)
+      @categories ||= CategoryRepository.new.all(current_user.id)
     end
   end
 end

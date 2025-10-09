@@ -23,8 +23,7 @@ module AccountServices
     attr_reader :account_id, :user_id, :future
 
     def account
-      @account ||= Account::Account.select(:id)
-                                   .find_by(id: account_id, user_id: user_id)
+      @account ||= AccountRepository.new.find_by_id_and_user(account_id, user_id)
     end
 
     def transactions_scope
