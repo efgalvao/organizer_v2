@@ -17,14 +17,11 @@ module AccountServices
       end
       return failure_result('Nome não pode ficar em branco') if account_params[:name].blank?
 
-      @account = Account::Account.find(account_params[:id])
+      @account = AccountRepository.find_by(id: account_params[:id], user: account_params[:user_id])
+      raise ActiveRecord::RecordNotFound unless @account
 
       ActiveRecord::Base.transaction do
-        if @account.user_id != account_params[:user_id]
-          raise StandardError, 'Você não tem permissão para atualizar esta conta'
-        end
-
-        @account.update!(account_params)
+        @account = AccountRepository.update!(@account, account_params)
         success_result
       end
     rescue ActiveRecord::RecordNotFound => e

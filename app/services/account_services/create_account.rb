@@ -47,10 +47,11 @@ module AccountServices
     end
 
     def create_account
-      @account = Account::Account.new(account_params)
-      return false unless @account.save
-
+      @account = AccountRepository.create!(account_params)
       true
+    rescue ActiveRecord::RecordInvalid => e
+      @account = e.record
+      false
     end
 
     def create_initial_report

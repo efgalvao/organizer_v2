@@ -47,9 +47,7 @@ jobs:
       - run:
           name: Rspec
           command: |
-            ./cc-test-reporter before-build
             bundle exec rspec
-            ./cc-test-reporter after-build -t simplecov --exit-code $?
   rubocop:
     docker:
       - image: cimg/ruby:3.0.7-node

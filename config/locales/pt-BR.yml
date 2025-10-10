@@ -205,6 +205,9 @@ pt-BR:
       fees: Taxas
       adjustment: Ajuste
       monetary_correction: Correção monetária
+      payment_created: Pagamento Criado
+      payment_updated: Pagamento Atualizado
+      payment_removed: Pagamento Removido
   home:
     welcome: Bem-vindo
     helpful_message: Aqui estão alguns links úteis

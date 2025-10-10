@@ -3,7 +3,8 @@ class CardsController < ApplicationController
   before_action :set_card, only: %i[show edit update destroy]
 
   def index
-    @cards = fetch_cards.decorate
+    @cards = AccountRepository.by_type_and_user(current_user.id, 'cards')
+                              .decorate
   end
 
   def show
@@ -43,7 +44,7 @@ class CardsController < ApplicationController
   end
 
   def destroy
-    @card.destroy
+    AccountRepository.destroy(@card.id)
 
     respond_to do |format|
       format.html { redirect_to cards_path, notice: 'Cartão removido.' }
@@ -52,12 +53,6 @@ class CardsController < ApplicationController
   end
 
   private
-
-  def fetch_cards
-    Account::Card.where(user_id: current_user.id)
-                 .order(:name)
-                 .includes(:user)
-  end
 
   def fetch_expenses_by_category
     CategoryServices::FetchExpensesByCategory.call(current_user.id, @card.id)
@@ -94,8 +89,7 @@ class CardsController < ApplicationController
   end
 
   def set_card
-    @card = AccountServices::FetchAccount.call(params[:id], current_user.id)
-  rescue ActiveRecord::RecordNotFound
-    raise ActionController::RoutingError, 'Not Found'
+    @card = AccountRepository.find_by(id: params[:id], user: current_user.id)
+    raise ActionController::RoutingError, 'Not Found' unless @card
   end
 end

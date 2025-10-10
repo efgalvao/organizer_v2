@@ -55,7 +55,7 @@ module Investments
     private
 
     def set_investment
-      @investment = Investments::Investment.find(params[:id])
+      @investment = InvestmentRepository.new.find(params[:id])
     end
 
     def investment_params

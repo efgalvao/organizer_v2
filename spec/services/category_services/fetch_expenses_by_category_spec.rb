@@ -77,6 +77,7 @@ RSpec.describe CategoryServices::FetchExpensesByCategory do
     it 'only includes expenses from current month' do
       result = fetch_expenses_by_category
 
+      puts '----->',result.inspect
       expect(result[:card_expenses]['Food']).to eq(100)
       expect(result[:account_expenses]['Transport']).to eq(500)
     end

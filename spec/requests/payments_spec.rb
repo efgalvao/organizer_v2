@@ -31,10 +31,10 @@ RSpec.describe 'Financings::Payment' do
     end
 
     context 'with invalid parameters' do
-      it 'does not create a new Financing' do
+      it 'does not create a new Payment' do
         expect do
           post financing_payments_path(financing_id: financing.id), params: { payment: { financing_id: '0000' } }
-        end.not_to change(Financings::Financing, :count)
+        end.not_to change(Financings::Payment, :count)
       end
     end
   end

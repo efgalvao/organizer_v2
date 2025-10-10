@@ -17,13 +17,13 @@ RSpec.describe FinancingServices::UpdateFinancing do
       end
 
       it 'update and return the financing' do
-        response = update_financing
+        financing = update_financing
 
-        expect(response).to be_persisted
-        expect(response).to be_a(Financings::Financing)
-        expect(response.name).to eq('Updated Financing')
-        expect(response.borrowed_value).to eq(12.34)
-        expect(response.installments).to eq(10)
+        expect(financing).to be_persisted
+        expect(financing).to be_a(Financings::Financing)
+        expect(financing.name).to eq('Updated Financing')
+        expect(financing.borrowed_value).to eq(12.34)
+        expect(financing.installments).to eq(10)
       end
     end
   end

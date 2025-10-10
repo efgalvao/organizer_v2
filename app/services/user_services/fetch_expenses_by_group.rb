@@ -26,7 +26,7 @@ module UserServices
     end
 
     def account_scope
-      Account::Account.where(user_id: user_id)
+      AccountRepository.find_by(user_id: user_id)
     end
 
     def formated_data
