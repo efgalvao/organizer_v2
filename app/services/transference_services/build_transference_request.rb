@@ -35,7 +35,7 @@ module TransferenceServices
 
     def account_id(account_name)
       downcased_name = account_name.downcase.strip
-      AccountRepository.new.find_by('LOWER(name) = ?', downcased_name)&.id
+      AccountRepository.find_by('LOWER(name) = ?', downcased_name)&.id
     end
   end
 end

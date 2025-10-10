@@ -1,9 +1,7 @@
 module CategoryServices
   class FetchExpensesByCategory < ApplicationService
-    ACCOUNT_TYPES = {
-      card: 'Account::Card',
-      savings: ['Account::Savings', 'Account::Broker']
-    }.freeze
+    CARD_ACCOUNT_TYPE = 'cards'
+    SAVINGS_AND_BROKER_ACCOUNT_TYPES = 'accounts'
 
     DATE_RANGE = {
       start: -> { Date.current.beginning_of_month },
@@ -41,22 +39,24 @@ module CategoryServices
     end
 
     def expenses_query(accounts)
-      AccountRepository.new.expenses_by_category(accounts, {
-                                                   start: DATE_RANGE[:start].call,
-                                                   end: DATE_RANGE[:end].call
-                                                 })
+      TransactionRepository.expenses_by_category(accounts, DATE_RANGE[:start].call, DATE_RANGE[:end].call)
     end
 
     def card_accounts
-      fetch_accounts(ACCOUNT_TYPES[:card])
+      fetch_accounts(CARD_ACCOUNT_TYPE)
     end
 
     def savings_and_broker_accounts
-      fetch_accounts(ACCOUNT_TYPES[:savings])
+      fetch_accounts(SAVINGS_AND_BROKER_ACCOUNT_TYPES)
     end
 
     def fetch_accounts(type)
-      AccountRepository.new.by_user_and_account_id(user_id, account_id).where(type: type)
+      if account_id.nil?
+        AccountRepository.by_type_and_user(user_id, type)
+      else
+        AccountRepository.find_by(id: account_id, user_id: user_id)
+
+      end
     end
 
     def format_data(expenses)

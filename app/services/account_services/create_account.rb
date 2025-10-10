@@ -47,7 +47,7 @@ module AccountServices
     end
 
     def create_account
-      @account = AccountRepository.new.create!(account_params)
+      @account = AccountRepository.create!(account_params)
       true
     rescue ActiveRecord::RecordInvalid => e
       @account = e.record

@@ -26,7 +26,7 @@ module UserServices
     end
 
     def account_scope
-      AccountRepository.new.by_user_and_account_id(user_id)
+      AccountRepository.find_by(user_id: user_id)
     end
 
     def formated_data

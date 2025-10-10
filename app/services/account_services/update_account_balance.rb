@@ -19,7 +19,7 @@ module AccountServices
     attr_reader :params
 
     def account
-      @account ||= AccountRepository.new.find_by(id: params[:account_id])
+      @account ||= AccountRepository.find_by(id: params[:account_id])
     end
 
     def update_balance

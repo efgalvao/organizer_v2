@@ -13,7 +13,7 @@ module UserServices
     attr_reader :user_id
 
     def fetch_accounts_summary
-      accounts = AccountRepository.new.by_type_and_user(user_id, ['Account::Savings', 'Account::Broker'])
+      accounts = AccountRepository.by_type_and_user(user_id, 'accounts')
                                   .order(:name)
       accounts.map { |account| build_account_summary(account) }
     end

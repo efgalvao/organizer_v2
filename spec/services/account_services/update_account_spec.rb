@@ -84,9 +84,7 @@ RSpec.describe AccountServices::UpdateAccount do
       let(:repository_double) { instance_double(AccountRepository) }
 
       before do
-        allow(AccountRepository).to receive(:new).and_return(repository_double)
-        allow(repository_double).to receive(:find_by).and_return(account)
-        allow(repository_double).to receive(:update!).and_raise(StandardError, 'Test error')
+        allow(AccountRepository).to receive(:update!).and_raise(StandardError, 'Test error')
       end
 
       it 'returns failure result with error message' do

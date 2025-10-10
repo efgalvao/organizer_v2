@@ -3,9 +3,7 @@ class CardsController < ApplicationController
   before_action :set_card, only: %i[show edit update destroy]
 
   def index
-    @cards = AccountRepository.new.by_type_and_user(current_user.id, 'Account::Card')
-                              .order(:name)
-                              .includes(:user)
+    @cards = AccountRepository.by_type_and_user(current_user.id, 'cards')
                               .decorate
   end
 
@@ -46,7 +44,7 @@ class CardsController < ApplicationController
   end
 
   def destroy
-    AccountRepository.new.destroy(@card.id)
+    AccountRepository.destroy(@card.id)
 
     respond_to do |format|
       format.html { redirect_to cards_path, notice: 'Cartão removido.' }
@@ -91,7 +89,7 @@ class CardsController < ApplicationController
   end
 
   def set_card
-    @card = AccountRepository.new.find_by(id: params[:id], user: current_user.id)
+    @card = AccountRepository.find_by(id: params[:id], user: current_user.id)
     raise ActionController::RoutingError, 'Not Found' unless @card
   end
 end

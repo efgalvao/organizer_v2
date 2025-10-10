@@ -18,7 +18,7 @@ module AccountServices
     attr_reader :account_id, :reference_date
 
     def account
-      @account ||= AccountRepository.new.find_by(id: account_id)
+      @account ||= AccountRepository.find_by(id: account_id)
     end
 
     def create_account_report

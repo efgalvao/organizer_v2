@@ -2,7 +2,7 @@ class InvoicesController < ApplicationController
   before_action :authenticate_user!
 
   def new
-    @accounts = AccountRepository.new.by_type_and_user(current_user.id, ['Account::Savings', 'Account::Broker'])
+    @accounts = AccountRepository.by_type_and_user(current_user.id, 'accounts')
     @card_id = params[:card_id]
     respond_to do |format|
       format.turbo_stream

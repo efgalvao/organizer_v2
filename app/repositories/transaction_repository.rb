@@ -1,6 +1,8 @@
-class TransactionRepository
+module TransactionRepository
+  extend self
+
   def all(account_id, user_id, future: false)
-    account = AccountRepository.new.find_by(id: account_id, user: user_id)
+    account = AccountRepository.find_by(id: account_id, user_id: user_id)
     return [] unless account
 
     transactions_scope = account.transactions.includes(:category)
@@ -22,9 +24,9 @@ class TransactionRepository
     transaction
   end
 
-  def find(id)
-    Account::Transaction.find(id)
-  end
+  # def find(id)
+  #   Account::Transaction.find(id)
+  # end
 
   def find_by(attributes = {})
     Account::Transaction.find_by(attributes)
@@ -37,5 +39,15 @@ class TransactionRepository
   def by_account_and_date_range(account_id, start_date, end_date)
     Account::Transaction.where(account_id: account_id)
                         .where('date >= ? AND date <= ?', start_date, end_date)
+  end
+
+  def expenses_by_category(accounts, start_date, end_date)
+    Account::Transaction
+      .where(account_id: accounts)
+      .where(type: 'Account::Expense')
+      .where(date: start_date..end_date)
+      .joins(:category)
+      .group('categories.name')
+      .sum(:amount)
   end
 end
