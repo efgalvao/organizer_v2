@@ -91,6 +91,48 @@ RSpec.describe TransactionRepository do
     end
   end
 
+  describe '#for_user_account' do
+    it 'returns transactions for account and user' do
+      result = repository.for_user_account(account.id, user.id)
+
+      expect(result.map(&:id)).to include(transaction.id, current_transaction.id)
+      expect(result.map(&:id)).not_to include(other_transaction.id)
+    end
+
+    it 'returns empty array for non-existent account' do
+      result = repository.for_user_account(999_999, user.id)
+
+      expect(result).to be_empty
+    end
+
+    it 'returns empty array for account not belonging to user' do
+      other_user = create(:user)
+      other_account = create(:account, user: other_user)
+
+      result = repository.for_user_account(other_account.id, user.id)
+
+      expect(result).to be_empty
+    end
+
+    context 'with future: true' do
+      it 'returns only future transactions' do
+        result = repository.for_user_account(account.id, user.id, future: true)
+
+        expect(result.map(&:id)).to include(future_transaction.id)
+        expect(result.map(&:id)).not_to include(transaction.id, current_transaction.id)
+      end
+    end
+
+    context 'with future: false' do
+      it 'returns only current month transactions' do
+        result = repository.for_user_account(account.id, user.id, future: false)
+
+        expect(result.map(&:id)).to include(current_transaction.id)
+        expect(result.map(&:id)).not_to include(future_transaction.id)
+      end
+    end
+  end
+
   describe '#expenses_by_category' do
     let(:category) { create(:category, user: user) }
     let(:start_date) { 1.month.ago }

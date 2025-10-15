@@ -13,6 +13,10 @@ module TransactionRepository
     future ? scope.future : scope.current_month
   end
 
+  def for_user_account(account_id, user_id, future: false)
+    all(account_id, user_id, future: future)
+  end
+
   def update!(transaction, attributes)
     transaction.update!(attributes)
     transaction

@@ -5,7 +5,7 @@ module Account
     before_action :categories, only: %i[new create edit anticipate]
 
     def index
-      transactions = TransactionRepository.all(
+      transactions = TransactionRepository.for_user_account(
         params[:account_id],
         current_user.id,
         future: params[:future]
