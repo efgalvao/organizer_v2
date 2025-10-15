@@ -13,10 +13,6 @@ module TransactionRepository
     future ? scope.future : scope.current_month
   end
 
-  def create!(attributes)
-    Account::Transaction.create!(attributes)
-  end
-
   def update!(transaction, attributes)
     transaction.update!(attributes)
     transaction
@@ -24,15 +20,6 @@ module TransactionRepository
 
   def find_by(attributes = {})
     Account::Transaction.find_by(attributes)
-  end
-
-  def destroy(id)
-    Account::Transaction.delete(id)
-  end
-
-  def by_account_and_date_range(account_id, start_date, end_date)
-    Account::Transaction.where(account_id: account_id)
-                        .where('date >= ? AND date <= ?', start_date, end_date)
   end
 
   def expenses_by_category(accounts, start_date, end_date)

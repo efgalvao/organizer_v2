@@ -7,32 +7,19 @@ module InvestmentRepository
                            .where(account: { user_id: user_id }, released: false)
   end
 
-  def create!(attributes)
-    Investments::Investment.create!(attributes)
-  end
-
-  def update!(investment, attributes)
-    investment.update!(attributes)
-    investment
-  end
-
-  def find_by(attributes = {})
-    Investments::Investment.find_by(attributes)
-  end
-
   def find(id)
     Investments::Investment.find(id)
   end
 
-  def destroy(id)
-    Investments::Investment.delete(id)
-  end
-
   def positions_for(investment)
+    return [] unless investment.respond_to?(:positions)
+
     investment.positions.order(:date)
   end
 
   def negotiations_for(investment)
+    return [] unless investment.respond_to?(:negotiations)
+
     investment.negotiations.order(:date)
   end
 
