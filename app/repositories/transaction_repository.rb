@@ -1,18 +1,16 @@
 module TransactionRepository
-  extend self
+  module_function
 
   def all(account_id, user_id, future: false)
     account = AccountRepository.find_by(id: account_id, user_id: user_id)
     return [] unless account
 
-    transactions_scope = account.transactions.includes(:category)
-                                .select(:id, :title, :date, :amount, :category_id, :group, :type)
+    scope = account.transactions
+                   .includes(:category)
+                   .select(:id, :title, :date, :amount, :category_id, :group, :type)
+                   .ordered
 
-    if future
-      transactions_scope.where('date > ?', Time.zone.today)
-    else
-      transactions_scope.where('date BETWEEN ? AND ?', Time.zone.today.beginning_of_month, Time.zone.today)
-    end.order(date: :desc)
+    future ? scope.future : scope.current_month
   end
 
   def create!(attributes)
@@ -23,10 +21,6 @@ module TransactionRepository
     transaction.update!(attributes)
     transaction
   end
-
-  # def find(id)
-  #   Account::Transaction.find(id)
-  # end
 
   def find_by(attributes = {})
     Account::Transaction.find_by(attributes)

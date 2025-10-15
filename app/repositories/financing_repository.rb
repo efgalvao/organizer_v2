@@ -1,4 +1,6 @@
-class FinancingRepository
+module FinancingRepository
+  module_function
+
   def all(user_id)
     Financings::Financing.where(user_id: user_id).all
   end

@@ -1,4 +1,6 @@
-class PaymentRepository
+module PaymentRepository
+  module_function
+
   def find_by(attributes)
     Financings::Payment.find_by(attributes)
   end

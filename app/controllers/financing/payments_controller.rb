@@ -41,7 +41,7 @@ module Financing
     end
 
     def destroy
-      PaymentRepository.new.destroy(@payment)
+      PaymentRepository.destroy(@payment)
       @financing = @financing.reload.decorate
 
       respond_to do |format|
@@ -53,11 +53,11 @@ module Financing
     private
 
     def set_financing
-      @financing = FinancingRepository.new.find_by({ id: params[:financing_id], user_id: current_user.id })
+      @financing = FinancingRepository.find_by({ id: params[:financing_id], user_id: current_user.id })
     end
 
     def set_payment
-      @payment = PaymentRepository.new.find_by({ id: params[:id] })
+      @payment = PaymentRepository.find_by({ id: params[:id] })
     end
 
     def payment_params

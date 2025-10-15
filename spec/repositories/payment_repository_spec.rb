@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe PaymentRepository do
-  subject(:repository) { described_class.new }
+  subject(:repository) { described_class }
 
   let(:user) { create(:user) }
   let!(:financing) { create(:financing, user_id: user.id) }

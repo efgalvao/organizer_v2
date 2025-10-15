@@ -21,7 +21,7 @@ module Account
     def edit; end
 
     def create
-      @transaction = TransactionServices::TransactionRequestBuilder.call(transactions_params)
+      @transaction = TransactionServices::TransactionRequestBuilder.call(transaction_params)
 
       if @transaction.valid?
         @transaction = @transaction.decorate
@@ -35,8 +35,9 @@ module Account
     end
 
     def update
-      if @transaction.update(update_params)
-        @transaction = @transaction.decorate
+      transaction = TransactionRepository.update!(@transaction, transaction_params)
+      if transaction.update(update_params)
+        @transaction = transaction.decorate
         respond_to do |format|
           format.html { redirect_to account_transactions_path, notice: 'Transação atualizada.' }
           format.turbo_stream { flash.now[:notice] = 'Transação  atualizada.' }
@@ -68,7 +69,7 @@ module Account
 
     private
 
-    def transactions_params
+    def transaction_params
       params.require(:transaction).permit(:title, :category_id, :amount, :type, :date, :future, :parcels, :group)
             .merge(account_id: params[:account_id])
     end
@@ -86,7 +87,7 @@ module Account
     end
 
     def categories
-      @categories ||= CategoryRepository.new.all(current_user.id)
+      @categories ||= CategoryRepository.all(current_user.id)
     end
   end
 end

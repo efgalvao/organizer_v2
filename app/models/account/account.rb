@@ -29,5 +29,13 @@ module Account
     def broker_with_investment?
       type == 'Account::Broker' && investments?
     end
+
+    def formated_type
+      {
+        'Account::Card' => 'card',
+        'Account::Savings' => 'savings',
+        'Account::Broker' => 'broker'
+      }.fetch(type, 'unknown')
+    end
   end
 end

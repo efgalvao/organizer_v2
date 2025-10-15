@@ -3,7 +3,7 @@ class CategoriesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @categories = CategoryServices::FetchCategories.fetch_categories(current_user.id)
+    @categories = CategoryRepository.all(current_user.id)
   end
 
   def new
@@ -13,7 +13,7 @@ class CategoriesController < ApplicationController
   def edit; end
 
   def create
-    @category = CategoryRepository.new.create!(category_params)
+    @category = CategoryRepository.create!(category_params)
 
     respond_to do |format|
       format.html { redirect_to categories_path, notice: 'Category successfully created.' }
@@ -25,7 +25,7 @@ class CategoriesController < ApplicationController
   end
 
   def update
-    CategoryRepository.new.update!(@category, category_params)
+    CategoryRepository.update!(@category, category_params)
     redirect_to categories_path, notice: 'Category was successfully updated.'
   rescue ActiveRecord::RecordInvalid => e
     @category = e.record
@@ -33,7 +33,7 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
-    CategoryRepository.new.destroy(@category.id)
+    CategoryRepository.destroy(@category.id)
 
     respond_to do |format|
       format.html { redirect_to categories_path, notice: 'Category successfully destroyed.' }
@@ -44,7 +44,7 @@ class CategoriesController < ApplicationController
   private
 
   def set_category
-    @category = CategoryRepository.new.find(params[:id])
+    @category = CategoryRepository.find(params[:id])
   end
 
   def category_params

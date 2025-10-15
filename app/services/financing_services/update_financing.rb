@@ -6,7 +6,6 @@ module FinancingServices
       @installments = params[:installments]
       @name = params[:name]
       @financing_id = financing_id
-      @financing_repository = FinancingRepository.new
     end
 
     def self.call(financing_id, params)
@@ -21,14 +20,14 @@ module FinancingServices
 
     private
 
-    attr_reader :user_id, :borrowed_value, :installments, :name, :financing_id, :financing_repository
+    attr_reader :user_id, :borrowed_value, :installments, :name, :financing_id
 
     def financing
       @financing ||= Financings::Financing.find_by({ id: financing_id, user_id: user_id })
     end
 
     def update_financing
-      financing_repository.update!(financing, financing_attributes)
+      FinancingRepository.update!(financing, financing_attributes)
     end
 
     def financing_attributes

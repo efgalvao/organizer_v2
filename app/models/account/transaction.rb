@@ -4,6 +4,12 @@ module Account
     belongs_to :account_report, class_name: 'Account::AccountReport'
     has_one :category, class_name: 'Category', foreign_key: 'id', primary_key: 'category_id', dependent: nil
 
+    scope :ordered, -> { order(date: :desc) }
+    scope :future, -> { where('date > ?', Time.zone.today) }
+    scope :current_month, lambda {
+      where(date: Time.zone.today.beginning_of_month..Time.zone.today)
+    }
+
     validates :title, presence: true
 
     enum group: { custos_fixos: 0, conforto: 1, metas: 2, prazeres: 3, liberdade_financeira: 4, conhecimento: 5 }

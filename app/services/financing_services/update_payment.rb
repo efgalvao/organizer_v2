@@ -3,7 +3,7 @@ module FinancingServices
     def initialize(payment_id, params)
       @payment_id = payment_id
       @params = params
-      @payment_repository = PaymentRepository.new
+      @payment_repository = PaymentRepository
     end
 
     def self.call(payment_id, params)

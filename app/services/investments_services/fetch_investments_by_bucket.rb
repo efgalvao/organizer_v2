@@ -17,7 +17,7 @@ module InvestmentsServices
     attr_reader :user_id
 
     def fetch_investments_by_bucket
-      investments = InvestmentRepository.new.by_user_and_bucket(user_id)
+      investments = InvestmentRepository.all(user_id)
 
       grouped = investments.group_by(&:bucket)
 

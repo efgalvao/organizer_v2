@@ -1,7 +1,8 @@
 module AccountRepository
+  module_function
+
   ACCOUNT_TYPES = ['Account::Savings', 'Account::Broker'].freeze
   CARD_TYPES = ['Account::Card'].freeze
-  extend self
 
   def all_by_user(user_id)
     Account::Account.where(user_id: user_id)

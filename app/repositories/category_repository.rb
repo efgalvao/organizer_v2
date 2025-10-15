@@ -1,4 +1,6 @@
-class CategoryRepository
+module CategoryRepository
+  module_function
+
   def all(user_id)
     Category.where(user_id: user_id).order(:name)
   end
@@ -16,15 +18,7 @@ class CategoryRepository
     Category.find(id)
   end
 
-  def find_by(attributes = {})
-    Category.find_by(attributes)
-  end
-
   def destroy(id)
     Category.delete(id)
-  end
-
-  def by_user(user_id)
-    Category.where(user_id: user_id)
   end
 end

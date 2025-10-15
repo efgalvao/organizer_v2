@@ -2,7 +2,7 @@ module FinancingServices
   class CreatePayment
     def initialize(params)
       @params = params
-      @payment_repository = PaymentRepository.new
+      @payment_repository = PaymentRepository
     end
 
     def self.call(params)
@@ -42,10 +42,11 @@ module FinancingServices
     end
 
     def financing
-      @financing ||= FinancingRepository.new.find_by({ id: params[:financing_id] })
+      @financing ||= FinancingRepository.find_by({ id: params[:financing_id] })
     end
 
     def next_ordinary_parcel
+      # usar repository ?
       financing.payments.ordered.ordinary.first&.parcel.to_i + 1
     end
 

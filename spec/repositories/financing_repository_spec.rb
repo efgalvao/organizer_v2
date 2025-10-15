@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe FinancingRepository do
-  subject(:repository) { described_class.new }
+  subject(:repository) { described_class }
 
   let(:user) { create(:user) }
   let!(:financings) { create_list(:financing, 2, user_id: user.id) }
