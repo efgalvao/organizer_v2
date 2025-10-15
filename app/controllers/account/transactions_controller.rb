@@ -8,7 +8,7 @@ module Account
       transactions = TransactionRepository.for_user_account(
         params[:account_id],
         current_user.id,
-        future: params[:future]
+        future: ActiveModel::Type::Boolean.new.cast(params[:future])
       )
       @parent = AccountRepository.find_by(id: params[:account_id], user_id: current_user.id).decorate
       @transactions = TransactionDecorator.decorate_collection(transactions)
