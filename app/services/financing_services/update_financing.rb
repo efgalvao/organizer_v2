@@ -14,6 +14,8 @@ module FinancingServices
 
     def call
       update_financing
+    rescue StandardError
+      financing
     end
 
     private
@@ -21,12 +23,11 @@ module FinancingServices
     attr_reader :user_id, :borrowed_value, :installments, :name, :financing_id
 
     def financing
-      @financing ||= Financings::Financing.find_by(id: financing_id, user_id: user_id)
+      @financing ||= Financings::Financing.find_by({ id: financing_id, user_id: user_id })
     end
 
     def update_financing
-      financing.update(financing_attributes)
-      financing
+      FinancingRepository.update!(financing, financing_attributes)
     end
 
     def financing_attributes

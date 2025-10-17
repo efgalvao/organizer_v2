@@ -5,12 +5,12 @@ module Account
     before_action :categories, only: %i[new create edit anticipate]
 
     def index
-      transactions = AccountServices::FetchTransactions.call(
+      transactions = TransactionRepository.for_user_account(
         params[:account_id],
         current_user.id,
-        params[:future]
+        future: ActiveModel::Type::Boolean.new.cast(params[:future])
       )
-      @parent = Account.find(params[:account_id]).decorate
+      @parent = AccountRepository.find_by(id: params[:account_id], user_id: current_user.id).decorate
       @transactions = TransactionDecorator.decorate_collection(transactions)
     end
 
@@ -21,7 +21,7 @@ module Account
     def edit; end
 
     def create
-      @transaction = TransactionServices::TransactionRequestBuilder.call(transactions_params)
+      @transaction = TransactionServices::TransactionRequestBuilder.call(transaction_params)
 
       if @transaction.valid?
         @transaction = @transaction.decorate
@@ -35,8 +35,9 @@ module Account
     end
 
     def update
-      if @transaction.update(update_params)
-        @transaction = @transaction.decorate
+      transaction = TransactionRepository.update!(@transaction, transaction_params)
+      if transaction.update(update_params)
+        @transaction = transaction.decorate
         respond_to do |format|
           format.html { redirect_to account_transactions_path, notice: 'Transação atualizada.' }
           format.turbo_stream { flash.now[:notice] = 'Transação  atualizada.' }
@@ -68,7 +69,7 @@ module Account
 
     private
 
-    def transactions_params
+    def transaction_params
       params.require(:transaction).permit(:title, :category_id, :amount, :type, :date, :future, :parcels, :group)
             .merge(account_id: params[:account_id])
     end
@@ -82,11 +83,11 @@ module Account
     end
 
     def set_transaction
-      @transaction = Transaction.find(params[:id]).becomes(Transaction)
+      @transaction = TransactionRepository.find_by(id: params[:id])
     end
 
     def categories
-      @categories ||= Category.where(user_id: current_user.id).order(:name)
+      @categories ||= CategoryRepository.all(current_user.id)
     end
   end
 end

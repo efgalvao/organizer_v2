@@ -4,7 +4,7 @@ module Investments
     before_action :set_investment, only: %i[edit show]
 
     def index
-      investments = ::InvestmentsServices::FetchInvestments.call(current_user.id)
+      investments = InvestmentRepository.all(current_user.id)
 
       @investments = Investments::InvestmentDecorator.decorate_collection(investments)
 
@@ -55,7 +55,7 @@ module Investments
     private
 
     def set_investment
-      @investment = Investments::Investment.find(params[:id])
+      @investment = InvestmentRepository.find(params[:id])
     end
 
     def investment_params

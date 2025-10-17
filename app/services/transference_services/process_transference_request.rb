@@ -58,7 +58,7 @@ module TransferenceServices
     end
 
     def account(account_id)
-      Account::Account.find(account_id)
+      AccountRepository.find_by(id: account_id)
     end
 
     def amount
