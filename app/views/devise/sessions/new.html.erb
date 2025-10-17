@@ -1,22 +1,21 @@
 <div class="login-container">
-  <div class="login-box">
     <h2>Login</h2>
 
     <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="form-group">
     <%= f.input :email,
-                required: false,
+                required: true,
                 autofocus: true,
                 input_html: { autocomplete: "email" } %>
       </div>
 
       <div class="form-group">
     <%= f.input :password,
-                required: false,
+                required: true,
                 input_html: { autocomplete: "current-password" } %>
       </div>
 
       <%= f.submit 'Log in', class: 'lcars-submit' %>
     <% end %>
-  </div>
+
 </div>

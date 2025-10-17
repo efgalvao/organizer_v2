@@ -1,12 +1,20 @@
 Rails.application.routes.draw do
   mount Coverband::Reporters::Web.new, at: '/coverage'
 
-  devise_for :users
-  devise_scope :user do
-    get 'sign_in', to: 'devise/sessions#new'
-  end
+  # devise_for :users
+  # devise_scope :user do
+  #   get 'sign_in', to: 'devise/sessions#new'
+  # end
+
+  get '/login', to: 'sessions#new'
+  post '/login', to: 'sessions#create'
+  delete '/logout', to: 'sessions#destroy'
+
+  get '/signup', to: 'users#new'
+  post '/signup', to: 'users#create'
 
   root 'home#index'
+
   get 'summary', to: 'home#show', as: 'summary'
   get 'transactions', to: 'home#transactions', as: 'transactions'
 
