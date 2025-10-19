@@ -30,6 +30,13 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  sessions:
+    signed_in: You are logged in
+    signed_out: You have logged out
+  failure:
+    user:
+      unauthenticated: You must be logged to access this content
+      invalid: Wrong credentials
   parcel: parcel
   buttons:
     save: Save
