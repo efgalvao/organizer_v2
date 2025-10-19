@@ -97,4 +97,20 @@ RSpec.describe Investments::InvestmentDecorator do
       expect(decorated_investment.bucket).to eq('Reserva de emergência')
     end
   end
+
+  describe '#current_price_per_share' do
+    context 'when the kind is FixedInvestment' do
+      it 'returns the current price in the correct format' do
+        expect(decorated_investment.current_price_per_share).to eq('R$ 300,01')
+      end
+    end
+
+    context 'when the kind is VariableInvestment' do
+      let(:investment) { create(:investment, :variable, shares_total: 2, current_amount: 111.01) }
+
+      it 'returns the current price per share in the correct format' do
+        expect(decorated_investment.current_price_per_share).to eq('R$ 111,01')
+      end
+    end
+  end
 end
