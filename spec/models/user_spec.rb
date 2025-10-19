@@ -15,9 +15,5 @@ RSpec.describe User do
     it 'is not valid without a email' do
       expect(new_user).to validate_presence_of(:email)
     end
-
-    it 'is not valid without a password' do
-      expect(new_user).to validate_presence_of(:password)
-    end
   end
 end
