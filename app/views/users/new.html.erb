@@ -1,0 +1,32 @@
+<div class="signup-container">
+<div class="signup-box">
+
+
+  <h2>Cadastro</h2>
+
+  <%= form_with model: @user, url: signup_path, html: { class: 'login-form' }  do |form| %>
+    <div class="form-inputs">
+      <%= form.label :name %><br>
+      <%= form.text_field :name %>
+
+      <%= form.label :username %><br>
+      <%= form.text_field :username %>
+
+      <%= form.label :email %><br>
+      <%= form.email_field :email %>
+
+      <%= form.label :password %><br>
+      <%= form.password_field :password %>
+
+      <%= form.label :password_confirmation %><br>
+      <%= form.password_field :password_confirmation %>
+    </div>
+
+    <div>
+      <%= form.submit 'Criar conta', class: 'lcars-submit' %>
+    </div>
+  <% end %>
+
+  <p>Já tem conta? <%= link_to 'Entrar', login_path %></p>
+</div>
+</div>

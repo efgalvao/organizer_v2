@@ -41,7 +41,7 @@ RSpec.describe 'Home' do
         get transactions_path
 
         expect(response).to have_http_status(:found)
-        expect(response).to redirect_to(new_user_session_path)
+        expect(response).to redirect_to(login_path)
       end
     end
   end

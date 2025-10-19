@@ -5,7 +5,7 @@ RSpec.describe 'Category' do
   let(:category) { create(:category, user: user) }
 
   before do
-    sign_in user
+    sign_in(user)
   end
 
   describe 'GET /index' do

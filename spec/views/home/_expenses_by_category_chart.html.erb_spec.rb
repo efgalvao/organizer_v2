@@ -7,11 +7,7 @@ RSpec.describe 'home/_expenses_by_category_chart' do
   let(:expense_by_category) { { card_expenses: card_expenses, account_expenses: account_expenses } }
 
   before do
-    allow(view).to receive_messages(
-      current_user: user,
-      expense_by_category: expense_by_category
-    )
-    render
+    render partial: 'home/expenses_by_category_chart', locals: { expense_by_category: expense_by_category }
   end
 
   it 'displays the main title' do

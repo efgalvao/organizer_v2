@@ -65,6 +65,19 @@ body {
   color: #FF9900;
 }
 
+.login-form input[type="text"],
+.login-form input[type="email"],
+.login-form input[type="password"] {
+  background-color: #fff !important;
+  color: #000 !important;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  width: 100%;
+  opacity: 1 !important;
+  caret-color: #000;
+}
+
 .form-group {
   margin-bottom: 1rem;
 }
@@ -84,13 +97,29 @@ body {
   border: 2px solid #9932CC;
 }
 
-.lcars-submit {
+.login-form .lcars-submit {
+  background-color: #ff9900;
+  color: #000;
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
   width: 100%;
   padding: 0.75rem;
-  background-color: #FF9900;
-  color: #000;
-  font-weight: bold;
-  border: none;
   border-radius: 5px;
-  cursor: pointer;
+}
+
+.signup-container {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-box {
+  background-color: #111;
+  border: 3px solid #9932CC;
+  border-radius: 20px;
+  padding: 2rem;
+  width: 500px;
 }
