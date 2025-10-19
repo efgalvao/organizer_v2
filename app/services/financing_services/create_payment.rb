@@ -2,6 +2,7 @@ module FinancingServices
   class CreatePayment
     def initialize(params)
       @params = params
+      @payment_repository = PaymentRepository
     end
 
     def self.call(params)
@@ -9,16 +10,14 @@ module FinancingServices
     end
 
     def call
-      payment = Financings::Payment.new(payment_attributes)
-      payment.save
-      payment
-    rescue StandardError => e
-      Financings::Payment.new.errors.add(:base, e.message)
+      payment_repository.create!(payment_attributes)
+    rescue StandardError
+      Financings::Payment.new
     end
 
     private
 
-    attr_reader :params
+    attr_reader :params, :payment_repository
 
     def payment_attributes
       {
@@ -43,10 +42,11 @@ module FinancingServices
     end
 
     def financing
-      @financing ||= Financings::Financing.find(params[:financing_id])
+      @financing ||= FinancingRepository.find_by({ id: params[:financing_id] })
     end
 
     def next_ordinary_parcel
+      # usar repository ?
       financing.payments.ordered.ordinary.first&.parcel.to_i + 1
     end
 

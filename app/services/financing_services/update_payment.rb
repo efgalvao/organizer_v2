@@ -3,6 +3,7 @@ module FinancingServices
     def initialize(payment_id, params)
       @payment_id = payment_id
       @params = params
+      @payment_repository = PaymentRepository
     end
 
     def self.call(payment_id, params)
@@ -15,14 +16,14 @@ module FinancingServices
 
     private
 
-    attr_reader :payment_id, :params
+    attr_reader :payment_id, :params, :payment_repository
 
     def payment
-      Financings::Payment.find(payment_id)
+      payment_repository.find_by({ id: payment_id })
     end
 
     def update_payment
-      payment.update(update_params)
+      payment_repository.update!(payment, update_params)
       payment
     end
 

@@ -13,14 +13,19 @@ module Financing
     end
 
     def create
-      @payment = FinancingServices::CreatePayment.call(payment_params).decorate
-      if @payment.valid?
+      payment = FinancingServices::CreatePayment.call(payment_params)
+
+      if payment.valid?
+        @payment = payment.decorate
+        @financing = @financing.reload.decorate
+
         respond_to do |format|
-          @financing = @financing.reload.decorate
-          format.html { redirect_to financing_path(@financing), notice: 'Pagamento criado.' }
-          format.turbo_stream { flash.now[:notice] = 'Pagamento criado.' }
+          notice_message = t('payment.form.payment_created')
+          format.html { redirect_to financing_path(@financing), notice: notice_message }
+          format.turbo_stream { flash.now[:notice] = notice_message }
         end
       else
+        @payment = payment
         render :new, status: :unprocessable_entity
       end
     end
@@ -29,14 +34,14 @@ module Financing
       @payment = FinancingServices::UpdatePayment.call(@payment.id, payment_params)
 
       if @payment.valid?
-        redirect_to financing_path(@payment.financing_id), notice: 'Pagamento atualizado.'
+        redirect_to financing_path(@payment.financing_id), notice: t('payment.form.payment_updated')
       else
         render :edit, status: :unprocessable_entity
       end
     end
 
     def destroy
-      @payment.destroy
+      PaymentRepository.destroy(@payment)
       @financing = @financing.reload.decorate
 
       respond_to do |format|
@@ -48,11 +53,11 @@ module Financing
     private
 
     def set_financing
-      @financing = Financings::Financing.find_by(id: params[:financing_id], user_id: current_user.id)
+      @financing = FinancingRepository.find_by({ id: params[:financing_id], user_id: current_user.id })
     end
 
     def set_payment
-      @payment = Financings::Payment.find(params[:id])
+      @payment = PaymentRepository.find_by({ id: params[:id] })
     end
 
     def payment_params

@@ -12,9 +12,9 @@ module FinancingServices
     end
 
     def call
-      financing = Financings::Financing.new(financing_attributes)
-      financing.save
-      financing
+      FinancingRepository.create!(financing_attributes)
+    rescue StandardError
+      Financings::Financing.new
     end
 
     private

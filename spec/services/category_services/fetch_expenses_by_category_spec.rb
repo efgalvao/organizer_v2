@@ -51,7 +51,7 @@ RSpec.describe CategoryServices::FetchExpensesByCategory do
                                              'Transport' => 200
                                            })
 
-      expect(result[:account_expenses]).to be_empty
+      expect(result[:account_expenses]).to be_nil
     end
   end
 

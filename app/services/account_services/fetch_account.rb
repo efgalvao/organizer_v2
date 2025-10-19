@@ -18,7 +18,7 @@ module AccountServices
     attr_reader :user_id, :account_id
 
     def account
-      @account ||= Account::Account.find_by(id: account_id, user_id: user_id)
+      @account ||= AccountRepository.find_by(id: account_id, user: user_id)
     end
   end
 end

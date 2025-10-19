@@ -214,7 +214,6 @@ en:
       new_payment: New payment
       create_payment: Create payment
       edit_payment: Edit payment
-
     form:
         paid_parcels: Paid parcels
         date: Date
@@ -227,6 +226,9 @@ en:
         fees: fees
         adjustments: Adjustments
         monetary_correction: Monetary correction
+        payment_created: Payment Created
+        payment_updated: Payment Updated
+        payment_removed: Payment Removed
   home:
     welcome: Welcome
     helpful_message: Here are some useful links
