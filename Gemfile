@@ -46,8 +46,6 @@ gem 'sassc-rails'
 
 gem 'simple_form', '~> 5.1.0'
 
-gem 'devise'
-
 gem 'bcrypt', '~> 3.1.7'
 
 gem "chartkick"
