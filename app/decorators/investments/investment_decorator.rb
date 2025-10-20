@@ -26,11 +26,7 @@ module Investments
     end
 
     def current_price_per_share
-      if object.type == 'Investments::VariableInvestment'
-        format_currency(object.current_amount)
-      else
-        format_currency(object.current_amount)
-      end
+      format_currency(object.current_amount)
     end
 
     def balance
@@ -84,13 +80,12 @@ module Investments
     end
 
     def dividends_chart_data
-      # must be dividends and interests
       investment_chart_data[:earnings]
     end
 
     def average_price
       if object.type == 'Investments::VariableInvestment'
-        format_currency(object.invested_amount / object.shares_total)
+        format_currency(safe_divide(object.invested_amount, object.shares_total))
       else
         format_currency(object.invested_amount)
       end
@@ -106,6 +101,12 @@ module Investments
 
     def bucket
       I18n.t("investments.buckets.#{object.bucket}")
+    end
+
+    def safe_divide(a, b)
+      return 0 if b.to_f.zero?
+
+      a.to_f / b.to_f
     end
   end
 end
