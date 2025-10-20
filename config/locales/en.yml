@@ -96,6 +96,7 @@ en:
       investments:
         title: Investments
         name: Name
+        share_price: Share Price
         average_price: Average price
         shares_total: Shares total
         invested_amount: Invested

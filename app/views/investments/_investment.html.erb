@@ -1,5 +1,4 @@
 <%= turbo_frame_tag "investment_#{investment.id}" do %>
-
   <tr>
     <td>
       <%= link_to investment.name, investment_path(investment),
@@ -20,6 +19,10 @@
 
     <td>
       <%= investment.balance %>
+    </td>
+
+    <td>
+      <%= investment.current_price_per_share %>
     </td>
 
     <td>

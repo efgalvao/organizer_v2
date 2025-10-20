@@ -67,6 +67,7 @@ pt-BR:
         name: Nome
         invested_amount: Investido
         current_amount: Atual
+        share_price: Valor da cota
         kind: Tipo
         bucket: Carteira
         shares_total: Total de cotas
