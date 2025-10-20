@@ -103,10 +103,10 @@ module Investments
       I18n.t("investments.buckets.#{object.bucket}")
     end
 
-    def safe_divide(a, b)
-      return 0 if b.to_f.zero?
+    def safe_divide(amount, shares)
+      return 0 if shares.to_f.zero?
 
-      a.to_f / b.to_f
+      amount.to_f / shares
     end
   end
 end
