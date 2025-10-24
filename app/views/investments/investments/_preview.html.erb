@@ -1,0 +1,34 @@
+<div class="lcars-financing-preview-item">
+  <div class="lcars-card-field">
+    <%= link_to investment.name, investment_path(investment),
+                data: { turbo_frame: "_top" }  %>
+  </div>
+
+  <div class="lcars-card-field">
+    <%= investment.kind %>
+  </div>
+
+  <div class="lcars-card-field">
+    <%= investment.bucket %>
+  </div>
+
+  <div class="lcars-card-field">
+    <%= investment.invested_amount %>
+  </div>
+
+  <div class="lcars-card-field">
+    <%= investment.balance %>
+  </div>
+
+  <div class="lcars-card-field">
+    <%= investment.current_price_per_share %>
+  </div>
+
+  <div class="lcars-card-field">
+    <%= investment.shares_total %>
+  </div>
+
+  <div class="lcars-card-field">
+    <%= investment.average_price %>
+  </div>
+</div>

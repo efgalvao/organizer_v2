@@ -1,5 +1,5 @@
 <%= turbo_stream.update "new_investment", "" %>
-  <%= turbo_stream.prepend "investments" do %>
-    <%= render partial: 'account/accounts/investment', object: @investment, locals: { investment: @investment } %>
-  <% end %>
+<%= turbo_stream.update "preview" do %>
+    <%= render partial: 'investments/investments/preview', locals: { investment: @investment } %>
+<% end %>
 <%= render_turbo_stream_flash_messages %>

@@ -46,6 +46,18 @@
   margin-bottom: 1rem;
 }
 
+.lcars-financing-preview-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  align-items: center;
+  gap: 2rem;
+  background-color: #111;
+  border: 2px solid #9932CC;
+  border-radius: 20px;
+  padding: 1rem 2rem;
+  margin-bottom: 1rem;
+}
+
 .lcars-card-field {
   color: #FF9900;
   font-weight: bold;
