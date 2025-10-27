@@ -47,9 +47,7 @@ module InvestmentsServices
     end
 
     def validate_response!(json)
-      if json['results'].nil? || json['results'].empty?
-        raise InvalidTickerError, I18n.t('investments.investments.show.fetch_quote_error')
-      end
+      raise InvalidTickerError, I18n.t('investments.investments.show.fetch_quote_error') if json['results'].blank?
 
       returned_symbol = json['results'][0]['symbol'].to_s.strip.upcase
       requested = ticker.to_s.strip.upcase

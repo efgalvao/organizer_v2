@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.describe InvestmentsServices::FetchStockQuote, type: :service do
   subject(:service) { described_class.new(ticker) }
 
-  let(:http) { double('http') }
+  let(:http) { instance_double(Net::HTTP) }
   let(:ticker) { 'TEST11' }
 
   def stub_http_response(body:, success: true)
-    response = double('response', body: body)
+    response = instance_double(Net::HTTPResponse, body: body)
     allow(response).to receive(:is_a?) do |klass|
       klass == Net::HTTPSuccess ? success : false
     end
