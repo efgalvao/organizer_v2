@@ -6,6 +6,11 @@ RSpec.describe InvestmentsServices::FetchStockQuote, type: :service do
   let(:http) { instance_double(Net::HTTP) }
   let(:ticker) { 'TEST11' }
 
+  before do
+    stub_const('InvestmentsServices::FetchStockQuote::BASE_URL', 'http://example.com')
+    stub_const('InvestmentsServices::FetchStockQuote::BRAPI_TOKEN', 'test-token')
+  end
+
   def stub_http_response(body:, success: true)
     response = instance_double(Net::HTTPResponse, body: body)
     allow(response).to receive(:is_a?) do |klass|
