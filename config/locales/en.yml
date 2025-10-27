@@ -368,6 +368,7 @@ en:
         new_dividend: New dividend
         new_interest_on_equity: New interest on equity
         fetch_quote: Fetch Quote
+        fetch_quote_error: Could not fetch quote for this ticker
         negotiation_form:
           date: Date
           amount: Amount
