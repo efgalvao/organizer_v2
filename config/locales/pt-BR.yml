@@ -340,6 +340,7 @@ pt-BR:
         new_dividend: Novo dividendo
         new_interest_on_equity: Novo juros sobre capital próprio
         fetch_quote: Buscar cotação
+        fetch_quote_error: Não foi possível buscar a cotação para este ticker
         negotiation_form:
           date: Data
           amount: Valor

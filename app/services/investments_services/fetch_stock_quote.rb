@@ -23,6 +23,10 @@ module InvestmentsServices
       parse_json(json)
     end
 
+    private
+
+    attr_reader :ticker
+
     def fetch_latest_quote
       uri = URI("#{BASE_URL}/quote/#{ticker}")
       response = Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') do |http|
@@ -30,26 +34,36 @@ module InvestmentsServices
         request['Authorization'] = "Bearer #{BRAPI_TOKEN}"
         http.request(request)
       end
+
+      unless response.is_a?(Net::HTTPSuccess)
+        raise InvalidTickerError, I18n.t('investments.investments.show.fetch_quote_error')
+      end
+
       parsed_response = JSON.parse(response.body)
-      validate_response(parsed_response)
+      validate_response!(parsed_response)
       parsed_response
+    rescue JSON::ParserError
+      raise InvalidTickerError, I18n.t('investments.investments.show.fetch_quote_error')
     end
 
-    private
+    def validate_response!(json)
+      raise InvalidTickerError, I18n.t('investments.investments.show.fetch_quote_error') if json['results'].blank?
 
-    attr_reader :ticker
-
-    def validate_response(json)
-      return unless ticker.strip.upcase != json['results'][0]['symbol'].strip.upcase
+      returned_symbol = json['results'][0]['symbol'].to_s.strip.upcase
+      requested = ticker.to_s.strip.upcase
+      return unless returned_symbol != requested
 
       raise InvalidTickerError,
             "Ticker retornado (#{json['results'][0]['symbol']}) não confere com o solicitado (#{ticker})"
     end
 
     def parse_json(json)
+      result = json['results'][0]
+      time = result['regularMarketTime']
+
       {
-        value: json['results'][0]['regularMarketPrice'],
-        date: json['results'][0]['regularMarketTime']
+        value: result['regularMarketPrice'],
+        date: time
       }
     end
   end

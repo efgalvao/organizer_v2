@@ -1,61 +1,103 @@
 require 'rails_helper'
 
-RSpec.describe InvestmentsServices::FetchStockQuote do
-  let(:ticker) { 'PETR4' }
-  let(:service) { described_class.new(ticker) }
-  let(:base_url) { 'https://brapi.dev/api' }
-  let(:token) { 'fake-token' }
+RSpec.describe InvestmentsServices::FetchStockQuote, type: :service do
+  subject(:service) { described_class.new(ticker) }
+
+  let(:http) { instance_double(Net::HTTP) }
+  let(:ticker) { 'TEST11' }
 
   before do
-    ENV['BRAPI_BASE_URL'] = base_url
-    ENV['BRAPI_TOKEN'] = token
+    stub_const('InvestmentsServices::FetchStockQuote::BASE_URL', 'http://example.com')
+    stub_const('InvestmentsServices::FetchStockQuote::BRAPI_TOKEN', 'test-token')
   end
 
-  describe '.call' do
-    context 'when API call is successful' do
-      let(:successful_response) do
-        Struct.new(:status, :body).new(200, {
-          'results' => [{
-            'symbol' => 'PETR4',
-            'regularMarketPrice' => 25.50,
-            'regularMarketTime' => 1_641_234_567
-          }]
-        }.to_json)
+  def stub_http_response(body:, success: true)
+    response = instance_double(Net::HTTPResponse, body: body)
+    allow(response).to receive(:is_a?) do |klass|
+      klass == Net::HTTPSuccess ? success : false
+    end
+
+    allow(http).to receive(:request).and_return(response)
+    allow(Net::HTTP).to receive(:start).and_yield(http).and_return(response)
+  end
+
+  describe '#call / #fetch_latest_quote' do
+    context 'when API returns success with parsable time string' do
+      let(:time_str) { '2023-01-02T15:30:00Z' }
+      let(:json) do
+        {
+          'results' => [
+            {
+              'symbol' => ticker,
+              'regularMarketPrice' => 10.0,
+              'regularMarketTime' => time_str
+            }
+          ]
+        }.to_json
       end
 
-      before do
-        allow(Net::HTTP).to receive(:start).and_return(successful_response)
-      end
+      it 'parses value and parses time string into Time.zone' do
+        stub_http_response(body: json, success: true)
 
-      it 'returns quote data' do
-        result = described_class.call(ticker)
-
-        expect(result).to eq({
-                               value: 25.50,
-                               date: 1_641_234_567
-                             })
+        result = service.call
+        expect(result[:value]).to eq(10.0)
+        expect(result[:date]).to eq(time_str)
       end
     end
 
-    context 'when ticker is invalid' do
-      let(:invalid_response) do
-        Struct.new(:status, :body).new(200, {
-          'results' => [{
-            'symbol' => 'DIFFERENT',
-            'regularMarketPrice' => 25.50,
-            'regularMarketTime' => 1_641_234_567
-          }]
-        }.to_json)
+    context 'when API returns non-success HTTP response' do
+      let(:json) { '{}'.to_json }
+
+      it 'raises InvalidTickerError' do
+        stub_http_response(body: json, success: false)
+
+        expect { service.call }.to raise_error(InvestmentsServices::FetchStockQuote::InvalidTickerError)
+      end
+    end
+
+    context 'when response body is not valid JSON' do
+      it 'raises InvalidTickerError' do
+        stub_http_response(body: 'not json', success: true)
+
+        expect { service.call }.to raise_error(InvestmentsServices::FetchStockQuote::InvalidTickerError)
+      end
+    end
+
+    context 'when results are empty or nil' do
+      it 'raises InvalidTickerError for empty results' do
+        stub_http_response(body: { 'results' => [] }.to_json, success: true)
+
+        expect { service.call }.to raise_error(InvestmentsServices::FetchStockQuote::InvalidTickerError)
       end
 
-      before do
-        allow(Net::HTTP).to receive(:start).and_return(invalid_response)
+      it 'raises InvalidTickerError for nil results' do
+        stub_http_response(body: { 'results' => nil }.to_json, success: true)
+
+        expect { service.call }.to raise_error(InvestmentsServices::FetchStockQuote::InvalidTickerError)
+      end
+    end
+
+    context 'when returned symbol does not match requested' do
+      let(:json) do
+        {
+          'results' => [
+            {
+              'symbol' => 'OTHER',
+              'regularMarketPrice' => 1.0,
+              'regularMarketTime' => 1_700_000_000
+            }
+          ]
+        }.to_json
       end
 
-      it 'raises TickerInvalidoError' do
-        expect do
-          described_class.call(ticker)
-        end.to raise_error(InvestmentsServices::FetchStockQuote::InvalidTickerError)
+      it 'raises InvalidTickerError with explanatory message' do
+        stub_http_response(body: json, success: true)
+
+        expect { service.call }.to raise_error do |error|
+          expect(error).to be_a(InvestmentsServices::FetchStockQuote::InvalidTickerError)
+          expect(error.message).to include('Ticker retornado')
+          expect(error.message).to include(ticker)
+        end
       end
     end
   end
