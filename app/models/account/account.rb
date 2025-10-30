@@ -37,5 +37,9 @@ module Account
         'Account::Broker' => 'broker'
       }.fetch(type, 'unknown')
     end
+
+    def card?
+      type == 'Account::Card'
+    end
   end
 end

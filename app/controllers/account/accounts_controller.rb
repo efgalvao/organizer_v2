@@ -58,8 +58,13 @@ module Account
     def consolidate_report
       AccountServices::ConsolidateAccountReport.call(@account, Date.current)
       respond_to do |format|
-        format.html { redirect_to account_path(@account), notice: t('account.show.report_updated') }
-        format.turbo_stream { flash.now[:notice] = t('account.show.report_updated') }
+        @account.reload
+        if @account.card?
+          format.html { redirect_to card_path(@account), notice: t('account.show.report_updated') }
+        else
+          format.html { redirect_to account_path(@account), notice: t('account.show.report_updated') }
+          format.turbo_stream { flash.now[:notice] = t('account.show.report_updated') }
+        end
       end
     end
 
