@@ -22,7 +22,8 @@ jobs:
           POSTGRES_DB: organizer_v2_test
           POSTGRES_PASSWORD: postgres
     steps:
-      - checkout
+      - checkout:
+          method: blobless
       - ruby/install-deps:
           with-cache: true
       - node/install:
@@ -62,7 +63,8 @@ jobs:
           POSTGRES_DB: organizer_v2_test
           POSTGRES_PASSWORD: postgres
     steps:
-      - checkout
+      - checkout:
+          method: blobless
       - ruby/install-deps
       - run:
           name: rubocop
@@ -82,7 +84,8 @@ jobs:
           POSTGRES_DB: organizer_v2_test
           POSTGRES_PASSWORD: postgres
     steps:
-      - checkout
+      - checkout:
+          method: blobless
       - ruby/install-deps
       - run:
           name: rails_best_practices
