@@ -2,7 +2,7 @@ class TransferencesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @transferences = TransferenceRepository.all(user_id).decorate
+    @transferences = TransferenceRepository.all(current_user.id).decorate
   end
 
   def new
