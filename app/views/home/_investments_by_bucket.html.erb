@@ -21,7 +21,7 @@
     <% investments_by_bucket.each do |bucket, data| %>
       <div class="bucket-item">
         <div class="bucket-header">
-          <h4><%= t("investments.buckets.#{bucket}") %></h4>
+          <h4><%= t("investments.buckets.#{data[:bucket]}") %></h4>
           <span class="bucket-count">
             <%= data[:count] %>
             <%= data[:count] == 1 ? t('investment.singular') : t('investment.plural') %>

@@ -26,11 +26,10 @@ module UserServices
     end
 
     def account_scope
-      AccountRepository.find_by(user_id: user_id)
+      AccountRepository.all_by_user(user_id)
     end
 
     def formated_data
-      Rails.logger.info("---> expenses_by_group: #{expenses_by_group}")
       {
         Metas: (investments['metas'].to_f + expenses_by_group['metas'].to_f),
         Conhecimento: expenses_by_group['conhecimento'].to_f,
