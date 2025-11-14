@@ -34,7 +34,7 @@ module InvestmentsServices
         request['Authorization'] = "Bearer #{BRAPI_TOKEN}"
         http.request(request)
       end
-
+      Rails.logger.info("Fetch Quote Response: #{response.body}")
       unless response.is_a?(Net::HTTPSuccess)
         raise InvalidTickerError, I18n.t('investments.investments.show.fetch_quote_error')
       end
