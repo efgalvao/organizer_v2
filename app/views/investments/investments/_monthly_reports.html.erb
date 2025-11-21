@@ -1,0 +1,33 @@
+<div class="lcars-content">
+  <div class="lcars-subtitle">
+    <%= t('investments.investments.show.summary.monthly_reports.title') %>
+  </div>
+
+  <div class="lcars-table-container">
+    <table class="lcars-table">
+      <thead>
+        <tr>
+          <th><%= t('investments.investments.show.summary.monthly_reports.reference_date') %></th>
+          <th><%= t('investments.investments.show.summary.monthly_reports.starting_shares') %></th>
+          <th><%= t('investments.investments.show.summary.monthly_reports.starting_market_value') %></th>
+          <th><%= t('investments.investments.show.summary.monthly_reports.shares_bought') %></th>
+          <th><%= t('investments.investments.show.summary.monthly_reports.shares_sold') %></th>
+          <th><%= t('investments.investments.show.summary.monthly_reports.inflow_amount') %></th>
+          <th><%= t('investments.investments.show.summary.monthly_reports.outflow_amount') %></th>
+          <th><%= t('investments.investments.show.summary.monthly_reports.dividends_received') %></th>
+          <th><%= t('investments.investments.show.summary.monthly_reports.ending_shares') %></th>
+          <th><%= t('investments.investments.show.summary.monthly_reports.ending_market_value') %></th>
+          <th><%= t('investments.investments.show.summary.monthly_reports.accumulated_inflow_amount') %></th>
+          <th><%= t('investments.investments.show.summary.monthly_reports.average_purchase_price') %></th>
+          <th><%= t('investments.investments.show.summary.monthly_reports.monthly_appreciation_value') %></th>
+          <th><%= t('investments.investments.show.summary.monthly_reports.monthly_return_percentage') %></th>
+          <th><%= t('investments.investments.show.summary.monthly_reports.accumulated_return_percentage') %></th>
+          <th><%= t('investments.investments.show.summary.monthly_reports.portfolio_weight_percentage') %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: 'monthly_report', collection: investment.monthly_reports %>
+      </tbody>
+    </table>
+  </div>
+</div>

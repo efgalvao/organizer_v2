@@ -1,0 +1,19 @@
+<div class="chart">
+  <%= line_chart [
+    { name: t('investments.investments.show.summary.monthly_reports.charts.starting_market_value'), data: investment.monthly_reports_chart_data[:starting_market_value] },
+    { name: t('investments.investments.show.summary.monthly_reports.charts.ending_market_value'), data: investment.monthly_reports_chart_data[:ending_market_value] },
+    { name: t('investments.investments.show.summary.monthly_reports.charts.inflow_amount'), data: investment.monthly_reports_chart_data[:inflow_amount] },
+    { name: t('investments.investments.show.summary.monthly_reports.charts.outflow_amount'), data: investment.monthly_reports_chart_data[:outflow_amount] },
+    { name: t('investments.investments.show.summary.monthly_reports.charts.dividends_received'), data: investment.monthly_reports_chart_data[:dividends_received] },
+    { name: t('investments.investments.show.summary.monthly_reports.charts.accumulated_inflow_amount'), data: investment.monthly_reports_chart_data[:accumulated_inflow_amount] },
+    { name: t('investments.investments.show.summary.monthly_reports.charts.average_purchase_price'), data: investment.monthly_reports_chart_data[:average_purchase_price] },
+    { name: t('investments.investments.show.summary.monthly_reports.charts.monthly_appreciation_value'), data: investment.monthly_reports_chart_data[:monthly_appreciation_value] },
+    { name: t('investments.investments.show.summary.monthly_reports.charts.monthly_return_percentage'), data: investment.monthly_reports_chart_data[:monthly_return_percentage] },
+    { name: t('investments.investments.show.summary.monthly_reports.charts.accumulated_return_percentage'), data: investment.monthly_reports_chart_data[:accumulated_return_percentage] },
+    { name: t('investments.investments.show.summary.monthly_reports.charts.portfolio_weight_percentage'), data: investment.monthly_reports_chart_data[:portfolio_weight_percentage] },
+    { name: t('investments.investments.show.summary.monthly_reports.charts.starting_shares'), data: investment.monthly_reports_chart_data[:starting_shares] },
+    { name: t('investments.investments.show.summary.monthly_reports.charts.shares_bought'), data: investment.monthly_reports_chart_data[:shares_bought] },
+    { name: t('investments.investments.show.summary.monthly_reports.charts.shares_sold'), data: investment.monthly_reports_chart_data[:shares_sold] },
+    { name: t('investments.investments.show.summary.monthly_reports.charts.ending_shares'), data: investment.monthly_reports_chart_data[:ending_shares] }
+  ], precision: 8, discrete: false, legend: 'bottom', spanGaps: true %>
+</div>
