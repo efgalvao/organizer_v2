@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_10_19_000522) do
+ActiveRecord::Schema[7.0].define(version: 2025_11_22_000001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -93,6 +93,30 @@ ActiveRecord::Schema[7.0].define(version: 2025_10_19_000522) do
     t.integer "kind", default: 7, null: false
     t.integer "bucket", default: 0, null: false
     t.index ["account_id"], name: "index_investments_on_account_id"
+  end
+
+  create_table "monthly_investments_reports", force: :cascade do |t|
+    t.bigint "investment_id", null: false
+    t.date "reference_date", null: false
+    t.decimal "starting_shares", precision: 15, scale: 6, default: "0.0"
+    t.decimal "starting_market_value", precision: 15, scale: 2, default: "0.0"
+    t.decimal "shares_bought", precision: 15, scale: 6, default: "0.0"
+    t.decimal "inflow_amount", precision: 15, scale: 2, default: "0.0"
+    t.decimal "outflow_amount", precision: 15, scale: 2, default: "0.0"
+    t.decimal "dividends_received", precision: 15, scale: 2, default: "0.0"
+    t.decimal "ending_shares", precision: 15, scale: 6, default: "0.0"
+    t.decimal "ending_market_value", precision: 15, scale: 2, default: "0.0"
+    t.decimal "accumulated_inflow_amount", precision: 15, scale: 2, default: "0.0"
+    t.decimal "average_purchase_price", precision: 15, scale: 4, default: "0.0"
+    t.decimal "monthly_appreciation_value", precision: 15, scale: 2, default: "0.0"
+    t.decimal "monthly_return_percentage", precision: 8, scale: 4, default: "0.0"
+    t.decimal "accumulated_return_percentage", precision: 8, scale: 4, default: "0.0"
+    t.decimal "portfolio_weight_percentage", precision: 8, scale: 4, default: "0.0"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.decimal "shares_sold", precision: 15, scale: 6, default: "0.0", null: false
+    t.index ["investment_id", "reference_date"], name: "index_monthly_investments_reports_on_investment_and_date", unique: true
+    t.index ["investment_id"], name: "index_monthly_investments_reports_on_investment_id"
   end
 
   create_table "negotiations", force: :cascade do |t|
@@ -208,6 +232,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_10_19_000522) do
   add_foreign_key "financings", "users"
   add_foreign_key "interest_on_equities", "investments"
   add_foreign_key "investments", "accounts"
+  add_foreign_key "monthly_investments_reports", "investments"
   add_foreign_key "payments", "financings"
   add_foreign_key "transactions", "account_reports"
   add_foreign_key "transactions", "accounts"
