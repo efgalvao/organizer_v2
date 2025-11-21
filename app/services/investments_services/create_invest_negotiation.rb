@@ -16,6 +16,7 @@ module InvestmentsServices
         TransactionServices::ProcessTransactionRequest.call(params: transaction_params,
                                                             value_to_update_balance: -amount_by_origin)
         update_investment
+        consolidate_report(negotiation.date)
         negotiation
       end
     end
@@ -88,6 +89,13 @@ module InvestmentsServices
       when 'freedom'
         4
       end
+    end
+
+    def consolidate_report(report_date)
+      parsed_date = report_date.is_a?(String) ? Date.strptime(report_date, '%d/%m/%Y') : report_date
+      InvestmentsServices::ConsolidateMonthlyInvestmentsReport.call(negotiable, parsed_date)
+    rescue StandardError => e
+      Rails.logger.error("Error consolidating monthly report: #{e.message}")
     end
   end
 end

@@ -3,6 +3,7 @@ module Investments
     # self.abstract_class = true
     has_many :dividends, class_name: 'Investments::Dividend', dependent: :destroy
     has_many :interests_on_equities, class_name: 'Investments::InterestOnEquity', dependent: :destroy
+    has_many :monthly_investments_reports, class_name: 'Investments::MonthlyInvestmentsReport', dependent: :destroy
 
     belongs_to :account, class_name: 'Account::Account', touch: true
 

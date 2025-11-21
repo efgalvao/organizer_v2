@@ -12,6 +12,7 @@ module InvestmentsServices
       ActiveRecord::Base.transaction do
         position = Investments::Position.create(formated_params)
         InvestmentsServices::UpdateInvestmentByPosition.call(update_investment_params)
+        consolidate_report(position.date)
         position
       end
     end
@@ -45,6 +46,13 @@ module InvestmentsServices
         current_amount: params[:amount],
         shares_total: params[:shares].to_i
       }
+    end
+
+    def consolidate_report(report_date)
+      parsed_date = report_date.is_a?(String) ? Date.strptime(report_date, '%d/%m/%Y') : report_date
+      InvestmentsServices::ConsolidateMonthlyInvestmentsReport.call(positionable, parsed_date)
+    rescue StandardError => e
+      Rails.logger.error("Error consolidating monthly report: #{e.message}")
     end
   end
 end

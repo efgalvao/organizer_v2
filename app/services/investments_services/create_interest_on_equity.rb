@@ -13,6 +13,7 @@ module InvestmentsServices
         interest_on_equity = Investments::InterestOnEquity.create(formatted_params)
         TransactionServices::ProcessTransactionRequest.call(params: transaction_params,
                                                             value_to_update_balance: amount)
+        consolidate_report(interest_on_equity.date)
         interest_on_equity
       end
     end
@@ -50,6 +51,13 @@ module InvestmentsServices
 
     def amount
       @amount ||= params[:amount].to_d
+    end
+
+    def consolidate_report(report_date)
+      parsed_date = report_date.is_a?(String) ? Date.strptime(report_date, '%d/%m/%Y') : report_date
+      InvestmentsServices::ConsolidateMonthlyInvestmentsReport.call(investment, parsed_date)
+    rescue StandardError => e
+      Rails.logger.error("Error consolidating monthly report: #{e.message}")
     end
   end
 end
