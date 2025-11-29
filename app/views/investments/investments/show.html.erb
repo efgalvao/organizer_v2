@@ -48,6 +48,8 @@
 <div class="item">
     <%= render 'summary', :investment => @investment %>
 
+    <%= render 'current_month_report', :current_month_report => @investment.current_month_report %>
+
     <%= render 'positions', :investment => @investment %>
 
     <%= render 'positions_chart', :positions => @investment.positions_chart_data %>
