@@ -26,13 +26,13 @@ RSpec.describe 'Investments::Dividend' do
 
   describe 'POST /create' do
     context 'with valid parameters' do
-      before { create(:category, id: 17, user: account.user) }
+      before { create(:category, id: primary_income_category_id, user: account.user) }
 
       it 'creates a new dividend' do
         expect do
           post investment_dividends_path(investment_id: investment.id), params: { dividend: {
             date: '',
-            amount_cents: '10.01',
+            amount: '10.01',
             investment_id: investment.id
           } }
         end.to change(Investments::Dividend, :count).by(1)

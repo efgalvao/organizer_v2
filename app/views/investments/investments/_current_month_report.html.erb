@@ -1,0 +1,48 @@
+<div class="lcars-content">
+  <div class="lcars-subtitle">
+    <%= t('investments.investments.show.summary.current_month_report.title') %>
+  </div>
+
+  <div class="lcars-table-container">
+    <table class="lcars-table">
+      <thead>
+        <tr>
+          <th><%= t('investments.investments.show.summary.current_month_report.starting_shares') %></th>
+          <th><%= t('investments.investments.show.summary.current_month_report.starting_market_value') %></th>
+          <th><%= t('investments.investments.show.summary.current_month_report.shares_bought') %></th>
+          <th><%= t('investments.investments.show.summary.current_month_report.shares_sold') %></th>
+          <th><%= t('investments.investments.show.summary.current_month_report.inflow_amount') %></th>
+          <th><%= t('investments.investments.show.summary.current_month_report.outflow_amount') %></th>
+          <th><%= t('investments.investments.show.summary.current_month_report.dividends_received') %></th>
+          <th><%= t('investments.investments.show.summary.current_month_report.ending_shares') %></th>
+          <th><%= t('investments.investments.show.summary.current_month_report.ending_market_value') %></th>
+          <th><%= t('investments.investments.show.summary.current_month_report.accumulated_inflow_amount') %></th>
+          <th><%= t('investments.investments.show.summary.current_month_report.average_purchase_price') %></th>
+          <th><%= t('investments.investments.show.summary.current_month_report.monthly_appreciation_value') %></th>
+          <th><%= t('investments.investments.show.summary.current_month_report.monthly_return_percentage') %></th>
+          <th><%= t('investments.investments.show.summary.current_month_report.accumulated_return_percentage') %></th>
+          <th><%= t('investments.investments.show.summary.current_month_report.portfolio_weight_percentage') %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= current_month_report.starting_shares %></td>
+          <td><%= current_month_report.starting_market_value %></td>
+          <td><%= current_month_report.shares_bought %></td>
+          <td><%= current_month_report.shares_sold %></td>
+          <td><%= current_month_report.inflow_amount %></td>
+          <td><%= current_month_report.outflow_amount %></td>
+          <td><%= current_month_report.dividends_received %></td>
+          <td><%= current_month_report.ending_shares %></td>
+          <td><%= current_month_report.ending_market_value %></td>
+          <td><%= current_month_report.accumulated_inflow_amount %></td>
+          <td><%= current_month_report.average_purchase_price %></td>
+          <td><%= current_month_report.monthly_appreciation_value %></td>
+          <td><%= current_month_report.monthly_return_percentage %></td>
+          <td><%= current_month_report.accumulated_return_percentage %></td>
+          <td><%= current_month_report.portfolio_weight_percentage %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

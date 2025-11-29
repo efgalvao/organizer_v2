@@ -25,9 +25,7 @@ RSpec.describe 'Investments::InterestsOnEquitiesController' do
 
   describe 'POST /create' do
     context 'with valid parameters' do
-      before do
-        create(:category, id: 17, user: user)
-      end
+      before { create(:category, id: primary_income_category_id, user: user) }
 
       it 'creates a new interest on equity' do
         expect do

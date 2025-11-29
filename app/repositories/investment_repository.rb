@@ -30,4 +30,14 @@ module InvestmentRepository
   def interests_for(investment, limit = 6)
     investment.interests_on_equities.order(date: :desc).limit(limit)
   end
+
+  def find_or_initialize_monthly_report(investment, reference_date)
+    month_start = reference_date.beginning_of_month
+    investment.monthly_investments_reports.find_or_initialize_by(reference_date: month_start)
+  end
+
+  def find_monthly_report(investment_id, reference_date)
+    month_start = reference_date.beginning_of_month
+    Investments::MonthlyInvestmentsReport.find_by(investment_id: investment_id, reference_date: month_start)
+  end
 end

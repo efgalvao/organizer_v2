@@ -413,6 +413,40 @@ en:
             monthly_balance: Monthly balance
             dividends: Dividends
             interests_on_equity: Interests on equity
+          monthly_reports:
+            title: Monthly Reports
+            reference_date: Month/Year
+            starting_shares: Starting Shares
+            starting_market_value: Starting Market Value
+            shares_bought: Shares Bought
+            shares_sold: Shares Sold
+            inflow_amount: Inflow
+            outflow_amount: Outflow
+            dividends_received: Dividends Received
+            ending_shares: Ending Shares
+            ending_market_value: Ending Market Value
+            accumulated_inflow_amount: Accumulated Inflow
+            average_purchase_price: Average Purchase Price
+            monthly_appreciation_value: Monthly Appreciation
+            monthly_return_percentage: Monthly Return (%)
+            accumulated_return_percentage: Accumulated Return (%)
+            portfolio_weight_percentage: Portfolio Weight (%)
+            charts:
+              starting_market_value: Starting Market Value
+              ending_market_value: Ending Market Value
+              inflow_amount: Inflow
+              outflow_amount: Outflow
+              dividends_received: Dividends Received
+              accumulated_inflow_amount: Accumulated Inflow
+              average_purchase_price: Average Purchase Price
+              monthly_appreciation_value: Monthly Appreciation
+              monthly_return_percentage: Monthly Return (%)
+              accumulated_return_percentage: Accumulated Return (%)
+              portfolio_weight_percentage: Portfolio Weight (%)
+              starting_shares: Starting Shares
+              shares_bought: Shares Bought
+              shares_sold: Shares Sold
+              ending_shares: Ending Shares
     kinds:
       stock: Stock
       fii: FII

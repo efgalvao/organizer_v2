@@ -1,7 +1,5 @@
 module InvestmentsServices
   class CreateRedeemNegotiation
-    INCOME_CODE = 1
-
     def initialize(params)
       @params = params
     end
@@ -18,6 +16,7 @@ module InvestmentsServices
         TransactionServices::ProcessTransactionRequest.call(params: transaction_params,
                                                             value_to_update_balance: amount_by_origin)
         update_investment
+        consolidate_report(negotiation.date)
         negotiation
       end
     end
@@ -50,7 +49,7 @@ module InvestmentsServices
       { account_id: negotiable.account_id,
         amount: amount_by_origin,
         type: 'Account::Income',
-        category_id: '17',
+        category_id: income_category_id,
         title: "#{I18n.t('investments.redeem_negotiation')} - #{negotiable.name}",
         date: date }
     end
@@ -77,6 +76,17 @@ module InvestmentsServices
       else
         params[:amount].to_d * params[:shares].to_i
       end
+    end
+
+    def consolidate_report(report_date)
+      parsed_date = report_date.is_a?(String) ? Date.strptime(report_date, '%d/%m/%Y') : report_date
+      InvestmentsServices::ConsolidateMonthlyInvestmentsReport.call(negotiable, parsed_date)
+    rescue StandardError => e
+      Rails.logger.error("Error consolidating monthly report: #{e.message}")
+    end
+
+    def income_category_id
+      Category.primary_income_category_id
     end
   end
 end

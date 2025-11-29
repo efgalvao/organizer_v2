@@ -13,6 +13,7 @@ module InvestmentsServices
         dividend = Investments::Dividend.create(formated_params)
         TransactionServices::ProcessTransactionRequest.call(params: transaction_params,
                                                             value_to_update_balance: transaction_amount)
+        consolidate_report(dividend.date)
         dividend
       end
     end
@@ -44,13 +45,24 @@ module InvestmentsServices
       { account_id: investment.account_id,
         amount: transaction_amount,
         type: 'Account::Income',
-        category_id: '17',
+        category_id: income_category_id,
         title: "#{I18n.t('investments.dividends.dividends')} - #{investment.name}",
         date: date }
     end
 
     def transaction_amount
       params[:amount].to_d * params[:shares].to_i
+    end
+
+    def consolidate_report(report_date)
+      parsed_date = report_date.is_a?(String) ? Date.strptime(report_date, '%d/%m/%Y') : report_date
+      InvestmentsServices::ConsolidateMonthlyInvestmentsReport.call(investment, parsed_date)
+    rescue StandardError => e
+      Rails.logger.error("Error consolidating monthly report: #{e.message}")
+    end
+
+    def income_category_id
+      Category.primary_income_category_id
     end
   end
 end

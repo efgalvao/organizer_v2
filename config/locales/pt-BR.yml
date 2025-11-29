@@ -360,6 +360,24 @@ pt-BR:
           current_amount: Valor atual
           shares: Cotas
           average_price: Preço médio
+          current_month_report:
+            title: Relatório do mês atual
+            reference_date: Mês/Ano
+            starting_shares: Cotas Iniciais
+            starting_market_value: Valor de Mercado Inicial
+            shares_bought: Cotas Compradas
+            shares_sold: Cotas Vendidas
+            inflow_amount: Entrada
+            outflow_amount: Saída
+            dividends_received: Proventos Recebidos
+            ending_shares: Cotas Finais
+            ending_market_value: Valor de Mercado Final
+            accumulated_inflow_amount: Total Aportado Acumulado
+            average_purchase_price: Preço Médio de Compra
+            monthly_appreciation_value: Valorização Mensal
+            monthly_return_percentage: Retorno Mensal (%)
+            accumulated_return_percentage: Retorno Acumulado (%)
+            portfolio_weight_percentage: Peso no Portfólio (%)
           positions:
             title: Posições
             date: Data
@@ -385,6 +403,40 @@ pt-BR:
             monthly_balance: Saldo mensal
             dividends: Dividendos
             interests_on_equity: Juros sobre capital próprio
+          monthly_reports:
+            title: Relatórios Mensais
+            reference_date: Mês/Ano
+            starting_shares: Cotas Iniciais
+            starting_market_value: Valor de Mercado Inicial
+            shares_bought: Cotas Compradas
+            shares_sold: Cotas Vendidas
+            inflow_amount: Entrada
+            outflow_amount: Saída
+            dividends_received: Proventos Recebidos
+            ending_shares: Cotas Finais
+            ending_market_value: Valor de Mercado Final
+            accumulated_inflow_amount: Total Aportado Acumulado
+            average_purchase_price: Preço Médio de Compra
+            monthly_appreciation_value: Valorização Mensal
+            monthly_return_percentage: Retorno Mensal (%)
+            accumulated_return_percentage: Retorno Acumulado (%)
+            portfolio_weight_percentage: Peso no Portfólio (%)
+            charts:
+              starting_market_value: Valor de Mercado Inicial
+              ending_market_value: Valor de Mercado Final
+              inflow_amount: Entrada
+              outflow_amount: Saída
+              dividends_received: Proventos Recebidos
+              accumulated_inflow_amount: Total Aportado Acumulado
+              average_purchase_price: Preço Médio de Compra
+              monthly_appreciation_value: Valorização Mensal
+              monthly_return_percentage: Retorno Mensal (%)
+              accumulated_return_percentage: Retorno Acumulado (%)
+              portfolio_weight_percentage: Peso no Portfólio (%)
+              starting_shares: Cotas Iniciais
+              shares_bought: Cotas Compradas
+              shares_sold: Cotas Vendidas
+              ending_shares: Cotas Finais
     kinds:
       stock: Ações
       fii: FII

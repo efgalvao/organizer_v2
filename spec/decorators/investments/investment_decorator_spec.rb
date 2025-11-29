@@ -113,4 +113,30 @@ RSpec.describe Investments::InvestmentDecorator do
       end
     end
   end
+
+  describe '#current_month_report' do
+    context 'when there is a report for the current month' do
+      before do
+        create(:monthly_investments_report, investment: investment, reference_date: Date.current.beginning_of_month)
+      end
+
+      it 'returns the existing report decorated' do
+        report = decorated_investment.current_month_report
+
+        expect(report).to be_a(Investments::MonthlyInvestmentsReportDecorator)
+        expect(report.reference_date).to eq(Date.current.beginning_of_month)
+        expect(report.object).to be_persisted
+      end
+    end
+
+    context 'when there is no report for the current month' do
+      it 'returns a decorated placeholder report' do
+        report = decorated_investment.current_month_report
+
+        expect(report).to be_a(Investments::MonthlyInvestmentsReportDecorator)
+        expect(report.reference_date).to eq(Date.current.beginning_of_month)
+        expect(report.object).not_to be_persisted
+      end
+    end
+  end
 end

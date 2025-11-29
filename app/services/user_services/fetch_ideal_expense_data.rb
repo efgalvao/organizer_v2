@@ -6,8 +6,6 @@ module UserServices
     PLEASURES_PERCENTAGE = 0.1
     KNOWLEDGE_PERCENTAGE = 0.05
     FREEDOM_PERCENTAGE = 0.25
-    INCOMES_CATEGORIES_IDS = [11, 17].freeze
-
     def initialize(user_id)
       @user_id = user_id
     end
@@ -25,12 +23,13 @@ module UserServices
     attr_reader :user_id
 
     def ideal_expenses_data
-      incomes = Account::Income.joins(:account)
-                               .where(accounts: { user_id: user_id })
-                               .where('date >= ? AND date <= ?',
-                                      Date.current.beginning_of_month, Date.current.end_of_month)
-                               .where(category_id: INCOMES_CATEGORIES_IDS)
-                               .sum(:amount)
+      incomes_scope = Account::Income.joins(:account)
+                                     .where(accounts: { user_id: user_id })
+                                     .where('date >= ? AND date <= ?',
+                                            Date.current.beginning_of_month, Date.current.end_of_month)
+
+      incomes_scope = incomes_scope.where(category_id: income_category_ids) if income_category_ids.present?
+      incomes = incomes_scope.sum(:amount)
 
       format_data(incomes)
     end
@@ -43,6 +42,10 @@ module UserServices
         'Liberdade Financeira': (incomes * FREEDOM_PERCENTAGE).round(2),
         Conhecimento: (incomes * KNOWLEDGE_PERCENTAGE).round(2),
         Total: incomes.round(2) }
+    end
+
+    def income_category_ids
+      Category.income_category_ids
     end
   end
 end
