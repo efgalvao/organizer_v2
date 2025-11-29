@@ -2,7 +2,7 @@ module Investments
   class MonthlyInvestmentsReportDecorator < Draper::Decorator
     delegate_all
 
-    def reference_date
+    def formated_reference_date
       object.reference_date.strftime('%m/%Y')
     end
 
@@ -63,7 +63,7 @@ module Investments
     end
 
     def ending_shares
-      object.ending_shares.to_i
+      object.starting_shares + object.shares_bought - object.shares_sold
     end
 
     private

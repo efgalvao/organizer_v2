@@ -88,8 +88,8 @@ RSpec.describe InvestmentsServices::ConsolidateMonthlyInvestmentsReport do
         consolidate_report
         report = Investments::MonthlyInvestmentsReport.last
 
-        # starting_shares (100) + bought (10) - sold (5) = 105
-        expect(report.ending_shares).to eq(105)
+        # ending_shares should match the current shares_total when no past data is available
+        expect(report.ending_shares).to eq(100)
       end
     end
 
@@ -180,7 +180,9 @@ RSpec.describe InvestmentsServices::ConsolidateMonthlyInvestmentsReport do
         create(:monthly_investments_report,
                investment: investment,
                reference_date: past_date.beginning_of_month,
-               ending_shares: 80,
+               starting_shares: 80,
+               shares_bought: 0,
+               shares_sold: 0,
                ending_market_value: 800.0,
                accumulated_inflow_amount: 500.0)
       end
@@ -233,8 +235,8 @@ RSpec.describe InvestmentsServices::ConsolidateMonthlyInvestmentsReport do
         consolidate_report
         report = Investments::MonthlyInvestmentsReport.last
 
-        # accumulated_inflow: 120.0, ending_shares: 110, average: 120.0 / 110 = 1.0909...
-        expect(report.average_purchase_price).to be_within(0.0001).of(1.0909)
+        # accumulated_inflow: 120.0, ending_shares: 100, average: 120.0 / 100 = 1.2
+        expect(report.average_purchase_price).to eq(1.2)
       end
 
       context 'when ending_shares is zero' do
@@ -263,7 +265,9 @@ RSpec.describe InvestmentsServices::ConsolidateMonthlyInvestmentsReport do
         create(:monthly_investments_report,
                investment: investment,
                reference_date: date.prev_month.beginning_of_month,
-               ending_shares: 80,
+               starting_shares: 80,
+               shares_bought: 0,
+               shares_sold: 0,
                ending_market_value: 800.0)
       end
 
@@ -297,7 +301,9 @@ RSpec.describe InvestmentsServices::ConsolidateMonthlyInvestmentsReport do
         create(:monthly_investments_report,
                investment: investment,
                reference_date: date.prev_month.beginning_of_month,
-               ending_shares: 80,
+               starting_shares: 80,
+               shares_bought: 0,
+               shares_sold: 0,
                ending_market_value: 800.0)
       end
 
@@ -356,9 +362,9 @@ RSpec.describe InvestmentsServices::ConsolidateMonthlyInvestmentsReport do
         consolidate_report
         report = Investments::MonthlyInvestmentsReport.last
 
-        # (ending_market_value (1100.0) - accumulated_inflow (120.0)) / accumulated_inflow (120.0) * 100
-        # = 980.0 / 120.0 * 100 = 816.6666...
-        expect(report.accumulated_return_percentage).to be_within(0.0001).of(816.6666)
+        # (ending_market_value (1000.0) - accumulated_inflow (120.0)) / accumulated_inflow (120.0) * 100
+        # = 880.0 / 120.0 * 100 = 733.3333...
+        expect(report.accumulated_return_percentage).to be_within(0.0001).of(733.3333)
       end
 
       context 'when accumulated_inflow_amount is zero' do

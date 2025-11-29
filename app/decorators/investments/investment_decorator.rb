@@ -83,10 +83,21 @@ module Investments
       investment_chart_data[:earnings]
     end
 
+    def current_month_report
+      report = Investments::MonthlyInvestmentsReport.month_report(
+        investment_id: object.id,
+        reference_date: Date.current
+      )
+
+      (report || build_empty_monthly_report).decorate
+    end
+
     def monthly_reports
       twelve_months_ago = Date.current.beginning_of_month - 11.months
+      end_of_range = Date.current.beginning_of_month
+
       object.monthly_investments_reports
-            .where('reference_date >= ?', twelve_months_ago)
+            .where('reference_date >= ? AND reference_date < ?', twelve_months_ago, end_of_range)
             .order(reference_date: :asc)
             .map { |report| MonthlyInvestmentsReportDecorator.new(report) }
     end
@@ -122,10 +133,7 @@ module Investments
     end
 
     def prepare_monthly_reports_chart_data
-      twelve_months_ago = Date.current.beginning_of_month - 11.months
-      reports = object.monthly_investments_reports
-                      .where('reference_date >= ?', twelve_months_ago)
-                      .order(reference_date: :asc)
+      reports = monthly_reports
 
       {
         starting_market_value: format_chart_data(reports, :starting_market_value),
@@ -141,8 +149,7 @@ module Investments
         portfolio_weight_percentage: format_chart_data(reports, :portfolio_weight_percentage),
         starting_shares: format_chart_data(reports, :starting_shares),
         shares_bought: format_chart_data(reports, :shares_bought),
-        shares_sold: format_chart_data(reports, :shares_sold),
-        ending_shares: format_chart_data(reports, :ending_shares)
+        shares_sold: format_chart_data(reports, :shares_sold)
       }
     end
 
@@ -153,6 +160,13 @@ module Investments
         data[date_key] = report.send(attribute).to_f
       end
       data
+    end
+
+    def build_empty_monthly_report
+      Investments::MonthlyInvestmentsReport.new(
+        investment: object,
+        reference_date: Date.current.beginning_of_month
+      )
     end
   end
 end

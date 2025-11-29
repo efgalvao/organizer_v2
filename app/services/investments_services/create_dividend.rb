@@ -45,7 +45,7 @@ module InvestmentsServices
       { account_id: investment.account_id,
         amount: transaction_amount,
         type: 'Account::Income',
-        category_id: '17',
+        category_id: income_category_id,
         title: "#{I18n.t('investments.dividends.dividends')} - #{investment.name}",
         date: date }
     end
@@ -59,6 +59,10 @@ module InvestmentsServices
       InvestmentsServices::ConsolidateMonthlyInvestmentsReport.call(investment, parsed_date)
     rescue StandardError => e
       Rails.logger.error("Error consolidating monthly report: #{e.message}")
+    end
+
+    def income_category_id
+      Category.primary_income_category_id
     end
   end
 end

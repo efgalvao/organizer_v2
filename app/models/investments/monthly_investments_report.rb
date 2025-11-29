@@ -9,5 +9,11 @@ module Investments
       month_start = reference_date.beginning_of_month
       find_by(investment_id: investment_id, reference_date: month_start)
     end
+
+    def ending_shares
+      return 0 if investment&.fixed?
+
+      starting_shares.to_i + shares_bought.to_i - shares_sold.to_i
+    end
   end
 end

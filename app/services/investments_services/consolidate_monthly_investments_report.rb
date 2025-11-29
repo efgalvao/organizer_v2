@@ -14,6 +14,8 @@ module InvestmentsServices
       report.update(default_report_attributes) if report.new_record?
 
       report.update(consolidated_attributes)
+
+      report.save
     end
 
     private
@@ -46,7 +48,6 @@ module InvestmentsServices
         inflow_amount: inflow_amount,
         outflow_amount: outflow_amount,
         dividends_received: dividends_received,
-        ending_shares: ending_shares,
         ending_market_value: ending_market_value,
         accumulated_inflow_amount: accumulated_inflow_amount,
         average_purchase_price: average_purchase_price,
@@ -61,7 +62,7 @@ module InvestmentsServices
       past_report = past_month_report
       return past_report.ending_shares if past_report
 
-      investment.shares_total || 0
+      investment.shares_total - shares_bought + shares_sold
     end
 
     def starting_market_value
@@ -145,7 +146,6 @@ module InvestmentsServices
       return 0 if accumulated_inflow_amount.zero?
 
       if investment.fixed?
-        # For fixed investments, average is just the accumulated inflow
         accumulated_inflow_amount
       else
         return 0 if ending_shares.zero?
@@ -155,7 +155,7 @@ module InvestmentsServices
     end
 
     def monthly_appreciation_value
-      ending_market_value - starting_market_value - inflow_amount + outflow_amount
+      ending_market_value - (starting_market_value + inflow_amount - outflow_amount)
     end
 
     def monthly_return_percentage
@@ -224,7 +224,6 @@ module InvestmentsServices
         inflow_amount: 0,
         outflow_amount: 0,
         dividends_received: 0,
-        ending_shares: 0,
         ending_market_value: 0,
         accumulated_inflow_amount: 0,
         average_purchase_price: 0,
