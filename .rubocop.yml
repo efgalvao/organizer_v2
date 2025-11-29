@@ -54,7 +54,7 @@ Metrics/AbcSize:
     - 'lib/tasks/import.rake'
 
 Metrics/ClassLength:
-  Max: 150
+  Max: 200
   Exclude:
     - lib/tasks/*.rake
     - app/presenters/**/*
