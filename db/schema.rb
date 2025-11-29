@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_11_22_000001) do
+ActiveRecord::Schema[7.0].define(version: 2025_11_22_000000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -98,13 +98,13 @@ ActiveRecord::Schema[7.0].define(version: 2025_11_22_000001) do
   create_table "monthly_investments_reports", force: :cascade do |t|
     t.bigint "investment_id", null: false
     t.date "reference_date", null: false
-    t.decimal "starting_shares", precision: 15, scale: 6, default: "0.0"
+    t.integer "starting_shares", default: 0, null: false
     t.decimal "starting_market_value", precision: 15, scale: 2, default: "0.0"
-    t.decimal "shares_bought", precision: 15, scale: 6, default: "0.0"
+    t.integer "shares_bought", default: 0, null: false
     t.decimal "inflow_amount", precision: 15, scale: 2, default: "0.0"
     t.decimal "outflow_amount", precision: 15, scale: 2, default: "0.0"
     t.decimal "dividends_received", precision: 15, scale: 2, default: "0.0"
-    t.decimal "ending_shares", precision: 15, scale: 6, default: "0.0"
+    t.integer "shares_sold", default: 0, null: false
     t.decimal "ending_market_value", precision: 15, scale: 2, default: "0.0"
     t.decimal "accumulated_inflow_amount", precision: 15, scale: 2, default: "0.0"
     t.decimal "average_purchase_price", precision: 15, scale: 4, default: "0.0"
@@ -114,7 +114,6 @@ ActiveRecord::Schema[7.0].define(version: 2025_11_22_000001) do
     t.decimal "portfolio_weight_percentage", precision: 8, scale: 4, default: "0.0"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.decimal "shares_sold", precision: 15, scale: 6, default: "0.0", null: false
     t.index ["investment_id", "reference_date"], name: "index_monthly_investments_reports_on_investment_and_date", unique: true
     t.index ["investment_id"], name: "index_monthly_investments_reports_on_investment_id"
   end
