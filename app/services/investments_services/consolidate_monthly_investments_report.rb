@@ -1,7 +1,7 @@
 module InvestmentsServices
   class ConsolidateMonthlyInvestmentsReport
     def initialize(investment, date)
-      @investment = investment
+      @investment = investment.reload
       @date = parse_date(date)
     end
 
@@ -10,7 +10,7 @@ module InvestmentsServices
     end
 
     def call
-      report = find_or_create_report
+      report = current_report
       report.update(default_report_attributes) if report.new_record?
 
       report.update(consolidated_attributes)
@@ -35,8 +35,8 @@ module InvestmentsServices
       Date.current
     end
 
-    def find_or_create_report
-      @find_or_create_report ||= InvestmentRepository.find_or_initialize_monthly_report(investment, date)
+    def current_report
+      @current_report ||= InvestmentRepository.find_or_initialize_monthly_report(investment, date)
     end
 
     def consolidated_attributes
@@ -69,7 +69,7 @@ module InvestmentsServices
       past_report = past_month_report
       return past_report.ending_market_value if past_report
 
-      investment.current_position || 0
+      current_report.starting_market_value || 0
     end
 
     def shares_bought
@@ -109,7 +109,7 @@ module InvestmentsServices
     end
 
     def ending_shares
-      return 0 if investment.fixed?
+      return investment.shares_total if investment.fixed?
 
       starting_shares + shares_bought - shares_sold
     end

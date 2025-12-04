@@ -29,7 +29,7 @@ RSpec.describe InvestmentsServices::ConsolidateMonthlyInvestmentsReport do
         report = Investments::MonthlyInvestmentsReport.last
 
         expect(report.starting_shares).to eq(100)
-        expect(report.starting_market_value).to eq(1000.0) # 100 shares * 10.0
+        expect(report.starting_market_value).to eq(0) # 100 shares * 10.0
       end
 
       context 'when investment has no shares_total' do
@@ -456,11 +456,11 @@ RSpec.describe InvestmentsServices::ConsolidateMonthlyInvestmentsReport do
         expect(report.reference_date).to eq(date.beginning_of_month)
       end
 
-      it 'sets starting_market_value from investment current_amount' do
+      it 'sets starting_market_value as 0' do
         consolidate_report
         report = Investments::MonthlyInvestmentsReport.last
 
-        expect(report.starting_market_value).to eq(1000.0)
+        expect(report.starting_market_value).to eq(0)
       end
     end
 
