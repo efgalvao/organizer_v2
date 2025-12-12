@@ -35,7 +35,7 @@ pt-BR:
         month_initial_balance: Saldo inicial
         month_incomes: Receitas
         month_expenses: Despesas
-        month_invested: Investido
+        month_invested: Aportado
         month_balance: Saldo
         account_balance: Saldo da conta
         invoice_payments: Pagamento de fatura
@@ -59,13 +59,13 @@ pt-BR:
           date: Data
           incomes: Receitas
           expenses: Despesas
-          invested: Investido
+          invested: Aportado
           balance: Saldo
           invoice_payment: Pagamento de fatura
       investments:
         title: Investimentos
         name: Nome
-        invested_amount: Investido
+        invested_amount: Aportado
         current_amount: Atual
         share_price: Valor da cota
         kind: Tipo
@@ -230,7 +230,7 @@ pt-BR:
         expenses: Despesas
         card_expenses: Despesas no cartão
         invoice_payments: Pagamento de faturas
-        invested: Investido
+        invested: Aportado
         redeemed: Resgatado
         earnings: Proventos
         investments_balance: Balanço de investimentos
@@ -242,17 +242,17 @@ pt-BR:
       expenses: Despesas
       card_expenses: Despesas no cartão
       invoice_payments: Pagamento de faturas
-      invested: Investido
+      invested: Aportado
       redeemed: Resgatado
       month_balance: Saldo
       charts:
         title: Meses anteriores
         total_balance: Saldo total
         total_savings: Total em contas
-        total_invested: Total investido
+        total_invested: Total em investimentos
         incomes: Receitas
         expenses: Despesas
-        invested: Investido
+        invested: Aportado
         card_expenses: Despesas no cartão
     accounts:
       title: Resumo das contas
@@ -328,7 +328,7 @@ pt-BR:
         title: Investimentos
         create_investment: Criar investimento
         name: Nome
-        invested: Investido
+        invested: Aportado
         current: Atual
         shares: Cotas
         kind: Tipo
@@ -356,7 +356,7 @@ pt-BR:
           balance: Saldo
           kind: Tipo
           bucket: Carteira
-          invested: Investido
+          invested: Aportado
           current_amount: Valor atual
           shares: Cotas
           average_price: Preço médio
