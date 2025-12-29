@@ -462,3 +462,10 @@ pt-BR:
       transferences: Transferências
       edit_profile: Editar perfil
       log_out: Sair
+  files:
+      upload:
+        success: Arquivo enviado com sucesso.
+      file_upload:
+        title: Upload de arquivo
+        origin_label: Origem do arquivo
+        upload_button: Enviar arquivo

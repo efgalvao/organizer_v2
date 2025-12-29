@@ -1,0 +1,33 @@
+<main class="container">
+  <div class="title">
+    <h1><%= t('files.file_upload.title') %></h1>
+  </div>
+
+  <%= simple_form_for :upload, url: upload_path, method: :post, html: { class: "form", multipart: true } do |f| %>
+
+    <div class="form-group">
+      <%= f.input :file,
+                  as: :file,
+                  label: false,
+                  input_html: { accept: 'text/csv', class: "form-control" } %>
+    </div>
+
+    <div class="form-group">
+      <%= f.input :origin,
+                  label: t('files.file_upload.origin_label'),
+                  as: :select,
+                  collection: [['Nu Card', 'nu_card']],
+                  selected: 'nu_card',
+                  input_html: { class: "form-control" },
+                  include_blank: false %>
+    </div>
+
+    <br>
+
+    <div class="form-actions">
+      <%= f.submit t('files.file_upload.upload_button'), class: "lcars-button lcars-button--secondary" %>
+      <%= link_to t('buttons.cancel'), file_upload_path, class: "lcars-button lcars-button--danger" %>
+    </div>
+
+  <% end %>
+</main>
