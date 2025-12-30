@@ -33,12 +33,4 @@ module AccountRepository
   def destroy(id)
     Account::Account.delete(id)
   end
-
-  # def expenses_by_category(accounts, date_range)
-  #   Account::Expense.where(account: accounts)
-  #                   .where('date >= ? AND date <= ?', date_range[:start], date_range[:end])
-  #                   .joins(:category)
-  #                   .group('categories.name')
-  #                   .sum(:amount)
-  # end
 end

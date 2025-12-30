@@ -22,6 +22,8 @@
                   include_blank: false %>
     </div>
 
+      <%= f.input :account_id, as: :select, collection: all_user_accounts(current_user.id), label: t('files.file_upload.account') %>
+
     <br>
 
     <div class="form-actions">

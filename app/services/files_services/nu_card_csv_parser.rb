@@ -1,8 +1,16 @@
 module FilesServices
-  class NuCardCsvParrser
+  class NuCardCsvParser
     require 'csv'
 
-    ACCOUNT_ID = 6
+    ACCOUNT_ID     = 1
+    KIND           = 0
+    TYPE           = 0
+    DATE_INDEX     = 0
+    TITLE_INDEX    = 1
+    AMOUNT_INDEX   = 2
+    CATEGORY_INDEX = 3
+    PARCELS_INDEX  = 5
+    GROUP_INDEX    = 6
 
     def initialize(file)
       @file = file
@@ -14,8 +22,6 @@ module FilesServices
 
     def call
       parse_file
-    rescue NoMethodError
-      'Invalid CSV file'
     end
 
     private
@@ -23,34 +29,32 @@ module FilesServices
     attr_reader :file
 
     def parse_file
-      transactions
+      transactions = []
 
       CSV.foreach(Rails.root + file.path, headers: false) do |row|
-        case row[0].to_d.positive?
-        when true
-          transactions << parse_transaction(row)
-        else
-          handle_unknown_type(row)
-        end
+        next unless row[0].to_d.positive?
+
+        transactions << parse_transaction(row)
       end
-      content
+      transactions
     end
 
     def parse_transaction(row)
       {
-        kind: row[4],
-        account: ACCOUNT_ID,
-        date: row[0],
-        amount: row[2],
-        title: row[1],
-        category: row[3],
-        group: row[6],
-        parcels: row[5]
+        date: row[DATE_INDEX],
+        title: row[TITLE_INDEX],
+        amount: row[AMOUNT_INDEX],
+        category: row[CATEGORY_INDEX],
+        kind: KIND,
+        type: TYPE,
+        parcels: row[PARCELS_INDEX],
+        group: row[GROUP_INDEX],
+        account: account.name,
       }
     end
 
-    def handle_unknown_type(row)
-      Rails.logger.error("Unknown type: #{row[0]}")
+    def account
+      @account ||= Account::Account.find(ACCOUNT_ID)
     end
   end
 end
