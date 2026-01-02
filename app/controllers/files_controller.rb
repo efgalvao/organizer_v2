@@ -5,10 +5,9 @@ class FilesController < ApplicationController
 
   def upload
     FilesServices::ProcessFile.call(upload_params, current_user.id)
-    # TODO: add to locale
-    # redirect_to summary_path, notice: I18n.t('files.upload.success')
-  rescue StandardError
-    # redirect_to file_upload_path, notice: I18n.t('files.upload.failure')
+    redirect_to summary_path, notice: I18n.t('files.file_upload.success')
+  rescue StandardError => e
+    redirect_to file_upload_path, notice: I18n.t('files.file_upload.failure')
   end
 
   private
