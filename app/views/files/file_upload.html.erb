@@ -3,7 +3,7 @@
     <h1><%= t('files.file_upload.title') %></h1>
   </div>
 
-  <%= simple_form_for :upload, url: upload_path, method: :post, html: { class: "form", multipart: true } do |f| %>
+  <%= simple_form_for :upload, url: upload_path, method: :post, html: { multipart: true } do |f| %>
 
     <div class="form-group">
       <%= f.input :file,
@@ -22,9 +22,9 @@
                   include_blank: false %>
     </div>
 
+    <div class="form-group">
       <%= f.input :account_id, as: :select, collection: all_user_accounts(current_user.id), label: t('files.file_upload.account') %>
-
-    <br>
+    </div>
 
     <div class="form-actions">
       <%= f.submit t('files.file_upload.upload_button'), class: "lcars-button lcars-button--secondary" %>
