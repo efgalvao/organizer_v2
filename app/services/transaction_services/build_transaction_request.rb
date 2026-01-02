@@ -10,10 +10,7 @@ module TransactionServices
 
     def call
       transactions.map do |transaction|
-        puts '==== TRANSACTION', transaction.inspect
-        t = TransactionServices::BuildTransactionParcels.call(transaction)
-        puts '==== T', t.inspect
-        t
+        TransactionServices::BuildTransactionParcels.call(transaction)
       end
     end
 

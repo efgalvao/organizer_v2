@@ -16,7 +16,7 @@ module ApplicationHelper
   end
 
   def all_user_accounts(user_id)
-    AccountRepository.all_by_user(user_id).map { |account| [account.name, account.id]}
+    AccountRepository.all_by_user(user_id).map { |account| [account.name, account.id] }
   end
 
   def groups_for_select

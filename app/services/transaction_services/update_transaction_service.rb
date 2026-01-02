@@ -13,7 +13,6 @@ module TransactionServices
       TransactionRepository.update!(transaction, params)
       transaction.reload
     rescue StandardError => e
-      puts "Error updating transaction: #{e.message}"
       Rails.logger.error(e.full_message)
       Account::Transaction.new
     end

@@ -6,7 +6,7 @@ class FilesController < ApplicationController
   def upload
     FilesServices::ProcessFile.call(upload_params, current_user.id)
     redirect_to summary_path, notice: I18n.t('files.file_upload.success')
-  rescue StandardError => e
+  rescue StandardError
     redirect_to file_upload_path, notice: I18n.t('files.file_upload.failure')
   end
 

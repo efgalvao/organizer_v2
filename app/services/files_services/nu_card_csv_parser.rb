@@ -49,7 +49,7 @@ module FilesServices
         type: TYPE,
         parcels: row[PARCELS_INDEX],
         group: row[GROUP_INDEX],
-        account: account.name,
+        account: account.name
       }
     end
 

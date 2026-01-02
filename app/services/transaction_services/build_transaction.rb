@@ -46,7 +46,6 @@ module TransactionServices
     end
 
     def account_report
-      puts '-------- build_transaction', params.inspect
       @account_report ||= Account::AccountReport.month_report(
         account_id: params[:account_id],
         reference_date: date
