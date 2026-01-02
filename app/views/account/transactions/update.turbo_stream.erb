@@ -1,2 +1,3 @@
+<%= turbo_stream.prepend "transactions" do %>
 <%= turbo_stream.update "account_transaction_#{@transaction.id}", @transaction %>
-<%= render_turbo_stream_flash_messages %>
+<% end %>

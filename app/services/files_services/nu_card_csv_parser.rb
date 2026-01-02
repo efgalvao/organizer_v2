@@ -2,22 +2,22 @@ module FilesServices
   class NuCardCsvParser
     require 'csv'
 
-    ACCOUNT_ID     = 1
     KIND           = 0
     TYPE           = 0
     DATE_INDEX     = 0
     TITLE_INDEX    = 1
     AMOUNT_INDEX   = 2
     CATEGORY_INDEX = 3
-    PARCELS_INDEX  = 5
-    GROUP_INDEX    = 6
+    PARCELS_INDEX  = 4
+    GROUP_INDEX    = 5
 
-    def initialize(file)
+    def initialize(file, account_id)
       @file = file
+      @account_id = account_id
     end
 
-    def self.call(file)
-      new(file).call
+    def self.call(file, account_id)
+      new(file, account_id).call
     end
 
     def call
@@ -26,7 +26,7 @@ module FilesServices
 
     private
 
-    attr_reader :file
+    attr_reader :file, :account_id
 
     def parse_file
       transactions = []
@@ -54,7 +54,7 @@ module FilesServices
     end
 
     def account
-      @account ||= Account::Account.find(ACCOUNT_ID)
+      @account ||= Account::Account.find(account_id)
     end
   end
 end

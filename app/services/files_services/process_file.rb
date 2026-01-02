@@ -3,8 +3,9 @@ module FilesServices
     class UnknownFileTypeError < StandardError
     end
 
-    def initialize(params, _user_id)
+    def initialize(params, user_id)
       @params = params
+      @user_id = user_id
     end
 
     def self.call(params, user_id)
@@ -15,10 +16,7 @@ module FilesServices
       return unless account_belongs_to_user?
 
       content = parse_file
-      puts "---- Parsed content: #{content.inspect}"
       process_file(content)
-    rescue StandardError => e
-      puts "---- Error processing file: #{e.message}"
     end
 
     private
@@ -28,14 +26,14 @@ module FilesServices
     def parse_file
       case params[:origin]
       when 'nu_card'
-        FilesServices::NuCardCsvParser.call(params[:file])
+        FilesServices::NuCardCsvParser.call(params[:file], params[:account_id])
       else
         raise UnknownFileTypeError, 'Invalid Origin'
       end
     end
 
     def process_file(content)
-      FilesServices::ProcessContent.call(content, user_id)
+      FilesServices::ProcessContent.call(content)
     end
 
     def account_belongs_to_user?

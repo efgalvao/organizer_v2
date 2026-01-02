@@ -469,3 +469,6 @@ pt-BR:
         title: Upload de arquivo
         origin_label: Origem do arquivo
         upload_button: Enviar arquivo
+        account: Conta
+        success: Arquivo enviado com sucesso
+        failure: Ocorreu um erro ao enviar o arquivo
