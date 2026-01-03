@@ -472,3 +472,11 @@ en:
       transferences: Transferences
       edit_profile: Edit profile
       log_out: Log out
+  files:
+    file_upload:
+      title: File Upload
+      origin_label: File Origin
+      account: Account
+      upload_button: Upload File
+      success: File uploaded successfully
+      failure: There was an error uploading the file

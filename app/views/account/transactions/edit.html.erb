@@ -1,9 +1,11 @@
-  <%= turbo_frame_tag @transaction do %>
+<main class="container">
+  <%= turbo_frame_tag "account_transaction_#{@transaction.id}" do %>
 
     <div class="lcars-subtitle">
       <h3><%= t('transactions.edit') %></h3>
     </div>
 
-    <%= render "form", transaction: @transaction, categories: @categories %>
+    <%= render "update_form", transaction: @transaction, categories: @categories %>
 
   <% end %>
+</main>

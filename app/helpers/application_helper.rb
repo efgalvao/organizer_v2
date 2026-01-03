@@ -15,6 +15,10 @@ module ApplicationHelper
     Account::Account.except_cards(user_id).map { |account| [account.name, account.id] }
   end
 
+  def all_user_accounts(user_id)
+    AccountRepository.all_by_user(user_id).map { |account| [account.name, account.id] }
+  end
+
   def groups_for_select
     Account::Transaction.groups.map { |group, number| [group.humanize, number] }
   end

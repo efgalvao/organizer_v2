@@ -35,8 +35,8 @@ module Account
     end
 
     def update
-      transaction = TransactionRepository.update!(@transaction, transaction_params)
-      if transaction.update(update_params)
+      transaction = TransactionServices::UpdateTransactionService.call(@transaction.id, update_params)
+      if transaction
         @transaction = transaction.decorate
         respond_to do |format|
           format.html { redirect_to account_transactions_path, notice: 'Transação atualizada.' }
@@ -75,7 +75,7 @@ module Account
     end
 
     def update_params
-      params.require(:transaction).permit(:title, :category_id, :date, :group)
+      params.require(:transaction).permit(:id, :title, :category_id, :date, :group)
     end
 
     def anticipate_params

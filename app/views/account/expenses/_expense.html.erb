@@ -1,0 +1,38 @@
+<%= turbo_frame_tag expense do %>
+  <tr>
+    <td>
+      <%= expense.title %>
+    </td>
+
+    <td>
+      <%= expense.amount %>
+    </td>
+
+    <td>
+      <%= expense.type %>
+    </td>
+
+    <td>
+      <%= expense.date %>
+    </td>
+
+    <td>
+      <%= expense.category_name %>
+    </td>
+
+    <td>
+      <%= expense.group_name %>
+    </td>
+
+    <td>
+      <%= link_to t('buttons.edit'),
+                  edit_account_transaction_path(id: expense.id),
+                  class: "lcars-button lcars-button--secondary",
+                  data: { turbo_frame: "account_transaction_#{expense.id}" } %>
+
+      <%= link_to t('buttons.anticipate'),
+                  anticipate_form_account_transaction_path(id: expense.id),
+                  class: "lcars-button lcars-button--secondary" %>
+    </td>
+  </tr>
+<% end %>

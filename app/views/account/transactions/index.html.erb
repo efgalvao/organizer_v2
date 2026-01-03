@@ -20,7 +20,6 @@
 
   <%= turbo_frame_tag "new_transaction" %>
 
-<%= turbo_frame_tag "transactions" do %>
   <div class="lcars-actions">
     <%= link_to t('transactions.index.consolidated'),
       account_transactions_path(account_id: params[:account_id], future: 'false'),
@@ -35,6 +34,7 @@
       class: "lcars-button lcars-button--secondary" %>
   </div>
 
+<%= turbo_frame_tag "transactions" do %>
   <table class="lcars-table">
     <thead>
       <tr>
