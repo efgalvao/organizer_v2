@@ -25,8 +25,8 @@ module FilesServices
 
     def parse_file
       case params[:origin]
-      when 'nu_card'
-        FilesServices::NuCardCsvParser.call(params[:file], params[:account_id])
+      when 'nu_invoice'
+        FilesServices::NuInvoiceCsvParser.call(params[:file], params[:account_id])
       else
         raise UnknownFileTypeError, 'Invalid Origin'
       end

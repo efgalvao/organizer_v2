@@ -1,5 +1,5 @@
 module FilesServices
-  class NuCardCsvParser
+  class NuInvoiceCsvParser
     require 'csv'
 
     KIND           = 0
