@@ -480,3 +480,5 @@ en:
       upload_button: Upload File
       success: File uploaded successfully
       failure: There was an error uploading the file
+      choose_origin: Please choose the file origin
+      
