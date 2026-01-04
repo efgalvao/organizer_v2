@@ -9,6 +9,7 @@
       <%= f.input :file,
                   as: :file,
                   label: false,
+                  required: true,
                   input_html: { accept: 'text/csv', class: "form-control" } %>
     </div>
 
@@ -16,13 +17,18 @@
       <%= f.input :origin,
                   label: t('files.file_upload.origin_label'),
                   as: :select,
-                  collection: [['Fatura Nu', 'nu_invoice']],
+                  collection: [['Fatura Nu', 'nu_invoice'], ['Extrato Nu', 'nu_statement']],
                   input_html: { class: "form-control" },
-                  include_blank: false %>
+                  prompt: t('files.file_upload.choose_origin'),
+                  required: true %>
     </div>
 
     <div class="form-group">
-      <%= f.input :account_id, as: :select, collection: all_user_accounts(current_user.id), label: t('files.file_upload.account') %>
+      <%= f.input :account_id,
+                  as: :select,
+                  collection: all_user_accounts(current_user.id),
+                  label: t('files.file_upload.account'),
+                  required: true %>
     </div>
 
     <div class="form-actions">

@@ -472,3 +472,4 @@ pt-BR:
         account: Conta
         success: Arquivo enviado com sucesso
         failure: Ocorreu um erro ao enviar o arquivo
+        choose_origin: Por favor, escolha a origem do arquivo
