@@ -32,7 +32,8 @@
 
       <%= link_to t('buttons.anticipate'),
                   anticipate_form_account_transaction_path(id: transaction.id),
-                  class: "lcars-button lcars-button--secondary" %>
+                  class: "lcars-button lcars-button--secondary",
+                  data: { turbo_frame: "account_transaction_#{transaction.id}" }  %>
     </td>
   </tr>
 <% end %>
