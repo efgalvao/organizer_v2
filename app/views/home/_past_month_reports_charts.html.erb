@@ -3,7 +3,8 @@
   <%= line_chart [
         { name: t('home.past_month_reports.charts.total_balance'), data: semester_summary[:summary][:total] },
         { name: t('home.past_month_reports.charts.total_savings'), data: semester_summary[:summary][:savings] },
-        { name: t('home.past_month_reports.charts.total_invested'), data: semester_summary[:summary][:stocks] }
+        { name: t('home.past_month_reports.charts.total_invested'), data: semester_summary[:summary][:stocks] },
+        { name: t('home.past_month_reports.charts.accumulated_inflow'), data: semester_summary[:summary][:inflow] }
         ], precision: 8, discrete: false, legend: 'bottom' %>
   </div>
 
