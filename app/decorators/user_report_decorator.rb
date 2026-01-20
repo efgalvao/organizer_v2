@@ -49,11 +49,22 @@ class UserReportDecorator < Draper::Decorator
     format_currency(object.invoice_payments)
   end
 
+  def accumulated_inflow
+    amount = object.user.monthly_investments_reports
+                   .where(reference_date: format_reference_date(object.reference))
+                   .sum(:accumulated_inflow_amount)
+    format_currency(amount)
+  end
+
   def report_date
     object.date.strftime('%B/%Y')
   end
 
   def format_currency(value)
     ActionController::Base.helpers.number_to_currency(value, unit: 'R$ ', separator: ',', delimiter: '.')
+  end
+
+  def format_reference_date(reference_date)
+    Date.strptime(reference_date, '%m/%y')
   end
 end

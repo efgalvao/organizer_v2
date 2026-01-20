@@ -5,6 +5,8 @@ module Investments
     validates :reference_date, presence: true
     validates :investment_id, uniqueness: { scope: :reference_date }
 
+    scope :by_reference, ->(ref) { where(reference_date: Date.strptime(ref, '%m/%y')) }
+
     def self.month_report(investment_id:, reference_date:)
       month_start = reference_date.beginning_of_month
       find_by(investment_id: investment_id, reference_date: month_start)

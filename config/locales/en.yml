@@ -253,17 +253,20 @@ en:
       savings: Savings
       investments: Investments
       balance: Balance
+      accumulated_inflow: Accumulated Inflow
       current_month:
         title: Current month
         incomes: Incomes
         expenses: Expenses
         card_expenses: Card expenses
         invoice_payments: Invoice payments
-        invested: Invested
+        invested: Month inflow
         redeemed: Redeemed
         earnings: Earnings
         investments_balance: Investments balance
         month_balance: Balance
+        accumulated_inflow: Accumulated Inflow
+        investments: Current Market Value
     past_month_reports:
       title: Past month reports
       month: Month
@@ -279,6 +282,7 @@ en:
         total_balance: Total balance
         total_savings: Total in savings
         total_invested: Total invested
+        accumulated_inflow: Accumulated inflow
         incomes: Incomes
         expenses: Expenses
         invested: Invested
@@ -481,4 +485,3 @@ en:
       success: File uploaded successfully
       failure: There was an error uploading the file
       choose_origin: Please choose the file origin
-      
