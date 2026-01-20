@@ -17,11 +17,15 @@ module UserServices
     attr_reader :reports
 
     def mount_summary
-      summary = { total: {}, savings: {}, stocks: {} }
+      summary = { total: {}, savings: {}, stocks: {}, inflow: {} }
+
       reports.each do |report|
         summary[:total][report.date.strftime('%B-%Y').to_s] = report.total
         summary[:savings][report.date.strftime('%B-%Y').to_s] = report.savings
         summary[:stocks][report.date.strftime('%B-%Y').to_s] = report.investments
+        summary[:inflow][report.date.strftime('%B-%Y').to_s] = report.user.monthly_investments_reports
+                                                                     .where(reference_date: Date.strptime(report.reference, '%m/%y'))
+                                                                     .sum(:accumulated_inflow_amount)
       end
       summary
     end
