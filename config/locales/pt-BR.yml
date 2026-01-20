@@ -224,17 +224,20 @@ pt-BR:
       savings: Em Contas
       investments: Em Investimentos
       balance: Total
+      accumulated_inflow: Total Aportado
       current_month:
         title: Mês atual
         incomes: Receitas
         expenses: Despesas
         card_expenses: Despesas no cartão
         invoice_payments: Pagamento de faturas
-        invested: Aportado
+        invested: Aportado no mês
         redeemed: Resgatado
         earnings: Proventos
         investments_balance: Balanço de investimentos
         month_balance: Saldo
+        accumulated_inflow: Aportes acumulados
+        investments: Vaor de mercado atualizado
     past_month_reports:
       title: Relatórios do mêses anteriores
       month: Mês
@@ -250,6 +253,7 @@ pt-BR:
         total_balance: Saldo total
         total_savings: Total em contas
         total_invested: Total em investimentos
+        accumulated_inflow: Total aportado
         incomes: Receitas
         expenses: Despesas
         invested: Aportado
