@@ -20,12 +20,13 @@ module UserServices
       summary = { total: {}, savings: {}, stocks: {}, inflow: {} }
 
       reports.each do |report|
-        summary[:total][report.date.strftime('%B-%Y').to_s] = report.total
-        summary[:savings][report.date.strftime('%B-%Y').to_s] = report.savings
-        summary[:stocks][report.date.strftime('%B-%Y').to_s] = report.investments
-        summary[:inflow][report.date.strftime('%B-%Y').to_s] = report.user.monthly_investments_reports
-                                                                     .where(reference_date: Date.strptime(report.reference, '%m/%y'))
-                                                                     .sum(:accumulated_inflow_amount)
+        key = report.date.strftime('%B-%Y').to_s
+        summary[:total][key] = report.total
+        summary[:savings][key] = report.savings
+        summary[:stocks][key] = report.investments
+        summary[:inflow][key] = report.user.monthly_investments_reports
+                                      .where(reference_date: Date.strptime(report.reference, '%m/%y'))
+                                      .sum(:accumulated_inflow_amount)
       end
       summary
     end
@@ -33,10 +34,11 @@ module UserServices
     def mount_details
       summary = { incomes: {}, expenses: {}, invested: {}, card_expenses: {} }
       reports.each do |report|
-        summary[:incomes][report.date.strftime('%B-%Y').to_s] = report.incomes
-        summary[:expenses][report.date.strftime('%B-%Y').to_s] = report.expenses
-        summary[:invested][report.date.strftime('%B-%Y').to_s] = report.invested
-        summary[:card_expenses][report.date.strftime('%B-%Y').to_s] = report.card_expenses
+        key = report.date.strftime('%B-%Y').to_s
+        summary[:incomes][key] = report.incomes
+        summary[:expenses][key] = report.expenses
+        summary[:invested][key] = report.invested
+        summary[:card_expenses][key] = report.card_expenses
       end
       summary
     end
