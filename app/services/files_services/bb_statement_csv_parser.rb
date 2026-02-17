@@ -9,6 +9,8 @@ module FilesServices
     DOCUMENTO_INDEX   = 3
     VALOR_INDEX       = 4
     TIPO_INDEX        = 5
+    CATEGORY_INDEX    = 6
+    GROUP_INDEX       = 7
 
     IGNORED_LANCAMENTOS = ['Saldo Anterior', 'Saldo do dia', 'SALDO'].freeze
 
@@ -60,7 +62,6 @@ module FilesServices
         date: row[DATE_INDEX],
         title: build_title(row[LANCAMENTO_INDEX], row[DETALHES_INDEX]),
         amount: format_amount(row[VALOR_INDEX]),
-        category: nil,
         kind: if is_saida
                 0
               else
@@ -72,8 +73,9 @@ module FilesServices
                 (is_entrada ? 1 : 0)
               end,
         parcels: PARCELS,
-        group: is_saida ? 5 : nil,
-        account: account.name
+        account: account.name,
+        category: parse_optional_string(row[CATEGORY_INDEX]),
+        group: parse_group(row[GROUP_INDEX])
       }
     end
 
@@ -92,6 +94,17 @@ module FilesServices
     def build_title(lancamento, detalhes)
       title_parts = [lancamento, detalhes].compact.reject(&:empty?)
       title_parts.join(' ').strip
+    end
+
+    # TODO: VALIDATE
+    def parse_optional_string(val)
+      v = val.to_s.strip
+      v.empty? ? nil : v
+    end
+
+    def parse_group(val)
+      v = val.to_s.strip
+      v.empty? ? nil : v.to_i
     end
 
     def format_amount(amount_str)

@@ -7,16 +7,16 @@ RSpec.describe FilesServices::BbStatementCsvParser do
   let(:account) { create(:account, user: user, name: 'Banco do Brasil') }
   let(:csv_content) do
     <<~CSV
-      "Data","Lançamento","Detalhes","Nº documento","Valor","Tipo Lançamento"
-      "28/01/2026","Saldo Anterior","","","429,09",""
-      "02/02/2026","Ordem Bancária","SP-SEC DA FAZENDA E PL","202601300040562","871,36","Entrada"
-      "00/00/0000","Saldo do dia","","","1.300,45",""
-      "04/02/2026","Pix - Enviado","04/02 20:49 MARIA ODITE SILVA RIBEIRO","20401","-150,00","Saída"
-      "00/00/0000","Saldo do dia","","","1.150,45",""
-      "06/02/2026","Recebimento de Proventos","46.377.222/0003-90 SECRETARIA DA FAZEN","14723","822,53","Entrada"
-      "06/02/2026","Pix - Recebido","06/02 09:52 36399077877 ELIANE DE OLIV","60952523471281","50,00","Entrada"
-      "06/02/2026","Pix - Enviado","06/02 08:23 Edmar Ferreira Galvao","20601","-7.089,00","Saída"
-      "18/02/2026","S A L D O","","","567,75",""
+      "Data","Lançamento","Detalhes","Nº documento","Valor","Tipo Lançamento","Category","Group"
+      "15/01/2026","Saldo Anterior","","","429,09","","",""
+      "02/02/2026","Ordem Bancária","DEP FAZENDA E PLANEJAMENTO","202600000000001","871,36","Entrada","",""
+      "00/00/0000","Saldo do dia","","","1.300,45","","",""
+      "04/02/2026","Pix - Enviado","04/02 20:49 PESSOA EXEMPLO","20001","-150,00","Saída","","5"
+      "00/00/0000","Saldo do dia","","","1.150,45","","",""
+      "06/02/2026","Recebimento de Proventos","12.345.678/0001-90 EMPRESA EXEMPLO LTDA","10001","822,53","Entrada","",""
+      "06/02/2026","Pix - Recebido","06/02 09:52 11999999999 PESSOA EXEMPLO","60952000000001","50,00","Entrada","",""
+      "06/02/2026","Pix - Enviado","06/02 08:23 CICLANO DA SILVA","20002","-7.089,00","Saída","",""
+      "18/02/2026","S A L D O","","","567,75","","",""
     CSV
   end
   let(:temp_file_path) do
@@ -83,7 +83,7 @@ RSpec.describe FilesServices::BbStatementCsvParser do
 
       expect(entrada).not_to be_nil
       expect(entrada[:date]).to eq('02/02/2026')
-      expect(entrada[:title]).to eq('Ordem Bancária SP-SEC DA FAZENDA E PL')
+      expect(entrada[:title]).to eq('Ordem Bancária DEP FAZENDA E PLANEJAMENTO')
       expect(entrada[:amount]).to eq(871.36)
       expect(entrada[:kind]).to eq(1)
       expect(entrada[:type]).to eq(1)
@@ -99,7 +99,7 @@ RSpec.describe FilesServices::BbStatementCsvParser do
 
       expect(saida).not_to be_nil
       expect(saida[:date]).to eq('04/02/2026')
-      expect(saida[:title]).to eq('Pix - Enviado 04/02 20:49 MARIA ODITE SILVA RIBEIRO')
+      expect(saida[:title]).to eq('Pix - Enviado 04/02 20:49 PESSOA EXEMPLO')
       expect(saida[:amount]).to eq(150.00)
       expect(saida[:kind]).to eq(0)
       expect(saida[:type]).to eq(0)
@@ -127,12 +127,12 @@ RSpec.describe FilesServices::BbStatementCsvParser do
       result = parser
       entrada = result.find { |t| t[:title].include?('Recebimento de Proventos') }
 
-      expect(entrada[:title]).to eq('Recebimento de Proventos 46.377.222/0003-90 SECRETARIA DA FAZEN')
+      expect(entrada[:title]).to eq('Recebimento de Proventos 12.345.678/0001-90 EMPRESA EXEMPLO LTDA')
     end
 
     it 'handles transactions with empty detalhes' do
       result = parser
-      entrada = result.find { |t| t[:title] == 'Ordem Bancária SP-SEC DA FAZENDA E PL' }
+      entrada = result.find { |t| t[:title] == 'Ordem Bancária DEP FAZENDA E PLANEJAMENTO' }
 
       expect(entrada).not_to be_nil
     end
@@ -140,10 +140,10 @@ RSpec.describe FilesServices::BbStatementCsvParser do
     context 'when file has only ignored entries' do
       let(:csv_content) do
         <<~CSV
-          "Data","Lançamento","Detalhes","Nº documento","Valor","Tipo Lançamento"
-          "28/01/2026","Saldo Anterior","","","429,09",""
-          "00/00/0000","Saldo do dia","","","1.300,45",""
-          "18/02/2026","S A L D O","","","567,75",""
+          "Data","Lançamento","Detalhes","Nº documento","Valor","Tipo Lançamento","Category","Group"
+          "28/01/2026","Saldo Anterior","","","429,09","","",""
+          "00/00/0000","Saldo do dia","","","1.300,45","","",""
+          "18/02/2026","S A L D O","","","567,75","","",""
         CSV
       end
 
@@ -157,7 +157,7 @@ RSpec.describe FilesServices::BbStatementCsvParser do
     context 'when file is empty except for header' do
       let(:csv_content) do
         <<~CSV
-          "Data","Lançamento","Detalhes","Nº documento","Valor","Tipo Lançamento"
+          "Data","Lançamento","Detalhes","Nº documento","Valor","Tipo Lançamento","Category","Group"
         CSV
       end
 
