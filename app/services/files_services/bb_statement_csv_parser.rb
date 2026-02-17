@@ -58,28 +58,25 @@ module FilesServices
 
     def parse_transaction(row)
       tipo_lancamento = row[TIPO_INDEX].to_s.strip
-      is_saida = tipo_lancamento == 'Saída'
-      is_entrada = tipo_lancamento == 'Entrada'
+      kind = transaction_kind(tipo_lancamento)
 
       {
         date: row[DATE_INDEX],
         title: build_title(row[LANCAMENTO_INDEX], row[DETALHES_INDEX]),
         amount: format_amount(row[VALOR_INDEX]),
-        kind: if is_saida
-                0
-              else
-                (is_entrada ? 1 : 0)
-              end,
-        type: if is_saida
-                0
-              else
-                (is_entrada ? 1 : 0)
-              end,
+        kind: kind,
+        type: kind,
         parcels: PARCELS,
         account: account.name,
         category: parse_optional_string(row[CATEGORY_INDEX]),
         group: parse_group(row[GROUP_INDEX])
       }
+    end
+
+    def transaction_kind(tipo_lancamento)
+      return 1 if tipo_lancamento == 'Entrada'
+
+      0
     end
 
     def account

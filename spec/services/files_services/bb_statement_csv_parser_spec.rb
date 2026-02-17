@@ -1,4 +1,6 @@
 require 'rails_helper'
+require 'fileutils'
+require 'bigdecimal'
 
 RSpec.describe FilesServices::BbStatementCsvParser do
   subject(:parser) { described_class.call(file, account.id) }
@@ -28,15 +30,13 @@ RSpec.describe FilesServices::BbStatementCsvParser do
   let(:file) do
     # Create a mock file object that returns the path
     # The parser uses Rails.root + file.path, so we return the relative path from Rails.root
-    mock_file = double('File')
     relative_path = temp_file_path.relative_path_from(Rails.root).to_s
-    allow(mock_file).to receive(:path).and_return(relative_path)
-    mock_file
+    instance_double(File, path: relative_path)
   end
 
   after do
     # Clean up the temp file
-    File.unlink(temp_file_path) if File.exist?(temp_file_path)
+    FileUtils.rm_f(temp_file_path)
   end
 
   describe '.call' do
@@ -95,12 +95,14 @@ RSpec.describe FilesServices::BbStatementCsvParser do
 
     it 'parses saída transactions correctly', :aggregate_failures do
       result = parser
-      saida = result.find { |t| t[:title].include?('Pix - Enviado') && t[:amount] == 150.00 }
+      saida = result.find do |t|
+        t[:title].include?('Pix - Enviado') && t[:amount] == BigDecimal('150.0')
+      end
 
       expect(saida).not_to be_nil
       expect(saida[:date]).to eq('04/02/2026')
       expect(saida[:title]).to eq('Pix - Enviado 04/02 20:49 PESSOA EXEMPLO')
-      expect(saida[:amount]).to eq(150.00)
+      expect(saida[:amount]).to eq(BigDecimal('150.0'))
       expect(saida[:kind]).to eq(0)
       expect(saida[:type]).to eq(0)
       expect(saida[:parcels]).to eq(1)
@@ -112,15 +114,10 @@ RSpec.describe FilesServices::BbStatementCsvParser do
     it 'formats Brazilian currency values correctly', :aggregate_failures do
       result = parser
 
-      entrada_871 = result.find { |t| t[:amount] == 871.36 }
-      entrada_822 = result.find { |t| t[:amount] == 822.53 }
-      entrada_50 = result.find { |t| t[:amount] == 50.00 }
-      saida_7089 = result.find { |t| t[:amount] == 7089.00 }
-
-      expect(entrada_871).not_to be_nil
-      expect(entrada_822).not_to be_nil
-      expect(entrada_50).not_to be_nil
-      expect(saida_7089).not_to be_nil
+      expect(result.any? { |t| t[:amount] == BigDecimal('871.36') }).to be true
+      expect(result.any? { |t| t[:amount] == BigDecimal('822.53') }).to be true
+      expect(result.any? { |t| t[:amount] == BigDecimal('50.0') }).to be true
+      expect(result.any? { |t| t[:amount] == BigDecimal('7089.0') }).to be true
     end
 
     it 'concatenates lançamento and detalhes in title' do
