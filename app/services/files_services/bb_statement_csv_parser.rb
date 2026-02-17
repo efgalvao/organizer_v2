@@ -42,6 +42,9 @@ module FilesServices
           next
         end
 
+        # Skip rows without tipo de lançamento (usually summary/total rows)
+        next if row[TIPO_INDEX].to_s.strip.empty?
+
         # Skip rows with ignored lançamentos
         next if ignored_lancamento?(row[LANCAMENTO_INDEX])
 
