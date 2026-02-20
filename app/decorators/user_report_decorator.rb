@@ -50,9 +50,7 @@ class UserReportDecorator < Draper::Decorator
   end
 
   def accumulated_inflow
-    amount = object.user.monthly_investments_reports
-                   .where(reference_date: format_reference_date(object.reference))
-                   .sum(:accumulated_inflow_amount)
+    amount = object.user.investments.sum(:invested_amount)
     format_currency(amount)
   end
 
