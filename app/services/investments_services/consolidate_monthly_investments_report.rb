@@ -131,15 +131,9 @@ module InvestmentsServices
 
     def accumulated_inflow_amount
       past_accumulated = past_month_report&.accumulated_inflow_amount
-      return past_accumulated + inflow_amount if past_accumulated
+      return past_accumulated + inflow_amount - outflow_amount if past_accumulated
 
-      # If no past report, calculate from all buy negotiations
-      all_buy_negotiations = investment.negotiations.where(kind: 'buy')
-      if investment.fixed?
-        all_buy_negotiations.sum(:amount)
-      else
-        all_buy_negotiations.sum { |n| n.amount * n.shares }
-      end
+      investment.invested_amount
     end
 
     def average_purchase_price

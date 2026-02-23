@@ -12,7 +12,8 @@ RSpec.describe InvestmentsServices::ConsolidateMonthlyInvestmentsReport do
       create(:variable_investment,
              account: account,
              shares_total: 100,
-             current_amount: 10.0)
+             current_amount: 10.0,
+             invested_amount: 120.0)
     end
 
     context 'when creating a new report without past reports' do
@@ -165,12 +166,11 @@ RSpec.describe InvestmentsServices::ConsolidateMonthlyInvestmentsReport do
                shares: 10)
       end
 
-      it 'calculates from all buy negotiations' do
+      it 'uses investment invested_amount when there is no past report' do
         consolidate_report
         report = Investments::MonthlyInvestmentsReport.last
 
-        # old: 8.0 * 50 = 400.0, current: 12.0 * 10 = 120.0, total: 520.0
-        expect(report.accumulated_inflow_amount).to eq(520.0)
+        expect(report.accumulated_inflow_amount).to eq(investment.invested_amount)
       end
     end
 
@@ -370,6 +370,7 @@ RSpec.describe InvestmentsServices::ConsolidateMonthlyInvestmentsReport do
       context 'when accumulated_inflow_amount is zero' do
         before do
           Investments::Negotiation.where(negotiable: investment).destroy_all
+          investment.update!(invested_amount: 0)
         end
 
         it 'returns 0' do
@@ -444,7 +445,8 @@ RSpec.describe InvestmentsServices::ConsolidateMonthlyInvestmentsReport do
     let(:investment) do
       create(:fixed_investment,
              account: account,
-             current_amount: 1000.0)
+             current_amount: 1000.0,
+             invested_amount: 1000.0)
     end
 
     context 'when creating a new report' do
@@ -513,6 +515,12 @@ RSpec.describe InvestmentsServices::ConsolidateMonthlyInvestmentsReport do
     end
 
     context 'when calculating accumulated_inflow_amount' do
+      let(:investment) do
+        create(:fixed_investment,
+               account: account,
+               current_amount: 1000.0,
+               invested_amount: 800.0)
+      end
       let!(:old_buy_negotiation) do
         create(:negotiation,
                negotiable: investment,
@@ -531,16 +539,21 @@ RSpec.describe InvestmentsServices::ConsolidateMonthlyInvestmentsReport do
                shares: 1)
       end
 
-      it 'calculates from all buy negotiations (amount only)' do
+      it 'uses investment invested_amount when there is no past report' do
         consolidate_report
         report = Investments::MonthlyInvestmentsReport.last
 
-        # old: 300.0, current: 500.0, total: 800.0
-        expect(report.accumulated_inflow_amount).to eq(800.0)
+        expect(report.accumulated_inflow_amount).to eq(investment.invested_amount)
       end
     end
 
     context 'when calculating average_purchase_price' do
+      let(:investment) do
+        create(:fixed_investment,
+               account: account,
+               current_amount: 1000.0,
+               invested_amount: 500.0)
+      end
       let!(:buy_negotiation) do
         create(:negotiation,
                negotiable: investment,
@@ -554,13 +567,19 @@ RSpec.describe InvestmentsServices::ConsolidateMonthlyInvestmentsReport do
         consolidate_report
         report = Investments::MonthlyInvestmentsReport.last
 
-        expect(report.average_purchase_price).to eq(500.0)
+        expect(report.average_purchase_price).to eq(investment.invested_amount)
       end
     end
   end
 
   describe 'date parsing' do
-    let(:investment) { create(:variable_investment, account: account) }
+    let(:investment) do
+      create(:variable_investment,
+             account: account,
+             shares_total: 0,
+             current_amount: 0,
+             invested_amount: 0)
+    end
 
     context 'when date is a string in dd/mm/yyyy format' do
       let(:date) { '15/01/2024' }
