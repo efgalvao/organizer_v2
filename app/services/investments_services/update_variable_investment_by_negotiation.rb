@@ -1,11 +1,13 @@
 module InvestmentsServices
-  class UpdateVariableInvestmentByNegotiation < UpdateInvestment
+  class UpdateVariableInvestmentByNegotiation < Update
     private
 
-    def update_attributes
-      investment.shares_total = new_shares_total
-      investment.current_amount = new_current_value
-      investment.invested_amount = new_invested_value
+    def data_to_update(_investment)
+      {
+        shares_total: new_shares_total,
+        current_amount: new_current_value,
+        invested_amount: new_invested_value
+      }
     end
 
     def new_shares_total
