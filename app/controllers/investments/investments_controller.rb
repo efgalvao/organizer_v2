@@ -1,7 +1,7 @@
 module Investments
   class InvestmentsController < ApplicationController
     before_action :authenticate_user!
-    before_action :set_investment, only: %i[edit show]
+    before_action :set_investment, only: %i[edit show liquidate]
 
     def index
       investments = InvestmentRepository.all(current_user.id)
@@ -37,8 +37,7 @@ module Investments
     end
 
     def update
-      @investment = InvestmentsServices::UpdateInvestment
-                    .call(investment_params.merge(id: params[:id]))
+      @investment = InvestmentsServices::Update.call(investment_params.merge(id: params[:id]))
 
       @investment = Investments::InvestmentDecorator.decorate(@investment)
       redirect_to investments_path, notice: 'Investimento atualizado.'
@@ -50,6 +49,12 @@ module Investments
       @investment = Investments::InvestmentDecorator.decorate(investment)
 
       redirect_to investment_path(@investment), notice: 'Investimento atualizada.'
+    end
+
+    def liquidate
+      InvestmentsServices::Liquidate.call(params[:id])
+
+      redirect_to investment_path(@investment), notice: I18n.t('investments.notices.liquidated')
     end
 
     private
