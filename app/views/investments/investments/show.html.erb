@@ -37,6 +37,10 @@
                     update_quote_investment_path(@investment),
                     method: :get,
                     class: "lcars-button lcars-button--secondary" %>
+      <%= link_to t('investments.investments.show.liquidate'),
+                    liquidate_investment_path(@investment),
+                    method: :get,
+                    class: "lcars-button lcars-button--secondary" %>
   </div>
 
     <%= turbo_frame_tag "new_position" %>

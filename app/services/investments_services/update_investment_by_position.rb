@@ -1,10 +1,12 @@
 module InvestmentsServices
-  class UpdateInvestmentByPosition < UpdateInvestment
+  class UpdateInvestmentByPosition < Update
     private
 
     def update_attributes
-      investment.current_amount = new_current_value
-      investment.shares_total = new_shares_total
+      {
+        current_amount: new_current_value,
+        shares_total: new_shares_total
+      }
     end
 
     def new_current_value

@@ -356,6 +356,8 @@ en:
         date: Date
         amount: Amount
     investments:
+      notices:
+        liquidated: Investment Liquidated Successfully
       index:
         title: Investments
         create_investment: Create investment
@@ -373,6 +375,7 @@ en:
         new_interest_on_equity: New interest on equity
         fetch_quote: Fetch Quote
         fetch_quote_error: Could not fetch quote for this ticker
+        liquidate: Liquidate
         negotiation_form:
           date: Date
           amount: Amount

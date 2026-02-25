@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe InvestmentsServices::UpdateInvestment do
+RSpec.describe InvestmentsServices::Update do
   subject(:update_investment) { described_class.call(investment_params) }
 
   let(:user) { create(:user) }

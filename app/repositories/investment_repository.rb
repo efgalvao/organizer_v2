@@ -40,4 +40,9 @@ module InvestmentRepository
     month_start = reference_date.beginning_of_month
     Investments::MonthlyInvestmentsReport.find_by(investment_id: investment_id, reference_date: month_start)
   end
+
+  def update!(investment, attributes)
+    investment.update!(attributes)
+    investment
+  end
 end

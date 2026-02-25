@@ -328,6 +328,8 @@ pt-BR:
         date: Data
         amount: Valor
     investments:
+      notices:
+        liquidated: Investimento liquidado.
       index:
         title: Investimentos
         create_investment: Criar investimento
@@ -345,6 +347,7 @@ pt-BR:
         new_interest_on_equity: Novo juros sobre capital próprio
         fetch_quote: Buscar cotação
         fetch_quote_error: Não foi possível buscar a cotação para este ticker
+        liquidate: Liquidar
         negotiation_form:
           date: Data
           amount: Valor
