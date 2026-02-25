@@ -47,6 +47,7 @@ Rails.application.routes.draw do
       resources :dividends, only: [:index, :new, :create]
       resources :interest_on_equities, only: [:index, :new, :create]
       get :update_quote, on: :member
+      get :liquidate, on: :member
     end
     get '/investments/:account_id/new', to: 'investments#new', as: 'new_investment'
   end
@@ -54,4 +55,3 @@ Rails.application.routes.draw do
   get '/file_upload', to: 'files#file_upload'
   post '/upload', to: 'files#upload'
 end
-
