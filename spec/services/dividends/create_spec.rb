@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe InvestmentsServices::CreateDividend do
+RSpec.describe Dividends::Create do
   subject(:create_dividend) { described_class.call(params) }
 
   let(:investment) { create(:investment, account: account) }

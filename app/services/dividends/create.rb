@@ -1,5 +1,5 @@
-module InvestmentsServices
-  class CreateDividend
+module Dividends
+  class Create
     def initialize(params)
       @params = params
     end
@@ -10,7 +10,7 @@ module InvestmentsServices
 
     def call
       ActiveRecord::Base.transaction do
-        dividend = Investments::Dividend.create(formated_params)
+        dividend = DividendRepository.create!(dividend_attributes)
         TransactionServices::ProcessTransactionRequest.call(params: transaction_params,
                                                             value_to_update_balance: transaction_amount)
         consolidate_report(dividend.date)
@@ -22,7 +22,7 @@ module InvestmentsServices
 
     attr_reader :params
 
-    def formated_params
+    def dividend_attributes
       {
         date: date,
         amount: params[:amount].to_d,

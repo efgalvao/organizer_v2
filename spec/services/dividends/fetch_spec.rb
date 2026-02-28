@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe InvestmentsServices::FetchDividends do
+RSpec.describe Dividends::Fetch do
   subject(:fetch_dividends) { described_class.call(investment.id) }
 
   let!(:dividend) { create(:dividend, date: '2024-03-16', investment: investment) }

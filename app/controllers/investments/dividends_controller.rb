@@ -3,7 +3,7 @@ module Investments
     before_action :authenticate_user!
 
     def index
-      dividends = ::InvestmentsServices::FetchDividends.call(params[:investment_id])
+      dividends = ::Dividends::Fetch.call(params[:investment_id])
 
       @dividends = Investments::DividendDecorator.decorate_collection(dividends)
 
@@ -15,12 +15,12 @@ module Investments
     end
 
     def create
-      @dividend = InvestmentsServices::CreateDividend.call(dividend_params)
+      @dividend = ::Dividends::Create.call(dividend_params)
       if @dividend.valid?
         @dividend = Investments::DividendDecorator.decorate(@dividend)
         respond_to do |format|
           format.html do
-            redirect_to investment_dividends_path(@dividend.investment), notice: 'Dividendio criado.'
+            redirect_to investment_dividends_path(@dividend.investment), notice: 'Dividendo criado.'
           end
           format.turbo_stream { flash.now[:notice] = 'Dividendo criado.' }
         end
