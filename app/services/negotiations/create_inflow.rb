@@ -1,5 +1,5 @@
-module InvestmentsServices
-  class CreateRedeemNegotiation
+module Negotiations
+  class CreateInflow
     def initialize(params)
       @params = params
     end
@@ -9,12 +9,13 @@ module InvestmentsServices
     end
 
     def call
-      return if params[:kind] != 'sell'
+      return if params[:kind] != 'buy'
 
       ActiveRecord::Base.transaction do
-        negotiation = Investments::Negotiation.create(formated_params)
+        negotiation = ::Negotiations::Create.call(formated_params)
+
         TransactionServices::ProcessTransactionRequest.call(params: transaction_params,
-                                                            value_to_update_balance: amount_by_origin)
+                                                            value_to_update_balance: -amount_by_origin)
         update_investment
         consolidate_report(negotiation.date)
         negotiation
@@ -48,17 +49,17 @@ module InvestmentsServices
     def transaction_params
       { account_id: negotiable.account_id,
         amount: amount_by_origin,
-        type: 'Account::Income',
-        category_id: income_category_id,
-        title: "#{I18n.t('investments.redeem_negotiation')} - #{negotiable.name}",
-        date: date }
+        type: 'Account::Investment',
+        title: transaction_title,
+        date: date,
+        group: group_parse(params[:group]) }
     end
 
     def update_investment_params
       {
         id: negotiable.id,
-        shares_total: -params[:shares].to_i,
-        invested_amount: -params[:amount].to_d
+        shares_total: params[:shares],
+        invested_amount: params[:amount]
       }
     end
 
@@ -72,9 +73,22 @@ module InvestmentsServices
 
     def amount_by_origin
       if negotiable.fixed?
-        params[:amount]
+        params[:amount].to_d
       else
         params[:amount].to_d * params[:shares].to_i
+      end
+    end
+
+    def transaction_title
+      "#{I18n.t('investments.invest_negotiation')} - #{negotiable.name} -> #{params[:amount]}*#{params[:shares]}"
+    end
+
+    def group_parse(param)
+      case param
+      when 'objectives'
+        2
+      when 'freedom'
+        4
       end
     end
 
@@ -83,10 +97,6 @@ module InvestmentsServices
       InvestmentsServices::ConsolidateMonthlyInvestmentsReport.call(negotiable, parsed_date)
     rescue StandardError => e
       Rails.logger.error("Error consolidating monthly report: #{e.message}")
-    end
-
-    def income_category_id
-      Category.primary_income_category_id
     end
   end
 end

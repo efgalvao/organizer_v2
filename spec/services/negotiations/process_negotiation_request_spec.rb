@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe InvestmentsServices::ProcessCreateNegotiationRequest do
+RSpec.describe Negotiations::ProcessNegotiationRequest do
   subject(:create_negotiation) { described_class.call(params) }
 
   let(:account) { create(:account) }
@@ -19,11 +19,11 @@ RSpec.describe InvestmentsServices::ProcessCreateNegotiationRequest do
         }
       end
 
-      before { allow(InvestmentsServices::CreateInvestNegotiation).to receive(:call) }
+      before { allow(Negotiations::CreateInflow).to receive(:call) }
 
-      it 'calls CreateInvestNegotiation', :aggregate_failures do
+      it 'calls CreateInflow' do
         create_negotiation
-        expect(InvestmentsServices::CreateInvestNegotiation).to have_received(:call).with(params)
+        expect(Negotiations::CreateInflow).to have_received(:call).with(params)
       end
     end
 
@@ -38,11 +38,11 @@ RSpec.describe InvestmentsServices::ProcessCreateNegotiationRequest do
         }
       end
 
-      before { allow(InvestmentsServices::CreateRedeemNegotiation).to receive(:call) }
+      before { allow(Negotiations::CreateOutflow).to receive(:call) }
 
-      it 'calls CreateRedeemNegotiation', :aggregate_failures do
+      it 'calls CreateOutflow' do
         create_negotiation
-        expect(InvestmentsServices::CreateRedeemNegotiation).to have_received(:call).with(params)
+        expect(Negotiations::CreateOutflow).to have_received(:call).with(params)
       end
     end
   end

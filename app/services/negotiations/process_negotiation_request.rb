@@ -1,5 +1,5 @@
-module InvestmentsServices
-  class ProcessCreateNegotiationRequest
+module Negotiations
+  class ProcessNegotiationRequest
     def initialize(params)
       @params = params
     end
@@ -11,10 +11,10 @@ module InvestmentsServices
     def call
       case params[:kind]
       when 'buy'
-        negotiation = InvestmentsServices::CreateInvestNegotiation.call(params)
+        negotiation = Negotiations::CreateInflow.call(params)
 
       when 'sell'
-        negotiation = InvestmentsServices::CreateRedeemNegotiation.call(params)
+        negotiation = Negotiations::CreateOutflow.call(params)
 
       end
       negotiation

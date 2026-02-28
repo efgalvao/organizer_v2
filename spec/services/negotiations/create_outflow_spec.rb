@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe InvestmentsServices::CreateRedeemNegotiation do
+RSpec.describe Negotiations::CreateOutflow do
   subject(:create_negotiation) { described_class.call(params) }
 
   let(:account) { create(:account) }

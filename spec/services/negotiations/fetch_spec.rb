@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe InvestmentsServices::FetchNegotiations do
+RSpec.describe Negotiations::Fetch do
   subject(:fetch_negotiations) { described_class.call(investment.id) }
 
   let!(:negotiation) { create(:negotiation, date: '2024-03-16', negotiable: investment) }
