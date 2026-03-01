@@ -10,7 +10,7 @@ module Dividends
 
     def call
       ActiveRecord::Base.transaction do
-        dividend = DividendRepository.create!(dividend_attributes)
+        dividend = create_dividend
         TransactionServices::ProcessTransactionRequest.call(params: transaction_params,
                                                             value_to_update_balance: transaction_amount)
         consolidate_report(dividend.date)
@@ -21,6 +21,10 @@ module Dividends
     private
 
     attr_reader :params
+
+    def create_dividend
+      DividendRepository.create!(dividend_attributes)
+    end
 
     def dividend_attributes
       {
