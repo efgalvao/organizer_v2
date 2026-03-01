@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe InvestmentsServices::CreatePosition do
+RSpec.describe Positions::Create do
   subject(:create_position) { described_class.call(params) }
 
   let(:investment) { create(:investment, account: account) }

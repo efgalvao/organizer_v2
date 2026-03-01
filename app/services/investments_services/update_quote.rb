@@ -34,7 +34,7 @@ module InvestmentsServices
     end
 
     def create_position(params)
-      InvestmentsServices::CreatePosition.call(params)
+      Positions::Create.call(params)
     end
   end
 end

@@ -1,5 +1,5 @@
-module InvestmentsServices
-  class CreatePosition
+module Positions
+  class Create
     def initialize(params)
       @params = params
     end
@@ -10,7 +10,7 @@ module InvestmentsServices
 
     def call
       ActiveRecord::Base.transaction do
-        position = Investments::Position.create(formated_params)
+        position = PositionRepository.create!(formated_params)
         InvestmentsServices::UpdateInvestmentByPosition.call(update_investment_params)
         consolidate_report(position.date)
         position

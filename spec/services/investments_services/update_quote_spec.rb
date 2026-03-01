@@ -9,14 +9,14 @@ RSpec.describe InvestmentsServices::UpdateQuote do
   before do
     allow(Investments::Investment).to receive(:find).with(investment.id).and_return(investment)
     allow(InvestmentsServices::FetchStockQuote).to receive(:call).with(investment.name).and_return(quote)
-    allow(InvestmentsServices::CreatePosition).to receive(:call)
+    allow(Positions::Create).to receive(:call)
   end
 
   describe '#call' do
     it 'fetches the latest quote and creates a position' do
       service.call
 
-      expect(InvestmentsServices::CreatePosition).to have_received(:call).with(
+      expect(Positions::Create).to have_received(:call).with(
         amount: quote[:value],
         shares: investment.shares_total,
         date: quote[:date],
