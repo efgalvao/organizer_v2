@@ -41,7 +41,7 @@ RSpec.describe Dividends::Create do
       }
     end
 
-    it 'createss a new investment', :aggregate_failures do
+    it 'create a new investment', :aggregate_failures do
       response = create_dividend
 
       expect(response).to be_a(Investments::Dividend)

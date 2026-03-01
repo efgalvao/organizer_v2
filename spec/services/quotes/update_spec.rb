@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe InvestmentsServices::UpdateQuote do
+RSpec.describe Quotes::Update do
   subject(:service) { described_class.new(investment.id) }
 
   let(:investment) { create(:investment, name: 'TEST11', shares_total: 10) }
@@ -8,7 +8,7 @@ RSpec.describe InvestmentsServices::UpdateQuote do
 
   before do
     allow(Investments::Investment).to receive(:find).with(investment.id).and_return(investment)
-    allow(InvestmentsServices::FetchStockQuote).to receive(:call).with(investment.name).and_return(quote)
+    allow(Quotes::FetchQuoteData).to receive(:call).with(investment.name).and_return(quote)
     allow(Positions::Create).to receive(:call)
   end
 
