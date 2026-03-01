@@ -55,7 +55,7 @@ class CardsController < ApplicationController
   private
 
   def fetch_expenses_by_category
-    CategoryServices::FetchExpensesByCategory.call(current_user.id, @card.id)
+    Report::FetchExpensesByCategory.call(current_user.id, @card.id)
   end
 
   def handle_successful_creation

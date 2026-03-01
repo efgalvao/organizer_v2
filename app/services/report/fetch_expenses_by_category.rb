@@ -1,4 +1,4 @@
-module CategoryServices
+module Report
   class FetchExpensesByCategory < ApplicationService
     CARD_ACCOUNT_TYPE = 'cards'.freeze
     SAVINGS_AND_BROKER_ACCOUNT_TYPES = 'accounts'.freeze
