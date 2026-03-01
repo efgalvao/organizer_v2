@@ -71,7 +71,7 @@ module Account
     private
 
     def fetch_expenses_by_category
-      CategoryServices::FetchExpensesByCategory.call(current_user.id, @account.id)
+      Report::FetchExpensesByCategory.call(current_user.id, @account.id)
     end
 
     def create_account

@@ -64,7 +64,7 @@ module Account
     end
 
     def expenses_by_category
-      @expenses_by_category = CategoryServices::FetchExpensesByCategory.call(current_user.id)
+      @expenses_by_category = Report::FetchExpensesByCategory.call(current_user.id)
     end
 
     private

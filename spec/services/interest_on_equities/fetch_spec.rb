@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe InvestmentsServices::FetchInterestOnEquities do
+RSpec.describe InterestOnEquities::Fetch do
   subject(:fetch_interest_on_equities) { described_class.call(investment.id) }
 
   let!(:interest_on_equity) { create(:interest_on_equity, date: '2024-03-16', investment: investment) }

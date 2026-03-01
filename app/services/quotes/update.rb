@@ -1,5 +1,5 @@
-module InvestmentsServices
-  class UpdateQuote < ApplicationService
+module Quotes
+  class Update < ApplicationService
     def initialize(id)
       @id = id
     end
@@ -23,7 +23,7 @@ module InvestmentsServices
     end
 
     def fetch_quote
-      FetchStockQuote.call(investment.name)
+      FetchQuoteData.call(investment.name)
     end
 
     def position_params(quote)
@@ -34,7 +34,7 @@ module InvestmentsServices
     end
 
     def create_position(params)
-      InvestmentsServices::CreatePosition.call(params)
+      Positions::Create.call(params)
     end
   end
 end

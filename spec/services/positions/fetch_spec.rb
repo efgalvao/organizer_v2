@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe InvestmentsServices::FetchPositions do
+RSpec.describe Positions::Fetch do
   subject(:fetch_positions) { described_class.call(investment.id) }
 
   let!(:position) { create(:position, date: '2024-03-16', positionable: investment) }

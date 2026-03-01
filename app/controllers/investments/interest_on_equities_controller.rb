@@ -3,7 +3,7 @@ module Investments
     before_action :authenticate_user!
 
     def index
-      interest_on_equities = ::InvestmentsServices::FetchInterestOnEquities.call(params[:investment_id])
+      interest_on_equities = ::InterestOnEquities::Fetch.call(params[:investment_id])
 
       @interest_on_equities = Investments::InterestOnEquityDecorator.decorate_collection(interest_on_equities)
 
@@ -15,7 +15,7 @@ module Investments
     end
 
     def create
-      @interest_on_equity = InvestmentsServices::CreateInterestOnEquity.call(interest_params)
+      @interest_on_equity = InterestOnEquities::Create.call(interest_params)
       if @interest_on_equity.valid?
         @interest_on_equity = Investments::InterestOnEquityDecorator.decorate(@interest_on_equity)
         respond_to do |format|

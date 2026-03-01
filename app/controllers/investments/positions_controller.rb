@@ -3,7 +3,7 @@ module Investments
     before_action :authenticate_user!
 
     def index
-      positions = ::InvestmentsServices::FetchPositions.call(params[:investment_id])
+      positions = ::Positions::Fetch.call(params[:investment_id])
 
       @positions = Investments::PositionDecorator.decorate_collection(positions)
 
@@ -15,7 +15,7 @@ module Investments
     end
 
     def create
-      @position = InvestmentsServices::CreatePosition.call(position_params)
+      @position = Positions::Create.call(position_params)
       if @position.valid?
         @position = Investments::PositionDecorator.decorate(@position)
         respond_to do |format|

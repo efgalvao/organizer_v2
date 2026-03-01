@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe InvestmentsServices::CreateDividend do
-  subject(:create_dividend) { described_class.call(params) }
+RSpec.describe InterestOnEquities::Create do
+  subject(:create_interest_on_equity) { described_class.call(params) }
 
   let(:investment) { create(:investment, account: account) }
   let(:account) { create(:account) }
@@ -17,18 +17,18 @@ RSpec.describe InvestmentsServices::CreateDividend do
       }
     end
 
-    it 'create new dividend', :aggregate_failures do
-      response = create_dividend
+    it 'creates new interest_on_equity', :aggregate_failures do
+      response = create_interest_on_equity
 
-      expect(response).to be_a(Investments::Dividend)
+      expect(response).to be_a(Investments::InterestOnEquity)
       expect(response.date).to eq(Date.current)
       expect(response.amount).to eq(10.01)
       expect(response.investment_id).to eq(investment.id)
       expect(response).to be_persisted
     end
 
-    it 'create income transaction' do
-      expect { create_dividend }.to change(Account::Income, :count).by(1)
+    it 'creates income transaction' do
+      expect { create_interest_on_equity }.to change(Account::Income, :count).by(1)
     end
   end
 
@@ -41,18 +41,18 @@ RSpec.describe InvestmentsServices::CreateDividend do
       }
     end
 
-    it 'createss a new investment', :aggregate_failures do
-      response = create_dividend
+    it 'creates a new interest_on_equity', :aggregate_failures do
+      response = create_interest_on_equity
 
-      expect(response).to be_a(Investments::Dividend)
+      expect(response).to be_a(Investments::InterestOnEquity)
       expect(response.date).to eq(Date.current)
       expect(response.amount).to eq(10.01)
       expect(response.investment_id).to eq(investment.id)
       expect(response).to be_persisted
     end
 
-    it 'create income transaction' do
-      expect { create_dividend }.to change(Account::Income, :count).by(1)
+    it 'creates income transaction' do
+      expect { create_interest_on_equity }.to change(Account::Income, :count).by(1)
     end
   end
 end

@@ -1,5 +1,5 @@
-module InvestmentsServices
-  class CreateInterestOnEquity
+module InterestOnEquities
+  class Create
     def initialize(params)
       @params = params
     end
@@ -10,7 +10,7 @@ module InvestmentsServices
 
     def call
       ActiveRecord::Base.transaction do
-        interest_on_equity = Investments::InterestOnEquity.create(formatted_params)
+        interest_on_equity = create_interest
         TransactionServices::ProcessTransactionRequest.call(params: transaction_params,
                                                             value_to_update_balance: amount)
         consolidate_report(interest_on_equity.date)
@@ -21,6 +21,10 @@ module InvestmentsServices
     private
 
     attr_reader :params
+
+    def create_interest
+      InterestOnEquityRepository.create!(formatted_params)
+    end
 
     def formatted_params
       {
