@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe InvestmentsServices::CreateInterestOnEquity do
+RSpec.describe InterestOnEquities::Create do
   subject(:create_interest_on_equity) { described_class.call(params) }
 
   let(:investment) { create(:investment, account: account) }
