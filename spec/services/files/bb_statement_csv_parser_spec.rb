@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'fileutils'
 require 'bigdecimal'
 
-RSpec.describe FilesServices::BbStatementCsvParser do
+RSpec.describe Files::BbStatementCsvParser do
   subject(:parser) { described_class.call(file, account.id) }
 
   let(:user) { create(:user) }

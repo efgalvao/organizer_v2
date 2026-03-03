@@ -1,4 +1,4 @@
-module FilesServices
+module Files
   class ProcessFile
     class UnknownFileTypeError < StandardError
     end
@@ -26,18 +26,18 @@ module FilesServices
     def parse_file
       case params[:origin]
       when 'nu_invoice'
-        FilesServices::NuInvoiceCsvParser.call(params[:file], params[:account_id])
+        Files::NuInvoiceCsvParser.call(params[:file], params[:account_id])
       when 'nu_statement'
-        FilesServices::NuStatementCsvParser.call(params[:file], params[:account_id])
+        Files::NuStatementCsvParser.call(params[:file], params[:account_id])
       when 'bb_statement'
-        FilesServices::BbStatementCsvParser.call(params[:file], params[:account_id])
+        Files::BbStatementCsvParser.call(params[:file], params[:account_id])
       else
         raise UnknownFileTypeError, 'Invalid Origin'
       end
     end
 
     def process_file(content)
-      FilesServices::ProcessContent.call(content)
+      Files::ProcessContent.call(content)
     end
 
     def account_belongs_to_user?

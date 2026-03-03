@@ -1,4 +1,4 @@
-module FilesServices
+module Files
   class BbStatementCsvParser
     require 'csv'
 

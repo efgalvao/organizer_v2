@@ -42,4 +42,3 @@ RSpec.describe Investments::UpdateInvestmentByPosition do
     expect(response.bucket).to eq(bucket_before)
   end
 end
-

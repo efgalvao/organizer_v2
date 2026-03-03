@@ -1,14 +1,12 @@
-module FilesServices
-  class NuInvoiceCsvParser
+module Files
+  class NuStatementCsvParser
     require 'csv'
 
-    KIND           = 0
-    TYPE           = 0
+    PARCELS        = 1
     DATE_INDEX     = 0
-    TITLE_INDEX    = 1
-    AMOUNT_INDEX   = 2
-    CATEGORY_INDEX = 3
-    PARCELS_INDEX  = 4
+    AMOUNT_INDEX   = 1
+    TITLE_INDEX    = 3
+    CATEGORY_INDEX = 4
     GROUP_INDEX    = 5
 
     def initialize(file, account_id)
@@ -43,11 +41,11 @@ module FilesServices
       {
         date: row[DATE_INDEX],
         title: row[TITLE_INDEX],
-        amount: row[AMOUNT_INDEX],
+        amount: format_amount(row[AMOUNT_INDEX]),
         category: row[CATEGORY_INDEX],
-        kind: KIND,
-        type: TYPE,
-        parcels: row[PARCELS_INDEX],
+        kind: kind(row[AMOUNT_INDEX]),
+        type: type(row[AMOUNT_INDEX]),
+        parcels: PARCELS,
         group: row[GROUP_INDEX],
         account: account.name
       }
@@ -55,6 +53,18 @@ module FilesServices
 
     def account
       @account ||= Account::Account.find(account_id)
+    end
+
+    def kind(amount)
+      amount.to_d.positive? ? 1 : 0
+    end
+
+    def type(amount)
+      amount.to_d.positive? ? 1 : 0
+    end
+
+    def format_amount(amount)
+      amount.to_d.abs
     end
   end
 end

@@ -1,4 +1,4 @@
-module FilesServices
+module Files
   class ProcessContent
     def initialize(content)
       @content = content

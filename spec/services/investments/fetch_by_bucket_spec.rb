@@ -16,13 +16,13 @@ RSpec.describe Investments::FetchByBucket do
     end
 
     context 'when user has investments in one bucket' do
-      let!(:investment1) do
+      let!(:investment_one) do
         create(:fixed_investment, account: account, bucket: 'emergency',
-               invested_amount: 100.0, current_amount: 110.0, shares_total: 1)
+                                  invested_amount: 100.0, current_amount: 110.0, shares_total: 1)
       end
-      let!(:investment2) do
+      let!(:investment_two) do
         create(:fixed_investment, account: account, bucket: 'emergency',
-               invested_amount: 200.0, current_amount: 220.0, shares_total: 1)
+                                  invested_amount: 200.0, current_amount: 220.0, shares_total: 1)
       end
 
       it 'returns one group with aggregated data', :aggregate_failures do
@@ -42,15 +42,15 @@ RSpec.describe Investments::FetchByBucket do
     context 'when user has investments in multiple buckets' do
       let!(:emergency_investment) do
         create(:fixed_investment, account: account, bucket: 'emergency',
-               invested_amount: 50.0, current_amount: 55.0)
+                                  invested_amount: 50.0, current_amount: 55.0)
       end
       let!(:freedom_investment) do
         create(:variable_investment, account: account, bucket: 'freedom',
-               invested_amount: 100.0, current_amount: 10.0, shares_total: 5)
+                                     invested_amount: 100.0, current_amount: 10.0, shares_total: 5)
       end
       let!(:cash_investment) do
         create(:fixed_investment, account: account, bucket: 'cash',
-               invested_amount: 25.0, current_amount: 26.0)
+                                  invested_amount: 25.0, current_amount: 26.0)
       end
 
       it 'returns all buckets with translated keys and correct data', :aggregate_failures do
@@ -84,13 +84,13 @@ RSpec.describe Investments::FetchByBucket do
     end
 
     context 'when calculating total_current for fixed investments' do
-      let!(:fixed1) do
+      let!(:fixed_one) do
         create(:fixed_investment, account: account, bucket: 'emergency',
-               current_amount: 100.0, shares_total: 1)
+                                  current_amount: 100.0, shares_total: 1)
       end
-      let!(:fixed2) do
+      let!(:fixed_two) do
         create(:fixed_investment, account: account, bucket: 'emergency',
-               current_amount: 50.0, shares_total: 1)
+                                  current_amount: 50.0, shares_total: 1)
       end
 
       it 'sums current_amount (ignores shares_total)' do
@@ -100,13 +100,13 @@ RSpec.describe Investments::FetchByBucket do
     end
 
     context 'when calculating total_current for variable investments' do
-      let!(:variable1) do
+      let!(:variable_one) do
         create(:variable_investment, account: account, bucket: 'freedom',
-               current_amount: 10.0, shares_total: 3)
+                                     current_amount: 10.0, shares_total: 3)
       end
-      let!(:variable2) do
+      let!(:variable_two) do
         create(:variable_investment, account: account, bucket: 'freedom',
-               current_amount: 5.0, shares_total: 2)
+                                     current_amount: 5.0, shares_total: 2)
       end
 
       it 'sums current_amount * shares_total for each investment' do
@@ -119,7 +119,7 @@ RSpec.describe Investments::FetchByBucket do
     context 'when variable investment has nil or blank shares_total' do
       let!(:variable_investment) do
         create(:variable_investment, account: account, bucket: 'freedom',
-               current_amount: 20.0, shares_total: nil)
+                                     current_amount: 20.0, shares_total: nil)
       end
 
       before do
@@ -135,11 +135,11 @@ RSpec.describe Investments::FetchByBucket do
     context 'when bucket has both fixed and variable investments' do
       let!(:fixed_inv) do
         create(:fixed_investment, account: account, bucket: 'emergency',
-               invested_amount: 100.0, current_amount: 105.0)
+                                  invested_amount: 100.0, current_amount: 105.0)
       end
       let!(:variable_inv) do
         create(:variable_investment, account: account, bucket: 'emergency',
-               invested_amount: 200.0, current_amount: 4.0, shares_total: 10)
+                                     invested_amount: 200.0, current_amount: 4.0, shares_total: 10)
       end
 
       it 'aggregates total_invested and calculates total_current correctly', :aggregate_failures do
@@ -154,11 +154,11 @@ RSpec.describe Investments::FetchByBucket do
     context 'when user has released investments' do
       let!(:active_investment) do
         create(:fixed_investment, account: account, bucket: 'emergency',
-               invested_amount: 100.0, current_amount: 110.0, released: false)
+                                  invested_amount: 100.0, current_amount: 110.0, released: false)
       end
       let!(:released_investment) do
         create(:fixed_investment, account: account, bucket: 'emergency',
-               invested_amount: 50.0, current_amount: 55.0, released: true)
+                                  invested_amount: 50.0, current_amount: 55.0, released: true)
       end
 
       it 'excludes released investments from the result' do
@@ -175,11 +175,11 @@ RSpec.describe Investments::FetchByBucket do
       let(:other_account) { create(:account, user: other_user) }
       let!(:other_investment) do
         create(:fixed_investment, account: other_account, bucket: 'emergency',
-               invested_amount: 999.0, current_amount: 1000.0)
+                                  invested_amount: 999.0, current_amount: 1000.0)
       end
       let!(:own_investment) do
         create(:fixed_investment, account: account, bucket: 'emergency',
-               invested_amount: 100.0, current_amount: 110.0)
+                                  invested_amount: 100.0, current_amount: 110.0)
       end
 
       it 'returns only the current user investments' do
