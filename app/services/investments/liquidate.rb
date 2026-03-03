@@ -1,4 +1,4 @@
-module InvestmentsServices
+module Investments
   class Liquidate
     def initialize(id)
       @id = id
@@ -16,8 +16,12 @@ module InvestmentsServices
 
     attr_reader :id
 
+    def investment
+      @investment ||= InvestmentRepository.find(id)
+    end
+
     def update_investment
-      InvestmentsServices::Update.call(update_params)
+      Investments::Update.call(update_params)
     end
 
     def update_params

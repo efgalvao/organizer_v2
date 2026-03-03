@@ -1,5 +1,5 @@
-module InvestmentsServices
-  class FetchInvestmentsByBucket
+module Investments
+  class FetchByBucket
     def initialize(user_id)
       @user_id = user_id
     end

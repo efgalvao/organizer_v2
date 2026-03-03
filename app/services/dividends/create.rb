@@ -60,7 +60,7 @@ module Dividends
 
     def consolidate_report(report_date)
       parsed_date = report_date.is_a?(String) ? Date.strptime(report_date, '%d/%m/%Y') : report_date
-      InvestmentsServices::ConsolidateMonthlyInvestmentsReport.call(investment, parsed_date)
+      Investments::ConsolidateMonthlyInvestmentsReport.call(investment, parsed_date)
     rescue StandardError => e
       Rails.logger.error("Error consolidating monthly report: #{e.message}")
     end

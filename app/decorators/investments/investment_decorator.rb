@@ -68,7 +68,7 @@ module Investments
     end
 
     def investment_chart_data
-      @investment_chart_data ||= InvestmentsServices::CreateInvestmentChartData.call(object.id)
+      @investment_chart_data ||= Investments::CreateInvestmentChartData.call(object.id)
     end
 
     def positions_chart_data

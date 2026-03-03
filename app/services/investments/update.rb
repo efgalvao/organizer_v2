@@ -1,4 +1,4 @@
-module InvestmentsServices
+module Investments
   class Update < ApplicationService
     def initialize(params)
       @id = params.fetch(:id)
@@ -19,9 +19,9 @@ module InvestmentsServices
 
     def process_update
       investment.with_lock do
-        attributes = data_to_update(investment)
+        attributes = data_to_update
 
-        InvestmentRepository.update!(investment, attributes)
+        InvestmentRepository.update!(attributes)
       end
     rescue ActiveRecord::RecordInvalid => e
       e.record
@@ -31,8 +31,8 @@ module InvestmentsServices
       @investment ||= InvestmentRepository.find(id)
     end
 
-    def data_to_update(_investment)
-      params.except(:id).compact_blank
+    def data_to_update
+      params.compact_blank
     end
   end
 end

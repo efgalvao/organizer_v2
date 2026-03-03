@@ -1,4 +1,4 @@
-module InvestmentsServices
+module Investments
   class CreateInvestmentChartData
     def initialize(investment_id)
       @investment_id = investment_id

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe InvestmentsServices::CreateVariableInvestment do
+RSpec.describe Investments::CreateVariable do
   subject(:create_investment) { described_class.call(investment_params) }
 
   let(:user) { create(:user) }

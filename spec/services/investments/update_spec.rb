@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe InvestmentsServices::Update do
+RSpec.describe Investments::Update do
   subject(:update_investment) { described_class.call(investment_params) }
 
   let(:user) { create(:user) }
@@ -15,7 +15,7 @@ RSpec.describe InvestmentsServices::Update do
   end
 
   it 'update investment', :aggregate_failures do
-    response = update_investment
+    response = update_investment[0]
 
     expect(response).to be_a(Investments::Investment)
     expect(response.name).to eq('My investment updated')

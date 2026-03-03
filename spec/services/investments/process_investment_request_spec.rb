@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe InvestmentsServices::ProcessCreateInvestmentRequest do
+RSpec.describe Investments::ProcessInvestmentRequest do
   subject(:process_create_investmentrequest) { described_class.call(investment_params) }
 
   let(:user) { create(:user) }

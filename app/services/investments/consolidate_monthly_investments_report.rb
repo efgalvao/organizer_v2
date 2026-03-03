@@ -1,4 +1,4 @@
-module InvestmentsServices
+module Investments
   class ConsolidateMonthlyInvestmentsReport
     def initialize(investment, date)
       @investment = investment.reload

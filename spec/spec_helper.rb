@@ -3,7 +3,7 @@ require 'pry-byebug'
 require 'dotenv'
 
 SimpleCov.start 'rails' do
-  minimum_coverage 50
+  minimum_coverage 75
 
   add_filter 'node_modules/'
 

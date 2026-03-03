@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe InvestmentsServices::UpdateFixedInvestmentByNegotiation do
+RSpec.describe Investments::UpdateFixedInvestmentByNegotiation do
   subject(:update_investment) { described_class.call(investment_params) }
 
   let(:user) { create(:user) }
@@ -21,7 +21,7 @@ RSpec.describe InvestmentsServices::UpdateFixedInvestmentByNegotiation do
   end
 
   it 'update investment', :aggregate_failures do
-    response = update_investment
+    response = update_investment[0]
 
     expect(response).to be_a(Investments::Investment)
     expect(response).to be_persisted

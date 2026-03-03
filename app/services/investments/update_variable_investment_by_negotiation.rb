@@ -1,9 +1,10 @@
-module InvestmentsServices
+module Investments
   class UpdateVariableInvestmentByNegotiation < Update
     private
 
-    def data_to_update(_investment)
+    def data_to_update
       {
+        id: params[:id],
         shares_total: new_shares_total,
         current_amount: new_current_value,
         invested_amount: new_invested_value

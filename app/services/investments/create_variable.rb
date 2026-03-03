@@ -1,5 +1,5 @@
-module InvestmentsServices
-  class CreateVariableInvestment
+module Investments
+  class CreateVariable
     def initialize(params)
       @params = params
     end
@@ -17,7 +17,7 @@ module InvestmentsServices
     attr_reader :params
 
     def create_variable_investment
-      Investments::VariableInvestment.create(attributes)
+      InvestmentRepository.create!(attributes)
     end
 
     def attributes

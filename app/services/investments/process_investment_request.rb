@@ -1,5 +1,5 @@
-module InvestmentsServices
-  module ProcessCreateInvestmentRequest
+module Investments
+  module ProcessInvestmentRequest
     extend self
 
     def call(params)
@@ -8,16 +8,18 @@ module InvestmentsServices
       else
         create_variable_investment(params)
       end
+    rescue ActiveRecord::RecordInvalid => e
+      e.record
     end
 
     private
 
     def create_fixed_investment(params)
-      InvestmentsServices::CreateFixedInvestment.call(params)
+      Investments::CreateFixed.call(params)
     end
 
     def create_variable_investment(params)
-      InvestmentsServices::CreateVariableInvestment.call(params)
+      Investments::CreateVariable.call(params)
     end
   end
 end

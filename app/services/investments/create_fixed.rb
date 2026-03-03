@@ -1,5 +1,5 @@
-module InvestmentsServices
-  class CreateFixedInvestment
+module Investments
+  class CreateFixed
     def initialize(params)
       @params = params
     end
@@ -17,7 +17,7 @@ module InvestmentsServices
     attr_reader :params
 
     def create_fixed_investment
-      Investments::FixedInvestment.create(attributes)
+      InvestmentRepository.create!(attributes)
     end
 
     def attributes

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe InvestmentsServices::ConsolidateMonthlyInvestmentsReport do
+RSpec.describe Investments::ConsolidateMonthlyInvestmentsReport do
   subject(:consolidate_report) { described_class.call(investment, date) }
 
   let(:user) { create(:user) }
