@@ -1,4 +1,4 @@
-module AccountServices
+module Reports
   class ConsolidateAccountReport
     def initialize(account, date)
       @account = account

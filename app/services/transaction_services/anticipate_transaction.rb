@@ -48,8 +48,8 @@ module TransactionServices
     end
 
     def consolidate_reports(original_date)
-      AccountServices::ConsolidateAccountReport.call(transaction.account, original_date)
-      AccountServices::ConsolidateAccountReport.call(transaction.account, anticipate_date)
+      Reports::ConsolidateAccountReport.call(transaction.account, original_date)
+      Reports::ConsolidateAccountReport.call(transaction.account, anticipate_date)
     end
   end
 end

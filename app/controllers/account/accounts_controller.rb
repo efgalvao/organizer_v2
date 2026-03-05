@@ -56,7 +56,7 @@ module Account
     end
 
     def consolidate_report
-      AccountServices::ConsolidateAccountReport.call(@account, Date.current)
+      Reports::ConsolidateAccountReport.call(@account, Date.current)
       respond_to do |format|
         @account.reload
         if @account.card?
