@@ -109,7 +109,7 @@ RSpec.describe AccountServices::CreateAccount do
 
     context 'when an error occurs during report creation' do
       before do
-        allow(AccountServices::CreateAccountReport).to receive(:create_report)
+        allow(Reports::CreateAccountReport).to receive(:create_report)
           .and_raise(StandardError.new('Report creation failed'))
       end
 

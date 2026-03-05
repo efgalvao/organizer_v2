@@ -40,7 +40,7 @@ module TransactionServices
       Account::AccountReport.month_report(
         account_id: transaction.account_id,
         reference_date: new_reference_date
-      ) || AccountServices::CreateAccountReport.create_report(transaction.account_id, anticipate_date)
+      ) || Reports::CreateAccountReport.create_report(transaction.account_id, anticipate_date)
     end
 
     def new_reference_date

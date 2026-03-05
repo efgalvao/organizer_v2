@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe AccountServices::CreateAccountReport do
+RSpec.describe Reports::CreateAccountReport do
   let(:account) { create(:account) }
 
   context 'when the reference_date is nil' do

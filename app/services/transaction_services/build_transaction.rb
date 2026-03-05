@@ -49,7 +49,7 @@ module TransactionServices
       @account_report ||= Account::AccountReport.month_report(
         account_id: params[:account_id],
         reference_date: date
-      ) || AccountServices::CreateAccountReport.create_report(
+      ) || Reports::CreateAccountReport.create_report(
         params[:account_id], date.strftime('%Y-%m-%d')
       )
     end

@@ -13,7 +13,7 @@ module Account
 
     def current_report
       current_report = account_reports.find_by(reference: Time.zone.now.strftime('%m%y'))
-      return AccountServices::CreateAccountReport.create_report(id) if current_report.nil?
+      return Reports::CreateAccountReport.create_report(id) if current_report.nil?
 
       current_report
     end

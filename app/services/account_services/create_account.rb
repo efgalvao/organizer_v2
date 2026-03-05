@@ -55,7 +55,7 @@ module AccountServices
     end
 
     def create_initial_report
-      AccountServices::CreateAccountReport.create_report(@account.id)
+      Reports::CreateAccountReport.create_report(@account.id)
     end
 
     def success_result

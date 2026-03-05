@@ -1,4 +1,4 @@
-module AccountServices
+module Reports
   class CreateAccountReport
     def initialize(account_id, reference_date)
       @account_id = account_id
