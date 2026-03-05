@@ -1,5 +1,5 @@
-module AccountServices
-  class CreateAccount
+module Accounts
+  class Create
     VALID_ACCOUNT_TYPES = ['Account::Savings', 'Account::Broker'].freeze
 
     def initialize(account_params)

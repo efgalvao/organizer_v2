@@ -19,7 +19,7 @@ class CardsController < ApplicationController
   def edit; end
 
   def create
-    result = AccountServices::CreateAccount.create(card_params.merge(type: 'Account::Card'))
+    result = Accounts::Create.create(card_params.merge(type: 'Account::Card'))
     @card = result[:account].decorate
 
     if result[:success?]

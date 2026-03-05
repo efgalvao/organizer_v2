@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe AccountServices::CreateAccount do
+RSpec.describe Accounts::Create do
   subject(:create_account) { described_class.create(account_params) }
 
   let(:user) { create(:user) }

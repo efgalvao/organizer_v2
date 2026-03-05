@@ -75,7 +75,7 @@ module Account
     end
 
     def create_account
-      AccountServices::CreateAccount.create(account_params)
+      Accounts::Create.create(account_params)
     end
 
     def handle_successful_creation
