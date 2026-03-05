@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module AccountServices
-  class UpdateAccountBalance
+module Accounts
+  class UpdateBalance
     def initialize(params)
       @params = params
     end

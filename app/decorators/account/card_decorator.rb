@@ -14,11 +14,11 @@ module Account
     end
 
     def past_reports
-      AccountServices::FetchPastAccountReports.fetch_past_reports(object.id, 6).map(&:decorate)
+      AccountReportRepository.past_reports(object.id, 6).map(&:decorate)
     end
 
     def future_reports
-      AccountServices::FetchFutureAccountReports.fetch_future_reports(object.id, 6).map(&:decorate)
+      AccountReportRepository.future_reports(object.id, 6).map(&:decorate)
     end
 
     def format_currency(value)

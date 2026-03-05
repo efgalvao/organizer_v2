@@ -32,7 +32,7 @@ module TransactionServices
     end
 
     def update_account_balance
-      AccountServices::UpdateAccountBalance.call(
+      Accounts::UpdateBalance.call(
         account_id: params[:account_id],
         amount: value_to_update_balance
       )

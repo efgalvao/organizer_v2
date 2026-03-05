@@ -32,7 +32,7 @@ module Account
     end
 
     def update
-      result = AccountServices::UpdateAccount
+      result = Accounts::Update
                .update(account_params.merge(id: @account.id))
 
       @account = result[:account].decorate

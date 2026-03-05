@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe AccountServices::UpdateAccountBalance do
+RSpec.describe Accounts::UpdateBalance do
   subject(:update_account_balance) { described_class.call(params) }
 
   let(:account) { create(:account, balance: 1.23) }

@@ -13,7 +13,7 @@ RSpec.describe Reports::ConsolidateAccountReport do
         expect { consolidate_report }.to change(Account::AccountReport, :count).by(1)
 
         report = Account::AccountReport.last
-        expect(report.account).to eq(account)
+        expect(report.account_id).to eq(account.id)
         expect(report.reference).to eq(224) # 0224 for Feb 2024
         expect(report.date).to eq(date)
       end

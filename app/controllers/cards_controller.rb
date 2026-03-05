@@ -32,7 +32,7 @@ class CardsController < ApplicationController
   end
 
   def update
-    @card = AccountServices::UpdateAccount
+    @card = Accounts::Update
             .update(card_params.merge(id: @card.id))
             .decorate
 

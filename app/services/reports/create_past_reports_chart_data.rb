@@ -1,4 +1,4 @@
-module AccountServices
+module Reports
   class CreatePastReportsChartData
     def initialize(reports:)
       @reports = reports

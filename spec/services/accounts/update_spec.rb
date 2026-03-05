@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe AccountServices::UpdateAccount do
+RSpec.describe Accounts::Update do
   let(:user) { create(:user) }
   let(:account) { create(:account, user: user) }
   let(:valid_params) do
