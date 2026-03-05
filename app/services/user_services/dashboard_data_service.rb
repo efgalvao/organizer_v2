@@ -65,7 +65,7 @@ module UserServices
     end
 
     def fetch_expense_by_category
-      Report::FetchExpensesByCategory.call(user_id)
+      Reports::FetchExpensesByCategory.call(user_id)
     end
 
     def fetch_expenses_by_group

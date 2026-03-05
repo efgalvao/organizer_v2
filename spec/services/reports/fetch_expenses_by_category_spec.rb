@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Report::FetchExpensesByCategory do
+RSpec.describe Reports::FetchExpensesByCategory do
   subject(:fetch_expenses_by_category) { described_class.call(user.id) }
 
   let(:user) { create(:user) }
