@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe TransactionServices::BuildTransactionParcels, type: :service do
+RSpec.describe Transactions::BuildParcels, type: :service do
   describe '.call' do
     let(:account) { create(:account) }
     let(:params) do

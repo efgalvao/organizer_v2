@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe TransactionServices::ProcessTransactionRequest do
+RSpec.describe Transactions::ProcessRequest do
   subject(:process_transaction_request) { described_class.call(params: params, value_to_update_balance: '1.23') }
 
   let(:account) { create(:account, balance: 1.0) }
@@ -43,7 +43,7 @@ RSpec.describe TransactionServices::ProcessTransactionRequest do
     end
 
     before do
-      allow(TransactionServices::BuildTransaction).to receive(:build).and_raise(StandardError)
+      allow(Transactions::Build).to receive(:build).and_raise(StandardError)
       allow(Rails.logger).to receive(:error)
     end
 

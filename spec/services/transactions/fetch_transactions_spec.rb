@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe TransactionServices::FetchTransactions do
+RSpec.describe Transactions::Fetch do
   subject(:fetch_transactions) { described_class.call(params, user.id) }
 
   let(:account) { create(:account, user: user) }

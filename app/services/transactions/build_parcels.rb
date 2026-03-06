@@ -1,5 +1,5 @@
-module TransactionServices
-  class BuildTransactionParcels
+module Transactions
+  class BuildParcels
     def initialize(params)
       @params = params
       @parcels = params[:parcels].to_i

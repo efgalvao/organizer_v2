@@ -1,5 +1,5 @@
-module TransactionServices
-  class FetchTransactions
+module Transactions
+  class Fetch
     def initialize(params, user_id)
       @groups = params[:groups]
       @categories = params[:categories]

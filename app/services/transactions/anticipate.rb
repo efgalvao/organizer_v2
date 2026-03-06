@@ -1,5 +1,5 @@
-module TransactionServices
-  class AnticipateTransaction
+module Transactions
+  class Anticipate
     def initialize(transaction, anticipate_date)
       @transaction = transaction
       @anticipate_date = anticipate_date

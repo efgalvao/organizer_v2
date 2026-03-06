@@ -1,5 +1,5 @@
-module TransactionServices
-  class ProcessTransactionRequest
+module Transactions
+  class ProcessRequest
     def initialize(params:, value_to_update_balance:)
       @params = params
       @value_to_update_balance = BigDecimal(value_to_update_balance.to_s)
@@ -26,7 +26,7 @@ module TransactionServices
     attr_reader :params, :value_to_update_balance
 
     def build_and_save_transaction
-      transaction = TransactionServices::BuildTransaction.build(params)
+      transaction = Transactions::Build.build(params)
       transaction.save!
       transaction
     end

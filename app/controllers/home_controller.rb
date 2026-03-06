@@ -10,7 +10,7 @@ class HomeController < ApplicationController
   end
 
   def transactions
-    transactions = TransactionServices::FetchTransactions.call(params, current_user.id)
+    transactions = Transactions::Fetch.call(params, current_user.id)
 
     @transactions = Account::TransactionDecorator.decorate_collection(transactions)
   end

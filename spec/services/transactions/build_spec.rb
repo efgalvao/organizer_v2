@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe TransactionServices::BuildTransaction do
+RSpec.describe Transactions::Build do
   subject(:build_transaction) { described_class.build(params) }
 
   let(:account) { create(:account) }

@@ -11,8 +11,8 @@ module InterestOnEquities
     def call
       ActiveRecord::Base.transaction do
         interest_on_equity = create_interest
-        TransactionServices::ProcessTransactionRequest.call(params: transaction_params,
-                                                            value_to_update_balance: amount)
+        Transactions::ProcessRequest.call(params: transaction_params,
+                                          value_to_update_balance: amount)
         consolidate_report(interest_on_equity.date)
         interest_on_equity
       end

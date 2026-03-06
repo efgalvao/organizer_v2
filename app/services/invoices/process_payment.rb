@@ -22,12 +22,12 @@ module Invoices
     attr_reader :params
 
     def execute_payment_flow
-      TransactionServices::ProcessTransactionRequest.call(
+      Transactions::ProcessRequest.call(
         params: sender_params,
         value_to_update_balance: -amount
       )
 
-      TransactionServices::ProcessTransactionRequest.call(
+      Transactions::ProcessRequest.call(
         params: receiver_params,
         value_to_update_balance: amount
       )

@@ -1,5 +1,5 @@
-module TransactionServices
-  class TransactionRequestBuilder
+module Transactions
+  class RequestBuilder
     def initialize(params)
       @params = params
     end
@@ -12,10 +12,10 @@ module TransactionServices
       ActiveRecord::Base.transaction do
         transaction_params = build_transaction
 
-        transactions = TransactionServices::BuildTransactionParcels.call(transaction_params)
+        transactions = Transactions::BuildParcels.call(transaction_params)
 
         response = transactions.flat_map do |transaction|
-          TransactionServices::ProcessTransactionRequest.call(
+          Transactions::ProcessRequest.call(
             params: transaction,
             value_to_update_balance: value_to_update(transaction)
           )

@@ -11,8 +11,8 @@ module Dividends
     def call
       ActiveRecord::Base.transaction do
         dividend = create_dividend
-        TransactionServices::ProcessTransactionRequest.call(params: transaction_params,
-                                                            value_to_update_balance: transaction_amount)
+        Transactions::ProcessRequest.call(params: transaction_params,
+                                          value_to_update_balance: transaction_amount)
         consolidate_report(dividend.date)
         dividend
       end

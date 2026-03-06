@@ -1,5 +1,5 @@
-module TransactionServices
-  class UpdateTransactionService
+module Transactions
+  class Update
     def initialize(transaction_id, params)
       @transaction_id = transaction_id
       @params = params

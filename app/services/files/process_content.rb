@@ -17,13 +17,13 @@ module Files
     attr_reader :content
 
     def process_transactions
-      transactions = TransactionServices::BuildTransactionRequest.call(content)
+      transactions = Transactions::BuildRequest.call(content)
 
       transactions.flatten.each do |transaction|
         next unless process_transaction?(transaction)
 
-        TransactionServices::ProcessTransactionRequest.call(params: transaction,
-                                                            value_to_update_balance: amount_to_update(transaction))
+        Transactions::ProcessRequest.call(params: transaction,
+                                          value_to_update_balance: amount_to_update(transaction))
       end
     end
 

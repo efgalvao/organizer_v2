@@ -14,10 +14,10 @@ module Transferences
     def call
       ActiveRecord::Base.transaction do
         transference = build_transference
-        TransactionServices::ProcessTransactionRequest.call(params: sender_transaction_params,
-                                                            value_to_update_balance: -amount)
-        TransactionServices::ProcessTransactionRequest.call(params: receiver_transaction_params,
-                                                            value_to_update_balance: amount)
+        Transactions::ProcessRequest.call(params: sender_transaction_params,
+                                          value_to_update_balance: -amount)
+        Transactions::ProcessRequest.call(params: receiver_transaction_params,
+                                          value_to_update_balance: amount)
         transference.save!
         transference
       end

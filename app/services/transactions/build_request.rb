@@ -1,5 +1,5 @@
-module TransactionServices
-  class BuildTransactionRequest < ApplicationService
+module Transactions
+  class BuildRequest < ApplicationService
     def initialize(transactions)
       @transactions = transactions
     end
@@ -10,7 +10,7 @@ module TransactionServices
 
     def call
       transactions.map do |transaction|
-        TransactionServices::BuildTransactionParcels.call(transaction)
+        Transactions::BuildParcels.call(transaction)
       end
     end
 

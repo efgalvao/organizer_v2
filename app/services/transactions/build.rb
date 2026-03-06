@@ -1,5 +1,5 @@
-module TransactionServices
-  class BuildTransaction
+module Transactions
+  class Build
     def initialize(params)
       @params = params
       @date = parse_date(params[:date])
