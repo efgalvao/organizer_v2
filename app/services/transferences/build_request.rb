@@ -1,5 +1,5 @@
-module TransferenceServices
-  class BuildTransferenceRequest
+module Transferences
+  class BuildRequest
     def initialize(transferences, user_id)
       @transferences = transferences
       @user_id = user_id

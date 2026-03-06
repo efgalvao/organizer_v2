@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe TransferenceServices::ProcessTransferenceRequest do
+RSpec.describe Transferences::ProcessRequest do
   subject(:service) { described_class.new(transference_params) }
 
   let(:user) { create(:user) }
@@ -47,7 +47,7 @@ RSpec.describe TransferenceServices::ProcessTransferenceRequest do
 
   context 'when error occurs' do
     before do
-      allow(TransferenceServices::BuildTransference).to receive(:call).and_raise(StandardError)
+      allow(Transferences::Build).to receive(:call).and_raise(StandardError)
     end
 
     it 'returns a transference with errors' do

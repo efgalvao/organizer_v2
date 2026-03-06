@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module TransferenceServices
-  class ProcessTransferenceRequest
+module Transferences
+  class ProcessRequest
     TRANSFERENCE_CODE = 2
     def initialize(params)
       @params = params
@@ -32,7 +32,7 @@ module TransferenceServices
     attr_reader :params
 
     def build_transference
-      TransferenceServices::BuildTransference.call(params)
+      Transferences::Build.call(params)
     end
 
     def sender_transaction_params

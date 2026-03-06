@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe TransferenceServices::BuildTransference do
+RSpec.describe Transferences::Build do
   subject(:service) { described_class }
 
   let(:user) { create(:user) }
