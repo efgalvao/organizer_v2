@@ -41,13 +41,7 @@ RSpec.describe Financings::Create do
       end
 
       it 'returns a new invalid financing and does not persist anything', :aggregate_failures do
-        financing = nil
-        expect { financing = service_call }.not_to change(Financings::Financing, :count)
-
-        expect(financing).to be_a(Financings::Financing)
-        expect(financing).not_to be_persisted
-        expect(financing).not_to be_valid
-        expect(FinancingRepository).to have_received(:create!).with(
+        allow(FinancingRepository).to receive(:create!).with(
           hash_including(
             name: 'Financing',
             user_id: user.id,
@@ -55,6 +49,13 @@ RSpec.describe Financings::Create do
             borrowed_value: satisfy { |v| v.is_a?(BigDecimal) && v == BigDecimal('12.34') }
           )
         ).and_raise(StandardError)
+
+        financing = nil
+        expect { financing = service_call }.not_to change(Financings::Financing, :count)
+
+        expect(financing).to be_a(Financings::Financing)
+        expect(financing).not_to be_persisted
+        expect(financing).not_to be_valid
       end
     end
   end

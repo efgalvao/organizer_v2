@@ -26,7 +26,6 @@ module Investments
       return Date.current if date.nil?
 
       if date.is_a?(String)
-        # Try parsing as '%d/%m/%Y' first, then standard format
         Date.strptime(date, '%d/%m/%Y')
       else
         date
