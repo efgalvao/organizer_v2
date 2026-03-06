@@ -1,5 +1,5 @@
-module FinancingServices
-  class UpdateFinancing
+module Financings
+  class Update
     def initialize(financing_id, params)
       @user_id = params[:user_id]
       @borrowed_value = params[:borrowed_value]

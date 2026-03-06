@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe FinancingServices::UpdateFinancing do
+RSpec.describe Financings::Update do
   subject(:update_financing) { described_class.call(financing.id, financing_params) }
 
   let!(:financing) { create(:financing) }

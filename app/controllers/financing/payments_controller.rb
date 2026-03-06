@@ -13,7 +13,7 @@ module Financing
     end
 
     def create
-      payment = FinancingServices::CreatePayment.call(payment_params)
+      payment = Payments::Create.call(payment_params)
 
       if payment.valid?
         @payment = payment.decorate
@@ -31,7 +31,7 @@ module Financing
     end
 
     def update
-      @payment = FinancingServices::UpdatePayment.call(@payment.id, payment_params)
+      @payment = Payments::Update.call(@payment.id, payment_params)
 
       if @payment.valid?
         redirect_to financing_path(@payment.financing_id), notice: t('payment.form.payment_updated')

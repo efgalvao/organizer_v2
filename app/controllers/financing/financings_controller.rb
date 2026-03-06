@@ -20,7 +20,7 @@ module Financing
     def edit; end
 
     def create
-      @financing = FinancingServices::CreateFinancing.call(financing_params)
+      @financing = Financings::Create.call(financing_params)
       if @financing.valid?
         respond_to do |format|
           format.html { redirect_to financings_path, notice: 'Financiamento criado com sucesso.' }
@@ -32,7 +32,7 @@ module Financing
     end
 
     def update
-      @financing = FinancingServices::UpdateFinancing.call(@financing.id, financing_params)
+      @financing = Financings::Update.call(@financing.id, financing_params)
 
       if @financing.valid?
         redirect_to financings_path, notice: 'Financiamento atualizado com sucesso.'
