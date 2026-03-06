@@ -1,4 +1,4 @@
-module UserServices
+module Users
   class FetchIdealExpenseData
     FIXED_COSTS_PERCENTAGE = 0.3
     CONFORT_PERCENTAGE = 0.15

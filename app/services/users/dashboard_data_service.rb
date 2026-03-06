@@ -1,4 +1,4 @@
-module UserServices
+module Users
   class DashboardDataService < ApplicationService
     def initialize(user_id)
       @user_id = user_id
@@ -45,23 +45,23 @@ module UserServices
     end
 
     def fetch_user_report
-      UserServices::ConsolidatedUserReport.new(user_id).call.decorate
+      Reports::ConsolidatedUserReport.new(user_id).call.decorate
     end
 
     def fetch_past_reports
-      UserServices::FetchUserReports.fetch_reports(user_id).decorate
+      Reports::FetchUserReports.fetch_reports(user_id).decorate
     end
 
     def fetch_past_reports_chart_data
-      UserServices::CreateUserSummaryChartData.call(reports: UserServices::FetchUserReports.fetch_reports(user_id))
+      Users::CreateUserSummaryChartData.call(reports: Users::FetchUserReports.fetch_reports(user_id))
     end
 
     def fetch_accounts
-      UserServices::FetchUserAccountsSummary.new(user_id).call
+      Users::FetchUserAccountsSummary.new(user_id).call
     end
 
     def fetch_cards
-      UserServices::FetchUserCardsSummary.new(user_id).call
+      Users::FetchUserCardsSummary.new(user_id).call
     end
 
     def fetch_expense_by_category
@@ -69,15 +69,15 @@ module UserServices
     end
 
     def fetch_expenses_by_group
-      UserServices::FetchExpensesByGroup.call(user_id)
+      Users::FetchExpensesByGroup.call(user_id)
     end
 
     def fetch_ideal_expenses_data
-      UserServices::FetchIdealExpenseData.call(user_id)
+      Users::FetchIdealExpenseData.call(user_id)
     end
 
     def fetch_investments_allocation
-      UserServices::FetchInvestmentsAllocation.call(user_id)
+      Users::FetchInvestmentsAllocation.call(user_id)
     end
 
     def fetch_investments_by_bucket

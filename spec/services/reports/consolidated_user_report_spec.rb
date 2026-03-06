@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe UserServices::ConsolidatedUserReport do
+RSpec.describe Reports::ConsolidatedUserReport do
   subject(:service) { described_class.new(user.id) }
 
   let(:user) { create(:user) }

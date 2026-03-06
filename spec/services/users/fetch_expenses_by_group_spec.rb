@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe UserServices::FetchExpensesByGroup do
+RSpec.describe Users::FetchExpensesByGroup do
   let(:user) { create(:user) }
   let(:account) { create(:account, user: user) }
   let(:expense_one) { create(:expense, group: 'metas', amount: 100, account: account) }

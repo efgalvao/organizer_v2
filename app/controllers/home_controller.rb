@@ -6,7 +6,7 @@ class HomeController < ApplicationController
   end
 
   def show
-    @report_data = UserServices::DashboardDataService.call(current_user_id)
+    @report_data = Users::DashboardDataService.call(current_user_id)
   end
 
   def transactions

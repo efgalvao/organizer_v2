@@ -1,4 +1,4 @@
-module UserServices
+module Users
   class FetchUserAccountsSummary < ApplicationService
     def initialize(user_id)
       @user_id = user_id

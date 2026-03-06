@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe UserServices::FetchUserAccountsSummary do
+RSpec.describe Users::FetchUserAccountsSummary do
   subject(:service) { described_class.new(user.id) }
 
   let(:user) { create(:user) }

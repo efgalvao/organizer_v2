@@ -1,4 +1,4 @@
-module UserServices
+module Users
   class CreateUserSummaryChartData
     def initialize(reports:)
       @reports = reports

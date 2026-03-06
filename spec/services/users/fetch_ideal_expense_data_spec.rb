@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe UserServices::FetchIdealExpenseData do
+RSpec.describe Users::FetchIdealExpenseData do
   let(:user) { create(:user) }
   let(:account) { create(:account, user: user) }
   let(:income_one) { create(:income, amount: 70, account: account, category_id: primary_income_category_id) }

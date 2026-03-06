@@ -1,4 +1,4 @@
-module UserServices
+module Reports
   class ConsolidatedUserReport
     DEFAULT_VALUE = 0
 

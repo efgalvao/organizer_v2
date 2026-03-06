@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe UserServices::FetchUserReports do
+RSpec.describe Reports::FetchUserReports do
   subject(:service) { described_class }
 
   let(:user) { create(:user) }

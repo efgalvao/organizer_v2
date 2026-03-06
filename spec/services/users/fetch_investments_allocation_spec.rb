@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe UserServices::FetchInvestmentsAllocation do
+RSpec.describe Users::FetchInvestmentsAllocation do
   subject(:fetch_allocation) { described_class.call(user_id) }
 
   let(:user) { create(:user) }

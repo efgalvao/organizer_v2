@@ -1,4 +1,4 @@
-module UserServices
+module Reports
   module FetchUserReports
     module_function
 
