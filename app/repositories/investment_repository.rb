@@ -41,8 +41,11 @@ module InvestmentRepository
     Investments::MonthlyInvestmentsReport.find_by(investment_id: investment_id, reference_date: month_start)
   end
 
-  def update!(investment, attributes)
-    investment.update!(attributes)
-    investment
+  def update!(attributes)
+    Investments::Investment.update!(attributes)
+  end
+
+  def create!(attributes)
+    Investments::Investment.create!(attributes)
   end
 end

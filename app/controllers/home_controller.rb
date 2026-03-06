@@ -6,11 +6,11 @@ class HomeController < ApplicationController
   end
 
   def show
-    @report_data = UserServices::DashboardDataService.call(current_user_id)
+    @report_data = Users::DashboardDataService.call(current_user_id)
   end
 
   def transactions
-    transactions = TransactionServices::FetchTransactions.call(params, current_user.id)
+    transactions = Transactions::Fetch.call(params, current_user.id)
 
     @transactions = Account::TransactionDecorator.decorate_collection(transactions)
   end

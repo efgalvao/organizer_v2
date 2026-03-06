@@ -19,7 +19,7 @@ class CardsController < ApplicationController
   def edit; end
 
   def create
-    result = AccountServices::CreateAccount.create(card_params.merge(type: 'Account::Card'))
+    result = Accounts::Create.create(card_params.merge(type: 'Account::Card'))
     @card = result[:account].decorate
 
     if result[:success?]
@@ -32,7 +32,7 @@ class CardsController < ApplicationController
   end
 
   def update
-    @card = AccountServices::UpdateAccount
+    @card = Accounts::Update
             .update(card_params.merge(id: @card.id))
             .decorate
 
@@ -55,7 +55,7 @@ class CardsController < ApplicationController
   private
 
   def fetch_expenses_by_category
-    CategoryServices::FetchExpensesByCategory.call(current_user.id, @card.id)
+    Reports::FetchExpensesByCategory.call(current_user.id, @card.id)
   end
 
   def handle_successful_creation

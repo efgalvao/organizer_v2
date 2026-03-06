@@ -24,7 +24,7 @@ module Investments
     end
 
     def create
-      @investment = InvestmentsServices::ProcessCreateInvestmentRequest.call(investment_params)
+      @investment = Investments::ProcessInvestmentRequest.call(investment_params)
       if @investment.valid?
         respond_to do |format|
           @investment = Investments::InvestmentDecorator.decorate(@investment)
@@ -37,14 +37,14 @@ module Investments
     end
 
     def update
-      @investment = InvestmentsServices::Update.call(investment_params.merge(id: params[:id]))
+      @investment = Investments::Update.call(investment_params.merge(id: params[:id]))
 
       @investment = Investments::InvestmentDecorator.decorate(@investment)
       redirect_to investments_path, notice: 'Investimento atualizado.'
     end
 
     def update_quote
-      investment = InvestmentsServices::UpdateQuote.call(params[:id])
+      investment = Investments::UpdateQuote.call(params[:id])
 
       @investment = Investments::InvestmentDecorator.decorate(investment)
 
@@ -52,7 +52,7 @@ module Investments
     end
 
     def liquidate
-      InvestmentsServices::Liquidate.call(params[:id])
+      Investments::Liquidate.call(params[:id])
 
       redirect_to investment_path(@investment), notice: I18n.t('investments.notices.liquidated')
     end

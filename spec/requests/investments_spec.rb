@@ -47,9 +47,14 @@ RSpec.describe 'Investments::Investment' do
           post investments_path(account_id: account.id), params: { investment: {
             account_id: account.id,
             name: '',
-            invested_amount: '100'
+            current_amount: '100',
+            invested_amount: '100',
+            type: 'FixedInvestment',
+            kind: 'fixed',
+            bucket: 'emergency'
           } }
         end.not_to change(Investments::FixedInvestment, :count)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
     end
   end

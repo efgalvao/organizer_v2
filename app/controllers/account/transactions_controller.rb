@@ -21,7 +21,7 @@ module Account
     def edit; end
 
     def create
-      @transaction = TransactionServices::TransactionRequestBuilder.call(transaction_params)
+      @transaction = Transactions::RequestBuilder.call(transaction_params)
 
       if @transaction.valid?
         @transaction = @transaction.decorate
@@ -35,7 +35,7 @@ module Account
     end
 
     def update
-      transaction = TransactionServices::UpdateTransactionService.call(@transaction.id, update_params)
+      transaction = Transactions::Update.call(@transaction.id, update_params)
       if transaction
         @transaction = transaction.decorate
         respond_to do |format|
@@ -50,8 +50,8 @@ module Account
     def anticipate_form; end
 
     def anticipate
-      @transaction = TransactionServices::AnticipateTransaction.call(@transaction,
-                                                                     anticipate_params[:anticipate_date])
+      @transaction = Transactions::Anticipate.call(@transaction,
+                                                   anticipate_params[:anticipate_date])
       if @transaction.valid?
         @transaction = @transaction.decorate
         respond_to do |format|
@@ -64,7 +64,7 @@ module Account
     end
 
     def expenses_by_category
-      @expenses_by_category = CategoryServices::FetchExpensesByCategory.call(current_user.id)
+      @expenses_by_category = Reports::FetchExpensesByCategory.call(current_user.id)
     end
 
     private

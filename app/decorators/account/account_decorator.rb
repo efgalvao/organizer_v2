@@ -32,12 +32,12 @@ module Account
     end
 
     def past_reports
-      AccountServices::FetchPastAccountReports.fetch_past_reports(object.id, 6).map(&:decorate)
+      AccountReportRepository.past_reports(object.id, 6).map(&:decorate)
     end
 
     def past_reports_chart_data
-      reports = AccountServices::FetchPastAccountReports.fetch_past_reports(object.id, 6)
-      AccountServices::CreatePastReportsChartData.call(reports: reports)
+      reports = AccountReportRepository.past_reports(object.id, 6)
+      Reports::CreatePastReportsChartData.call(reports: reports)
     end
 
     def format_currency(value)

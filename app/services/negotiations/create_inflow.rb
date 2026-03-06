@@ -14,8 +14,8 @@ module Negotiations
       ActiveRecord::Base.transaction do
         negotiation = ::Negotiations::Create.call(formated_params)
 
-        TransactionServices::ProcessTransactionRequest.call(params: transaction_params,
-                                                            value_to_update_balance: -amount_by_origin)
+        Transactions::ProcessRequest.call(params: transaction_params,
+                                          value_to_update_balance: -amount_by_origin)
         update_investment
         consolidate_report(negotiation.date)
         negotiation
@@ -65,9 +65,9 @@ module Negotiations
 
     def update_investment
       if negotiable.fixed?
-        InvestmentsServices::UpdateFixedInvestmentByNegotiation.call(update_investment_params)
+        Investments::UpdateFixedInvestmentByNegotiation.call(update_investment_params)
       else
-        InvestmentsServices::UpdateVariableInvestmentByNegotiation.call(update_investment_params)
+        Investments::UpdateVariableInvestmentByNegotiation.call(update_investment_params)
       end
     end
 
@@ -94,7 +94,7 @@ module Negotiations
 
     def consolidate_report(report_date)
       parsed_date = report_date.is_a?(String) ? Date.strptime(report_date, '%d/%m/%Y') : report_date
-      InvestmentsServices::ConsolidateMonthlyInvestmentsReport.call(negotiable, parsed_date)
+      Investments::ConsolidateMonthlyInvestmentsReport.call(negotiable, parsed_date)
     rescue StandardError => e
       Rails.logger.error("Error consolidating monthly report: #{e.message}")
     end

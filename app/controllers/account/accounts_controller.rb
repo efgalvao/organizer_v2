@@ -32,7 +32,7 @@ module Account
     end
 
     def update
-      result = AccountServices::UpdateAccount
+      result = Accounts::Update
                .update(account_params.merge(id: @account.id))
 
       @account = result[:account].decorate
@@ -56,7 +56,7 @@ module Account
     end
 
     def consolidate_report
-      AccountServices::ConsolidateAccountReport.call(@account, Date.current)
+      Reports::ConsolidateAccountReport.call(@account, Date.current)
       respond_to do |format|
         @account.reload
         if @account.card?
@@ -71,11 +71,11 @@ module Account
     private
 
     def fetch_expenses_by_category
-      CategoryServices::FetchExpensesByCategory.call(current_user.id, @account.id)
+      Reports::FetchExpensesByCategory.call(current_user.id, @account.id)
     end
 
     def create_account
-      AccountServices::CreateAccount.create(account_params)
+      Accounts::Create.create(account_params)
     end
 
     def handle_successful_creation

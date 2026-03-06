@@ -10,7 +10,7 @@ class TransferencesController < ApplicationController
   end
 
   def create
-    @transference = TransferenceServices::ProcessTransferenceRequest.call(transference_params)
+    @transference = Transferences::ProcessRequest.call(transference_params)
 
     if @transference.errors.empty?
       @transference = @transference.decorate

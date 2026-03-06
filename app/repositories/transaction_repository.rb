@@ -35,4 +35,18 @@ module TransactionRepository
       .group('categories.name')
       .sum(:amount)
   end
+
+  def for_user_in_current_month(user_id, groups: nil, categories: nil)
+    scope = Account::Transaction
+            .joins(:account, :category)
+            .where(accounts: { user_id: user_id })
+            .where(
+              'date >= ? AND date <= ?',
+              Time.zone.today.beginning_of_month,
+              Time.zone.today.end_of_month
+            )
+    scope = scope.where(group: groups) if groups.present?
+    scope = scope.where(category_id: categories) if categories.present?
+    scope.order(date: :desc)
+  end
 end
