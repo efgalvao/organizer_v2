@@ -53,7 +53,7 @@ module Users
     end
 
     def fetch_past_reports_chart_data
-      Users::CreateUserSummaryChartData.call(reports: Users::FetchUserReports.fetch_reports(user_id))
+      Users::CreateUserSummaryChartData.call(reports: Reports::FetchUserReports.fetch_reports(user_id))
     end
 
     def fetch_accounts
