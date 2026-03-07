@@ -20,9 +20,14 @@
             <div><%= render partial: 'variation_badge', locals: { value: @data[:incomes_variation], inverted: false } %></div>
           </div>
           <div class="col s3">
-            Despesas:<br>
+            Despesas no débito:<br>
             <span class="lcars-account-field"><%= number_to_currency @data[:summary]["expenses"] %></span>
             <div><%= render partial: 'variation_badge', locals: { value: @data[:expenses_variation], inverted: true } %></div>
+          </div>
+          <div class="col s3">
+            Despesas no cartão:<br>
+            <span class="lcars-account-field"><%= number_to_currency @data[:summary]["card_expenses"] %></span>
+            <div><%= render partial: 'variation_badge', locals: { value: @data[:card_expenses_variation], inverted: true } %></div>
           </div>
           <div class="col s3">
             Investido:<br>
