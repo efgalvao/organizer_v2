@@ -1,5 +1,7 @@
 module Reports
   class MonthlyBreakdown
+    EXPENSE_TYPE = 'Account::Expense'
+
     def initialize(user, month, year)
       @user = user
       @month = month.to_i
@@ -47,7 +49,7 @@ module Reports
     def category_breakdown
       @user.transactions
            .where(date: @start_date..@end_date)
-           .where(kind: 0)
+           .where(type: EXPENSE_TYPE)
            .joins(:category)
            .group('categories.name')
            .select('categories.name as name, SUM(transactions.amount) as total')
@@ -61,7 +63,7 @@ module Reports
     def group_breakdown
       @user.transactions
            .where(date: @start_date..@end_date)
-           .where(kind: 0)
+           .where(type: EXPENSE_TYPE)
            .group(:group)
            .select('transactions.group, SUM(transactions.amount) as total')
            .order('total DESC')
