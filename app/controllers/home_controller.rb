@@ -15,5 +15,17 @@ class HomeController < ApplicationController
     @transactions = Account::TransactionDecorator.decorate_collection(transactions)
   end
 
+  def past_summary
+    month = params[:month] || Date.current.month
+    year = params[:year] || Date.current.year
+
+    @data = Reports::MonthlyBreakdown.new(current_user, month, year).call
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @data }
+    end
+  end
+
   delegate :id, to: :current_user, prefix: true
 end

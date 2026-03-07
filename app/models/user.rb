@@ -11,4 +11,6 @@ class User < ApplicationRecord
 
   has_many :investments, through: :accounts
   has_many :monthly_investments_reports, through: :investments
+
+  has_many :transactions, through: :accounts
 end

@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   root 'home#index'
 
   get 'summary', to: 'home#show', as: 'summary'
+  get 'past_summary', to: 'home#past_summary'
   get 'transactions', to: 'home#transactions', as: 'transactions'
 
   resources :categories, except: %i[show]
