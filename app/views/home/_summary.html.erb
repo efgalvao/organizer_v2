@@ -1,79 +1,83 @@
 <div class="lcars-content">
-<div class="lcars-subtitle">
-  <%= t('home.summary.title') %>
-</div>
+  <div class="lcars-subtitle">
+    <%= t('home.summary.title') %>
+    <%= link_to t('buttons.past_summaries'),
+    past_summary_path,
+    data: { turbo_frame: "_top" },
+    class: "lcars-button lcars-button--secondary" %>
+  </div>
 
-<div class="lcars-table-container">
-  <table class="lcars-table">
-    <thead>
-      <tr>
-        <th><%= t('home.summary.savings') %></th>
-        <th><%= t('home.summary.investments') %></th>
-        <th><%= t('home.summary.balance') %></th>
-      </tr>
-    </thead>
-    <tbody>
+  <div class="lcars-table-container">
+    <table class="lcars-table">
+      <thead>
         <tr>
-          <td><%= user_report.savings_balance %></td>
-          <td><%= user_report.investments_balance %></td>
-          <td><%= user_report.month_total %></td>
+          <th><%= t('home.summary.savings') %></th>
+          <th><%= t('home.summary.investments') %></th>
+          <th><%= t('home.summary.balance') %></th>
         </tr>
-    </tbody>
-  </table>
-</div>
+      </thead>
+      <tbody>
+          <tr>
+            <td><%= user_report.savings_balance %></td>
+            <td><%= user_report.investments_balance %></td>
+            <td><%= user_report.month_total %></td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
 
-<div class="lcars-subtitle">
-  <%= t('home.summary.current_month.title') %>
-</div>
+  <div class="lcars-subtitle">
+    <%= t('home.summary.current_month.title') %>
+  </div>
 
-<div class="lcars-table-container">
-  <table class="lcars-table">
-    <thead>
-      <tr>
-        <th><%= t('home.summary.current_month.incomes') %></th>
-        <th><%= t('home.summary.current_month.expenses') %></th>
-        <th><%= t('home.summary.current_month.card_expenses') %></th>
-        <th><%= t('home.summary.current_month.invoice_payments') %></th>
-        <th><%= t('home.summary.current_month.month_balance') %></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><%= user_report.month_income %></td>
-        <td><%= user_report.month_expense %></td>
-        <td><%= user_report.month_card_expenses %></td>
-        <td><%= user_report.invoice_payments %></td>
-        <td><%= user_report.month_balance %></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<div class="lcars-subtitle">
-  <%= t('home.summary.current_month.investments_balance') %>
-</div>
+  <div class="lcars-table-container">
+    <table class="lcars-table">
+      <thead>
+        <tr>
+          <th><%= t('home.summary.current_month.incomes') %></th>
+          <th><%= t('home.summary.current_month.expenses') %></th>
+          <th><%= t('home.summary.current_month.card_expenses') %></th>
+          <th><%= t('home.summary.current_month.invoice_payments') %></th>
+          <th><%= t('home.summary.current_month.month_balance') %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= user_report.month_income %></td>
+          <td><%= user_report.month_expense %></td>
+          <td><%= user_report.month_card_expenses %></td>
+          <td><%= user_report.invoice_payments %></td>
+          <td><%= user_report.month_balance %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="lcars-subtitle">
+    <%= t('home.summary.current_month.investments_balance') %>
+  </div>
 
-<div class="lcars-table-container">
-  <table class="lcars-table">
-    <thead>
-      <tr>
-        <th><%= t('home.summary.current_month.accumulated_inflow') %></th>
-        <th><%= t('home.summary.current_month.investments') %></th>
-        <th><%= t('home.summary.current_month.invested') %></th>
-        <th><%= t('home.summary.current_month.redeemed') %></th>
-        <th><%= t('home.summary.current_month.earnings') %></th>
-        <th><%= t('home.summary.current_month.investments_balance') %></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><%= user_report.accumulated_inflow %></td>
-        <td><%= user_report.investments_balance %></td>
-        <td><%= user_report.month_invested %></td>
-        <td><%= user_report.month_redeemed %></td>
-        <td><%= user_report.month_earnings %></td>
-        <td><%= user_report.month_investments_balance %></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+  <div class="lcars-table-container">
+    <table class="lcars-table">
+      <thead>
+        <tr>
+          <th><%= t('home.summary.current_month.accumulated_inflow') %></th>
+          <th><%= t('home.summary.current_month.investments') %></th>
+          <th><%= t('home.summary.current_month.invested') %></th>
+          <th><%= t('home.summary.current_month.redeemed') %></th>
+          <th><%= t('home.summary.current_month.earnings') %></th>
+          <th><%= t('home.summary.current_month.investments_balance') %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= user_report.accumulated_inflow %></td>
+          <td><%= user_report.investments_balance %></td>
+          <td><%= user_report.month_invested %></td>
+          <td><%= user_report.month_redeemed %></td>
+          <td><%= user_report.month_earnings %></td>
+          <td><%= user_report.month_investments_balance %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

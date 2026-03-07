@@ -1,0 +1,12 @@
+<% if value.present? && value.is_a?(Numeric) %>
+  <% is_positive = value > 0 %>
+  <% color_class = inverted ? (is_positive ? 'red-text' : 'green-text') : (is_positive ? 'green-text' : 'red-text') %>
+  <% icon = is_positive ? 'arrow_upward' : 'arrow_downward' %>
+
+  <div class="<%= color_class %>" style="display: flex; align-items: center; font-size: 0.75rem; margin-top: 5px;">
+    <i class="material-icons tiny"><%= icon %></i>
+    <span><%= number_to_percentage(value.abs, precision: 1) %></span>
+  </div>
+<% else %>
+  <span class="grey-text" style="font-size: 0.75rem;">---</span>
+<% end %>
