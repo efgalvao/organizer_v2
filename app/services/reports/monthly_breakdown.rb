@@ -4,7 +4,7 @@ module Reports
       @user = user
       @month = month.to_i
       @year = year.to_i
-      @reference = "#{@month.to_s.rjust(2, '0')}/#{@year.to_s[-2..-1]}"
+      @reference = "#{@month.to_s.rjust(2, '0')}/#{@year.to_s[-2..]}"
       @start_date = Date.new(@year, @month, 1)
       @end_date = @start_date.end_of_month
     end
@@ -34,12 +34,12 @@ module Reports
 
     def previous_user_report_data
       prev_month_date = @start_date - 1.month
-      prev_ref = "#{prev_month_date.month.to_s.rjust(2, '0')}/#{prev_month_date.year.to_s[-2..-1]}"
+      prev_ref = "#{prev_month_date.month.to_s.rjust(2, '0')}/#{prev_month_date.year.to_s[-2..]}"
       @user.user_reports.find_by(reference: prev_ref)
     end
 
     def calculate_variation(current, previous)
-      return nil unless current && previous && previous > 0
+      return nil unless current && previous && previous.positive?
 
       ((current - previous) / previous.to_f) * 100
     end
