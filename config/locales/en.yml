@@ -48,6 +48,7 @@ en:
     filter: Filter
     expenses: Expenses
     investments: Investments
+    past_summaries: Past Months Summaries
   investment:
     singular: investment
     plural: investments
