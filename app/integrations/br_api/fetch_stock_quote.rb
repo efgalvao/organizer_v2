@@ -11,7 +11,7 @@ module BrApi
     end
 
     def call
-      data = BRapi::Client.get("/quote/#{ticker}")
+      data = BrApi::Client.get("/quote/#{ticker}")
 
       raise InvalidTickerError, I18n.t('investments.errors.fetch_quote_error') if data.nil?
 
