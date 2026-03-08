@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_03_06_234247) do
+ActiveRecord::Schema[7.0].define(version: 2026_03_08_125709) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -109,9 +109,9 @@ ActiveRecord::Schema[7.0].define(version: 2026_03_06_234247) do
     t.decimal "accumulated_inflow_amount", precision: 15, scale: 2, default: "0.0"
     t.decimal "average_purchase_price", precision: 15, scale: 4, default: "0.0"
     t.decimal "monthly_appreciation_value", precision: 15, scale: 2, default: "0.0"
-    t.decimal "monthly_return_percentage", precision: 8, scale: 4, default: "0.0"
-    t.decimal "accumulated_return_percentage", precision: 8, scale: 4, default: "0.0"
-    t.decimal "portfolio_weight_percentage", precision: 8, scale: 4, default: "0.0"
+    t.decimal "monthly_return_percentage", precision: 10, scale: 4, default: "0.0"
+    t.decimal "accumulated_return_percentage", precision: 12, scale: 4, default: "0.0"
+    t.decimal "portfolio_weight_percentage", precision: 6, scale: 3, default: "0.0"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["investment_id", "reference_date"], name: "index_monthly_investments_reports_on_investment_and_date", unique: true

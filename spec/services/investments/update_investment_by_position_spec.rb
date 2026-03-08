@@ -21,13 +21,13 @@ RSpec.describe Investments::UpdateInvestmentByPosition do
   end
 
   it 'updates current_amount and shares_total based on the given position data', :aggregate_failures do
-    response = update_investment[0]
+    update_investment
 
-    expect(response).to be_a(Investments::Investment)
-    expect(response).to be_persisted
-    expect(response.id).to eq(investment.id)
-    expect(response.current_amount.to_f).to eq(200.5)
-    expect(response.shares_total).to eq(5)
+    expect(investment.reload).to be_a(Investments::Investment)
+    expect(investment.reload).to be_persisted
+    expect(investment.reload.id).to eq(investment.id)
+    expect(investment.reload.current_amount.to_f).to eq(200.5)
+    expect(investment.reload.shares_total).to eq(5)
   end
 
   it 'does not change other attributes', :aggregate_failures do
@@ -35,10 +35,10 @@ RSpec.describe Investments::UpdateInvestmentByPosition do
     name_before = investment.name
     bucket_before = investment.bucket
 
-    response = update_investment[0]
+    update_investment
 
-    expect(response.invested_amount).to eq(invested_before)
-    expect(response.name).to eq(name_before)
-    expect(response.bucket).to eq(bucket_before)
+    expect(investment.reload.invested_amount).to eq(invested_before)
+    expect(investment.reload.name).to eq(name_before)
+    expect(investment.reload.bucket).to eq(bucket_before)
   end
 end

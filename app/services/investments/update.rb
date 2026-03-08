@@ -21,7 +21,7 @@ module Investments
       investment.with_lock do
         attributes = data_to_update
 
-        InvestmentRepository.update!(attributes)
+        InvestmentRepository.update!(investment, attributes)
       end
     rescue ActiveRecord::RecordInvalid => e
       e.record
@@ -32,7 +32,7 @@ module Investments
     end
 
     def data_to_update
-      params.compact_blank
+      params.except(:id).compact_blank
     end
   end
 end

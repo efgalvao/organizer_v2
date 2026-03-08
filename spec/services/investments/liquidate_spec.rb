@@ -11,12 +11,11 @@ RSpec.describe Investments::Liquidate do
 
   describe '.call' do
     it 'marks the investment as released', :aggregate_failures do
-      response = liquidate[0]
+      liquidate
 
-      expect(response).to be_a(Investments::Investment)
-      expect(response.id).to eq(investment.id)
-      expect(response).to be_persisted
-      expect(response.released).to be true
+      expect(investment.reload).to be_a(Investments::Investment)
+      expect(investment.reload).to be_persisted
+      expect(investment.reload.released).to be true
     end
 
     it 'persists released: true in the database' do
@@ -38,9 +37,9 @@ RSpec.describe Investments::Liquidate do
       let!(:investment) { create(:investment, account: account, released: true) }
 
       it 'returns the investment and keeps it released' do
-        response = liquidate[0]
+        liquidate
 
-        expect(response.released).to be true
+        expect(investment.released).to be true
         expect(investment.reload.released).to be true
       end
     end

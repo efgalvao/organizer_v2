@@ -1,6 +1,6 @@
 module Reports
   class MonthlyBreakdown
-    EXPENSE_TYPE = 'Account::Expense'
+    EXPENSE_TYPE = 'Account::Expense'.freeze
 
     def initialize(user, month, year)
       @user = user

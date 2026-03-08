@@ -15,13 +15,12 @@ RSpec.describe Investments::Update do
   end
 
   it 'update investment', :aggregate_failures do
-    response = update_investment[0]
+    update_investment
 
-    expect(response).to be_a(Investments::Investment)
-    expect(response.name).to eq('My investment updated')
-    expect(response.account_id).to eq(account.id)
-    expect(response.invested_amount).to eq(investment.invested_amount)
-    expect(response.bucket).to eq('cash')
-    expect(response).to be_persisted
+    expect(investment.reload).to be_a(Investments::Investment)
+    expect(investment.reload.name).to eq('My investment updated')
+    expect(investment.reload.invested_amount).to eq(investment.invested_amount)
+    expect(investment.reload.bucket).to eq('cash')
+    expect(investment.reload).to be_persisted
   end
 end

@@ -21,12 +21,12 @@ RSpec.describe Investments::UpdateFixedInvestmentByNegotiation do
   end
 
   it 'update investment', :aggregate_failures do
-    response = update_investment[0]
+    update_investment
 
-    expect(response).to be_a(Investments::Investment)
-    expect(response).to be_persisted
-    expect(response.shares_total).to eq(2)
-    expect(response.invested_amount).to eq(3)
-    expect(response.current_amount).to eq(3)
+    expect(investment.reload).to be_a(Investments::Investment)
+    expect(investment.reload).to be_persisted
+    expect(investment.reload.shares_total).to eq(2)
+    expect(investment.reload.invested_amount).to eq(3)
+    expect(investment.reload.current_amount).to eq(3)
   end
 end
