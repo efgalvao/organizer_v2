@@ -1,11 +1,11 @@
 <div class="past-summary-wrapper">
   <header class="lcars-header--section">
-    <h1>Resumo Financeiro: <%= @data[:summary]&.reference %></h1>
+    <h1><%= t('home.past_summary.title') %>: <%= @data[:summary]&.reference %></h1>
 
     <%= form_with url: past_summary_path, method: :get, data: { turbo: false }, class: "lcars-form-inline" do |f| %>
       <%= select_tag :month, options_for_select((1..12).map { |m| [m.to_s.rjust(2, '0'), m] }, params[:month]), class: "browser-default" %>
       <%= select_tag :year, options_for_select((2024..2026).to_a, params[:year]), class: "browser-default" %>
-      <button type="submit" class="lcars-button">Filtrar</button>
+      <button type="submit" class="lcars-button"><%= t('home.past_summary.filter') %></button>
     <% end %>
   </header>
 
@@ -14,54 +14,55 @@
 
       <div class="lcars-summary-item">
         <div class="row">
-          <div class="col s3">
-            Receitas:<br>
-            <span class="lcars-account-field"><%= number_to_currency @data[:summary]["incomes"] %></span>
+          <div class="col s2">
+            <%= t('home.past_summary.incomes') %>:<br>
+            <span class="lcars-account-field"><%= number_to_currency(@data[:summary]["incomes"], unit: 'R$ ', separator: ',', delimiter: '.') %></span>
             <div><%= render partial: 'variation_badge', locals: { value: @data[:incomes_variation], inverted: false } %></div>
           </div>
-          <div class="col s3">
-            Despesas no débito:<br>
-            <span class="lcars-account-field"><%= number_to_currency @data[:summary]["expenses"] %></span>
+          <div class="col s2">
+            <%= t('home.past_summary.debit_expenses') %>:<br>
+            <span class="lcars-account-field"><%= number_to_currency(@data[:summary]["expenses"], unit: 'R$ ', separator: ',', delimiter: '.') %></span>
             <div><%= render partial: 'variation_badge', locals: { value: @data[:expenses_variation], inverted: true } %></div>
           </div>
-          <div class="col s3">
-            Despesas no cartão:<br>
-            <span class="lcars-account-field"><%= number_to_currency @data[:summary]["card_expenses"] %></span>
+          <div class="col s2">
+            <%= t('home.past_summary.credit_expenses') %>:<br>
+            <span class="lcars-account-field"><%= number_to_currency(@data[:summary]["card_expenses"], unit: 'R$ ', separator: ',', delimiter: '.') %></span>
             <div><%= render partial: 'variation_badge', locals: { value: @data[:card_expenses_variation], inverted: true } %></div>
           </div>
-          <div class="col s3">
-            Investido:<br>
-            <span class="lcars-account-field"><%= number_to_currency @data[:summary]["investments"] %></span>
+          <div class="col s2">
+            <%= t('home.past_summary.invested') %>:<br>
+            <span class="lcars-account-field"><%= number_to_currency(@data[:summary]["investments"], unit: 'R$ ', separator: ',', delimiter: '.') %></span>
+            <div><%= render partial: 'variation_badge', locals: { value: @data[:invested_variation], inverted: false } %></div>
           </div>
-          <div class="col s3">
-            Saldo:<br>
-            <span class="lcars-account-field"><%= number_to_currency @data[:summary]["total"] %></span>
+          <div class="col s2">
+            <%= t('home.past_summary.balance') %>:<br>
+            <span class="lcars-account-field"><%= number_to_currency(@data[:summary]["total"], unit: 'R$ ', separator: ',', delimiter: '.') %></span>
           </div>
         </div>
       </div>
 
       <div class="row">
         <div class="col s12 m6">
-          <h2 class="lcars-subtitle">Gastos por Categoria</h2>
+          <h2 class="lcars-subtitle"><%= t('home.past_summary.expenses_by_category') %></h2>
           <div class="lcars-chart">
             <%= pie_chart @data[:charts][:categories], colors: ["#FF9900", "#9932CC", "#3366FF"] %>
           </div>
         </div>
         <div class="col s12 m6">
-          <h2 class="lcars-subtitle">Distribuição por Grupo</h2>
+          <h2 class="lcars-subtitle"><%= t('home.past_summary.expenses_by_group') %></h2>
           <div class="lcars-chart">
             <%= bar_chart @data[:charts][:groups], colors: ["#FF6600"] %>
           </div>
         </div>
       </div>
 
-      <h2 class="lcars-subtitle">Detalhamento</h2>
+      <h2 class="lcars-subtitle"><%= t('home.past_summary.details') %></h2>
       <table class="lcars-table">
         <thead>
           <tr>
-            <th>Categoria</th>
-            <th>Total</th>
-            <th>Representação</th>
+            <th><%= t('home.past_summary.category') %></th>
+            <th><%= t('home.past_summary.amount') %></th>
+            <th><%= t('home.past_summary.percentual') %></th>
           </tr>
         </thead>
         <tbody>
@@ -69,7 +70,7 @@
           <% @data[:category_data].each do |cat| %>
             <tr>
               <td><%= cat["name"] %></td>
-              <td class="lcars-account-field"><%= number_to_currency cat["total"] %></td>
+              <td class="lcars-account-field"><%= number_to_currency(cat["total"], unit: 'R$ ', separator: ',', delimiter: '.') %></td>
               <td><%= number_to_percentage((cat["total"].to_f / total_exp) * 100, precision: 1) if total_exp > 0 %></td>
             </tr>
           <% end %>
@@ -78,7 +79,7 @@
 
     <% else %>
       <div class="lcars-content">
-        <p>Nenhum dado encontrado para o período.</p>
+        <p><%= t('home.past_summary.no_data') %></p>
       </div>
     <% end %>
   </div>

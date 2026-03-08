@@ -311,6 +311,21 @@ en:
         ideal: Ideal
       investments_allocation: Investments Allocation
       investments_by_bucket: Investments by Portfolio
+    past_summary:
+      title: Summary
+      filter: Filter
+      incomes: Incomes
+      debit_expenses: Debit Expenses
+      credit_expenses: Credit Expenses
+      invested: Invested
+      balance: Balance
+      expenses_by_category: Expenses by category
+      expenses_by_group: Expenses by group
+      details: Details
+      category: Category
+      amount: Amount
+      percentual: Percentual
+      no_data: No data to show
   invoice:
     pay_invoice: Pay invoice
     invoice_payment: Invoice payment

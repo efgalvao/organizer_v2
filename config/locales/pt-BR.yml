@@ -282,6 +282,21 @@ pt-BR:
         ideal: Ideal
       investments_allocation: Alocação dos Investimentos
       investments_by_bucket: Investimentos por Carteira
+    past_summary:
+      title: Resumo
+      filter: Filtrar
+      incomes: Receitas
+      debit_expenses: Despesas no débito
+      credit_expenses: Despesas no crédito
+      invested: Valor em investimentos
+      balance: Saldo
+      expenses_by_category: Despesas por categoria
+      expenses_by_group: Despesas por  grupo
+      details: Detalhamento
+      category: Categoria
+      amount: Valor
+      percentual: Percentual
+      no_data: Sem informação
   invoice:
     pay_invoice: Pagar fatura
     invoice_payment: Pagamento de fatura
