@@ -20,7 +20,7 @@ module Reports
         expenses_variation: calculate_variation(current_report&.expenses, previous_report&.expenses),
         card_expenses_variation: calculate_variation(current_report&.card_expenses, previous_report&.card_expenses),
         incomes_variation: calculate_variation(current_report&.incomes, previous_report&.incomes),
-        invested_variation: calculate_variation(current_report&.invested, previous_report&.invested),
+        invested_variation: calculate_variation(current_report&.investments, previous_report&.investments),
         category_data: category_breakdown,
         group_data: group_breakdown,
         charts: {
