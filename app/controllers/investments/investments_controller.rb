@@ -44,7 +44,7 @@ module Investments
     end
 
     def update_quote
-      investment = Investments::UpdateQuote.call(params[:id])
+      investment = Quotes::Update.call(params[:id])
 
       @investment = Investments::InvestmentDecorator.decorate(investment)
 
