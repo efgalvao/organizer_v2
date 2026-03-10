@@ -66,12 +66,18 @@
           </tr>
         </thead>
         <tbody>
-          <% total_exp = @data[:summary]["expenses"].to_f %>
-          <% @data[:category_data].each do |cat| %>
+          <% @data[:category_data].each do |category| %>
             <tr>
-              <td><%= cat["name"] %></td>
-              <td class="lcars-account-field"><%= number_to_currency(cat["total"], unit: 'R$ ', separator: ',', delimiter: '.') %></td>
-              <td><%= number_to_percentage((cat["total"].to_f / total_exp) * 100, precision: 1) if total_exp > 0 %></td>
+              <td><%= category[:name] %></td>
+              <td class="lcars-account-field"><%= number_to_currency(category[:total], unit: 'R$ ', separator: ',', delimiter: '.') %></td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <span class="me-2"><%= number_to_percentage(category[:percentage], precision: 2) %></span>
+                  <div class="progress w-100" style="height: 8px;">
+                    <div class="progress-bar" role="progressbar" style="width: <%= category[:percentage] %>%"></div>
+                  </div>
+                </div>
+              </td>
             </tr>
           <% end %>
         </tbody>
