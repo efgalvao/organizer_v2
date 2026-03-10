@@ -73,9 +73,10 @@
               <td>
                 <div class="d-flex align-items-center">
                   <span class="me-2"><%= number_to_percentage(category[:percentage], precision: 2) %></span>
-                  <div class="progress w-100" style="height: 8px;">
-                    <div class="progress-bar" role="progressbar" style="width: <%= category[:percentage] %>%"></div>
+                  <div class="progress grey lighten-3" style="height: 8px; margin: 0;">
+                    <div class="determinate blue" style="width: <%= category[:percentage] %>%"></div>
                   </div>
+                  <small class="grey-text"><%= number_to_percentage(category[:percentage], precision: 2) %></small>
                 </div>
               </td>
             </tr>
