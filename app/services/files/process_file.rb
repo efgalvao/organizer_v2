@@ -31,6 +31,9 @@ module Files
         Files::NuStatementCsvParser.call(params[:file], params[:account_id])
       when 'bb_statement'
         Files::BbStatementCsvParser.call(params[:file], params[:account_id])
+      when 'ml_statement'
+        Parsers::MlStatementCsvParser.call(params[:file], params[:account_id])
+
       else
         raise UnknownFileTypeError, 'Invalid Origin'
       end
