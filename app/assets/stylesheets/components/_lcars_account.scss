@@ -34,6 +34,10 @@
   cursor: pointer;
 }
 
+.lcars-actions .lcars-button:last-child {
+  margin-left: auto;
+}
+
 .lcars-button:hover {
   background-color: #CC33FF;
 }
