@@ -1,0 +1,64 @@
+
+
+<div class="report-container">
+  <div class="header">
+    <h1>Relatório Mensal de Gastos</h1>
+    <p><%= @report_data[:metadata][:period] %></p>
+  </div>
+
+  <div class="summary-grid">
+    <div class="card">
+      <h3>Entradas</h3>
+      <p class="value positive">R$ <%= number_with_precision(@report_data[:totals][:incomes], precision: 2) %></p>
+    </div>
+    <div class="card">
+      <h3>Saídas Totais</h3>
+      <p class="value negative">R$ <%= number_with_precision(@report_data[:totals][:expenses_total], precision: 2) %></p>
+    </div>
+  </div>
+
+  <div class="details-section">
+    <h2>Divisão de Saídas</h2>
+    <p><strong>Custos Fixos:</strong> R$ <%= number_with_precision(@report_data[:totals][:expenses_fixed], precision: 2) %></p>
+    <p><strong>Gastos Eventuais:</strong> R$ <%= number_with_precision(@report_data[:totals][:expenses_occasional], precision: 2) %></p>
+    <hr>
+    <p><strong>Total no Débito:</strong> R$ <%= number_with_precision(@report_data[:methods][:debito], precision: 2) %></p>
+    <p><strong>Total no Cartão:</strong> R$ <%= number_with_precision(@report_data[:methods][:cartao_credito], precision: 2) %></p>
+  </div>
+
+  <div class="limit-section">
+    <h3>Limite de Gastos Eventuais</h3>
+    <div class="progress-container">
+      <div class="progress-bar <%= 'over-limit' if @report_data[:limit_progress][:is_over_limit] %>"
+           style="width: <%= @report_data[:limit_progress][:percent] %>%;">
+      </div>
+    </div>
+    <p class="limit-info">
+      <%= @report_data[:limit_progress][:percent] %>% de R$ <%= number_with_precision(@report_data[:limit_progress][:limit], precision: 2) %> utilizados.
+    </p>
+  </div>
+
+  <div class="table-section">
+    <h2>Listagem de Gastos</h2>
+    <table class="items-table">
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>Descrição</th>
+          <th>Tipo</th>
+          <th>Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @report_data[:transactions].each do |t| %>
+          <tr>
+            <td><%= t[:date] %></td>
+            <td><%= t[:description] %></td>
+            <td><%= t[:kind] %></td>
+            <td>R$ <%= number_with_precision(t[:value], precision: 2) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
