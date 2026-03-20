@@ -27,5 +27,19 @@ class HomeController < ApplicationController
     end
   end
 
+  def download_month_report
+    @report_data = Reports::MonthlyReport.call(current_user)
+
+    pdf_html = render_to_string(template: 'home/month_report', layout: 'pdf', formats: [:html])
+    pdf_file = WickedPdf.new.pdf_from_string(pdf_html)
+
+    send_data(
+      pdf_file,
+      filename: "Resumo_Financeiro_#{@report_data[:metadata][:period]}.pdf",
+      type: 'application/pdf',
+      disposition: 'attachment'
+    )
+  end
+
   delegate :id, to: :current_user, prefix: true
 end
