@@ -49,6 +49,7 @@ en:
     expenses: Expenses
     investments: Investments
     past_summaries: Past Months Summaries
+    download_report: Download Report
   investment:
     singular: investment
     plural: investments

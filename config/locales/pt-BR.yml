@@ -18,6 +18,7 @@ pt-BR:
     expenses: Despesas
     investments: Investimentos
     past_summaries: Resumo de meses anteriores
+    download_report: Baixar Relatório
   investment:
     singular: investimento
     plural: investimentos
