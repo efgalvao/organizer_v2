@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   get 'summary', to: 'home#show', as: 'summary'
   get 'past_summary', to: 'home#past_summary'
+  get 'download_month_report', to: 'home#download_month_report'
   get 'transactions', to: 'home#transactions', as: 'transactions'
 
   resources :categories, except: %i[show]
