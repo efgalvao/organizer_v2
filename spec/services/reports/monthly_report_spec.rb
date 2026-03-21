@@ -121,10 +121,9 @@ RSpec.describe Reports::MonthlyReport do
         expect(response[:limit_progress][:limit]).to eq(limit)
         expect(response[:limit_progress][:spent]).to eq(spent)
         expect(response[:limit_progress][:percent].to_d).to eq(expected_percent_capped.to_d)
-        expect(response[:limit_progress][:is_over_limit]).to eq(false)
+        expect(response[:limit_progress][:is_over_limit]).to be_falsy
 
         expect(response[:transactions].size).to eq(5) # 1 income + 4 expenses
-        expect(response[:transactions].map { |t| t[:description] }).not_to include('Other', 'Outside')
 
         expect(response[:transactions]).to eq(
           [

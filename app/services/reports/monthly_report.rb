@@ -8,7 +8,7 @@ module Reports
       @range = @date.all_month
     end
 
-    def self.call(user, date = Date.today)
+    def self.call(user, date = Time.zone.today)
       new(user, date).call
     end
 
