@@ -1,30 +1,32 @@
-FROM ruby:3.0.7-alpine3.19
+FROM ruby:3.0.7-alpine
 
-# 1. Instala pacotes do sistema (Alpine 3.19 já traz Node 20 por padrão)
+# 1. Instala dependências básicas e bibliotecas gráficas
+# Usamos o repositório v3.20 para garantir Node 20+ e Chromium compatível
 RUN apk add --no-cache \
     build-base \
     postgresql-dev \
     tzdata \
     curl \
     git \
-    nodejs \
-    npm \
-    chromium \
     nss \
     freetype \
     harfbuzz \
     ca-certificates \
     ttf-freefont \
     dbus \
-    fontconfig
+    fontconfig \
+    --repository http://dl-cdn.alpinelinux.org/alpine/v3.20/main \
+    nodejs \
+    npm \
+    chromium
 
-# 2. Variáveis de ambiente para o Puppeteer não baixar o próprio Chrome
+# 2. Configurações para o Puppeteer (Grover)
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
     PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser \
     RAILS_ENV=production \
     NODE_ENV=production
 
-# 3. Instalação do Yarn Global
+# 3. Instala o Yarn e as dependências
 RUN npm install -g yarn
 
 WORKDIR /app
