@@ -30,12 +30,14 @@ class HomeController < ApplicationController
   def download_month_report
     @report_data = Reports::MonthlyReport.call(current_user)
 
-    pdf_html = render_to_string(template: 'home/month_report', layout: 'pdf', formats: [:html])
-    pdf_file = WickedPdf.new.pdf_from_string(pdf_html)
+    html = render_to_string(template: 'home/month_report', layout: 'pdf', formats: [:html])
+
+    grover = Grover.new(html, format: 'A4', margin: { top: '10mm', bottom: '10mm' })
+    pdf = grover.to_pdf
 
     send_data(
-      pdf_file,
-      filename: "Resumo_Financeiro_#{@report_data[:metadata][:period]}.pdf",
+      pdf,
+      filename: "Resumo_#{@report_data[:metadata][:period]}.pdf",
       type: 'application/pdf',
       disposition: 'attachment'
     )

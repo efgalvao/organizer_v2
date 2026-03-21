@@ -131,6 +131,8 @@ GEM
     ffi (1.15.5)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    grover (1.2.9)
+      nokogiri (~> 1)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     io-console (0.7.0)
@@ -172,7 +174,6 @@ GEM
     nio4r (2.7.0)
     nokogiri (1.15.5-x86_64-linux)
       racc (~> 1.4)
-    ostruct (0.6.3)
     parallel (1.24.0)
     parser (3.2.2.4)
       ast (~> 2.4.1)
@@ -363,9 +364,6 @@ GEM
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    wicked_pdf (2.8.2)
-      activesupport
-      ostruct
     xpath (3.2.0)
       nokogiri (~> 1.8)
     yard (0.9.34)
@@ -386,6 +384,7 @@ DEPENDENCIES
   dotenv-rails
   draper
   factory_bot_rails
+  grover
   jsbundling-rails
   pg (~> 1.1)
   pry-byebug
@@ -410,7 +409,6 @@ DEPENDENCIES
   turbo-rails
   tzinfo-data
   web-console
-  wicked_pdf
 
 RUBY VERSION
    ruby 3.0.7p220

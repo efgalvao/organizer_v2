@@ -31,7 +31,7 @@ gem 'cssbundling-rails'
 gem 'redis', '~> 4.0'
 
 # PDF
-gem 'wicked_pdf'
+gem 'grover'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"

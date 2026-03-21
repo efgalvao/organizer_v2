@@ -1,35 +1,35 @@
-FROM ruby:3.0.7-alpine
+FROM ruby:3.0.7-alpine3.19
 
-# Install required packages
+# 1. Instala pacotes do sistema (Alpine 3.19 já traz Node 20 por padrão)
 RUN apk add --no-cache \
-  build-base \
-  postgresql-dev \
-  tzdata \
-  curl \
-  git \
-  nodejs \
-  npm \
-# Adicionando dependências gráficas e fontes
-libx11 \
-libxrender \
-libxext \
-libintl \
-libcrypto1.1 \
-libssl1.1 \
-ttf-dejavu \
-ttf-droid \
-ttf-freefont \
-ttf-liberation \
-# Instalando o wkhtmltopdf do repositório comunitário
---repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
-wkhtmltopdf
+    build-base \
+    postgresql-dev \
+    tzdata \
+    curl \
+    git \
+    nodejs \
+    npm \
+    chromium \
+    nss \
+    freetype \
+    harfbuzz \
+    ca-certificates \
+    ttf-freefont \
+    dbus \
+    fontconfig
 
-# Install Yarn
+# 2. Variáveis de ambiente para o Puppeteer não baixar o próprio Chrome
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser \
+    RAILS_ENV=production \
+    NODE_ENV=production
+
+# 3. Instalação do Yarn Global
 RUN npm install -g yarn
 
 WORKDIR /app
 
-# Gems install (with config to skip dev/test)
+# 4. Gems e Node Deps (Instala o puppeteer que o Grover vai usar)
 COPY Gemfile Gemfile.lock ./
 RUN bundle config set --local without 'development test' \
   && bundle install
