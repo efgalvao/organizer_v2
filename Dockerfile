@@ -8,7 +8,18 @@ RUN apk add --no-cache \
   curl \
   git \
   nodejs \
-  npm
+  npm \
+  wkhtmltopdf \
+  ttf-dejavu \
+  ttf-droid \
+  ttf-freefont \
+  ttf-liberation \
+  libstdc++ \
+  libx11 \
+  libxrender \
+  libxext \
+  libssl1.1 \
+  ca-certificates
 
 # Install Yarn
 RUN npm install -g yarn
