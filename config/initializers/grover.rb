@@ -1,14 +1,15 @@
 Grover.configure do |config|
   config.options = {
-    executable_path: ENV['PUPPETEER_EXECUTABLE_PATH'] || nil,
+    executable_path: ENV['PUPPETEER_EXECUTABLE_PATH'] || '/usr/bin/chromium-browser',
     launch_args: [
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-      '--disable-dev-shm-usage',
-      '--single-process'
+      '--no-sandbox',                # Essencial para rodar como root no Docker
+      '--disable-setuid-sandbox',    # Camada extra de segurança que causa erro em containers
+      '--disable-dev-shm-usage',     # FORÇA o uso da RAM normal em vez de /dev/shm (Mata o erro de Target Close)
+      '--disable-gpu',               # Não precisamos de aceleração gráfica para PDF
+      '--no-zygote',                 # Economiza memória ao não criar processos filhos desnecessários
+      '--single-process'             # Roda tudo em uma única thread (melhor para instâncias pequenas)
     ],
-    print_background: true,
-    display_header_footer: false,
-    prefer_css_page_size: true
+    wait_until: 'networkidle0', # Espera todas as requisições terminarem
+    timeout: 30000
   }
 end
