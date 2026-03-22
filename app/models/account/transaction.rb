@@ -14,6 +14,8 @@ module Account
 
     enum group: { custos_fixos: 0, conforto: 1, metas: 2, prazeres: 3, liberdade_financeira: 4, conhecimento: 5 }
 
+    enum recurrence: { one_time: 0, recurring: 1, installment: 2 }
+
     delegate :user, :name, to: :account, prefix: 'account'
 
     self.inheritance_column = :type

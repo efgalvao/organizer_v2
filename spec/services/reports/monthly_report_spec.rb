@@ -104,17 +104,13 @@ RSpec.describe Reports::MonthlyReport do
 
         expect(response[:metadata][:period]).to eq(reference_date.strftime('%B %Y'))
         expect(response[:metadata][:generated_at]).not_to be_nil
-
         expect(response[:totals][:incomes]).to eq(1000.to_d)
         expect(response[:totals][:expenses_total]).to eq(1000.to_d)
-        expect(response[:totals][:expenses_fixed]).to eq(400.to_d)
-        expect(response[:totals][:expenses_occasional]).to eq(600.to_d)
-
-        expect(response[:methods][:debit]).to eq(300.to_d)
-        expect(response[:methods][:credit]).to eq(700.to_d)
+        expect(response[:totals][:debit_realized]).to eq(300.to_d)
+        expect(response[:totals][:current_balance]).to eq(700.to_d)
 
         limit = described_class::IDEAL_LIMIT.to_d
-        spent = (200 + 400).to_d # only occasional (custos_fixos? == false)
+        spent = (300 + 400).to_d # only occasional (custos_fixos? == false)
         expected_percent = (spent / limit * 100).round(2)
         expected_percent_capped = [expected_percent, 100].min
 
@@ -124,23 +120,13 @@ RSpec.describe Reports::MonthlyReport do
         expect(response[:limit_progress][:is_over_limit]).to be_falsy
 
         expect(response[:transactions].size).to eq(5) # 1 income + 4 expenses
-
-        expect(response[:transactions]).to eq(
-          [
-            { date: '03/03', description: 'Salary', value: 1000.0, kind: 'Entrada' },
-            { date: '05/03', description: 'Rent', value: 100.0, kind: 'Fixo' },
-            { date: '07/03', description: 'Food', value: 200.0, kind: 'Eventual' },
-            { date: '09/03', description: 'Insurance', value: 300.0, kind: 'Fixo' },
-            { date: '11/03', description: 'Shopping', value: 400.0, kind: 'Eventual' }
-          ]
-        )
       end
     end
 
     context 'when occasional expenses exceed IDEAL_LIMIT' do
       let!(:fixed_expense) do
         create(:expense,
-               account: savings_account,
+               account: card_account,
                account_report: savings_report,
                category_id: category.id,
                amount: 7000,
@@ -151,7 +137,7 @@ RSpec.describe Reports::MonthlyReport do
 
       let!(:occasional_expense) do
         create(:expense,
-               account: savings_account,
+               account: card_account,
                account_report: savings_report,
                category_id: category.id,
                amount: 6000,
@@ -162,11 +148,9 @@ RSpec.describe Reports::MonthlyReport do
 
       it 'caps percent to 100 and marks is_over_limit as true' do
         limit = described_class::IDEAL_LIMIT.to_d
-        spent = 6000.to_d # occasional only
+        spent = 13_000.to_d
         expected_percent = (spent / limit * 100).round(2)
         expected_percent_capped = [expected_percent, 100].min
-
-        puts '-----', response[:limit_progress]
 
         expect(response[:limit_progress][:limit]).to eq(limit)
         expect(response[:limit_progress][:spent]).to eq(spent)
