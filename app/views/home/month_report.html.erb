@@ -1,61 +1,116 @@
-
-
 <div class="report-container">
   <div class="header">
-    <h1>Relatório Mensal de Gastos</h1>
-    <p><%= @report_data[:metadata][:period] %></p>
-  </div>
-
-  <div class="summary-grid">
-    <div class="card">
-      <h3>Entradas</h3>
-      <p class="value positive">R$ <%= number_with_precision(@report_data[:totals][:incomes], precision: 2) %></p>
+    <div class="title-group">
+      <h1>Relatório e Projeção Financeira</h1>
+      <span class="badge-period"><%= @report_data[:metadata][:period] %></span>
     </div>
-    <div class="card">
-      <h3>Saídas Totais</h3>
-      <p class="value negative">R$ <%= number_with_precision(@report_data[:totals][:expenses_total], precision: 2) %></p>
-    </div>
+    <p class="generated-at">Gerado em: <%= @report_data[:metadata][:generated_at].strftime('%d/%m/%Y %H:%M') %></p>
   </div>
 
-  <div class="details-section">
-    <h2>Divisão de Saídas</h2>
-    <p><strong>Custos Fixos:</strong> R$ <%= number_with_precision(@report_data[:totals][:expenses_fixed], precision: 2) %></p>
-    <p><strong>Gastos Eventuais:</strong> R$ <%= number_with_precision(@report_data[:totals][:expenses_occasional], precision: 2) %></p>
-    <hr>
-    <p><strong>Total no Débito:</strong> R$ <%= number_with_precision(@report_data[:methods][:debito], precision: 2) %></p>
-    <p><strong>Total no Cartão:</strong> R$ <%= number_with_precision(@report_data[:methods][:cartao_credito], precision: 2) %></p>
-  </div>
+  <div class="dashboard-grid">
+    <div class="column">
+      <h2 class="column-title">1. Realizado (Mês Atual)</h2>
 
-  <div class="limit-section">
-    <h3>Limite de Gastos Eventuais</h3>
-    <div class="progress-container">
-      <div class="progress-bar <%= 'over-limit' if @report_data[:limit_progress][:is_over_limit] %>"
-           style="width: <%= @report_data[:limit_progress][:percent] %>%;">
+      <div class="summary-card">
+        <h4>Entradas Totais</h4>
+        <span class="value positive">R$ <%= number_with_precision(@report_data[:totals][:incomes], precision: 2) %></span>
+      </div>
+
+      <div class="summary-card">
+        <h4>Saídas via Débito/Dinheiro</h4>
+        <span class="value negative">R$ <%= number_with_precision(@report_data[:totals][:debit_realized], precision: 2) %></span>
+        <small>Dinheiro que já saiu da conta corrente.</small>
+      </div>
+
+      <div class="summary-card balance-card">
+        <h4>Saldo Disponível Hoje</h4>
+        <span class="value <%= @report_data[:totals][:current_balance] >= 0 ? 'positive' : 'negative' %>">
+          R$ <%= number_with_precision(@report_data[:totals][:current_balance], precision: 2) %>
+        </span>
+        <small>Líquido após gastos no débito.</small>
+      </div>
+
+      <div class="limit-section">
+        <h4>Uso do Cartão (Acumulado)</h4>
+        <div class="progress-container">
+          <div class="progress-bar <%= 'over-limit' if @report_data[:limit_progress][:is_over_limit] %>"
+               style="width: <%= @report_data[:limit_progress][:percent] %>%;"></div>
+        </div>
+        <div class="limit-info">
+          <span><%= @report_data[:limit_progress][:percent] %>% do limite ideal</span>
+          <strong>R$ <%= number_with_precision(@report_data[:limit_progress][:spent], precision: 2) %></strong>
+        </div>
       </div>
     </div>
-    <p class="limit-info">
-      <%= @report_data[:limit_progress][:percent] %>% de R$ <%= number_with_precision(@report_data[:limit_progress][:limit], precision: 2) %> utilizados.
-    </p>
+
+    <div class="column forecast-bg">
+      <h2 class="column-title">2. Comprometimento (Próximo Mês)</h2>
+
+      <div class="summary-card highlight">
+        <h4>Fatura de Cartão Estimada</h4>
+        <span class="value negative">R$ <%= number_with_precision(@report_data[:forecast][:fatura_estimada], precision: 2) %></span>
+        <small>Baseado nos gastos realizados no cartão este mês.</small>
+      </div>
+
+      <div class="summary-card">
+        <h4>Custos Fixos de Débito</h4>
+        <span class="value negative">R$ <%= number_with_precision(@report_data[:forecast][:fixos_debito], precision: 2) %></span>
+        <small>Financiamento, contas e assinaturas agendadas.</small>
+      </div>
+
+      <%
+        forecast_total = @report_data[:forecast][:total_comprometido]
+        balance_after_forecast = @report_data[:totals][:incomes] - forecast_total
+        is_negative = balance_after_forecast < 0
+      %>
+
+      <div class="summary-card estimated-result <%= 'alert-card' if is_negative %>">
+        <h4>Resultado Previsto após Saídas</h4>
+        <span class="value <%= is_negative ? 'alert-text' : 'positive' %>">
+          <%= '⚠️' if is_negative %> R$ <%= number_with_precision(balance_after_forecast, precision: 2) %>
+        </span>
+        <small>Entradas base vs. (Fatura + Fixos).</small>
+      </div>
+
+      <div class="comparison-chart">
+        <div class="chart-label">Saúde do Fluxo (Entradas vs Saídas)</div>
+        <div class="chart-container">
+          <%
+            income = @report_data[:totals][:incomes].to_f
+            spent_pct = income > 0 ? (forecast_total / income * 100).round : 0
+          %>
+          <div class="chart-bar income-bar" style="width: 100%">
+             <div class="chart-bar-fill spent-fill" style="width: <%= [spent_pct, 100].min %>%"></div>
+          </div>
+          <div class="chart-legend">
+            <span>Comprometido: <%= spent_pct %>%</span>
+            <span>Margem: <%= 100 - spent_pct %>%</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="table-section">
-    <h2>Listagem de Gastos</h2>
+    <h3 class="column-title">Transações (Ordem Cronológica)</h3>
     <table class="items-table">
       <thead>
         <tr>
           <th>Data</th>
           <th>Descrição</th>
-          <th>Tipo</th>
-          <th>Valor</th>
+          <th>Categoria</th>
+          <th style="text-align: right;">Valor</th>
         </tr>
       </thead>
       <tbody>
         <% @report_data[:transactions].each do |t| %>
-          <tr>
+          <tr class="<%= t[:kind].parameterize %>">
             <td><%= t[:date] %></td>
             <td><%= t[:description] %></td>
-            <td><%= t[:kind] %></td>
-            <td>R$ <%= number_with_precision(t[:value], precision: 2) %></td>
+            <td><span class="badge"><%= t[:kind] %></span></td>
+            <td class="valor-celula">
+              <%= t[:kind] == 'Entrada' ? '+' : '-' %>&nbsp;R$&nbsp;<%= number_with_precision(t[:value], precision: 2) %>
+            </td>
           </tr>
         <% end %>
       </tbody>

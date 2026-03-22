@@ -1,6 +1,8 @@
 Grover.configure do |config|
+  executable = Rails.env.production? ? '/usr/bin/chromium-browser' : nil
+
   config.options = {
-    executable_path: ENV['PUPPETEER_EXECUTABLE_PATH'] || '/usr/bin/chromium-browser',
+    executable_path: executable,
     launch_args: [
       '--no-sandbox',                # Essencial para rodar como root no Docker
       '--disable-setuid-sandbox',    # Camada extra de segurança que causa erro em containers
