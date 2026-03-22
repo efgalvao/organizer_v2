@@ -100,9 +100,9 @@ RSpec.describe Reports::MonthlyReport do
       end
 
       it 'returns calculated totals, methods, limit progress and formatted transactions' do
-        expect(response.keys).to contain_exactly(:metadata, :totals, :methods, :limit_progress, :transactions)
+        expect(response.keys).to contain_exactly(:metadata, :totals, :forecast, :limit_progress, :transactions)
 
-        expect(response[:metadata][:period]).to eq(reference_date.strftime('%d %B %Y'))
+        expect(response[:metadata][:period]).to eq(reference_date.strftime('%B %Y'))
         expect(response[:metadata][:generated_at]).not_to be_nil
 
         expect(response[:totals][:incomes]).to eq(1000.to_d)
@@ -165,6 +165,8 @@ RSpec.describe Reports::MonthlyReport do
         spent = 6000.to_d # occasional only
         expected_percent = (spent / limit * 100).round(2)
         expected_percent_capped = [expected_percent, 100].min
+
+        puts '-----', response[:limit_progress]
 
         expect(response[:limit_progress][:limit]).to eq(limit)
         expect(response[:limit_progress][:spent]).to eq(spent)
