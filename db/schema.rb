@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_03_08_125709) do
+ActiveRecord::Schema[7.0].define(version: 2026_03_22_181401) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -170,9 +170,11 @@ ActiveRecord::Schema[7.0].define(version: 2026_03_08_125709) do
     t.datetime "updated_at", null: false
     t.integer "group"
     t.string "type"
+    t.integer "recurrence", default: 0, null: false
     t.index ["account_id"], name: "index_transactions_on_account_id"
     t.index ["account_report_id"], name: "index_transactions_on_account_report_id"
     t.index ["category_id"], name: "index_transactions_on_category_id"
+    t.index ["recurrence"], name: "index_transactions_on_recurrence"
   end
 
   create_table "transferences", force: :cascade do |t|

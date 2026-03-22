@@ -53,5 +53,6 @@ RSpec.describe Account::Transaction do
 
   describe 'enums' do
     it { is_expected.to define_enum_for(:group).with_values(custos_fixos: 0, conforto: 1, metas: 2, prazeres: 3, liberdade_financeira: 4, conhecimento: 5) }
+    it { is_expected.to define_enum_for(:recurrence).with_values(one_time: 0, recurring: 1, installment: 2) }
   end
 end
