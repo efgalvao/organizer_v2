@@ -15,6 +15,9 @@
   <%= f.input :type, as: :select, collection: [[t('transactions.form.income_kind'), 1],
     [t('transactions.form.expense_kind'), 0]], label: t('transactions.form.kind'),
     disabled: !f.object&.new_record? %>
+  <%= f.input :recurrence, as: :select, collection: [[t('transactions.form.recurrence.one_time'), 'one_time'],
+    [t('transactions.form.recurrence.recurring'), 'recurring'], [t('transactions.form.recurrence.installment'), 'installment']],
+    label: t('transactions.form.recurrence') %>
   <%= f.input :parcels, as: :integer, label: t('transactions.form.parcels'), input_html: { value: 1,
     disabled: !f.object&.new_record? } %>
   <%= f.input :group, as: :select, collection: Account::Transaction.groups.keys.map { |group| [group.humanize, group] }, label: t('transactions.form.group') %>
