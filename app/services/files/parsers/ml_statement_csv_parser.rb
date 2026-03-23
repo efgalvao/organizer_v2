@@ -3,13 +3,14 @@ module Files
     class MlStatementCsvParser
       require 'csv'
 
-      # Layout: RELEASE_DATE;TRANSACTION_TYPE;REFERENCE_ID;TRANSACTION_NET_AMOUNT;PARTIAL_BALANCE;categoria;grupo
+      # Layout: RELEASE_DATE;TRANSACTION_TYPE;REFERENCE_ID;TRANSACTION_NET_AMOUNT;PARTIAL_BALANCE;categoria;grupo;recurrence
       DATE_INDEX            = 0
       TITLE_INDEX           = 1
       AMOUNT_INDEX          = 3
       CATEGORY_INDEX        = 5
       GROUP_INDEX           = 6
       PARCELS               = 1
+      RECURRENCE_INDEX      = 7
 
       def initialize(file, account_id)
         @file = file
@@ -51,7 +52,8 @@ module Files
           type: type(amount_value),
           parcels: PARCELS,
           group: row[GROUP_INDEX],
-          account: account.name
+          account: account.name,
+          recurrence: row[RECURRENCE_INDEX]
         }
       end
 
