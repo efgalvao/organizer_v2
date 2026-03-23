@@ -8,6 +8,7 @@ module Transactions
       @title = params.fetch(:title)
       @group = params.fetch(:group)
       @type = resolve_transaction_type(params.fetch(:type))
+      @recurrence = params.fetch(:recurrence)
 
       @account_id = resolve_account_id(params[:account])
       @category_id = resolve_category_id(params[:category])
@@ -35,7 +36,8 @@ module Transactions
         type: @type,
         amount: @amount_per_parcel,
         date: (@base_date + (parcel - 1).months).strftime('%Y-%m-%d'),
-        group: @group
+        group: @group,
+        recurrence: @recurrence
       }
     end
 

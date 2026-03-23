@@ -13,8 +13,9 @@ module Transactions
         transaction_params = build_transaction
 
         transactions = Transactions::BuildParcels.call(transaction_params)
-
+        
         response = transactions.flat_map do |transaction|
+          puts '------>', transaction.inspect
           Transactions::ProcessRequest.call(
             params: transaction,
             value_to_update_balance: value_to_update(transaction)
@@ -24,6 +25,7 @@ module Transactions
         response.first
       end
     rescue StandardError => e
+      puts '=======>', e.inspect
       error_response(e.message)
     end
 
@@ -40,7 +42,8 @@ module Transactions
         amount: params.fetch(:amount),
         date: date,
         parcels: params[:parcels],
-        group: params.fetch(:group)
+        group: params.fetch(:group),
+        recurrence: params.fetch(:recurrence)
       }
     end
 
