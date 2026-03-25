@@ -14,7 +14,7 @@ module Reports
     def call
       transactions = @user.transactions
                           .where(date: @date.beginning_of_month..@date.next_month.end_of_month)
-                          .where.not(type: ['Account::Transference', 'Account::InvoicePayment'])
+                          .where.not(type: ['Account::Transference'])
                           .includes(:account)
 
       current_month_trans = transactions.select { |t| @date.all_month.cover?(t.date) }
@@ -38,17 +38,19 @@ module Reports
     def calculate_totals(current_trans)
       expenses = current_trans.select { |t| t.type == 'Account::Expense' }
       incomes  = current_trans.select { |t| t.type == 'Account::Income' }
+      payments = current_trans.select { |t| t.type == 'Account::InvoicePayment' && !t.account.card? }
 
       total_income   = sum_values(incomes)
-      debit_realized = sum_values(expenses.reject { |e| e.account.card? })
+      total_payments = sum_values(payments)
 
-      # Ajuste aqui: usando o método booleano .one_time? que o enum fornece para cada objeto
-      fixed_val    = sum_values(expenses.select { |t| t.recurring? || t.installment? })
+      debit_realized = sum_values(expenses.reject { |e| e.account.card? }) + total_payments
+
+      fixed_val    = sum_values(expenses.select { |t| t.recurring? || t.installment? }) + total_payments
       eventual_val = sum_values(expenses.select(&:one_time?))
 
       {
         incomes: total_income,
-        expenses_total: sum_values(expenses),
+        expenses_total: sum_values(expenses) + total_payments,
         debit_realized: debit_realized,
         fixed_realized: fixed_val,
         eventual_realized: eventual_val,
@@ -57,20 +59,21 @@ module Reports
     end
 
     def sum_values(transactions)
-      # O to_a garante que se vier um Relation do ActiveRecord ou um Array simples, funcione igual
       transactions.to_a.sum { |t| t.amount.to_f }.abs
     end
 
     def calculate_forecast(current_trans, next_trans)
-      # Fatura: Gastos de cartão do mês atual (independente da recorrência)
-      estimated_invoice = sum_values(current_trans.select { |t| t.account.card? && t.type == 'Account::Expense' })
+      estimated_invoice = sum_values(current_trans.select { |t| t.type == 'Account::Expense' && t.account.card? })
 
-      # Fixos de Débito: O que já está agendado no banco para o mês que vem
-      # Agora usamos os métodos do enum: .recurring? (mensal) e .installment? (parcelado)
-      debit_fixed = sum_values(next_trans.select { |t| !t.account.card? && (t.recurring? || t.installment?) })
+      debit_fixed = sum_values(next_trans.select do |t|
+        t.type == 'Account::Expense' && !t.account.card? && (t.recurring? || t.installment?)
+      end)
 
-      # Fallback: Se não houver lançamentos futuros, espelhamos o que é recorrente no débito atual
-      debit_fixed = sum_values(current_trans.select { |t| !t.account.card? && t.recurring? }) if debit_fixed.zero?
+      if debit_fixed.zero?
+        debit_fixed = sum_values(current_trans.select do |t|
+          t.type == 'Account::Expense' && !t.account.card? && t.recurring?
+        end)
+      end
 
       {
         fatura_estimada: estimated_invoice,
