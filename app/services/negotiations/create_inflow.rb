@@ -1,5 +1,7 @@
 module Negotiations
   class CreateInflow
+    ONE_TIME_ONLY_RECURRENCE = 0
+
     def initialize(params)
       @params = params
     end
@@ -52,7 +54,8 @@ module Negotiations
         type: 'Account::Investment',
         title: transaction_title,
         date: date,
-        group: group_parse(params[:group]) }
+        group: group_parse(params[:group]),
+        recurrence: ONE_TIME_ONLY_RECURRENCE }
     end
 
     def update_investment_params

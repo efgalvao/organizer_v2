@@ -3,6 +3,8 @@
 module Transferences
   class ProcessRequest
     TRANSFERENCE_CODE = 2
+    ONE_TIME_ONLY_RECURRENCE = 0
+
     def initialize(params)
       @params = params
     end
@@ -42,7 +44,9 @@ module Transferences
         amount: amount,
         date: params[:date],
         category_id: nil,
-        title: "Transferência para #{account(params[:receiver_id]).name}"
+        title: "Transferência para #{account(params[:receiver_id]).name}",
+        recurrence: ONE_TIME_ONLY_RECURRENCE
+
       }
     end
 
@@ -53,7 +57,8 @@ module Transferences
         amount: amount,
         date: params[:date],
         category_id: nil,
-        title: "Transferência de #{account(params[:sender_id]).name}"
+        title: "Transferência de #{account(params[:sender_id]).name}",
+        recurrence: ONE_TIME_ONLY_RECURRENCE
       }
     end
 
