@@ -3,7 +3,6 @@ module Files
     class MlStatementCsvParser
       require 'csv'
 
-      # Layout: RELEASE_DATE;TRANSACTION_TYPE;REFERENCE_ID;TRANSACTION_NET_AMOUNT;PARTIAL_BALANCE;categoria;grupo;recurrence
       DATE_INDEX            = 0
       TITLE_INDEX           = 1
       AMOUNT_INDEX          = 3
