@@ -36,41 +36,51 @@ module Reports
     private
 
     def calculate_totals(current_trans)
-      incomes = current_trans.select { |t| t.type == 'Account::Income' }.sum { |t| t.amount.to_f }.abs
       expenses = current_trans.select { |t| t.type == 'Account::Expense' }
+      incomes  = current_trans.select { |t| t.type == 'Account::Income' }
 
-      debit_spent = expenses.reject { |e| e.account.card? }.sum { |e| e.amount.to_f }.abs
+      total_income   = sum_values(incomes)
+      debit_realized = sum_values(expenses.reject { |e| e.account.card? })
+
+      # Ajuste aqui: usando o método booleano .one_time? que o enum fornece para cada objeto
+      fixed_val    = sum_values(expenses.select { |t| t.recurring? || t.installment? })
+      eventual_val = sum_values(expenses.select(&:one_time?))
 
       {
-        incomes: incomes,
-        expenses_total: expenses.sum { |e| e.amount.to_f }.abs,
-        debit_realized: debit_spent,
-        current_balance: incomes - debit_spent
+        incomes: total_income,
+        expenses_total: sum_values(expenses),
+        debit_realized: debit_realized,
+        fixed_realized: fixed_val,
+        eventual_realized: eventual_val,
+        current_balance: total_income - debit_realized
       }
     end
 
+    def sum_values(transactions)
+      # O to_a garante que se vier um Relation do ActiveRecord ou um Array simples, funcione igual
+      transactions.to_a.sum { |t| t.amount.to_f }.abs
+    end
+
     def calculate_forecast(current_trans, next_trans)
-      # Fatura estimada (Tudo no cartão no mês atual)
-      current_invoice = current_trans.select { |t| t.account.card? && t.type == 'Account::Expense' }
-                                     .sum { |t| t.amount.to_f }.abs
+      # Fatura: Gastos de cartão do mês atual (independente da recorrência)
+      estimated_invoice = sum_values(current_trans.select { |t| t.account.card? && t.type == 'Account::Expense' })
 
-      # Fixos de Débito (O que já está lançado para o mês que vem fora do cartão)
-      next_month_fixed = next_trans.select do |t|
-        !t.account.card? && (t.recurring? || t.installment?)
-      end.sum { |t| t.amount.to_f }.abs
+      # Fixos de Débito: O que já está agendado no banco para o mês que vem
+      # Agora usamos os métodos do enum: .recurring? (mensal) e .installment? (parcelado)
+      debit_fixed = sum_values(next_trans.select { |t| !t.account.card? && (t.recurring? || t.installment?) })
 
-      # Fallback: Se não houver nada lançado no futuro, projeta os 'recurring' atuais
-      if next_month_fixed.zero?
-        next_month_fixed = current_trans.select do |t|
-          t.type == 'Account::Expense' && t.recurring? && !t.account.card?
-        end.sum { |t| t.amount.to_f }.abs
-      end
+      # Fallback: Se não houver lançamentos futuros, espelhamos o que é recorrente no débito atual
+      debit_fixed = sum_values(current_trans.select { |t| !t.account.card? && t.recurring? }) if debit_fixed.zero?
 
       {
-        fatura_estimada: current_invoice,
-        fixos_debito: next_month_fixed,
-        total_comprometido: current_invoice + next_month_fixed
+        fatura_estimada: estimated_invoice,
+        fixos_debito: debit_fixed,
+        total_comprometido: estimated_invoice + debit_fixed
       }
+    end
+
+    def debit_fixed?(transaction)
+      !transaction.account.card? && (transaction.recurring? || transaction.installment?)
     end
 
     def calculate_limit_progress(current_trans)
@@ -115,12 +125,17 @@ module Reports
 
     def calculate_income_quality(current_trans)
       incomes = current_trans.select { |t| t.type == 'Account::Income' }
-      
+
       recurring_income = incomes.select(&:recurring?).sum { |t| t.amount.to_f }.abs
       one_time_income  = incomes.select(&:one_time?).sum { |t| t.amount.to_f }.abs
-      
+
       {
-        guaranteed_ratio: recurring_income > 0 ? (recurring_income / (recurring_income + one_time_income) * 100).round : 0,
+        guaranteed_ratio: if recurring_income.positive?
+                            (recurring_income / (recurring_income + one_time_income) * 100)
+                              .round
+                          else
+                            0
+                          end,
         recurring_value: recurring_income,
         one_time_value: one_time_income
       }
