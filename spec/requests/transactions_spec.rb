@@ -34,7 +34,8 @@ RSpec.describe 'Financings::Transaction' do
             type: 1,
             category_id: 2,
             parcels: 1,
-            group: 'conforto'
+            group: 'conforto',
+            recurrence: 'one_time'
           } }
         end.to change(Account::Income, :count).by(1)
       end

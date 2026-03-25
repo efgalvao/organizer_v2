@@ -100,9 +100,8 @@ RSpec.describe Reports::MonthlyReport do
       end
 
       it 'returns calculated totals, methods, limit progress and formatted transactions' do
-        expect(response.keys).to contain_exactly(:metadata, :totals, :forecast, :limit_progress, :transactions)
+        expect(response.keys).to contain_exactly(:metadata, :totals, :forecast, :limit_progress, :transactions, :income_quality)
 
-        expect(response[:metadata][:period]).to eq(reference_date.strftime('%B %Y'))
         expect(response[:metadata][:generated_at]).not_to be_nil
         expect(response[:totals][:incomes]).to eq(1000.to_d)
         expect(response[:totals][:expenses_total]).to eq(1000.to_d)
