@@ -70,12 +70,13 @@ module Account
     private
 
     def transaction_params
-      params.require(:transaction).permit(:title, :category_id, :amount, :type, :date, :future, :parcels, :group)
+      params.require(:transaction).permit(:title, :category_id, :amount, :type, :date, :future, :parcels, :group,
+                                          :recurrence)
             .merge(account_id: params[:account_id])
     end
 
     def update_params
-      params.require(:transaction).permit(:id, :title, :category_id, :date, :group)
+      params.require(:transaction).permit(:id, :title, :category_id, :date, :group, :recurrence)
     end
 
     def anticipate_params

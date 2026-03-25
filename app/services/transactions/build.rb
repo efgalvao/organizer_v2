@@ -41,7 +41,8 @@ module Transactions
         category_id: params[:category_id],
         title: params[:title],
         account_report_id: account_report.id,
-        group: params[:group]
+        group: params[:group],
+        recurrence: params[:recurrence]
       }
     end
 

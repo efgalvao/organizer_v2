@@ -40,7 +40,8 @@ module Transactions
         amount: params.fetch(:amount),
         date: date,
         parcels: params[:parcels],
-        group: params.fetch(:group)
+        group: params.fetch(:group),
+        recurrence: params.fetch(:recurrence)
       }
     end
 

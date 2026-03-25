@@ -36,14 +36,14 @@ module Invoices
     def sender_params
       base_params.merge(
         account_id: params[:sender_id],
-        title: "#{I18n.t('transactions.invoice.payment')} - #{receiver.name}"
+        title: "#{I18n.t('invoice.invoice_payment')} - #{receiver.name}"
       )
     end
 
     def receiver_params
       base_params.merge(
         account_id: receiver.id,
-        title: I18n.t('transactions.invoice.payment')
+        title: I18n.t('invoice.invoice_payment')
       )
     end
 
@@ -51,7 +51,8 @@ module Invoices
       {
         amount: amount,
         type: 'Account::InvoicePayment',
-        date: payment_date
+        date: payment_date,
+        recurrence: 0
       }
     end
 

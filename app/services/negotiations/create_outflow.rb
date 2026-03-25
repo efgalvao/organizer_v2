@@ -1,5 +1,7 @@
 module Negotiations
   class CreateOutflow
+    ONE_TIME_ONLY_RECURRENCE = 0
+
     def initialize(params)
       @params = params
     end
@@ -51,7 +53,8 @@ module Negotiations
         type: 'Account::Income',
         category_id: income_category_id,
         title: "#{I18n.t('investments.redeem_negotiation')} - #{negotiable.name}",
-        date: date }
+        date: date,
+        recurrence: ONE_TIME_ONLY_RECURRENCE }
     end
 
     def update_investment_params

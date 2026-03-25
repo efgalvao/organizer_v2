@@ -1,5 +1,7 @@
 module InterestOnEquities
   class Create
+    ONE_TIME_ONLY_RECURRENCE = 0
+
     def initialize(params)
       @params = params
     end
@@ -50,7 +52,8 @@ module InterestOnEquities
         type: 'Account::Income',
         category_id: income_category_id,
         title: "#{I18n.t('investments.interest_on_equity.interest_on_equity')} - #{investment.name}",
-        date: date }
+        date: date,
+        recurrence: ONE_TIME_ONLY_RECURRENCE }
     end
 
     def amount

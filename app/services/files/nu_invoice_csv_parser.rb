@@ -10,6 +10,7 @@ module Files
     CATEGORY_INDEX = 3
     PARCELS_INDEX  = 4
     GROUP_INDEX    = 5
+    RECURRENCE_INDEX = 6
 
     def initialize(file, account_id)
       @file = file
@@ -49,7 +50,8 @@ module Files
         type: TYPE,
         parcels: row[PARCELS_INDEX],
         group: row[GROUP_INDEX],
-        account: account.name
+        account: account.name,
+        recurrence: row[RECURRENCE_INDEX]
       }
     end
 

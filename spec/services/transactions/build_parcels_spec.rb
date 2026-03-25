@@ -12,7 +12,8 @@ RSpec.describe Transactions::BuildParcels, type: :service do
         amount: '120.00',
         parcels: '3',
         date: '2024-10-01',
-        group: 'Test Group'
+        group: 'Test Group',
+        recurrence: 0
       }
     end
 
@@ -25,7 +26,8 @@ RSpec.describe Transactions::BuildParcels, type: :service do
           type: 'Account::Expense',
           amount: 40.0,
           date: '2024-10-01',
-          group: 'Test Group'
+          group: 'Test Group',
+          recurrence: 0
         },
         {
           title: 'Test Transaction - Parcela 2/3',
@@ -34,7 +36,8 @@ RSpec.describe Transactions::BuildParcels, type: :service do
           type: 'Account::Expense',
           amount: 40.0,
           date: '2024-11-01',
-          group: 'Test Group'
+          group: 'Test Group',
+          recurrence: 0
         },
         {
           title: 'Test Transaction - Parcela 3/3',
@@ -43,7 +46,8 @@ RSpec.describe Transactions::BuildParcels, type: :service do
           type: 'Account::Expense',
           amount: 40.0,
           date: '2024-12-01',
-          group: 'Test Group'
+          group: 'Test Group',
+          recurrence: 0
         }
       ]
     end

@@ -11,7 +11,7 @@ module Files
     TIPO_INDEX        = 5
     CATEGORY_INDEX    = 6
     GROUP_INDEX       = 7
-
+    RECURRENCE_INDEX  = 8
     IGNORED_LANCAMENTOS = ['Saldo Anterior', 'Saldo do dia', 'SALDO'].freeze
 
     def initialize(file, account_id)
@@ -69,7 +69,8 @@ module Files
         parcels: PARCELS,
         account: account.name,
         category: parse_optional_string(row[CATEGORY_INDEX]),
-        group: parse_group(row[GROUP_INDEX])
+        group: parse_group(row[GROUP_INDEX]),
+        recurrence: row[RECURRENCE_INDEX]
       }
     end
 

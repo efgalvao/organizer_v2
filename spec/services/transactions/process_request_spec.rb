@@ -13,7 +13,8 @@ RSpec.describe Transactions::ProcessRequest do
         type: 'Account::Income',
         category_id: nil,
         title: 'My Transaction',
-        date: '2024-01-01'
+        date: '2024-01-01',
+        recurrence: 0
       }
     end
 

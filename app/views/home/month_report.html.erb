@@ -30,6 +30,17 @@
         <small>Líquido após gastos no débito.</small>
       </div>
 
+      <div class="summary-card income-analysis">
+        <h4>Estabilidade da Renda</h4>
+        <div class="income-split">
+          <span class="text-recurring">Recorrente: R$ <%= number_with_precision(@report_data[:income_quality][:recurring_value], precision: 2) %></span>
+          <div class="mini-bar">
+            <div class="fill" style="width: <%= @report_data[:income_quality][:guaranteed_ratio] %>%;"></div>
+          </div>
+          <small><%= @report_data[:income_quality][:guaranteed_ratio] %>% da sua renda é previsível.</small>
+        </div>
+      </div>
+
       <div class="limit-section">
         <h4>Uso do Cartão (Acumulado)</h4>
         <div class="progress-container">
@@ -37,8 +48,8 @@
                style="width: <%= @report_data[:limit_progress][:percent] %>%;"></div>
         </div>
         <div class="limit-info">
-          <span><%= @report_data[:limit_progress][:percent] %>% do limite ideal</span>
           <strong>R$ <%= number_with_precision(@report_data[:limit_progress][:spent], precision: 2) %></strong>
+          <span><%= @report_data[:limit_progress][:percent] %>% do limite ideal</span>
         </div>
       </div>
     </div>
