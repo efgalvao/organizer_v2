@@ -29,7 +29,8 @@ module Reports
         forecast: calculate_forecast(current_month_trans, next_month_trans),
         limit_progress: calculate_limit_progress(current_month_trans),
         transactions: format_transactions(current_month_trans),
-        income_quality: calculate_income_quality(current_month_trans)
+        income_quality: calculate_income_quality(current_month_trans),
+        investments: prepare_investments_data
       }
     end
 
@@ -38,8 +39,11 @@ module Reports
     def calculate_totals(current_trans)
       expenses = current_trans.select { |t| t.type == 'Account::Expense' }
       incomes  = current_trans.select { |t| t.type == 'Account::Income' }
+      recurrent_income = current_trans.select { |t| t.type == 'Account::Income' && !t.one_time? }
+
       payments = current_trans.select { |t| t.type == 'Account::InvoicePayment' && !t.account.card? }
 
+      total_recurrent_income = sum_values(recurrent_income)
       total_income   = sum_values(incomes)
       total_payments = sum_values(payments)
 
@@ -49,7 +53,8 @@ module Reports
       eventual_val = sum_values(expenses.select(&:one_time?))
 
       {
-        incomes: total_income,
+        total_incomes: total_income,
+        total_recurrent_incomes: total_recurrent_income,
         expenses_total: sum_values(expenses) + total_payments,
         debit_realized: debit_realized,
         fixed_realized: fixed_val,
@@ -141,6 +146,23 @@ module Reports
                           end,
         recurring_value: recurring_income,
         one_time_value: one_time_income
+      }
+    end
+
+    def prepare_investments_data
+      investments_by_bucket = Investments::FetchByBucket.call(@user.id)
+      reserva_data = investments_by_bucket.values.find do |v|
+        v[:bucket] == 'emergency' || v[:bucket] == 'cash'
+      end || { total_current: 0 }
+
+      futuro_total = investments_by_bucket.values
+                                          .reject { |v| v[:bucket] == 'emergency' }
+                                          .sum { |v| v[:total_current] }
+
+      {
+        emergency_fund: reserva_data[:total_current].to_f,
+        future_total: futuro_total.to_f,
+        all_buckets: investments_by_bucket
       }
     end
   end

@@ -1,109 +1,197 @@
 <style>
-:root {
-  --primary: #2c3e50;
-  --income: #2e7d32;
-  --income-light: #e8f5e9;
-  --expense: #c62828;
-  --forecast: #1565c0;
-  --gray-light: #f8f9fa;
-  --border: #dee2e6;
-}
+  :root {
+    --primary: #2c3e50;
+    --income: #2e7d32;
+    --income-light: #e8f5e9;
+    --expense: #c62828;
+    --forecast: #1565c0;
+    --gray-light: #f8f9fa;
+    --border: #dee2e6;
+  }
 
-body {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  color: #333;
-  line-height: 1.4;
-  margin: 0;
-  padding: 0;
-}
+  * {
+    box-sizing: border-box;
+  }
 
-.report-container {
-  padding: 20px;
-  -webkit-print-color-adjust: exact;
-  print-color-adjust: exact;
-}
+  body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #333;
+    line-height: 1.4;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f6;
+  }
 
-.header {
-  text-align: center;
-  border-bottom: 3px solid var(--primary);
-  margin-bottom: 30px;
-  padding-bottom: 10px;
-}
+  .report-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
 
-/* Layout em Grid */
-.dashboard-grid {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  margin-bottom: 30px;
-}
+  .header {
+    text-align: center;
+    border-bottom: 3px solid var(--primary);
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+  }
 
-.column {
-  width: 48%;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 15px;
-  background-color: #fff;
-  box-sizing: border-box;
-}
+  .investments-summary.full-width {
+    width: 100%;
+    margin-bottom: 20px;
+  }
 
-.forecast-bg {
-  background-color: #f0f7ff;
-  border-color: #c0d8ff;
-}
+  .investment-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+  }
 
-.column-title {
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-top: 0;
-  color: var(--primary);
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 8px;
-  margin-bottom: 15px;
-}
+  .investment-main {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    gap: 20px;
+  }
 
-/* Cards */
-.summary-card {
-  margin-bottom: 12px;
-  padding: 10px;
-  background: var(--gray-light);
-  border-radius: 6px;
-}
+  .stat-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
 
-.summary-card h4 { margin: 0; font-size: 11px; color: #666; text-transform: uppercase; }
-.value { font-size: 18px; font-weight: bold; display: block; }
-.positive { color: var(--income); }
-.negative { color: var(--expense); }
+  .stat-divider {
+    width: 1px;
+    background-color: var(--border);
+    height: 80px;
+    align-self: center;
+  }
 
-/* Progress Bars */
-.progress-container, .chart-bar {
-  background-color: #eee;
-  border-radius: 10px;
-  height: 12px;
-  width: 100%;
-  overflow: hidden;
-  margin: 8px 0;
-}
+  .sub-buckets {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 10px;
+  }
 
-.progress-bar, .spent-fill {
-  background-color: var(--forecast);
-  height: 100%;
-}
-.over-limit { background-color: var(--expense) !important; }
-.spent-fill { background-color: var(--forecast); }
+  .sub-bucket-item {
+    font-size: 10px;
+    background: #f1f1f1;
+    padding: 3px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
 
-/* Alertas */
-.alert-card { background-color: #fff3cd !important; border: 2px solid #ffc107 !important; }
-.alert-text { color: #856404 !important; }
+  .mini-progress-container {
+    background-color: #eee;
+    border-radius: 10px;
+    height: 8px;
+    width: 100%;
+    max-width: 200px;
+    overflow: hidden;
+    margin: 10px 0;
+  }
 
-/* Tabela */
+  .mini-progress-bar {
+    background-color: var(--income);
+    height: 100%;
+    transition: width 0.5s ease;
+  }
+
+  .dashboard-grid {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+
+  .column {
+    flex: 1;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #fff;
+  }
+
+  .forecast-bg {
+    background-color: #f0f7ff;
+    border-color: #c0d8ff;
+  }
+
+  .column-title {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 0;
+    color: var(--primary);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+  }
+
+  .summary-card {
+    margin-bottom: 12px;
+    padding: 10px;
+    background: var(--gray-light);
+    border-radius: 6px;
+  }
+
+  .summary-card h4 { margin: 0; font-size: 11px; color: #666; text-transform: uppercase; }
+  .value { font-size: 18px; font-weight: bold; display: block; }
+  .positive { color: var(--income); }
+  .negative { color: var(--expense); }
+
+  .progress-container {
+    background-color: #eee;
+    border-radius: 10px;
+    height: 12px;
+    width: 100%;
+    overflow: hidden;
+    margin: 8px 0;
+  }
+
+  .progress-bar {
+    background-color: var(--forecast);
+    height: 100%;
+  }
+
+  .over-limit { background-color: var(--expense) !important; }
+
+  .table-section { width: 100%; }
+  .items-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 11px;
+  }
+
+  .items-table th {
+    background-color: var(--primary);
+    color: white;
+    padding: 10px;
+    text-align: left;
+  }
+
+  .items-table td { padding: 8px; border-bottom: 1px solid var(--border); }
+  .valor-celula { text-align: right; font-weight: bold; white-space: nowrap; width: 110px; }
+  .badge { padding: 2px 6px; border-radius: 4px; font-size: 10px; background: #eee; }
+
+  @media (max-width: 768px) {
+    .dashboard-grid, .investment-main { flex-direction: column; }
+    .stat-divider { display: none; }
+  }
+
+  /* Tabela Base */
 .items-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 15px;
   font-size: 11px;
-  table-layout: auto;
 }
 
 .items-table th {
@@ -113,31 +201,37 @@ body {
   text-align: left;
 }
 
-.items-table td { padding: 8px; border-bottom: 1px solid var(--border); }
+.items-table td {
+  padding: 8px;
+  border-bottom: 1px solid var(--border);
+}
 
-/* Cores das Linhas */
-.items-table tr.entrada { background-color: var(--income-light) !important; }
-.items-table tr.entrada td { color: #1b5e20 !important; }
-.items-table tr:nth-child(even):not(.entrada) { background-color: #fafafa; }
+/* DESTAQUE DE ENTRADAS - Forçando a cor verde */
+.items-table tr.entrada {
+  background-color: var(--income-light) !important; /* Verde clarinho */
+}
 
-/* Coluna de Valor (Sem quebra) */
+.items-table tr.entrada td {
+  color: var(--income) !important; /* Texto verde escuro */
+  font-weight: 500;
+}
+
+.items-table tr.entrada .badge {
+  background-color: var(--income) !important;
+  color: white !important;
+}
+
+/* Listras para as outras linhas (Saídas) */
+.items-table tr:nth-child(even):not(.entrada) {
+  background-color: #fafafa;
+}
+
+/* Coluna de Valor */
 .valor-celula {
   text-align: right;
   font-weight: bold;
-  white-space: nowrap !important;
-  width: 110px;
-}
-
-.badge {
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 10px;
-  background: #eee;
-}
-.entrada .badge { background-color: var(--income); color: white; }
-
-@media print {
-  .report-container { -webkit-print-color-adjust: exact; }
+  white-space: nowrap;
+  width: 120px;
 }
 </style>
 

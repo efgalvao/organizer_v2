@@ -7,13 +7,60 @@
     <p class="generated-at">Gerado em: <%= @report_data[:metadata][:generated_at].strftime('%d/%m/%Y %H:%M') %></p>
   </div>
 
+  <div class="investments-summary full-width">
+    <div class="investment-card">
+      <h2 class="column-title">Patrimônio & Segurança</h2>
+
+      <div class="investment-main">
+        <div class="stat-group">
+          <div class="stat">
+            <h4>Investimentos & Futuro</h4>
+            <span class="value forecast-value">
+              R$ <%= number_with_precision(@report_data[:investments][:future_total], precision: 2) %>
+            </span>
+            <div class="sub-buckets">
+              <% @report_data[:investments][:all_buckets].each do |label, data| %>
+                <% next if data[:bucket] == "emergency" %>
+                <span class="sub-bucket-item">
+                  <strong><%= label %>:</strong> R$ <%= number_with_precision(data[:total_current], precision: 2) %>
+                </span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <div class="stat-divider"></div>
+
+        <div class="stat-group">
+          <%
+            emergency_fund = @report_data[:investments][:emergency_fund]
+            monthly_cost = @report_data[:forecast][:total_comprometido]
+            survival_months = (emergency_fund / monthly_cost).round(1) rescue 0
+            target = 6
+            progress = [((survival_months / target) * 100).round, 100].min
+          %>
+          <div class="stat">
+            <h4>Reserva de Emergência</h4>
+            <span class="value <%= survival_months >= target ? 'positive' : 'warning-text' %>">
+              <%= survival_months %> meses
+            </span>
+            <div class="mini-progress-container">
+              <div class="mini-progress-bar" style="width: <%= progress %>%"></div>
+            </div>
+            <small>Cobertura: <strong>R$ <%= number_with_precision(emergency_fund, precision: 2) %></strong></small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="dashboard-grid">
     <div class="column">
       <h2 class="column-title">1. Realizado (Mês Atual)</h2>
 
       <div class="summary-card">
         <h4>Entradas Totais</h4>
-        <span class="value positive">R$ <%= number_with_precision(@report_data[:totals][:incomes], precision: 2) %></span>
+        <span class="value positive">R$ <%= number_with_precision(@report_data[:totals][:total_incomes], precision: 2) %></span>
       </div>
 
       <div class="summary-card">
@@ -71,7 +118,7 @@
 
       <%
         forecast_total = @report_data[:forecast][:total_comprometido]
-        balance_after_forecast = @report_data[:totals][:incomes] - forecast_total
+        balance_after_forecast = @report_data[:totals][:total_recurrent_incomes] - forecast_total
         is_negative = balance_after_forecast < 0
       %>
 
@@ -87,7 +134,7 @@
         <div class="chart-label">Saúde do Fluxo (Entradas vs Saídas)</div>
         <div class="chart-container">
           <%
-            income = @report_data[:totals][:incomes].to_f
+            income = @report_data[:totals][:total_incomes].to_f
             spent_pct = income > 0 ? (forecast_total / income * 100).round : 0
           %>
           <div class="chart-bar income-bar" style="width: 100%">
