@@ -100,10 +100,11 @@ RSpec.describe Reports::MonthlyReport do
       end
 
       it 'returns calculated totals, methods, limit progress and formatted transactions' do
-        expect(response.keys).to contain_exactly(:metadata, :totals, :forecast, :limit_progress, :transactions, :income_quality)
+        expect(response.keys).to contain_exactly(:metadata, :totals, :forecast, :limit_progress,
+                                                 :transactions, :income_quality, :investments)
 
         expect(response[:metadata][:generated_at]).not_to be_nil
-        expect(response[:totals][:incomes]).to eq(1000.to_d)
+        expect(response[:totals][:total_incomes]).to eq(1000.to_d)
         expect(response[:totals][:expenses_total]).to eq(1000.to_d)
         expect(response[:totals][:debit_realized]).to eq(300.to_d)
         expect(response[:totals][:current_balance]).to eq(700.to_d)
@@ -144,6 +145,8 @@ RSpec.describe Reports::MonthlyReport do
                group: 1,
                title: 'Occasional')
       end
+
+      before { create(:user_report, user: card_account.user) }
 
       it 'caps percent to 100 and marks is_over_limit as true' do
         limit = described_class::IDEAL_LIMIT.to_d
