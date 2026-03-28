@@ -4,6 +4,6 @@ module Investments
 
     belongs_to :negotiable, polymorphic: true
 
-    enum kind: { buy: 0, sell: 1 }
+    enum kind: { buy: 0, sell: 1, liquidation: 2 }
   end
 end

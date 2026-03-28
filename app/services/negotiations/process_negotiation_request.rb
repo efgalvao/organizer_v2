@@ -16,6 +16,8 @@ module Negotiations
       when 'sell'
         negotiation = Negotiations::CreateOutflow.call(params)
 
+      when 'liquidate'
+        negotiation = Negotiations::CreateLiquidation.call(params)
       end
       negotiation
     end
