@@ -163,6 +163,7 @@
 
       <div class="limit-section">
         <h4>Uso do Cartão (Acumulado)</h4>
+        <h4>LIMITE: R$ <%= number_with_precision(@report_data[:limit_progress][:limit], precision: 2) %></h4>
         <div class="progress-container">
           <div class="progress-bar <%= 'over-limit' if @report_data[:limit_progress][:is_over_limit] %>"
                style="width: <%= @report_data[:limit_progress][:percent] %>%"></div>
