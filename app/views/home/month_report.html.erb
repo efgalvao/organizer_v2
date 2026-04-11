@@ -142,6 +142,11 @@
         <small>Dinheiro que já saiu da conta corrente.</small>
       </div>
 
+      <div class="summary-card">
+        <h4>Investimentos</h4>
+        <span class="value positive">R$ <%= number_with_precision(@report_data[:totals][:investments_realized], precision: 2) %></span>
+      </div>
+
       <div class="summary-card balance-card">
         <h4>Saldo Disponível Hoje</h4>
         <span class="value <%= @report_data[:totals][:current_balance] >= 0 ? 'positive' : 'negative' %>">

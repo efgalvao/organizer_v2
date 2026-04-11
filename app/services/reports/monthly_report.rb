@@ -60,6 +60,10 @@ module Reports
       transactions.select { |t| t.type == 'Account::Income' }
     end
 
+    def investments(transactions)
+      transactions.select { |t| t.type == 'Account::Investment' }
+    end
+
     def card_expenses(transactions)
       expenses(transactions).select { |t| t.account.card? }
     end
@@ -98,6 +102,7 @@ module Reports
     def calculate_totals
       trans          = current_month_transactions
       total_income   = sum_values(incomes(trans))
+      total_investments = sum_values(investments(trans))
       total_payments = sum_values(invoice_payments(trans))
       debit_realized = sum_values(debit_expenses(trans)) + total_payments
 
@@ -108,7 +113,8 @@ module Reports
         debit_realized: debit_realized,
         fixed_realized: sum_values(fixed_expenses(trans)) + total_payments,
         eventual_realized: sum_values(eventual_expenses(trans)),
-        current_balance: total_income - debit_realized
+        investments_realized: total_investments,
+        current_balance: total_income - debit_realized - total_investments
       }
     end
 
