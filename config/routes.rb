@@ -23,6 +23,8 @@ Rails.application.routes.draw do
   end
 
   scope module: 'account' do
+    post 'transactions/json', to: 'transactions#create_json', as: 'transactions_json'
+
     resources :accounts do
       member do
         get 'consolidate_report', to: 'accounts#consolidate_report', as: 'consolidate_report'
