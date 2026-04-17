@@ -55,8 +55,6 @@ gem "chartkick"
 
 gem 'draper'
 
-gem 'coverband'
-
 gem 'ransack'
 
 group :development, :test do
