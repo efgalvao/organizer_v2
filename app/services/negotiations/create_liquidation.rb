@@ -1,6 +1,7 @@
 module Negotiations
   class CreateLiquidation
     ONE_TIME_ONLY_RECURRENCE = 0
+    LIQUIDATION_KIND = 'liquidation'.freeze
 
     def initialize(params)
       @params = params
@@ -11,13 +12,14 @@ module Negotiations
     end
 
     def call
-      return if params[:kind] != 'liquidation'
+      return if params[:kind] != 'liquidate'
 
       ActiveRecord::Base.transaction do
         negotiation = Negotiations::Create.call(formated_params)
         Transactions::ProcessRequest.call(params: transaction_params,
                                           value_to_update_balance: amount_by_origin)
         update_investment
+        liquidate_investment
         consolidate_report(negotiation.date)
         negotiation
       end
@@ -31,7 +33,7 @@ module Negotiations
       {
         date: date,
         amount: params[:amount].to_d,
-        kind: params[:kind],
+        kind: LIQUIDATION_KIND,
         shares: params[:shares],
         negotiable: negotiable
       }
@@ -90,6 +92,10 @@ module Negotiations
 
     def income_category_id
       Category.primary_income_category_id
+    end
+
+    def liquidate_investment
+      Investments::Liquidate.call(negotiable.id)
     end
   end
 end
