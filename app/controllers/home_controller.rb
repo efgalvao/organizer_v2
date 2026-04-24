@@ -37,7 +37,7 @@ class HomeController < ApplicationController
 
     send_data(
       pdf,
-      filename: "Resumo_#{@report_data[:metadata][:period]}.pdf",
+      filename: "Resumo_#{@report_data[:metadata][:filename]}.pdf",
       type: 'application/pdf',
       disposition: 'attachment'
     )
