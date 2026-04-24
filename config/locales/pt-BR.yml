@@ -104,6 +104,11 @@ pt-BR:
       category: Categoria
       group: Grupo
       anticipate_date: Data de antecipação
+      recurrence: Recorrência
+      recurrences:
+        one_time: Única
+        recurring: Recorrente
+        installment: Parcelado
   card:
     form:
       name: Nome
