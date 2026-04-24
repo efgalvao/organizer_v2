@@ -4,9 +4,8 @@
   <div class="header">
     <div class="title-group">
       <h1>Relatório e Projeção Financeira</h1>
-      <span class="badge-period"><%= @report_data[:metadata][:period] %></span>
     </div>
-    <p class="generated-at">Gerado em: <%= @report_data[:metadata][:generated_at].strftime('%d/%m/%Y %H:%M') %></p>
+    <p class="badge-period">Gerado em: <%= @report_data[:metadata][:generated_at].strftime('%d/%m/%Y %H:%M') %></p>
   </div>
 
   <%# ── PATRIMÔNIO & SEGURANÇA ── %>
@@ -17,18 +16,10 @@
 
         <div class="stat-group">
           <div class="stat">
-            <h4>Investimentos & Futuro</h4>
+            <h4>Investimentos</h4>
             <span class="value forecast-value">
               R$ <%= number_with_precision(@report_data[:investments][:future_total], precision: 2) %>
             </span>
-            <div class="sub-buckets">
-              <% @report_data[:investments][:all_buckets].each do |label, data| %>
-                <% next if data[:bucket] == "emergency" %>
-                <span class="sub-bucket-item">
-                  <strong><%= label %>:</strong> R$ <%= number_with_precision(data[:total_current], precision: 2) %>
-                </span>
-              <% end %>
-            </div>
           </div>
         </div>
 
@@ -45,12 +36,12 @@
           <div class="stat">
             <h4>Reserva de Emergência</h4>
             <span class="value <%= survival_months >= target ? 'positive' : 'warning-text' %>">
-              <%= survival_months %> meses
+              <small><strong>R$ <%= number_with_precision(emergency_fund, precision: 2) %></strong></small>
             </span>
             <div class="mini-progress-container">
               <div class="mini-progress-bar" style="width: <%= progress %>%"></div>
             </div>
-            <small>Cobertura: <strong>R$ <%= number_with_precision(emergency_fund, precision: 2) %></strong></small>
+            <small>Cobertura: <strong><%= survival_months %> meses</strong></small>
           </div>
         </div>
 
@@ -61,29 +52,24 @@
   <%# ── EVOLUÇÃO DOS INVESTIMENTOS ── %>
   <div class="investment-evolution">
     <p class="section-title">Evolução dos Investimentos</p>
+
+    <%# ── 1 mês ── %>
     <div class="card">
       <%
-        inv_now  = @report_data[:investments][:invested].to_f
-        inv_past = @report_data[:investments][:invested_12_months_ago].to_f
-        redeemed = @report_data[:investments][:redeemed].to_f
-        abs_gain = inv_now - inv_past
-        growth_pct = inv_past > 0 ? ((abs_gain / inv_past) * 100).round(1) : 0
-        progress_pct = inv_past > 0 ? [((inv_now - inv_past) / inv_past * 100).round, 100].min : 0
+        inv_now      = @report_data[:investments][:invested].to_f
+        inv_previous = @report_data[:investments][:invested_previous_month].to_f
+        abs_gain     = inv_now - inv_previous
+        growth_pct   = inv_previous > 0 ? ((abs_gain / inv_previous) * 100).round(1) : 0
+        progress_pct = inv_previous > 0 ? [((abs_gain / inv_previous) * 100).round, 100].min : 0
       %>
 
       <div class="evo-values-grid">
         <div class="evo-value-block">
-          <div class="evo-value-label">
-            <span class="evo-dot"></span>
-            12 meses atrás
-          </div>
-          <div class="evo-amount">R$ <%= number_with_precision(inv_past, precision: 2) %></div>
+          <div class="evo-value-label"><span class="evo-dot"></span>1 mês</div>
+          <div class="evo-amount">R$ <%= number_with_precision(inv_previous, precision: 2) %></div>
         </div>
         <div class="evo-value-block highlight">
-          <div class="evo-value-label">
-            <span class="evo-dot green"></span>
-            Hoje
-          </div>
+          <div class="evo-value-label"><span class="evo-dot green"></span>Hoje</div>
           <div class="evo-amount green">R$ <%= number_with_precision(inv_now, precision: 2) %></div>
         </div>
       </div>
@@ -104,10 +90,54 @@
             R$ <%= number_with_precision(abs_gain.abs, precision: 2) %>
           </div>
         </div>
+      </div>
+
+      <div class="evo-progress-label">Progresso do período</div>
+      <div class="evo-progress-track">
+        <div class="evo-progress-fill" style="width: <%= progress_pct %>%"></div>
+      </div>
+      <div class="evo-progress-bounds">
+        <span class="evo-progress-bound">R$ <%= number_with_precision(inv_previous, precision: 2) %></span>
+        <span class="evo-progress-bound">R$ <%= number_with_precision(inv_now, precision: 2) %></span>
+      </div>
+    </div>
+
+    <%# ── 12 meses ── %>
+    <div class="card">
+      <%
+        inv_now    = @report_data[:investments][:invested].to_f
+        inv_past   = @report_data[:investments][:invested_12_months_ago].to_f
+        abs_gain   = inv_now - inv_past
+        growth_pct = inv_past > 0 ? ((abs_gain / inv_past) * 100).round(1) : 0
+        progress_pct = inv_past > 0 ? [((abs_gain / inv_past) * 100).round, 100].min : 0
+      %>
+
+      <div class="evo-values-grid">
+        <div class="evo-value-block">
+          <div class="evo-value-label"><span class="evo-dot"></span>12 meses atrás</div>
+          <div class="evo-amount">R$ <%= number_with_precision(inv_past, precision: 2) %></div>
+        </div>
+        <div class="evo-value-block highlight">
+          <div class="evo-value-label"><span class="evo-dot green"></span>Hoje</div>
+          <div class="evo-amount green">R$ <%= number_with_precision(inv_now, precision: 2) %></div>
+        </div>
+      </div>
+
+      <hr class="evo-divider" />
+
+      <div class="evo-metrics">
+        <div class="evo-metric">
+          <div class="evo-metric-label">Crescimento</div>
+          <div class="evo-metric-value <%= abs_gain >= 0 ? 'green' : '' %>">
+            <%= abs_gain >= 0 ? '+' : '' %><%= growth_pct %>%
+          </div>
+        </div>
         <div class="evo-metric-sep"></div>
         <div class="evo-metric">
-          <div class="evo-metric-label">Resgatado</div>
-          <div class="evo-metric-value muted">R$ <%= number_with_precision(redeemed, precision: 2) %></div>
+          <div class="evo-metric-label">Ganho absoluto</div>
+          <div class="evo-metric-value <%= abs_gain >= 0 ? 'green' : '' %>">
+            R$ <%= number_with_precision(abs_gain.abs, precision: 2) %>
+          </div>
         </div>
       </div>
 
@@ -120,9 +150,56 @@
         <span class="evo-progress-bound">R$ <%= number_with_precision(inv_now, precision: 2) %></span>
       </div>
     </div>
+
+    <%# ── APORTES / JUROS ── %>
+    <div class="card">
+      <%
+        inflow       = @report_data[:investments][:accumulated_inflow].to_f
+        total_amount = @report_data[:investments][:invested].to_f
+        gain         = total_amount - inflow
+        gain_pct     = total_amount > 0 ? (gain / total_amount * 100).round(1) : 0
+        inflow_pct   = 100 - gain_pct
+      %>
+
+      <div class="evo-values-grid evo-values-grid--3">
+        <div class="evo-value-block">
+          <div class="evo-value-label"><span class="evo-dot"></span>Aportes Acumulados</div>
+          <div class="evo-amount">R$ <%= number_with_precision(inflow, precision: 2) %></div>
+        </div>
+        <div class="evo-value-block highlight">
+          <div class="evo-value-label"><span class="evo-dot green"></span>Juros Gerados</div>
+          <div class="evo-amount green">R$ <%= number_with_precision(gain, precision: 2) %></div>
+        </div>
+        <div class="evo-value-block highlight">
+          <div class="evo-value-label"><span class="evo-dot green"></span>Total</div>
+          <div class="evo-amount green">R$ <%= number_with_precision(total_amount, precision: 2) %></div>
+        </div>
+      </div>
+
+      <hr class="evo-divider" />
+
+      <div class="evo-progress-label">Composição do patrimônio</div>
+
+      <div class="composition-track">
+        <div class="composition-fill-inflow" style="width: <%= inflow_pct %>%"></div>
+        <div class="composition-fill-gain"   style="width: <%= gain_pct %>%"></div>
+      </div>
+
+      <div class="composition-legend">
+        <span class="composition-legend-item">
+          <span class="composition-dot inflow"></span>
+          Aportes <%= inflow_pct %>%
+        </span>
+        <span class="composition-legend-item">
+          <span class="composition-dot gain"></span>
+          Juros <%= gain_pct %>%
+        </span>
+      </div>
+    </div>
+
   </div>
 
-<div class="page-break"></div>
+  <div class="page-break"></div>
 
   <%# ── REALIZADO VS PROJEÇÃO ── %>
   <p class="section-title">Fluxo do Mês & Compromissos a Vencer</p>
@@ -196,9 +273,9 @@
       </div>
 
       <%
-        forecast_total       = @report_data[:forecast][:total_comprometido]
+        forecast_total         = @report_data[:forecast][:total_comprometido]
         balance_after_forecast = @report_data[:totals][:total_recurrent_incomes] - forecast_total
-        is_negative          = balance_after_forecast < 0
+        is_negative            = balance_after_forecast < 0
       %>
 
       <div class="summary-card estimated-result <%= 'alert-card' if is_negative %>">

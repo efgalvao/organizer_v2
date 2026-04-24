@@ -5,567 +5,600 @@
   <title>Relatório Financeiro</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg:           #f5f4f0;
-      --surface:      #ffffff;
-      --surface-alt:  #f9f8f5;
-      --border:       #e4e1d8;
-      --border-soft:  #ede9e0;
-
-      --text-primary:   #1a1a18;
-      --text-secondary: #6b6860;
-      --text-hint:      #a8a49a;
-
-      --green:        #1e6f46;
-      --green-bg:     #edf6f0;
-      --green-border: #b6dfc8;
-
-      --red:          #a8290f;
-      --red-bg:       #fdf0ed;
-      --red-border:   #f0bfb4;
-
-      --blue:         #1a4f8a;
-      --blue-bg:      #edf3fb;
-      --blue-border:  #b4cef0;
-
-      --amber:        #8a5a0a;
-      --amber-bg:     #fdf6e8;
-      --amber-border: #e8cc8c;
-
-      --radius-sm: 6px;
-      --radius-md: 10px;
-      --radius-lg: 14px;
-    }
-
-    body {
-      font-family: 'DM Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text-primary);
-      line-height: 1.5;
-      -webkit-print-color-adjust: exact;
-      print-color-adjust: exact;
-    }
-
-    .report-container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 32px 28px;
-    }
-
-    /* ── HEADER ── */
-    .header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      padding-bottom: 20px;
-      border-bottom: 1.5px solid var(--border);
-      margin-bottom: 28px;
-    }
-
-    .title-group h1 {
-      font-size: 22px;
-      font-weight: 500;
-      color: var(--text-primary);
-      letter-spacing: -0.02em;
-    }
-
-    .badge-period {
-      display: inline-block;
-      margin-top: 6px;
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--blue);
-      background: var(--blue-bg);
-      border: 1px solid var(--blue-border);
-      padding: 3px 10px;
-      border-radius: 99px;
-      letter-spacing: 0.04em;
-    }
-
-    .generated-at {
-      font-size: 11px;
-      color: var(--text-hint);
-      font-family: 'DM Mono', monospace;
-      text-align: right;
-    }
-
-    /* ── SECTION TITLES ── */
-    .section-title {
-      font-size: 10px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text-hint);
-      margin-bottom: 12px;
-    }
-
-    /* ── CARD BASE ── */
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 18px 20px;
-    }
-
-    /* ── INVESTMENTS FULL WIDTH ── */
-    .investments-summary {
-      margin-bottom: 20px;
-    }
-
-    .investment-main {
-      display: flex;
-      gap: 0;
-      align-items: stretch;
-    }
-
-    .stat-group {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding: 4px 20px;
-    }
-
-    .stat-group:first-child { padding-left: 0; }
-    .stat-group:last-child  { padding-right: 0; }
-
-    .stat-divider {
-      width: 1px;
-      background: var(--border);
-      align-self: stretch;
-    }
-
-    .stat h4 {
-      font-size: 10px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-hint);
-      margin-bottom: 6px;
-    }
-
-    .stat .value {
-      font-family: 'DM Mono', monospace;
-      font-size: 22px;
-      font-weight: 500;
-      display: block;
-      margin-bottom: 4px;
-    }
-
-    .sub-buckets {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 5px;
-      margin-top: 8px;
-    }
-
-    .sub-bucket-item {
-      font-size: 10px;
-      background: var(--surface-alt);
-      border: 1px solid var(--border-soft);
-      color: var(--text-secondary);
-      padding: 2px 8px;
-      border-radius: 99px;
-      white-space: nowrap;
-    }
-
-    .mini-progress-container {
-      background: var(--border);
-      border-radius: 99px;
-      height: 5px;
-      width: 100%;
-      max-width: 180px;
-      overflow: hidden;
-      margin: 10px auto 6px;
-    }
-
-    .mini-progress-bar {
-      background: var(--green);
-      height: 100%;
-    }
-
-    /* ── DASHBOARD GRID ── */
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 20px;
-    }
-
-    .column-title {
-      font-size: 10px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text-hint);
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 10px;
-      margin-bottom: 14px;
-    }
-
-    /* ── SUMMARY CARDS ── */
-    .summary-card {
-      background: var(--surface-alt);
-      border: 1px solid var(--border-soft);
-      border-radius: var(--radius-md);
-      padding: 12px 14px;
-      margin-bottom: 10px;
-    }
-
-    .summary-card h4 {
-      font-size: 10px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      color: var(--text-hint);
-      margin-bottom: 4px;
-    }
-
-    .summary-card .value {
-      font-family: 'DM Mono', monospace;
-      font-size: 20px;
-      font-weight: 500;
-      display: block;
-    }
-
-    .summary-card small {
-      font-size: 11px;
-      color: var(--text-secondary);
-      margin-top: 4px;
-      display: block;
-    }
-
-    .summary-card.highlight {
-      border-color: var(--blue-border);
-      background: var(--blue-bg);
-    }
-
-    .summary-card.balance-card {
-      border-left: 3px solid var(--green);
-    }
-
-    .summary-card.alert-card {
-      border-left: 3px solid var(--red);
-      background: var(--red-bg);
-      border-color: var(--red-border);
-    }
-
-    /* ── COLORS ── */
-    .positive      { color: var(--green); }
-    .negative      { color: var(--red); }
-    .forecast-value { color: var(--blue); }
-    .warning-text  { color: var(--amber); }
-    .alert-text    { color: var(--red); }
-
-    /* ── PROGRESS BARS ── */
-    .progress-container {
-      background: var(--border);
-      border-radius: 99px;
-      height: 6px;
-      overflow: hidden;
-      margin: 8px 0;
-    }
-
-    .progress-bar {
-      background: var(--blue);
-      height: 100%;
-      border-radius: 99px;
-    }
-
-    .over-limit { background: var(--red) !important; }
-
-    .limit-section {
-      margin-bottom: 10px;
-    }
-
-    .limit-section h4 {
-      font-size: 10px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      color: var(--text-hint);
-      margin-bottom: 6px;
-    }
-
-    .limit-info {
-      display: flex;
-      justify-content: space-between;
-      font-size: 11px;
-      color: var(--text-secondary);
-    }
-
-    .limit-info strong {
-      font-family: 'DM Mono', monospace;
-      font-weight: 500;
-      color: var(--text-primary);
-    }
-
-    /* ── INCOME QUALITY ── */
-    .income-split .text-recurring {
-      font-family: 'DM Mono', monospace;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--green);
-      display: block;
-      margin-bottom: 6px;
-    }
-
-    .mini-bar {
-      background: var(--border);
-      border-radius: 99px;
-      height: 5px;
-      overflow: hidden;
-      margin-bottom: 6px;
-    }
-
-    .mini-bar .fill {
-      background: var(--green);
-      height: 100%;
-      border-radius: 99px;
-    }
-
-    /* ── COMPARISON CHART ── */
-    .comparison-chart {
-      margin-top: 4px;
-    }
-
-    .chart-label {
-      font-size: 10px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      color: var(--text-hint);
-      margin-bottom: 8px;
-    }
-
-    .chart-bar {
-      background: var(--green-bg);
-      border: 1px solid var(--green-border);
-      border-radius: 99px;
-      height: 18px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .chart-bar-fill.spent-fill {
-      background: var(--red);
-      height: 100%;
-      border-radius: 99px 0 0 99px;
-    }
-
-    .chart-legend {
-      display: flex;
-      justify-content: space-between;
-      font-size: 11px;
-      color: var(--text-secondary);
-      margin-top: 6px;
-    }
-
-    /* ── INVESTMENT EVOLUTION CARD ── */
-    .investment-evolution {
-      margin-bottom: 20px;
-    }
-
-    .evo-values-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-
-    .evo-value-block {
-      background: var(--surface-alt);
-      border: 1px solid var(--border-soft);
-      border-radius: var(--radius-md);
-      padding: 12px 14px;
-    }
-
-    .evo-value-block.highlight {
-      background: var(--green-bg);
-      border-color: var(--green-border);
-    }
-
-    .evo-value-label {
-      font-size: 10px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      color: var(--text-hint);
-      margin-bottom: 5px;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .evo-dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--border);
-      flex-shrink: 0;
-    }
-
-    .evo-dot.green { background: var(--green); }
-
-    .evo-amount {
-      font-family: 'DM Mono', monospace;
-      font-size: 20px;
-      font-weight: 500;
-      color: var(--text-primary);
-    }
-
-    .evo-amount.green { color: var(--green); }
-
-    .evo-divider {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin-bottom: 12px;
-    }
-
-    .evo-metrics {
-      display: grid;
-      grid-template-columns: 1fr 1px 1fr 1px 1fr;
-      margin-bottom: 14px;
-    }
-
-    .evo-metric {
-      text-align: center;
-      padding: 0 10px;
-    }
-
-    .evo-metric-sep { background: var(--border); }
-
-    .evo-metric-label {
-      font-size: 10px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      color: var(--text-hint);
-      margin-bottom: 4px;
-    }
-
-    .evo-metric-value {
-      font-family: 'DM Mono', monospace;
-      font-size: 16px;
-      font-weight: 500;
-      color: var(--text-primary);
-    }
-
-    .evo-metric-value.green { color: var(--green); }
-    .evo-metric-value.muted { color: var(--text-secondary); }
-
-    .evo-progress-label {
-      font-size: 10px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      color: var(--text-hint);
-      margin-bottom: 7px;
-    }
-
-    .evo-progress-track {
-      background: var(--border);
-      border-radius: 99px;
-      height: 5px;
-      overflow: hidden;
-      margin-bottom: 6px;
-    }
-
-    .evo-progress-fill {
-      height: 100%;
-      background: var(--green);
-      border-radius: 99px;
-    }
-
-    .evo-progress-bounds {
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .evo-progress-bound {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      color: var(--text-hint);
-    }
-
-    /* ── TABLE ── */
-    .table-section { margin-top: 4px; }
-
-    .items-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 11px;
-    }
-
-    .items-table th {
-      background: var(--text-primary);
-      color: #fff;
-      padding: 9px 10px;
-      text-align: left;
-      font-weight: 500;
-      font-size: 10px;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    .items-table th:first-child { border-radius: var(--radius-sm) 0 0 0; }
-    .items-table th:last-child  { border-radius: 0 var(--radius-sm) 0 0; }
-
-    .items-table td {
-      padding: 8px 10px;
-      border-bottom: 1px solid var(--border-soft);
-      color: var(--text-secondary);
-    }
-
-    .items-table tr.entrada td { color: var(--green); font-weight: 500; }
-    .items-table tr.entrada    { background: var(--green-bg); }
-    .items-table tr:nth-child(even):not(.entrada) { background: var(--surface-alt); }
-
-    .items-table .badge {
-      font-size: 9px;
-      font-weight: 500;
-      padding: 2px 7px;
-      border-radius: 99px;
-      background: var(--surface-alt);
-      border: 1px solid var(--border);
-      color: var(--text-secondary);
-    }
-
-    .items-table tr.entrada .badge {
-      background: var(--green-bg);
-      border-color: var(--green-border);
-      color: var(--green);
-    }
-
-    .valor-celula {
-      text-align: right;
-      font-family: 'DM Mono', monospace;
-      font-weight: 500;
-      white-space: nowrap;
-      width: 120px;
-    }
-
-    /* ── PRINT ── */
-    @media print {
-      body { background: #fff; }
-      .report-container { padding: 16px; }
-      .card, .summary-card { break-inside: avoid; }
-      .table-section { break-before: auto; }
-    }
-
-    @media (max-width: 768px) {
-      .dashboard-grid { grid-template-columns: 1fr; }
-      .investment-main { flex-direction: column; }
-      .stat-divider { display: none; }
-      .evo-metrics { grid-template-columns: 1fr; }
-      .evo-metric-sep { display: none; }
-    }
-
-  .grid-section-title {
+
+/* ════════════════════════════════════════════
+   0. RESET & TOKENS
+════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:           #f5f4f0;
+  --surface:      #ffffff;
+  --surface-alt:  #f9f8f5;
+  --border:       #e4e1d8;
+  --border-soft:  #ede9e0;
+
+  --text-primary:   #1a1a18;
+  --text-secondary: #6b6860;
+  --text-hint:      #a8a49a;
+
+  --green:        #1e6f46;
+  --green-bg:     #edf6f0;
+  --green-border: #b6dfc8;
+
+  --red:          #a8290f;
+  --red-bg:       #fdf0ed;
+  --red-border:   #f0bfb4;
+
+  --blue:         #1a4f8a;
+  --blue-bg:      #edf3fb;
+  --blue-border:  #b4cef0;
+
+  --amber:        #8a5a0a;
+  --amber-bg:     #fdf6e8;
+  --amber-border: #e8cc8c;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+}
+
+
+/* ════════════════════════════════════════════
+   1. BASE
+════════════════════════════════════════════ */
+body {
+  font-family: 'DM Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.report-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 28px;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+}
+
+.section-title {
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-hint);
+  margin-bottom: 12px;
+}
+
+.column-title {
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-hint);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+}
+
+/* Cores semânticas */
+.positive       { color: var(--green); }
+.negative       { color: var(--red); }
+.forecast-value { color: var(--blue); }
+.warning-text   { color: var(--amber); }
+.alert-text     { color: var(--red); }
+
+
+/* ════════════════════════════════════════════
+   2. HEADER
+════════════════════════════════════════════ */
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  border-bottom: 1.5px solid var(--border);
+  margin-bottom: 28px;
+}
+
+.title-group h1 {
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.badge-period {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--blue);
+  background: var(--blue-bg);
+  border: 1px solid var(--blue-border);
+  padding: 3px 10px;
+  border-radius: 99px;
+  letter-spacing: 0.04em;
+}
+
+
+/* ════════════════════════════════════════════
+   3. PATRIMÔNIO & SEGURANÇA
+════════════════════════════════════════════ */
+.investments-summary {
+  margin-bottom: 15px;
+}
+
+.investment-main {
+  display: flex;
+  gap: 0;
+  align-items: stretch;
+}
+
+.stat-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 4px 20px;
+}
+
+.stat-group:first-child { padding-left: 0; }
+.stat-group:last-child  { padding-right: 0; }
+
+.stat-divider {
+  width: 1px;
+  background: var(--border);
+  align-self: stretch;
+}
+
+.stat h4 {
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-hint);
+  margin-bottom: 6px;
+}
+
+.stat .value {
+  font-family: 'DM Mono', monospace;
+  font-size: 22px;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.mini-progress-container {
+  background: var(--border);
+  border-radius: 99px;
+  height: 5px;
+  width: 100%;
+  max-width: 180px;
+  overflow: hidden;
+  margin: 10px auto 6px;
+}
+
+.mini-progress-bar {
+  background: var(--green);
+  height: 100%;
+}
+
+
+/* ════════════════════════════════════════════
+   4. EVOLUÇÃO DOS INVESTIMENTOS
+════════════════════════════════════════════ */
+.investment-evolution {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 15px;
+}
+
+/* grid de blocos de valor — padrão 2 colunas */
+.evo-values-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+/* modificador: 3 colunas (card Aportes/Juros/Total) */
+.evo-values-grid--3 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.evo-value-block {
+  background: var(--surface-alt);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+}
+
+.evo-value-block.highlight {
+  background: var(--green-bg);
+  border-color: var(--green-border);
+}
+
+.evo-value-label {
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-hint);
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.evo-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+.evo-dot.green { background: var(--green); }
+
+.evo-amount {
+  font-family: 'DM Mono', monospace;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.evo-amount.green { color: var(--green); }
+
+.evo-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin-bottom: 12px;
+}
+
+.evo-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  margin-bottom: 14px;
+}
+
+.evo-metric {
+  text-align: center;
+  padding: 0 10px;
+}
+
+.evo-metric-sep { background: var(--border); }
+
+.evo-metric-label {
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-hint);
+  margin-bottom: 4px;
+}
+
+.evo-metric-value {
+  font-family: 'DM Mono', monospace;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.evo-metric-value.green { color: var(--green); }
+.evo-metric-value.muted { color: var(--text-secondary); }
+
+.evo-progress-label {
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-hint);
+  margin-bottom: 7px;
+}
+
+.evo-progress-track {
+  background: var(--border);
+  border-radius: 99px;
+  height: 5px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.evo-progress-fill {
+  height: 100%;
+  background: var(--green);
+  border-radius: 99px;
+}
+
+.evo-progress-bounds {
+  display: flex;
+  justify-content: space-between;
+}
+
+.evo-progress-bound {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text-hint);
+}
+
+/* Barra de composição (Aportes vs Juros) */
+.composition-track {
+  display: flex;
+  height: 8px;
+  border-radius: 99px;
+  overflow: hidden;
+  background: var(--border);
+  margin-bottom: 8px;
+}
+
+.composition-fill-inflow {
+  background: var(--blue);
+  height: 100%;
+}
+
+.composition-fill-gain {
+  background: var(--green);
+  height: 100%;
+}
+
+.composition-legend {
+  display: flex;
+  gap: 16px;
+}
+
+.composition-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.composition-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.composition-dot.inflow { background: var(--blue); }
+.composition-dot.gain   { background: var(--green); }
+
+
+/* ════════════════════════════════════════════
+   5. FLUXO DO MÊS (summary cards + grid)
+════════════════════════════════════════════ */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.summary-card {
+  background: var(--surface-alt);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  margin-bottom: 10px;
+}
+
+.summary-card h4 {
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-hint);
+  margin-bottom: 4px;
+}
+
+.summary-card .value {
+  font-family: 'DM Mono', monospace;
+  font-size: 20px;
+  font-weight: 500;
+  display: block;
+}
+
+.summary-card small {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  display: block;
+}
+
+.summary-card.highlight {
+  border-color: var(--blue-border);
+  background: var(--blue-bg);
+}
+
+.summary-card.balance-card {
+  border-left: 3px solid var(--green);
+}
+
+.summary-card.alert-card {
+  border-left: 3px solid var(--red);
+  background: var(--red-bg);
+  border-color: var(--red-border);
+}
+
+/* Estabilidade da renda */
+.income-split .text-recurring {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--green);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.mini-bar {
+  background: var(--border);
+  border-radius: 99px;
+  height: 5px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.mini-bar .fill {
+  background: var(--green);
+  height: 100%;
+  border-radius: 99px;
+}
+
+/* Uso do cartão */
+.limit-section {
+  margin-bottom: 10px;
+}
+
+.limit-section h4 {
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-hint);
+  margin-bottom: 6px;
+}
+
+.progress-container {
+  background: var(--border);
+  border-radius: 99px;
+  height: 6px;
+  overflow: hidden;
+  margin: 8px 0;
+}
+
+.progress-bar {
+  background: var(--blue);
+  height: 100%;
+  border-radius: 99px;
+}
+
+.over-limit { background: var(--red) !important; }
+
+.limit-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.limit-info strong {
+  font-family: 'DM Mono', monospace;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+/* Saúde do fluxo */
+.comparison-chart { margin-top: 4px; }
+
+.chart-label {
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-hint);
+  margin-bottom: 8px;
+}
+
+.chart-bar {
+  background: var(--green-bg);
+  border: 1px solid var(--green-border);
+  border-radius: 99px;
+  height: 18px;
+  overflow: hidden;
+  position: relative;
+}
+
+.chart-bar-fill.spent-fill {
+  background: var(--red);
+  height: 100%;
+  border-radius: 99px 0 0 99px;
+}
+
+.chart-legend {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-top: 6px;
+}
+
+
+/* ════════════════════════════════════════════
+   6. TRANSAÇÕES
+════════════════════════════════════════════ */
+.table-section { margin-top: 4px; }
+
+.items-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+}
+
+.items-table th {
+  background: var(--text-primary);
+  color: #fff;
+  padding: 9px 10px;
+  text-align: left;
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.items-table th:first-child { border-radius: var(--radius-sm) 0 0 0; }
+.items-table th:last-child  { border-radius: 0 var(--radius-sm) 0 0; }
+
+.items-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border-soft);
+  color: var(--text-secondary);
+}
+
+.items-table tr.entrada td { color: var(--green); font-weight: 500; }
+.items-table tr.entrada    { background: var(--green-bg); }
+.items-table tr:nth-child(even):not(.entrada) { background: var(--surface-alt); }
+
+.items-table .badge {
+  font-size: 9px;
+  font-weight: 500;
+  padding: 2px 7px;
+  border-radius: 99px;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+
+.items-table tr.entrada .badge {
+  background: var(--green-bg);
+  border-color: var(--green-border);
+  color: var(--green);
+}
+
+.valor-celula {
+  text-align: right;
+  font-family: 'DM Mono', monospace;
+  font-weight: 500;
+  white-space: nowrap;
+  width: 120px;
+}
+
+
+/* ════════════════════════════════════════════
+   7. UTILITÁRIOS
+════════════════════════════════════════════ */
+.grid-section-title {
   grid-column: 1 / -1;
   margin-bottom: 0;
 }
@@ -573,6 +606,26 @@
 .page-break {
   break-before: page;
   page-break-before: always;
+}
+
+
+/* ════════════════════════════════════════════
+   8. PRINT & RESPONSIVO
+════════════════════════════════════════════ */
+@media print {
+  body { background: #fff; }
+  .report-container { padding: 16px; }
+  .card, .summary-card { break-inside: avoid; }
+  .table-section { break-before: auto; }
+}
+
+@media (max-width: 768px) {
+  .dashboard-grid          { grid-template-columns: 1fr; }
+  .investment-main         { flex-direction: column; }
+  .stat-divider            { display: none; }
+  .evo-metrics             { grid-template-columns: 1fr; }
+  .evo-metric-sep          { display: none; }
+  .evo-values-grid--3      { grid-template-columns: 1fr; }
 }
 
   </style>

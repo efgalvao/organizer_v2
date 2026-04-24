@@ -105,7 +105,6 @@ RSpec.describe Reports::MonthlyReport do
 
         expect(response[:metadata][:generated_at]).not_to be_nil
         expect(response[:totals][:total_incomes]).to eq(1000.to_d)
-        expect(response[:totals][:expenses_total]).to eq(1000.to_d)
         expect(response[:totals][:debit_realized]).to eq(300.to_d)
         expect(response[:totals][:current_balance]).to eq(700.to_d)
 

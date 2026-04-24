@@ -52,6 +52,13 @@ module Reports
       )&.investments || 0
     end
 
+    def invested_previous_month
+      @invested_previous_month ||= UserReport.month_report(
+        user_id: @user.id,
+        reference_date: 1.month.ago.to_date
+      )&.investments || 0
+    end
+
     def expenses(transactions)
       transactions.select { |t| t.type == 'Account::Expense' }
     end
@@ -94,25 +101,22 @@ module Reports
 
     def build_metadata
       {
-        period: I18n.l(@date, format: '%B %Y').capitalize,
+        filename: I18n.l(@date, format: '%d_%B_%Y'),
         generated_at: Time.current
       }
     end
 
     def calculate_totals
-      trans          = current_month_transactions
-      total_income   = sum_values(incomes(trans))
+      trans             = current_month_transactions
+      total_income      = sum_values(incomes(trans))
       total_investments = sum_values(investments(trans))
-      total_payments = sum_values(invoice_payments(trans))
-      debit_realized = sum_values(debit_expenses(trans)) + total_payments
+      total_payments    = sum_values(invoice_payments(trans))
+      debit_realized    = sum_values(debit_expenses(trans)) + total_payments
 
       {
         total_incomes: total_income,
         total_recurrent_incomes: sum_values(recurring_incomes(trans)),
-        expenses_total: sum_values(expenses(trans)) + total_payments,
         debit_realized: debit_realized,
-        fixed_realized: sum_values(fixed_expenses(trans)) + total_payments,
-        eventual_realized: sum_values(eventual_expenses(trans)),
         investments_realized: total_investments,
         current_balance: total_income - debit_realized - total_investments
       }
@@ -184,26 +188,28 @@ module Reports
 
       {
         guaranteed_ratio: total.positive? ? (recurring_income / total * 100).round : 0,
-        recurring_value: recurring_income,
-        one_time_value: one_time_income
+        recurring_value: recurring_income
       }
     end
 
     def prepare_investments_data
-      buckets = Investments::FetchByBucket.call(@user.id)
-      now     = invested_now
-      past    = invested_12_months_ago
+      buckets        = Investments::FetchByBucket.call(@user.id)
+      now            = invested_now
+      past           = invested_12_months_ago
+      previous_month = invested_previous_month
 
       {
         emergency_fund: emergency_bucket(buckets)[:total_current].to_f,
         future_total: future_investments_total(buckets),
         invested: now,
         invested_12_months_ago: past,
-        growth_percent: calculate_growth_percent(now, past),
-        absolute_gain: now - past,
-        redeemed: redeemed_last_12_months,
-        all_buckets: buckets
+        invested_previous_month: previous_month,
+        accumulated_inflow: accumulated_inflow
       }
+    end
+
+    def accumulated_inflow
+      @user.investments.where(released: false).sum(:invested_amount)
     end
 
     def emergency_bucket(buckets)
@@ -215,18 +221,6 @@ module Reports
              .reject { |v| v[:bucket] == 'emergency' }
              .sum { |v| v[:total_current] }
              .to_f
-    end
-
-    def calculate_growth_percent(now, past)
-      return 0 if past.zero?
-
-      ((now - past) / past.to_f * 100).round(1)
-    end
-
-    def redeemed_last_12_months
-      UserReport.where(user_id: @user.id)
-                .where(date: 12.months.ago.beginning_of_month..)
-                .sum(:redeemed)
     end
 
     def sum_values(transactions)
