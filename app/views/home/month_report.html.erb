@@ -54,23 +54,23 @@
     <p class="section-title">Evolução dos Investimentos</p>
 
     <%# ── 1 mês ── %>
-    <div class="card">
-      <%
-        inv_now      = @report_data[:investments][:invested].to_f
-        inv_previous = @report_data[:investments][:invested_previous_month].to_f
-        abs_gain     = inv_now - inv_previous
-        growth_pct   = inv_previous > 0 ? ((abs_gain / inv_previous) * 100).round(1) : 0
-        progress_pct = inv_previous > 0 ? [((abs_gain / inv_previous) * 100).round, 100].min : 0
-      %>
-
+    <%
+      inv_now      = @report_data[:investments][:invested].to_f
+      inv_previous = @report_data[:investments][:invested_previous_month].to_f
+      abs_gain     = inv_now - inv_previous
+      is_negative  = abs_gain < 0
+      growth_pct   = inv_previous > 0 ? ((abs_gain / inv_previous) * 100).round(1) : 0
+      progress_pct = inv_previous > 0 ? [((abs_gain.abs / inv_previous) * 100).round, 100].min : 0
+    %>
+    <div class="card <%= 'alert-card' if is_negative %>">
       <div class="evo-values-grid">
         <div class="evo-value-block">
           <div class="evo-value-label"><span class="evo-dot"></span>1 mês</div>
           <div class="evo-amount">R$ <%= number_with_precision(inv_previous, precision: 2) %></div>
         </div>
-        <div class="evo-value-block highlight">
-          <div class="evo-value-label"><span class="evo-dot green"></span>Hoje</div>
-          <div class="evo-amount green">R$ <%= number_with_precision(inv_now, precision: 2) %></div>
+        <div class="evo-value-block highlight <%= 'alert-card' if is_negative %>">
+          <div class="evo-value-label"><span class="evo-dot <%= is_negative ? 'red' : 'green' %>"></span>Hoje</div>
+          <div class="evo-amount <%= is_negative ? 'negative' : 'green' %>">R$ <%= number_with_precision(inv_now, precision: 2) %></div>
         </div>
       </div>
 
@@ -79,22 +79,22 @@
       <div class="evo-metrics">
         <div class="evo-metric">
           <div class="evo-metric-label">Crescimento</div>
-          <div class="evo-metric-value <%= abs_gain >= 0 ? 'green' : '' %>">
-            <%= abs_gain >= 0 ? '+' : '' %><%= growth_pct %>%
+          <div class="evo-metric-value <%= is_negative ? 'negative' : 'green' %>">
+            <%= is_negative ? '' : '+' %><%= growth_pct %>%
           </div>
         </div>
         <div class="evo-metric-sep"></div>
         <div class="evo-metric">
           <div class="evo-metric-label">Ganho absoluto</div>
-          <div class="evo-metric-value <%= abs_gain >= 0 ? 'green' : '' %>">
-            R$ <%= number_with_precision(abs_gain.abs, precision: 2) %>
+          <div class="evo-metric-value <%= is_negative ? 'negative' : 'green' %>">
+            <%= is_negative ? '−' : '+' %> R$ <%= number_with_precision(abs_gain.abs, precision: 2) %>
           </div>
         </div>
       </div>
 
       <div class="evo-progress-label">Progresso do período</div>
       <div class="evo-progress-track">
-        <div class="evo-progress-fill" style="width: <%= progress_pct %>%"></div>
+        <div class="evo-progress-fill" style="width: <%= progress_pct %>%; background: <%= is_negative ? 'var(--red)' : 'var(--green)' %>"></div>
       </div>
       <div class="evo-progress-bounds">
         <span class="evo-progress-bound">R$ <%= number_with_precision(inv_previous, precision: 2) %></span>
@@ -103,23 +103,22 @@
     </div>
 
     <%# ── 12 meses ── %>
-    <div class="card">
-      <%
-        inv_now    = @report_data[:investments][:invested].to_f
-        inv_past   = @report_data[:investments][:invested_12_months_ago].to_f
-        abs_gain   = inv_now - inv_past
-        growth_pct = inv_past > 0 ? ((abs_gain / inv_past) * 100).round(1) : 0
-        progress_pct = inv_past > 0 ? [((abs_gain / inv_past) * 100).round, 100].min : 0
-      %>
-
+    <%
+      inv_past     = @report_data[:investments][:invested_12_months_ago].to_f
+      abs_gain_12  = inv_now - inv_past
+      is_neg_12    = abs_gain_12 < 0
+      growth_pct_12 = inv_past > 0 ? ((abs_gain_12 / inv_past) * 100).round(1) : 0
+      progress_12   = inv_past > 0 ? [((abs_gain_12.abs / inv_past) * 100).round, 100].min : 0
+    %>
+    <div class="card <%= 'alert-card' if is_neg_12 %>">
       <div class="evo-values-grid">
         <div class="evo-value-block">
           <div class="evo-value-label"><span class="evo-dot"></span>12 meses atrás</div>
           <div class="evo-amount">R$ <%= number_with_precision(inv_past, precision: 2) %></div>
         </div>
-        <div class="evo-value-block highlight">
-          <div class="evo-value-label"><span class="evo-dot green"></span>Hoje</div>
-          <div class="evo-amount green">R$ <%= number_with_precision(inv_now, precision: 2) %></div>
+        <div class="evo-value-block highlight <%= 'alert-card' if is_neg_12 %>">
+          <div class="evo-value-label"><span class="evo-dot <%= is_neg_12 ? 'red' : 'green' %>"></span>Hoje</div>
+          <div class="evo-amount <%= is_neg_12 ? 'negative' : 'green' %>">R$ <%= number_with_precision(inv_now, precision: 2) %></div>
         </div>
       </div>
 
@@ -128,22 +127,22 @@
       <div class="evo-metrics">
         <div class="evo-metric">
           <div class="evo-metric-label">Crescimento</div>
-          <div class="evo-metric-value <%= abs_gain >= 0 ? 'green' : '' %>">
-            <%= abs_gain >= 0 ? '+' : '' %><%= growth_pct %>%
+          <div class="evo-metric-value <%= is_neg_12 ? 'negative' : 'green' %>">
+            <%= is_neg_12 ? '' : '+' %><%= growth_pct_12 %>%
           </div>
         </div>
         <div class="evo-metric-sep"></div>
         <div class="evo-metric">
           <div class="evo-metric-label">Ganho absoluto</div>
-          <div class="evo-metric-value <%= abs_gain >= 0 ? 'green' : '' %>">
-            R$ <%= number_with_precision(abs_gain.abs, precision: 2) %>
+          <div class="evo-metric-value <%= is_neg_12 ? 'negative' : 'green' %>">
+            <%= is_neg_12 ? '−' : '+' %> R$ <%= number_with_precision(abs_gain_12.abs, precision: 2) %>
           </div>
         </div>
       </div>
 
       <div class="evo-progress-label">Progresso do período</div>
       <div class="evo-progress-track">
-        <div class="evo-progress-fill" style="width: <%= progress_pct %>%"></div>
+        <div class="evo-progress-fill" style="width: <%= progress_12 %>%; background: <%= is_neg_12 ? 'var(--red)' : 'var(--green)' %>"></div>
       </div>
       <div class="evo-progress-bounds">
         <span class="evo-progress-bound">R$ <%= number_with_precision(inv_past, precision: 2) %></span>
@@ -275,13 +274,13 @@
       <%
         forecast_total         = @report_data[:forecast][:total_comprometido]
         balance_after_forecast = @report_data[:totals][:total_recurrent_incomes] - forecast_total
-        is_negative            = balance_after_forecast < 0
+        is_negative_forecast   = balance_after_forecast < 0
       %>
 
-      <div class="summary-card estimated-result <%= 'alert-card' if is_negative %>">
+      <div class="summary-card estimated-result <%= 'alert-card' if is_negative_forecast %>">
         <h4>Resultado Previsto após Saídas</h4>
-        <span class="value <%= is_negative ? 'alert-text' : 'positive' %>">
-          <%= '⚠️ ' if is_negative %>R$ <%= number_with_precision(balance_after_forecast, precision: 2) %>
+        <span class="value <%= is_negative_forecast ? 'alert-text' : 'positive' %>">
+          <%= '⚠️ ' if is_negative_forecast %>R$ <%= number_with_precision(balance_after_forecast, precision: 2) %>
         </span>
         <small>Entradas base vs. (Fatura + Fixos).</small>
       </div>
