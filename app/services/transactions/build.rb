@@ -42,7 +42,7 @@ module Transactions
         title: params[:title],
         account_report_id: account_report.id,
         group: params[:group],
-        recurrence: params[:recurrence]
+        recurrence: format_recurrence(params[:recurrence])
       }
     end
 
@@ -53,6 +53,21 @@ module Transactions
       ) || Reports::CreateAccountReport.create_report(
         params[:account_id], date.strftime('%Y-%m-%d')
       )
+    end
+
+    def format_recurrence(recurrence)
+      return 'one_time' if recurrence.blank?
+
+      case recurrence
+      when '0'
+        'one_time'
+      when '1'
+        'recurring'
+      when '2'
+        'installment'
+      else
+        recurrence
+      end
     end
   end
 end
