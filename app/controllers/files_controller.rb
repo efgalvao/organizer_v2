@@ -6,7 +6,8 @@ class FilesController < ApplicationController
   def upload
     Files::ProcessFile.call(upload_params, current_user.id)
     redirect_to summary_path, notice: I18n.t('files.file_upload.success')
-  rescue StandardError
+  rescue StandardError => e
+    Rails.logger.error(e.full_message)
     redirect_to file_upload_path, notice: I18n.t('files.file_upload.failure')
   end
 

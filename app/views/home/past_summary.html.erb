@@ -16,27 +16,27 @@
         <div class="row">
           <div class="col s2">
             <%= t('home.past_summary.incomes') %>:<br>
-            <span class="lcars-account-field"><%= number_to_currency(@data[:summary]["incomes"], unit: 'R$ ', separator: ',', delimiter: '.') %></span>
+            <span class="lcars-account-field"><%= format_currency(@data[:summary]["incomes"]) %></span>
             <div><%= render partial: 'variation_badge', locals: { value: @data[:incomes_variation], inverted: false } %></div>
           </div>
           <div class="col s2">
             <%= t('home.past_summary.debit_expenses') %>:<br>
-            <span class="lcars-account-field"><%= number_to_currency(@data[:summary]["expenses"], unit: 'R$ ', separator: ',', delimiter: '.') %></span>
+            <span class="lcars-account-field"><%= format_currency(@data[:summary]["expenses"]) %></span>
             <div><%= render partial: 'variation_badge', locals: { value: @data[:expenses_variation], inverted: true } %></div>
           </div>
           <div class="col s2">
             <%= t('home.past_summary.credit_expenses') %>:<br>
-            <span class="lcars-account-field"><%= number_to_currency(@data[:summary]["card_expenses"], unit: 'R$ ', separator: ',', delimiter: '.') %></span>
+            <span class="lcars-account-field"><%= format_currency(@data[:summary]["card_expenses"]) %></span>
             <div><%= render partial: 'variation_badge', locals: { value: @data[:card_expenses_variation], inverted: true } %></div>
           </div>
           <div class="col s2">
             <%= t('home.past_summary.invested') %>:<br>
-            <span class="lcars-account-field"><%= number_to_currency(@data[:summary]["investments"], unit: 'R$ ', separator: ',', delimiter: '.') %></span>
+            <span class="lcars-account-field"><%= format_currency(@data[:summary]["investments"]) %></span>
             <div><%= render partial: 'variation_badge', locals: { value: @data[:invested_variation], inverted: false } %></div>
           </div>
           <div class="col s2">
             <%= t('home.past_summary.balance') %>:<br>
-            <span class="lcars-account-field"><%= number_to_currency(@data[:summary]["total"], unit: 'R$ ', separator: ',', delimiter: '.') %></span>
+            <span class="lcars-account-field"><%= format_currency(@data[:summary]["total"]) %></span>
           </div>
         </div>
       </div>
@@ -69,7 +69,7 @@
           <% @data[:category_data].each do |category| %>
             <tr>
               <td><%= category[:name] %></td>
-              <td class="lcars-account-field"><%= number_to_currency(category[:total], unit: 'R$ ', separator: ',', delimiter: '.') %></td>
+              <td class="lcars-account-field"><%= format_currency(category[:total]) %></td>
               <td>
                 <div class="d-flex align-items-center">
                   <span class="me-2"><%= number_to_percentage(category[:percentage], precision: 2) %></span>

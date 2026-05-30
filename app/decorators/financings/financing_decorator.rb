@@ -3,7 +3,7 @@ module Financings
     decorates_association :payments, with: Financings::PaymentDecorator
 
     def borrowed_value
-      format_currency(object.borrowed_value)
+      helpers.format_currency(object.borrowed_value)
     end
 
     def name
@@ -22,15 +22,15 @@ module Financings
       value = object.payments.order(payment_date: :asc).reduce(object.borrowed_value) do |result, parcel|
         (result - parcel.amortization) + parcel.monetary_correction
       end
-      format_currency(value)
+      helpers.format_currency(value)
     end
 
     def total_amortization
-      format_currency(object.payments.sum(:amortization))
+      helpers.format_currency(object.payments.sum(:amortization))
     end
 
     def total_interest_paid
-      format_currency(object.payments.sum(:interest))
+      helpers.format_currency(object.payments.sum(:interest))
     end
 
     def ordinary_parcels
@@ -46,11 +46,7 @@ module Financings
     end
 
     def monetary_correction
-      format_currency(object.payments.sum(:monetary_correction))
-    end
-
-    def format_currency(value)
-      ActionController::Base.helpers.number_to_currency(value, unit: 'R$ ', separator: ',', delimiter: '.')
+      helpers.format_currency(object.payments.sum(:monetary_correction))
     end
 
     delegate :id, :installments, to: :object

@@ -18,10 +18,10 @@
       <% cards.each do |card| %>
       <tr>
         <td><%= link_to card[:name], card_path(card[:id]) %></td>
-        <td>R$ <%= card[:month_incomes] %></td>
-        <td>R$ <%= card[:month_expenses] %></td>
-        <td>R$ <%= card[:month_balance] %></td>
-        <td>R$ <%= card[:card_balance] %></td>
+        <td><%= format_currency(card[:month_incomes]) %></td>
+        <td><%= format_currency(card[:month_expenses]) %></td>
+        <td><%= format_currency(card[:month_balance]) %></td>
+        <td><%= format_currency(card[:card_balance]) %></td>
       </tr>
       <% end %>
     </tbody>

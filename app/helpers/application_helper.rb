@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def format_currency(value)
+    number_to_currency(value, unit: 'R$ ', separator: ',', delimiter: '.')
+  end
+
   def render_turbo_stream_flash_messages
     turbo_stream.prepend 'flash', partial: 'layouts/flash'
   end
