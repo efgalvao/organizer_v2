@@ -28,7 +28,7 @@ jobs:
           with-cache: true
       - node/install:
           install-yarn: true
-          node-version: '16.13'
+          node-version: '20'
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
