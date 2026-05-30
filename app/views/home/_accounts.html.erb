@@ -17,9 +17,9 @@
     <% accounts.each do |account| %>
     <tr>
       <td><%= link_to account[:name], account_path(account[:id]) %></td>
-      <td>R$ <%= account[:balance] %></td>
-      <td>R$ <%= account[:investments] %></td>
-      <td>R$ <%= account[:total] %></td>
+      <td><%= format_currency(account[:balance]) %></td>
+      <td><%= format_currency(account[:investments]) %></td>
+      <td><%= format_currency(account[:total]) %></td>
     </tr>
     <% end %>
   </tbody>

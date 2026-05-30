@@ -3,7 +3,7 @@ module Account
     delegate_all
 
     def amount
-      ActionController::Base.helpers.number_to_currency(object.amount, unit: 'R$ ', separator: ',', delimiter: '.')
+      helpers.format_currency(object.amount)
     end
 
     def date

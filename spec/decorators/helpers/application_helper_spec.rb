@@ -3,6 +3,12 @@ require 'rails_helper'
 RSpec.describe ApplicationHelper, type: :helper do
   # subject(:application_helper) { described_class.new }
 
+  describe '#format_currency' do
+    it 'formats values in Brazilian Real' do
+      expect(helper.format_currency(1234.56)).to eq('R$ 1.234,56')
+    end
+  end
+
   describe '#all_accounts_except_cards' do
     let(:user) { create(:user) }
     let!(:first_account) { create(:account, user_id: user.id) }

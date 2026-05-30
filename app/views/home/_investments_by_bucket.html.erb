@@ -30,11 +30,11 @@
         <div class="bucket-details">
           <div class="amount-item">
             <span class="label"><%= t('investments.investments.index.invested') %>:</span>
-            <span class="value"><%= number_to_currency(data[:total_invested]) %></span>
+            <span class="value"><%= format_currency(data[:total_invested]) %></span>
           </div>
           <div class="amount-item">
             <span class="label"><%= t('investments.investments.index.current') %>:</span>
-            <span class="value"><%= number_to_currency(data[:total_current]) %></span>
+            <span class="value"><%= format_currency(data[:total_current]) %></span>
           </div>
         </div>
       </div>

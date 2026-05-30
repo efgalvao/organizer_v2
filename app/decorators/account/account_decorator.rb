@@ -6,7 +6,7 @@ module Account
     delegate :investment_allocation_by_kind, to: :object
 
     def balance
-      format_currency(object.balance)
+      helpers.format_currency(object.balance)
     end
 
     def formatted_type
@@ -38,10 +38,6 @@ module Account
     def past_reports_chart_data
       reports = AccountReportRepository.past_reports(object.id, 6)
       Reports::CreatePastReportsChartData.call(reports: reports)
-    end
-
-    def format_currency(value)
-      ActionController::Base.helpers.number_to_currency(value, unit: 'R$ ', separator: ',', delimiter: '.')
     end
 
     def broker?

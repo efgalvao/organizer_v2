@@ -17,6 +17,7 @@ module Files
     attr_reader :content
 
     def process_transactions
+      puts '-----', content.inspect, '----'
       transactions = Transactions::BuildRequest.call(content)
 
       transactions.flatten.each do |transaction|

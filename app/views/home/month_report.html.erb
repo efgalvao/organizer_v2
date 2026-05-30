@@ -18,7 +18,7 @@
           <div class="stat">
             <h4>Investimentos</h4>
             <span class="value forecast-value">
-              R$ <%= number_with_precision(@report_data[:investments][:future_total], precision: 2) %>
+              <%= format_currency(@report_data[:investments][:future_total]) %>
             </span>
           </div>
         </div>
@@ -36,7 +36,7 @@
           <div class="stat">
             <h4>Reserva de Emergência</h4>
             <span class="value <%= survival_months >= target ? 'positive' : 'warning-text' %>">
-              <small><strong>R$ <%= number_with_precision(emergency_fund, precision: 2) %></strong></small>
+              <small><strong><%= format_currency(emergency_fund) %></strong></small>
             </span>
             <div class="mini-progress-container">
               <div class="mini-progress-bar" style="width: <%= progress %>%"></div>
@@ -66,11 +66,11 @@
       <div class="evo-values-grid">
         <div class="evo-value-block">
           <div class="evo-value-label"><span class="evo-dot"></span>1 mês</div>
-          <div class="evo-amount">R$ <%= number_with_precision(inv_previous, precision: 2) %></div>
+          <div class="evo-amount"><%= format_currency(inv_previous) %></div>
         </div>
         <div class="evo-value-block highlight <%= 'alert-card' if is_negative %>">
           <div class="evo-value-label"><span class="evo-dot <%= is_negative ? 'red' : 'green' %>"></span>Hoje</div>
-          <div class="evo-amount <%= is_negative ? 'negative' : 'green' %>">R$ <%= number_with_precision(inv_now, precision: 2) %></div>
+          <div class="evo-amount <%= is_negative ? 'negative' : 'green' %>"><%= format_currency(inv_now) %></div>
         </div>
       </div>
 
@@ -87,7 +87,7 @@
         <div class="evo-metric">
           <div class="evo-metric-label">Ganho absoluto</div>
           <div class="evo-metric-value <%= is_negative ? 'negative' : 'green' %>">
-            <%= is_negative ? '−' : '+' %> R$ <%= number_with_precision(abs_gain.abs, precision: 2) %>
+            <%= is_negative ? '−' : '+' %> <%= format_currency(abs_gain.abs) %>
           </div>
         </div>
       </div>
@@ -97,8 +97,8 @@
         <div class="evo-progress-fill" style="width: <%= progress_pct %>%; background: <%= is_negative ? 'var(--red)' : 'var(--green)' %>"></div>
       </div>
       <div class="evo-progress-bounds">
-        <span class="evo-progress-bound">R$ <%= number_with_precision(inv_previous, precision: 2) %></span>
-        <span class="evo-progress-bound">R$ <%= number_with_precision(inv_now, precision: 2) %></span>
+        <span class="evo-progress-bound"><%= format_currency(inv_previous) %></span>
+        <span class="evo-progress-bound"><%= format_currency(inv_now) %></span>
       </div>
     </div>
 
@@ -114,11 +114,11 @@
       <div class="evo-values-grid">
         <div class="evo-value-block">
           <div class="evo-value-label"><span class="evo-dot"></span>12 meses atrás</div>
-          <div class="evo-amount">R$ <%= number_with_precision(inv_past, precision: 2) %></div>
+          <div class="evo-amount"><%= format_currency(inv_past) %></div>
         </div>
         <div class="evo-value-block highlight <%= 'alert-card' if is_neg_12 %>">
           <div class="evo-value-label"><span class="evo-dot <%= is_neg_12 ? 'red' : 'green' %>"></span>Hoje</div>
-          <div class="evo-amount <%= is_neg_12 ? 'negative' : 'green' %>">R$ <%= number_with_precision(inv_now, precision: 2) %></div>
+          <div class="evo-amount <%= is_neg_12 ? 'negative' : 'green' %>"><%= format_currency(inv_now) %></div>
         </div>
       </div>
 
@@ -135,7 +135,7 @@
         <div class="evo-metric">
           <div class="evo-metric-label">Ganho absoluto</div>
           <div class="evo-metric-value <%= is_neg_12 ? 'negative' : 'green' %>">
-            <%= is_neg_12 ? '−' : '+' %> R$ <%= number_with_precision(abs_gain_12.abs, precision: 2) %>
+            <%= is_neg_12 ? '−' : '+' %> <%= format_currency(abs_gain_12.abs) %>
           </div>
         </div>
       </div>
@@ -145,8 +145,8 @@
         <div class="evo-progress-fill" style="width: <%= progress_12 %>%; background: <%= is_neg_12 ? 'var(--red)' : 'var(--green)' %>"></div>
       </div>
       <div class="evo-progress-bounds">
-        <span class="evo-progress-bound">R$ <%= number_with_precision(inv_past, precision: 2) %></span>
-        <span class="evo-progress-bound">R$ <%= number_with_precision(inv_now, precision: 2) %></span>
+        <span class="evo-progress-bound"><%= format_currency(inv_past) %></span>
+        <span class="evo-progress-bound"><%= format_currency(inv_now) %></span>
       </div>
     </div>
 
@@ -163,15 +163,15 @@
       <div class="evo-values-grid evo-values-grid--3">
         <div class="evo-value-block">
           <div class="evo-value-label"><span class="evo-dot"></span>Aportes Acumulados</div>
-          <div class="evo-amount">R$ <%= number_with_precision(inflow, precision: 2) %></div>
+          <div class="evo-amount"><%= format_currency(inflow) %></div>
         </div>
         <div class="evo-value-block highlight">
           <div class="evo-value-label"><span class="evo-dot green"></span>Juros Gerados</div>
-          <div class="evo-amount green">R$ <%= number_with_precision(gain, precision: 2) %></div>
+          <div class="evo-amount green"><%= format_currency(gain) %></div>
         </div>
         <div class="evo-value-block highlight">
           <div class="evo-value-label"><span class="evo-dot green"></span>Total</div>
-          <div class="evo-amount green">R$ <%= number_with_precision(total_amount, precision: 2) %></div>
+          <div class="evo-amount green"><%= format_currency(total_amount) %></div>
         </div>
       </div>
 
@@ -209,24 +209,24 @@
 
       <div class="summary-card">
         <h4>Entradas Totais</h4>
-        <span class="value positive">R$ <%= number_with_precision(@report_data[:totals][:total_incomes], precision: 2) %></span>
+        <span class="value positive"><%= format_currency(@report_data[:totals][:total_incomes]) %></span>
       </div>
 
       <div class="summary-card">
         <h4>Saídas via Débito / Dinheiro</h4>
-        <span class="value negative">R$ <%= number_with_precision(@report_data[:totals][:debit_realized], precision: 2) %></span>
+        <span class="value negative"><%= format_currency(@report_data[:totals][:debit_realized]) %></span>
         <small>Dinheiro que já saiu da conta corrente.</small>
       </div>
 
       <div class="summary-card">
         <h4>Investimentos</h4>
-        <span class="value positive">R$ <%= number_with_precision(@report_data[:totals][:investments_realized], precision: 2) %></span>
+        <span class="value positive"><%= format_currency(@report_data[:totals][:investments_realized]) %></span>
       </div>
 
       <div class="summary-card balance-card">
         <h4>Saldo Disponível Hoje</h4>
         <span class="value <%= @report_data[:totals][:current_balance] >= 0 ? 'positive' : 'negative' %>">
-          R$ <%= number_with_precision(@report_data[:totals][:current_balance], precision: 2) %>
+          <%= format_currency(@report_data[:totals][:current_balance]) %>
         </span>
         <small>Líquido após gastos no débito.</small>
       </div>
@@ -234,7 +234,7 @@
       <div class="summary-card income-analysis">
         <h4>Estabilidade da Renda</h4>
         <div class="income-split">
-          <span class="text-recurring">Recorrente: R$ <%= number_with_precision(@report_data[:income_quality][:recurring_value], precision: 2) %></span>
+          <span class="text-recurring">Recorrente: <%= format_currency(@report_data[:income_quality][:recurring_value]) %></span>
           <div class="mini-bar">
             <div class="fill" style="width: <%= @report_data[:income_quality][:guaranteed_ratio] %>%"></div>
           </div>
@@ -244,13 +244,13 @@
 
       <div class="limit-section">
         <h4>Uso do Cartão (Acumulado)</h4>
-        <h4>LIMITE: R$ <%= number_with_precision(@report_data[:limit_progress][:limit], precision: 2) %></h4>
+        <h4>LIMITE: <%= format_currency(@report_data[:limit_progress][:limit]) %></h4>
         <div class="progress-container">
           <div class="progress-bar <%= 'over-limit' if @report_data[:limit_progress][:is_over_limit] %>"
                style="width: <%= @report_data[:limit_progress][:percent] %>%"></div>
         </div>
         <div class="limit-info">
-          <strong>R$ <%= number_with_precision(@report_data[:limit_progress][:spent], precision: 2) %></strong>
+          <strong><%= format_currency(@report_data[:limit_progress][:spent]) %></strong>
           <span><%= @report_data[:limit_progress][:percent] %>% do limite ideal</span>
         </div>
       </div>
@@ -261,13 +261,13 @@
 
       <div class="summary-card highlight">
         <h4>Fatura de Cartão Estimada</h4>
-        <span class="value negative">R$ <%= number_with_precision(@report_data[:forecast][:fatura_estimada], precision: 2) %></span>
+        <span class="value negative"><%= format_currency(@report_data[:forecast][:fatura_estimada]) %></span>
         <small>Baseado nos gastos realizados no cartão este mês.</small>
       </div>
 
       <div class="summary-card">
         <h4>Custos Fixos de Débito</h4>
-        <span class="value negative">R$ <%= number_with_precision(@report_data[:forecast][:fixos_debito], precision: 2) %></span>
+        <span class="value negative"><%= format_currency(@report_data[:forecast][:fixos_debito]) %></span>
         <small>Financiamento, contas e assinaturas agendadas.</small>
       </div>
 
@@ -280,7 +280,7 @@
       <div class="summary-card estimated-result <%= 'alert-card' if is_negative_forecast %>">
         <h4>Resultado Previsto após Saídas</h4>
         <span class="value <%= is_negative_forecast ? 'alert-text' : 'positive' %>">
-          <%= '⚠️ ' if is_negative_forecast %>R$ <%= number_with_precision(balance_after_forecast, precision: 2) %>
+          <%= '⚠️ ' if is_negative_forecast %><%= format_currency(balance_after_forecast) %>
         </span>
         <small>Entradas base vs. (Fatura + Fixos).</small>
       </div>
@@ -323,7 +323,7 @@
             <td><%= t[:description] %></td>
             <td><span class="badge"><%= t[:kind] %></span></td>
             <td class="valor-celula">
-              <%= t[:kind] == 'Entrada' ? '+' : '−' %>&nbsp;R$&nbsp;<%= number_with_precision(t[:value], precision: 2) %>
+              <%= t[:kind] == 'Entrada' ? '+' : '−' %>&nbsp;<%= format_currency(t[:value]) %>
             </td>
           </tr>
         <% end %>

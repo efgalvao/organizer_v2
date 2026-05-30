@@ -7,35 +7,35 @@ module Investments
     end
 
     def starting_market_value
-      format_currency(object.starting_market_value)
+      helpers.format_currency(object.starting_market_value)
     end
 
     def ending_market_value
-      format_currency(object.ending_market_value)
+      helpers.format_currency(object.ending_market_value)
     end
 
     def inflow_amount
-      format_currency(object.inflow_amount)
+      helpers.format_currency(object.inflow_amount)
     end
 
     def outflow_amount
-      format_currency(object.outflow_amount)
+      helpers.format_currency(object.outflow_amount)
     end
 
     def dividends_received
-      format_currency(object.dividends_received)
+      helpers.format_currency(object.dividends_received)
     end
 
     def accumulated_inflow_amount
-      format_currency(object.accumulated_inflow_amount)
+      helpers.format_currency(object.accumulated_inflow_amount)
     end
 
     def average_purchase_price
-      format_currency(object.average_purchase_price)
+      helpers.format_currency(object.average_purchase_price)
     end
 
     def monthly_appreciation_value
-      format_currency(object.monthly_appreciation_value)
+      helpers.format_currency(object.monthly_appreciation_value)
     end
 
     def monthly_return_percentage
@@ -67,10 +67,6 @@ module Investments
     end
 
     private
-
-    def format_currency(value)
-      ActionController::Base.helpers.number_to_currency(value, unit: 'R$ ', separator: ',', delimiter: '.')
-    end
 
     def format_percentage(value)
       return '0%' if value.zero?

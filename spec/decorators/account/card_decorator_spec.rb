@@ -6,7 +6,7 @@ RSpec.describe Account::CardDecorator, type: :decorator do
 
   describe '#balance' do
     it 'formats the card balance' do
-      expect(decorated_card.balance).to eq(ActionController::Base.helpers.number_to_currency(card.balance, unit: 'R$ ', separator: ',', delimiter: '.'))
+      expect(decorated_card.balance).to eq(ApplicationController.helpers.format_currency(card.balance))
     end
   end
 

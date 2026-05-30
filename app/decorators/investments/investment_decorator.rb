@@ -18,22 +18,22 @@ module Investments
     end
 
     def invested_amount
-      format_currency(object.invested_amount)
+      helpers.format_currency(object.invested_amount)
     end
 
     def current_amount
-      format_currency(object.current_amount)
+      helpers.format_currency(object.current_amount)
     end
 
     def current_price_per_share
-      format_currency(object.current_amount)
+      helpers.format_currency(object.current_amount)
     end
 
     def balance
       if object.type == 'Investments::VariableInvestment'
-        format_currency(object.current_amount * object.shares_total)
+        helpers.format_currency(object.current_amount * object.shares_total)
       else
-        format_currency(object.current_amount)
+        helpers.format_currency(object.current_amount)
       end
     end
 
@@ -108,14 +108,10 @@ module Investments
 
     def average_price
       if object.type == 'Investments::VariableInvestment'
-        format_currency(safe_divide(object.invested_amount, object.shares_total))
+        helpers.format_currency(safe_divide(object.invested_amount, object.shares_total))
       else
-        format_currency(object.invested_amount)
+        helpers.format_currency(object.invested_amount)
       end
-    end
-
-    def format_currency(value)
-      ActionController::Base.helpers.number_to_currency(value, unit: 'R$ ', separator: ',', delimiter: '.')
     end
 
     def group
