@@ -44,7 +44,7 @@ module Files
       {
         date: row[DATE_INDEX],
         title: row[TITLE_INDEX],
-        amount: row[AMOUNT_INDEX],
+        amount: row[AMOUNT_INDEX].gsub(',', '.'),
         category: row[CATEGORY_INDEX],
         kind: KIND,
         type: TYPE,
