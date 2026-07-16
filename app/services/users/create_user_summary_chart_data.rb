@@ -20,7 +20,7 @@ module Users
       summary = { total: {}, savings: {}, stocks: {}, inflow: {} }
 
       reports.each do |report|
-        key = report.date.strftime('%B-%Y').to_s
+        key = report.date.to_s
         summary[:total][key] = report.total
         summary[:savings][key] = report.savings
         summary[:stocks][key] = report.investments
@@ -34,7 +34,7 @@ module Users
     def mount_details
       summary = { incomes: {}, expenses: {}, invested: {}, card_expenses: {} }
       reports.each do |report|
-        key = report.date.strftime('%B-%Y').to_s
+        key = report.date.to_s
         summary[:incomes][key] = report.incomes
         summary[:expenses][key] = report.expenses
         summary[:invested][key] = report.invested
