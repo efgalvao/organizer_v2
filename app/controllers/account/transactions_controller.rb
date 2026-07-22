@@ -34,6 +34,16 @@ module Account
       end
     end
 
+    def create_json
+      transaction = Transactions::CreateFromJson.call(params: json_transaction_params, user: current_user)
+
+      if transaction.persisted?
+        render json: { id: transaction.id, message: 'Transação cadastrada.' }, status: :created
+      else
+        render json: { errors: transaction.errors.full_messages }, status: :unprocessable_entity
+      end
+    end
+
     def update
       transaction = Transactions::Update.call(@transaction.id, update_params)
       if transaction
@@ -77,6 +87,10 @@ module Account
 
     def update_params
       params.require(:transaction).permit(:id, :title, :category_id, :date, :group, :recurrence)
+    end
+
+    def json_transaction_params
+      params.permit(:date, :title, :category, :amount, :group, :type, :parcels, :recurrence, :account)
     end
 
     def anticipate_params

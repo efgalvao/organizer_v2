@@ -61,4 +61,54 @@ RSpec.describe 'Financings::Transaction' do
       end
     end
   end
+
+  describe 'POST /transactions/json' do
+    let!(:category) { create(:category, user: user, name: 'Mercado') }
+
+    context 'with valid parameters' do
+      let(:params) do
+        {
+          date: '2026-04-14',
+          title: 'Compra API',
+          category: category.name,
+          amount: 99.9,
+          group: 'conforto',
+          type: 0,
+          parcels: 1,
+          recurrence: 'one_time',
+          account: account.name
+        }
+      end
+
+      it 'creates a new transaction and returns created status' do
+        expect do
+          post transactions_json_path, params: params, as: :json
+        end.to change(Account::Expense, :count).by(1)
+
+        expect(response).to have_http_status(:created)
+      end
+    end
+
+    context 'with invalid parameters' do
+      let(:params) do
+        {
+          date: '2026/04/14',
+          title: 'Compra API',
+          category: category.name,
+          amount: 99.9,
+          group: 'conforto',
+          type: 0,
+          parcels: 1,
+          recurrence: 'one_time',
+          account: account.name
+        }
+      end
+
+      it 'returns unprocessable entity' do
+        post transactions_json_path, params: params, as: :json
+
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+  end
 end
