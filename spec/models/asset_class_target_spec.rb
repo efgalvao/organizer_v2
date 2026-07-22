@@ -6,27 +6,27 @@ RSpec.describe AssetClassTarget, type: :model do
   end
 
   describe 'validations' do
-    subject { build(:asset_class_target) }
+    subject(:asset_class_target) { build(:asset_class_target) }
 
     it { is_expected.to validate_presence_of(:kind) }
     it { is_expected.to validate_presence_of(:target_percentage) }
 
     it 'does not allow target_percentage below 0' do
-      subject.target_percentage = -1
-      expect(subject).not_to be_valid
+      asset_class_target.target_percentage = -1
+      expect(asset_class_target).not_to be_valid
     end
 
     it 'does not allow target_percentage above 100' do
-      subject.target_percentage = 100.01
-      expect(subject).not_to be_valid
+      asset_class_target.target_percentage = 100.01
+      expect(asset_class_target).not_to be_valid
     end
 
     it 'allow target_percentage equal to 0 and 100' do
-      subject.target_percentage = 0
-      expect(subject).to be_valid
+      asset_class_target.target_percentage = 0
+      expect(asset_class_target).to be_valid
 
-      subject.target_percentage = 100
-      expect(subject).to be_valid
+      asset_class_target.target_percentage = 100
+      expect(asset_class_target).to be_valid
     end
 
     it 'does not allow two targets for the same class for the same user' do
