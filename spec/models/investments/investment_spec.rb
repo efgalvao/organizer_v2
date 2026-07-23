@@ -40,4 +40,21 @@ RSpec.describe Investments::Investment do
       expect(investment.earnings).to eq(300)
     end
   end
+
+  describe '#kind_human' do
+    it 'returns the translated kind label' do
+      investment = build(:investment, account: account, kind: :fixed)
+
+      expect(investment.kind_human).to eq(
+        I18n.t('activerecord.attributes.investments/investment.kinds.fixed')
+      )
+    end
+
+    it 'returns nil when kind is blank' do
+      investment = build(:investment, account: account)
+      investment.kind = nil
+
+      expect(investment.kind_human).to be_nil
+    end
+  end
 end

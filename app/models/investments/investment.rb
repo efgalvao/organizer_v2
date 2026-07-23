@@ -52,6 +52,12 @@ module Investments
       raise NotImplementedError
     end
 
+    def kind_human
+      return nil if kind.blank?
+
+      I18n.t("activerecord.attributes.investments/investment.kinds.#{kind}", default: kind.humanize)
+    end
+
     def self.allocation_by_kind
       total = current_position
       group_by(&:kind).transform_values do |kind|
