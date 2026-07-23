@@ -22,6 +22,15 @@ RSpec.describe Investments::Investment do
     it { is_expected.to define_enum_for(:bucket).with_values(emergency: 0, freedom: 1, cash: 2) }
   end
 
+  describe '.not_released' do
+    let!(:not_released_investment) { create(:investment, account: account, released: false) }
+    let!(:released_investment) { create(:investment, :released, account: account) }
+
+    it 'returns only investments that are not released' do
+      expect(described_class.not_released.pluck(:id)).to contain_exactly(not_released_investment.id)
+    end
+  end
+
   describe '#earnings' do
     let(:investment) { create(:investment, account: account) }
     let!(:first_dividend) { create(:dividend, investment: investment, amount: 100) }

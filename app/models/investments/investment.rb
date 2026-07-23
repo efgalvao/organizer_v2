@@ -13,6 +13,8 @@ module Investments
 
     delegate :user, :name, to: :account, prefix: 'account'
 
+    scope :not_released, -> { where(released: false) }
+
     enum kind: {
       stock: 0,
       fii: 1,
