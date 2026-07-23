@@ -12,7 +12,6 @@ RSpec.describe Portfolio::CalculatorService, type: :service do
 
   it 'calculates the total patrimony and the metrics of the class correctly' do
     result = described_class.new(user).call
-    puts '======', result.inspect, '======='
 
     expect(result[:total_patrimony]).to eq(100.0)
 
@@ -22,6 +21,9 @@ RSpec.describe Portfolio::CalculatorService, type: :service do
     expect(renda_fixa_summary[:real_percentage]).to eq(100.0)
     expect(renda_fixa_summary[:target_percentage]).to eq(40.0)
     expect(renda_fixa_summary[:deviation]).to eq(60.0)
+    expect(renda_fixa_summary[:kind_human]).to eq(
+      I18n.t('activerecord.attributes.investments/investment.kinds.fixed')
+    )
   end
 
   it 'avoids division by zero when the user does not have patrimony' do

@@ -511,3 +511,14 @@ pt-BR:
         one_time: "Eventual"
         recurring: "Fixo"
         installment: "Parcelado"
+      investments/investment:
+        kinds:
+          fii: "Fundos Imobiliários"
+          crypto: "Criptomoedas"
+          international: "Ações internacionais"
+          stock: "Ações nacionais"
+          reit: "REITs"
+          fixed: "Renda Fixa nacional"
+          fixed_international: "Renda Fixa internacional"
+          stock_international: "Ações internacionais"
+          other: "Outro"

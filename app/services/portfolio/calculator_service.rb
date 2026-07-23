@@ -19,6 +19,7 @@ module Portfolio
         build_kind_summary(kind_name, investments_by_kind, total_patrimony, targets_by_kind[kind_name] || 0.0)
       end
 
+      puts "--------", classes_summary.inspect, "--------"
       {
         total_patrimony: total_patrimony,
         classes: classes_summary
@@ -48,11 +49,16 @@ module Portfolio
 
       {
         kind: kind_name,
+        kind_human: kind_human(kind_name),
         total_value: kind_total_value,
         real_percentage: real_percentage,
         target_percentage: target_pct,
         deviation: deviation
       }
+    end
+
+    def kind_human(kind_name)
+      I18n.t("activerecord.attributes.investments/investment.kinds.#{kind_name}", default: kind_name.to_s.humanize)
     end
   end
 end
