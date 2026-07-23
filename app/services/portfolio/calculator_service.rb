@@ -8,14 +8,14 @@ module Portfolio
 
     def call
       investments = Investments::Investment.joins(:account).not_released
-      .where(accounts: { user_id: user.id }).to_a
+                                           .where(accounts: { user_id: user.id }).to_a
 
       investments_by_kind = investments.group_by(&:kind)
 
       total_patrimony = calculate_total_patrimony(investments)
       targets_by_kind = fetch_targets_by_kind
 
-      classes_summary = Investments::Investment.kinds.map do |kind_name, kind_value|
+      classes_summary = Investments::Investment.kinds.map do |kind_name, _|
         build_kind_summary(kind_name, investments_by_kind, total_patrimony, targets_by_kind[kind_name] || 0.0)
       end
 
@@ -38,7 +38,6 @@ module Portfolio
     end
 
     def build_kind_summary(kind_name, investments_by_kind, total_patrimony, target_percentage)
-
       kind_investments = investments_by_kind[kind_name] || []
 
       kind_total_value = kind_investments.sum(&:current_position)
