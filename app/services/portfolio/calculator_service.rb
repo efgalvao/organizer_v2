@@ -1,14 +1,18 @@
 module Portfolio
   class CalculatorService
-    attr_reader :user
+    attr_reader :user_id
 
-    def initialize(user)
-      @user = user
+    def initialize(user_id)
+      @user_id = user_id
+    end
+
+    def self.call(user_id)
+      new(user_id).call
     end
 
     def call
       investments = Investments::Investment.joins(:account).not_released
-                                           .where(accounts: { user_id: user.id }).to_a
+                                           .where(accounts: { user_id: user_id }).to_a
 
       investments_by_kind = investments.group_by(&:kind)
 
@@ -19,7 +23,6 @@ module Portfolio
         build_kind_summary(kind_name, investments_by_kind, total_patrimony, targets_by_kind[kind_name] || 0.0)
       end
 
-      puts "--------", classes_summary.inspect, "--------"
       {
         total_patrimony: total_patrimony,
         classes: classes_summary
@@ -59,6 +62,10 @@ module Portfolio
 
     def kind_human(kind_name)
       I18n.t("activerecord.attributes.investments/investment.kinds.#{kind_name}", default: kind_name.to_s.humanize)
+    end
+
+    def user
+      @user ||= UserRepository.find(user_id)
     end
   end
 end
