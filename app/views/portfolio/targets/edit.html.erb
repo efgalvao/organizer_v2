@@ -1,5 +1,4 @@
 <div class="lcars-container">
-  <%# Cabeçalho LCARS estilo painel %>
   <div class="lcars-header lcars-header--section">
     <h1><%= t('portfolio.targets.form.title', default: 'Definir Metas de Alocação') %></h1>
   </div>
@@ -15,19 +14,15 @@
       </div>
     <% end %>
 
-    <%# Grid em 2 colunas para distribuir bem as classes de ativos %>
     <div class="lcars-grid lcars-grid--2-cols">
-      <% @kinds.each do |kind_key| %>
-        <% target = @existing_targets[kind_key] %>
-        <% current_val = target&.target_percentage || 0.0 %>
-
+      <% @user.investment_kinds.each do |kind_key| %>
         <div class="lcars-field-group">
           <%= f.input "kind_#{kind_key}",
-                      label: I18n.t("activerecord.attributes.investments/investment.kinds.#{kind_key}", default: kind_key.humanize),
+                      label: @user.label_for(kind_key),
                       required: false,
                       input_html: {
                         name: "targets[#{kind_key}]",
-                        value: current_val,
+                        value: @user.target_percentage_for(kind_key),
                         type: 'number',
                         step: '0.01',
                         min: '0',
@@ -38,7 +33,6 @@
       <% end %>
     </div>
 
-    <%# Botões na parte inferior da tela, bem alinhados %>
     <div class="lcars-actions-row margin-top-lg">
       <%= f.submit t('buttons.save', default: 'Salvar'), class: "lcars-button lcars-button--secondary" %>
       <%= link_to t('buttons.cancel', default: 'Cancelar'), portfolio_allocations_path, class: "lcars-button lcars-button--danger" %>

@@ -1,48 +1,45 @@
 <div class="lcars-container">
-  <%= turbo_frame_tag "allocations_header" do %>
-    <div class="lcars-header lcars-header--section flex justify-between items-center">
-      <h1><%= t('portfolio.allocations.index.title', default: 'Alocação por Classe de Ativo') %></h1>
-
-      <div class="lcars-actions">
-        <%= link_to t('portfolio.allocations.index.manage_targets', default: 'Gerenciar Metas'),
-                    portfolio_targets_path,
-                    class: "lcars-button lcars-button--secondary",
-                    data: { turbo_frame: "_top" } %>
-      </div>
-    </div>
-  <% end %>
 
   <div class="lcars-list">
+
+    <div class="lcars-subtitle">
+      <%= t('home.portfolio.allocations.title') %>
+      <%= link_to t('home.portfolio.allocations.manage_targets'),
+                      portfolio_targets_path,
+          data: { turbo_frame: "_top" },
+          class: "lcars-button lcars-button--secondary" %>
+    </div>
+
     <div class="lcars-table-container">
       <table class="lcars-table">
         <thead>
           <tr>
             <th>
-              <%= t('portfolio.allocations.index.kind', default: 'Classe de Ativo') %>
+              <%= t('home.portfolio.allocations.kind', default: '') %>
             </th>
 
             <th>
-              <%= t('portfolio.allocations.index.total_value', default: 'Posição Atual') %>
+              <%= t('home.portfolio.allocations.total_value', default: 'Posição Atual') %>
             </th>
 
             <th>
-              <%= t('portfolio.allocations.index.real_percentage', default: '% Atual') %>
+              <%= t('home.portfolio.allocations.real_percentage', default: '% Atual') %>
             </th>
 
             <th>
-              <%= t('portfolio.allocations.index.target_percentage', default: '% Meta') %>
+              <%= t('home.portfolio.allocations.target_percentage', default: '% Meta') %>
             </th>
 
             <th>
-              <%= t('portfolio.allocations.index.deviation', default: 'Desvio') %>
+              <%= t('home.portfolio.allocations.deviation', default: 'Desvio') %>
             </th>
           </tr>
         </thead>
 
         <%= turbo_frame_tag "allocations_list" do %>
           <tbody>
-            <% if @portfolio_summary[:classes].any? %>
-              <% @portfolio_summary[:classes].each do |cls| %>
+            <% if portfolio_summary[:classes].any? %>
+              <% portfolio_summary[:classes].each do |cls| %>
                 <tr>
                   <td>
                     <%= cls[:kind_human] %>
@@ -81,7 +78,7 @@
             <% else %>
               <tr>
                 <td colspan="5" class="text-center">
-                  <%= t('portfolio.allocations.index.empty', default: 'Nenhuma classe ou meta encontrada.') %>
+                  <%= t('home.portfolio.allocations.empty') %>
                 </td>
               </tr>
             <% end %>

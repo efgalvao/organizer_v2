@@ -1,43 +1,55 @@
 <div class="lcars-content">
-  <div class="lcars-subtitle">
-    <%= t('home.charts.investments_by_bucket') %>
+  <div class="lcars-subtitle lcars-subtitle--with-action">
+    <span><%= t('home.charts.investments_by_bucket') %></span>
     <%= link_to t('buttons.investments'),
-     investments_path,
-    data: { turbo_frame: "_top" },
-    class: "lcars-button lcars-button--secondary" %>
+                investments_path,
+                data: { turbo_frame: "_top" },
+                class: "lcars-button lcars-button--secondary" %>
   </div>
 
-  <div class="charts-container">
-    <div class="chart">
+  <%# Grid em 2 colunas: Gráfico na esquerda, Cards de Buckets na direita %>
+  <div class="lcars-grid lcars-grid--2-cols margin-top-md">
+
+    <%# Coluna 1: Gráfico com Tema Dark / LCARS %>
+    <div class="lcars-card lcars-card--chart">
       <%= pie_chart investments_by_bucket.transform_values { |data| data[:total_current] },
-                     precision: 2,
-                     discrete: false,
-                     legend: 'bottom',
-                     colors: ['#FF6B6B', '#4ECDC4', '#45B7D1'] %>
+                    precision: 2,
+                    legend: 'bottom',
+                    colors: ['#FF9900', '#CC6699', '#9999FF'],
+                    library: {
+                      chartArea: { backgroundColor: 'transparent' },
+                      backgroundColor: 'transparent',
+                      legend: { textStyle: { color: '#FFFFFF', fontSize: 12 } }
+                    } %>
     </div>
-  </div>
 
-  <div class="investments-summary">
-    <% investments_by_bucket.each do |bucket, data| %>
-      <div class="bucket-item">
-        <div class="bucket-header">
-          <h4><%= t("investments.buckets.#{data[:bucket]}") %></h4>
-          <span class="bucket-count">
-            <%= data[:count] %>
-            <%= data[:count] == 1 ? t('investment.singular') : t('investment.plural') %>
-          </span>
-        </div>
-        <div class="bucket-details">
-          <div class="amount-item">
-            <span class="label"><%= t('investments.investments.index.invested') %>:</span>
-            <span class="value"><%= format_currency(data[:total_invested]) %></span>
+    <%# Coluna 2: Cards Estruturados dos Buckets %>
+    <div class="investments-summary lcars-stack">
+      <% investments_by_bucket.each do |_bucket, data| %>
+        <div class="lcars-card lcars-card--interactive">
+          <div class="lcars-card__header display-flex justify-content-between align-items-center">
+            <h4 class="margin-none">
+              <%= t("investments.buckets.#{data[:bucket]}") %>
+            </h4>
+            <span class="bucket-count">
+              <%= data[:count] %>
+              <%= data[:count] == 1 ? t('investment.singular') : t('investment.plural') %>
+            </span>
           </div>
-          <div class="amount-item">
-            <span class="label"><%= t('investments.investments.index.current') %>:</span>
-            <span class="value"><%= format_currency(data[:total_current]) %></span>
+
+          <div class="lcars-card__body lcars-grid lcars-grid--2-cols margin-top-sm">
+            <div class="amount-item">
+              <span class="label"><%= t('investments.investments.index.invested') %>:</span>
+              <span class="value"><%= format_currency(data[:total_invested]) %></span>
+            </div>
+            <div class="amount-item text-align-right">
+              <span class="label"><%= t('investments.investments.index.current') %>:</span>
+              <span class="value lcars-text-gold"><%= format_currency(data[:total_current]) %></span>
+            </div>
           </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
+
   </div>
 </div>
