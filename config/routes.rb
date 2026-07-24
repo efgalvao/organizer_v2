@@ -53,7 +53,6 @@ Rails.application.routes.draw do
   end
 
   namespace :portfolio do
-    resources :allocations, only: [:index]
     resources :targets, only: [:index, :create]
   end
 
