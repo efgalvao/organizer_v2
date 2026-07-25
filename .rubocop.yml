@@ -334,8 +334,8 @@ RSpec/MultipleExpectations:
 RSpec/MultipleMemoizedHelpers:
   Enabled: false
 
-RSpec/FilePath:
-  Enabled: false
+RSpec/SpecFilePathFormat:
+  Enabled: true
 
-FactoryBot/FactoryAssociationWithStrategy:
-  Enabled: false
+RSpec/SpecFilePathSuffix:
+  Enabled: true
