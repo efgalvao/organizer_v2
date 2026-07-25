@@ -2,12 +2,12 @@
   <div class="lcars-subtitle">
     <%= t('home.charts.expense_by_category') %>
     <%= link_to t('buttons.expenses'),
-     transactions_path,
-    data: { turbo_frame: "_top" },
-    class: "lcars-button lcars-button--secondary" %>
+        transactions_path,
+        data: { turbo_frame: "_top" },
+        class: "lcars-button lcars-button--secondary" %>
   </div>
 
-  <div class="charts-container">
+  <div class="charts-container charts-container--2col">
     <div class="chart">
       <h4><%= t('home.charts.card_expenses_by_category') %></h4>
       <%= pie_chart expense_by_category[:card_expenses], precision: 8, discrete: false, legend: 'bottom' %>

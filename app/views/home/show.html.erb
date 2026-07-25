@@ -1,33 +1,40 @@
 <main class="lcars-container">
   <div class="lcars-header lcars-header--section">
     <h1><%= t('home.summary.title') %></h1>
-        <%= link_to t('buttons.download_report'),
-    download_month_report_path(format: :pdf),
-    data: { turbo_frame: "_top" },
-    class: "lcars-button lcars-button--secondary" %>
+    <%= link_to t('buttons.download_report'),
+        download_month_report_path(format: :pdf),
+        data: { turbo_frame: "_top" },
+        class: "lcars-button lcars-button--secondary" %>
     <%= link_to t('buttons.past_summaries'),
-    past_summary_path,
-    data: { turbo_frame: "_top" },
-    class: "lcars-button lcars-button--secondary" %>
+        past_summary_path,
+        data: { turbo_frame: "_top" },
+        class: "lcars-button lcars-button--secondary" %>
   </div>
 
-    <%= render 'summary', :user_report => @report_data.user_report %>
+  <%# Resumo no topo %>
+  <%= render 'summary', :user_report => @report_data.user_report %>
 
+  <%# GRID 1: Despesas por Categoria lado a lado com Despesas por Grupo %>
+  <div class="dashboard-grid dashboard-grid--2col">
     <%= render 'expenses_by_category_chart', :expense_by_category => @report_data.expense_by_category %>
-
     <%= render 'expenses_by_group_chart', :expenses_by_group => @report_data.expenses_by_group, :ideal => @report_data.ideal_expenses_data %>
+  </div>
 
+  <%# GRID 2: Contas e Cartões em 2 colunas %>
+  <div class="dashboard-grid dashboard-grid--2col">
     <%= render 'accounts', :accounts => @report_data.accounts %>
-
     <%= render 'cards', :cards => @report_data.cards %>
+  </div>
 
-    <%= render 'past_month_reports', :past_reports => @report_data.past_reports %>
+  <%# Relatórios e Evolução %>
+  <%= render 'past_month_reports', :past_reports => @report_data.past_reports %>
+  <%= render 'past_month_reports_charts', :semester_summary => @report_data.past_reports_chart_data %>
 
-    <%= render 'past_month_reports_charts', :semester_summary => @report_data.past_reports_chart_data %>
+<%# Bloco de Investimentos em 2 colunas %>
+<div class="dashboard-grid dashboard-grid--2col">
+  <%= render 'investments_allocation_chart', :investments_allocation => @report_data.investments_allocation_chart_data %>
+  <%= render 'investments_by_bucket', :investments_by_bucket => @report_data.investments_by_bucket %>
+</div>
 
-    <%= render 'investments_allocation_chart', :investments_allocation => @report_data.investments_allocation_chart_data %>
-
-    <%= render 'investments_by_bucket', :investments_by_bucket => @report_data.investments_by_bucket %>
-
-    <%= render 'investments_allocation_percentual', :portfolio_summary => @report_data.investments_allocation_percentual %>
+  <%= render 'investments_allocation_percentual', :portfolio_summary => @report_data.investments_allocation_percentual %>
 </main>

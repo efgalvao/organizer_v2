@@ -165,3 +165,96 @@ body {
   color: #ffffff;
   font-weight: bold;
 }
+
+/* Grid genérico de 2 colunas */
+.dashboard-grid--2col,
+.charts-container--2col {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1.5rem;
+  align-items: start;
+  margin-bottom: 1.5rem;
+}
+
+/* Ajuste nos cards para manter a altura consistente */
+.lcars-content {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/* Responsividade para telas menores/mobile */
+@media (max-width: 768px) {
+
+  .dashboard-grid--2col,
+  .charts-container--2col {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Grid container para métricas */
+.kpi-grid {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.kpi-grid--3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.kpi-grid--5 {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.kpi-grid--6 {
+  grid-template-columns: repeat(6, 1fr);
+}
+
+/* Card individual */
+.kpi-card {
+  background-color: #111;
+  /* Ou a cor base dos seus cards LCARS */
+  border: 1px solid #ff9900;
+  /* Laranja LCARS ou tom de borda do tema */
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.kpi-card--highlight {
+  border-color: #3399ff;
+  /* Destaque azul para saldos finais */
+}
+
+.kpi-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: #aaa;
+  margin-bottom: 0.25rem;
+}
+
+.kpi-value {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* Breakpoints para telas menores */
+@media (max-width: 1024px) {
+
+  .kpi-grid--5,
+  .kpi-grid--6 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+
+  .kpi-grid--3,
+  .kpi-grid--5,
+  .kpi-grid--6 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

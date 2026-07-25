@@ -1,79 +1,78 @@
 <div class="lcars-content">
+  <!-- Bloco 1: Visão Geral -->
   <div class="lcars-subtitle">
     <%= t('home.summary.title') %>
   </div>
-
-  <div class="lcars-table-container">
-    <table class="lcars-table">
-      <thead>
-        <tr>
-          <th><%= t('home.summary.savings') %></th>
-          <th><%= t('home.summary.investments') %></th>
-          <th><%= t('home.summary.balance') %></th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr>
-            <td><%= user_report.savings_balance %></td>
-            <td><%= user_report.investments_balance %></td>
-            <td><%= user_report.month_total %></td>
-          </tr>
-      </tbody>
-    </table>
+  <div class="kpi-grid kpi-grid--3">
+    <div class="kpi-card">
+      <span class="kpi-label"><%= t('home.summary.savings') %></span>
+      <span class="kpi-value"><%= user_report.savings_balance %></span>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-label"><%= t('home.summary.investments') %></span>
+      <span class="kpi-value"><%= user_report.investments_balance %></span>
+    </div>
+    <div class="kpi-card kpi-card--highlight">
+      <span class="kpi-label"><%= t('home.summary.balance') %></span>
+      <span class="kpi-value"><%= user_report.month_total %></span>
+    </div>
   </div>
 
+  <!-- Bloco 2: Mês Atual (Finanças) -->
   <div class="lcars-subtitle">
     <%= t('home.summary.current_month.title') %>
   </div>
-
-  <div class="lcars-table-container">
-    <table class="lcars-table">
-      <thead>
-        <tr>
-          <th><%= t('home.summary.current_month.incomes') %></th>
-          <th><%= t('home.summary.current_month.expenses') %></th>
-          <th><%= t('home.summary.current_month.card_expenses') %></th>
-          <th><%= t('home.summary.current_month.invoice_payments') %></th>
-          <th><%= t('home.summary.current_month.month_balance') %></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><%= user_report.month_income %></td>
-          <td><%= user_report.month_expense %></td>
-          <td><%= user_report.month_card_expenses %></td>
-          <td><%= user_report.invoice_payments %></td>
-          <td><%= user_report.month_balance %></td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="kpi-grid kpi-grid--5">
+    <div class="kpi-card">
+      <span class="kpi-label"><%= t('home.summary.current_month.incomes') %></span>
+      <span class="kpi-value text-success"><%= user_report.month_income %></span>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-label"><%= t('home.summary.current_month.expenses') %></span>
+      <span class="kpi-value text-danger"><%= user_report.month_expense %></span>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-label"><%= t('home.summary.current_month.card_expenses') %></span>
+      <span class="kpi-value"><%= user_report.month_card_expenses %></span>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-label"><%= t('home.summary.current_month.invoice_payments') %></span>
+      <span class="kpi-value"><%= user_report.invoice_payments %></span>
+    </div>
+    <div class="kpi-card kpi-card--highlight">
+      <span class="kpi-label"><%= t('home.summary.current_month.month_balance') %></span>
+      <span class="kpi-value"><%= user_report.month_balance %></span>
+    </div>
   </div>
+
+  <!-- Bloco 3: Mês Atual (Investimentos) -->
   <div class="lcars-subtitle">
     <%= t('home.summary.current_month.investments_balance') %>
   </div>
-
-  <div class="lcars-table-container">
-    <table class="lcars-table">
-      <thead>
-        <tr>
-          <th><%= t('home.summary.current_month.accumulated_inflow') %></th>
-          <th><%= t('home.summary.current_month.investments') %></th>
-          <th><%= t('home.summary.current_month.invested') %></th>
-          <th><%= t('home.summary.current_month.redeemed') %></th>
-          <th><%= t('home.summary.current_month.earnings') %></th>
-          <th><%= t('home.summary.current_month.investments_balance') %></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><%= user_report.accumulated_inflow %></td>
-          <td><%= user_report.investments_balance %></td>
-          <td><%= user_report.month_invested %></td>
-          <td><%= user_report.month_redeemed %></td>
-          <td><%= user_report.month_earnings %></td>
-          <td><%= user_report.month_investments_balance %></td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="kpi-grid kpi-grid--6">
+    <div class="kpi-card">
+      <span class="kpi-label"><%= t('home.summary.current_month.accumulated_inflow') %></span>
+      <span class="kpi-value"><%= user_report.accumulated_inflow %></span>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-label"><%= t('home.summary.current_month.investments') %></span>
+      <span class="kpi-value"><%= user_report.investments_balance %></span>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-label"><%= t('home.summary.current_month.invested') %></span>
+      <span class="kpi-value"><%= user_report.month_invested %></span>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-label"><%= t('home.summary.current_month.redeemed') %></span>
+      <span class="kpi-value"><%= user_report.month_redeemed %></span>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-label"><%= t('home.summary.current_month.earnings') %></span>
+      <span class="kpi-value"><%= user_report.month_earnings %></span>
+    </div>
+    <div class="kpi-card kpi-card--highlight">
+      <span class="kpi-label"><%= t('home.summary.current_month.investments_balance') %></span>
+      <span class="kpi-value"><%= user_report.month_investments_balance %></span>
+    </div>
   </div>
 </div>
