@@ -39,7 +39,7 @@ RSpec.describe 'Portfolio::Targets' do
 
         expect(user.asset_class_targets.find_by(kind: :fixed).target_percentage).to eq(40.0)
         expect(user.asset_class_targets.find_by(kind: :stock).target_percentage).to eq(60.0)
-        expect(response).to redirect_to(portfolio_allocations_path)
+        expect(response).to redirect_to(summary_path)
       end
 
       it 'updates existing targets' do
@@ -51,8 +51,8 @@ RSpec.describe 'Portfolio::Targets' do
           }
         }
 
-        expect(user.asset_class_targets.find_by(kind: :fixed).target_percentage).to eq(100.0)
-        expect(response).to redirect_to(portfolio_allocations_path)
+        expect(user.asset_class_targets.find_by(kind: :fixed).target_percentage.to_f).to eq(100.0)
+        expect(response).to redirect_to(summary_path)
       end
     end
 
