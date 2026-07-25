@@ -13,7 +13,7 @@ module Portfolio
       parsed_targets = parse_params
       total_percentage = parsed_targets.values.sum.round(2)
 
-      unless total_percentage == 100.0
+      unless (total_percentage - 100.0).abs < 0.01
         return Result.new(
           success?: false,
           errors: "A soma das metas precisa ser exatamente 100%. (Soma atual: #{total_percentage}%)"
@@ -22,7 +22,6 @@ module Portfolio
 
       @repository.upsert_targets!(parsed_targets)
       Result.new(success?: true, errors: nil)
-
     rescue ActiveRecord::RecordInvalid => e
       Result.new(success?: false, errors: e.message)
     end

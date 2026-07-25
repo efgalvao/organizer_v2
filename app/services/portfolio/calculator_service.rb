@@ -36,9 +36,7 @@ module Portfolio
     end
 
     def fetch_targets_by_kind
-      user.asset_class_targets.each_with_object({}) do |target, hash|
-        hash[target.kind] = target.target_percentage
-      end
+      user.asset_class_targets.to_h { |target| [target.kind, target.target_percentage] }
     end
 
     def build_kind_summary(kind_name, investments_by_kind, total_patrimony, target_percentage)

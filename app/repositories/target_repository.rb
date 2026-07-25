@@ -1,4 +1,3 @@
-
 class TargetRepository
   def initialize(user)
     @user = user
