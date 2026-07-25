@@ -1,15 +1,24 @@
-<div class="lcars-content">
-<div class="lcars-subtitle">
-  <%= t('home.charts.expenses_by_group.title') %>
-        <%= link_to t('buttons.expenses'),
-       transactions_path,
-      data: { turbo_frame: "_top" },
-      class: "lcars-button lcars-button--secondary" %>
+<div class="lcars-content h-100 d-flex flex-column">
+  <div class="lcars-subtitle">
+    <%= t('home.charts.expenses_by_group.title') %>
+    <%= link_to t('buttons.expenses'),
+        transactions_path,
+        data: { turbo_frame: "_top" },
+        class: "lcars-button lcars-button--secondary" %>
   </div>
 
-  <div class="chart">
-    <%= column_chart [{name: t('home.charts.expenses_by_group.expenses'), data: expenses_by_group},
-    {name: t('home.charts.expenses_by_group.ideal'), data: ideal}],
-     precision: 8, discrete: false, legend: 'bottom' %>
+  <div class="chart flex-grow-1">
+    <%= column_chart [{ name: t('home.charts.expenses_by_group.expenses'), data: expenses_by_group },
+                       { name: t('home.charts.expenses_by_group.ideal'), data: ideal }],
+                      precision: 2,
+                      legend: 'bottom',
+                      colors: ['#3399FF', '#FF9900'],
+                      library: {
+                        chartArea: { backgroundColor: 'transparent' },
+                        backgroundColor: 'transparent',
+                        legend: { textStyle: { color: '#FFFFFF', fontSize: 12 } },
+                        hAxis: { textStyle: { color: '#FFFFFF' } },
+                        vAxis: { textStyle: { color: '#FFFFFF' }, gridlines: { color: '#333333' } }
+                      } %>
   </div>
 </div>

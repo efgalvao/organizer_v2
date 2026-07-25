@@ -1,4 +1,4 @@
-<div class="lcars-content">
+<div class="lcars-content h-100">
   <div class="lcars-subtitle">
     <%= t('home.charts.expense_by_category') %>
     <%= link_to t('buttons.expenses'),
@@ -10,12 +10,28 @@
   <div class="charts-container charts-container--2col">
     <div class="chart">
       <h4><%= t('home.charts.card_expenses_by_category') %></h4>
-      <%= pie_chart expense_by_category[:card_expenses], precision: 8, discrete: false, legend: 'bottom' %>
+      <%= pie_chart expense_by_category[:card_expenses],
+                    precision: 2,
+                    legend: 'bottom',
+                    colors: ['#FF9900', '#3399FF', '#CC6699', '#FFCC00', '#9999FF'],
+                    library: {
+                      chartArea: { backgroundColor: 'transparent' },
+                      backgroundColor: 'transparent',
+                      legend: { textStyle: { color: '#FFFFFF', fontSize: 11 } }
+                    } %>
     </div>
 
     <div class="chart">
       <h4><%= t('home.charts.account_expenses_by_category') %></h4>
-      <%= pie_chart expense_by_category[:account_expenses], precision: 8, discrete: false, legend: 'bottom' %>
+      <%= pie_chart expense_by_category[:account_expenses],
+                    precision: 2,
+                    legend: 'bottom',
+                    colors: ['#3399FF', '#FF9900', '#9999FF', '#CC6699', '#FFCC00'],
+                    library: {
+                      chartArea: { backgroundColor: 'transparent' },
+                      backgroundColor: 'transparent',
+                      legend: { textStyle: { color: '#FFFFFF', fontSize: 11 } }
+                    } %>
     </div>
   </div>
 </div>
