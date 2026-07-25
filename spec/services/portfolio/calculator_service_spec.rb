@@ -11,7 +11,7 @@ RSpec.describe Portfolio::CalculatorService, type: :service do
   end
 
   it 'calculates the total patrimony and the metrics of the class correctly' do
-    result = described_class.new(user).call
+    result = described_class.new(user.id).call
 
     expect(result[:total_patrimony]).to eq(100.0)
 
@@ -28,7 +28,7 @@ RSpec.describe Portfolio::CalculatorService, type: :service do
 
   it 'avoids division by zero when the user does not have patrimony' do
     user_without_investments = create(:user)
-    result = described_class.new(user_without_investments).call
+    result = described_class.new(user_without_investments.id).call
 
     expect(result[:total_patrimony]).to eq(0.0)
   end
@@ -36,7 +36,7 @@ RSpec.describe Portfolio::CalculatorService, type: :service do
   it 'maps asset class targets to their correct kind (enum-safe)' do
     create(:asset_class_target, user: user, kind: :stock, target_percentage: 25.0)
 
-    result = described_class.new(user).call
+    result = described_class.new(user.id).call
 
     stock_summary = result[:classes].find { |c| c[:kind] == 'stock' }
     fixed_summary = result[:classes].find { |c| c[:kind] == 'fixed' }
