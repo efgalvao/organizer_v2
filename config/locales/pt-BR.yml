@@ -303,6 +303,16 @@ pt-BR:
       amount: Valor
       percentual: Percentual
       no_data: Sem informação
+    portfolio:
+      allocations:
+        title: Alocação por Classe de Ativo
+        manage_targets: Gerenciar metas
+        kind: Classe de Ativo
+        total_value: Posição Atual
+        real_percentage: "% Atual"
+        target_percentage: "% Meta"
+        deviation: Desvio
+        empty: Nenhuma classe ou meta encontrada
   invoice:
     pay_invoice: Pagar fatura
     invoice_payment: Pagamento de fatura
@@ -511,3 +521,14 @@ pt-BR:
         one_time: "Eventual"
         recurring: "Fixo"
         installment: "Parcelado"
+      investments/investment:
+        kinds:
+          fii: "Fundos Imobiliários"
+          crypto: "Criptomoedas"
+          international: "Ações internacionais"
+          stock: "Ações nacionais"
+          reit: "REITs"
+          fixed: "Renda Fixa nacional"
+          fixed_international: "Renda Fixa internacional"
+          stock_international: "Ações internacionais"
+          other: "Outro"

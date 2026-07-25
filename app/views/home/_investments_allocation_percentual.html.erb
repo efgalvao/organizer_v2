@@ -1,0 +1,90 @@
+<div class="lcars-container">
+
+  <div class="lcars-list">
+
+    <div class="lcars-subtitle">
+      <%= t('home.portfolio.allocations.title') %>
+      <%= link_to t('home.portfolio.allocations.manage_targets'),
+                      portfolio_targets_path,
+          data: { turbo_frame: "_top" },
+          class: "lcars-button lcars-button--secondary" %>
+    </div>
+
+    <div class="lcars-table-container">
+      <table class="lcars-table">
+        <thead>
+          <tr>
+            <th>
+              <%= t('home.portfolio.allocations.kind', default: '') %>
+            </th>
+
+            <th>
+              <%= t('home.portfolio.allocations.total_value', default: 'Posição Atual') %>
+            </th>
+
+            <th>
+              <%= t('home.portfolio.allocations.real_percentage', default: '% Atual') %>
+            </th>
+
+            <th>
+              <%= t('home.portfolio.allocations.target_percentage', default: '% Meta') %>
+            </th>
+
+            <th>
+              <%= t('home.portfolio.allocations.deviation', default: 'Desvio') %>
+            </th>
+          </tr>
+        </thead>
+
+        <%= turbo_frame_tag "allocations_list" do %>
+          <tbody>
+            <% if portfolio_summary[:classes].any? %>
+              <% portfolio_summary[:classes].each do |cls| %>
+                <tr>
+                  <td>
+                    <%= cls[:kind_human] %>
+                  </td>
+
+                  <td>
+                    <%= number_to_currency(cls[:total_value], unit: "R$ ", separator: ",", delimiter: ".") %>
+                  </td>
+
+                  <td>
+                    <%= cls[:real_percentage] %>%
+                  </td>
+
+                  <td>
+                    <%= cls[:target_percentage] %>%
+                  </td>
+
+                  <td>
+                    <% deviation = cls[:deviation] %>
+                    <% if deviation.zero? %>
+                      <span class="lcars-badge lcars-badge--neutral">
+                        0.0%
+                      </span>
+                    <% elsif deviation < 0 %>
+                      <span class="lcars-badge lcars-badge--warning">
+                        <%= deviation %>%
+                      </span>
+                    <% else %>
+                      <span class="lcars-badge lcars-badge--info">
+                        +<%= deviation %>%
+                      </span>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            <% else %>
+              <tr>
+                <td colspan="5" class="text-center">
+                  <%= t('home.portfolio.allocations.empty') %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>

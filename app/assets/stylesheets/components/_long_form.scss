@@ -26,3 +26,59 @@
     }
   }
 }
+
+.lcars-grid--2-cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.lcars-field-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.lcars-field-group label {
+  color: #ff9900;
+  font-family: 'Antonio', sans-serif, monospace;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  margin-bottom: 0.3rem;
+}
+
+.lcars-input {
+  background-color: #000;
+  color: #ff9900;
+  border: 2px solid #ff9900;
+  border-radius: 12px;
+  padding: 8px 12px;
+  font-size: 1.1rem;
+  font-family: inherit;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.lcars-input:focus {
+  border-color: #9999ff;
+  box-shadow: 0 0 8px rgba(153, 153, 255, 0.6);
+}
+
+.lcars-actions-row {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-start;
+  align-items: center;
+  border-top: 2px solid #cc6699;
+  padding-top: 1.5rem;
+}
+
+.margin-top-lg {
+  margin-top: 2rem;
+}
+
+.margin-bottom-md {
+  margin-bottom: 1rem;
+}

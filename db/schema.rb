@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_03_22_181401) do
+ActiveRecord::Schema[7.0].define(version: 2026_07_22_192537) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -41,6 +41,16 @@ ActiveRecord::Schema[7.0].define(version: 2026_03_22_181401) do
     t.string "type"
     t.index ["name", "user_id"], name: "index_accounts_on_name_and_user_id", unique: true
     t.index ["user_id"], name: "index_accounts_on_user_id"
+  end
+
+  create_table "asset_class_targets", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "kind", null: false
+    t.decimal "target_percentage", precision: 5, scale: 2, default: "0.0", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "kind"], name: "index_asset_class_targets_on_user_id_and_kind", unique: true
+    t.index ["user_id"], name: "index_asset_class_targets_on_user_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -228,6 +238,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_03_22_181401) do
 
   add_foreign_key "account_reports", "accounts"
   add_foreign_key "accounts", "users"
+  add_foreign_key "asset_class_targets", "users"
   add_foreign_key "categories", "users"
   add_foreign_key "dividends", "investments"
   add_foreign_key "financings", "users"

@@ -327,6 +327,16 @@ en:
       amount: Amount
       percentual: Percentual
       no_data: No data to show
+    portfolio:
+      allocations:
+        title: Allocation by class
+        manage_targets: Manage targets
+        kind: Class
+        total_value: Current position
+        real_percentage: "Current %"
+        target_percentage: "Target %"
+        deviation: Deviation
+        empty: No targets found
   invoice:
     pay_invoice: Pay invoice
     invoice_payment: Invoice payment

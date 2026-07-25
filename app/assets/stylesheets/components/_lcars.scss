@@ -123,3 +123,45 @@ body {
   padding: 2rem;
   width: 500px;
 }
+
+/* Estilização da Seção de Sumário de Investimentos LCARS */
+.investments-summary h4 {
+  color: #ff9900 !important;
+  /* Laranja Âmbar LCARS */
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+/* Garante visibilidade da contagem (ex: "9 investimentos") */
+.bucket-count {
+  color: #a0a0a0;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* Suporte complementar para o layout e contraste interno */
+.investments-summary .lcars-card {
+  background-color: #111111;
+  border: 1px solid #2a2a2a;
+  border-left: 4px solid #ff9900;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 0.75rem;
+}
+
+.investments-summary .amount-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.investments-summary .amount-item .label {
+  color: #888888;
+  font-size: 0.8rem;
+}
+
+.investments-summary .amount-item .value {
+  color: #ffffff;
+  font-weight: bold;
+}

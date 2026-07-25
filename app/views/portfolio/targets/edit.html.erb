@@ -1,0 +1,41 @@
+<div class="lcars-container">
+  <div class="lcars-header lcars-header--section">
+    <h1><%= t('portfolio.targets.form.title', default: 'Definir Metas de Alocação') %></h1>
+  </div>
+
+  <%= simple_form_for :targets,
+                      url: portfolio_targets_path,
+                      method: :post,
+                      html: { class: "lcars-form" } do |f| %>
+
+    <% if flash[:alert].present? %>
+      <div class="lcars-alert lcars-alert--danger margin-bottom-md">
+        <p><%= flash[:alert] %></p>
+      </div>
+    <% end %>
+
+    <div class="lcars-grid lcars-grid--2-cols">
+      <% @user.investment_kinds.each do |kind_key| %>
+        <div class="lcars-field-group">
+          <%= f.input "kind_#{kind_key}",
+                      label: @user.label_for(kind_key),
+                      required: false,
+                      input_html: {
+                        name: "targets[#{kind_key}]",
+                        value: @user.target_percentage_for(kind_key),
+                        type: 'number',
+                        step: '0.01',
+                        min: '0',
+                        max: '100',
+                        class: 'lcars-input'
+                      } %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="lcars-actions-row margin-top-lg">
+      <%= f.submit t('buttons.save'), class: "lcars-button lcars-button--secondary" %>
+      <%= link_to t('buttons.cancel'), summary_path, class: "lcars-button lcars-button--danger" %>
+    </div>
+  <% end %>
+</div>

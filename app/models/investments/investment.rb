@@ -13,6 +13,8 @@ module Investments
 
     delegate :user, :name, to: :account, prefix: 'account'
 
+    scope :not_released, -> { where(released: false) }
+
     enum kind: {
       stock: 0,
       fii: 1,
@@ -48,6 +50,12 @@ module Investments
 
     def update_current_position
       raise NotImplementedError
+    end
+
+    def kind_human
+      return nil if kind.blank?
+
+      I18n.t("activerecord.attributes.investments/investment.kinds.#{kind}", default: kind.humanize)
     end
 
     def self.allocation_by_kind
