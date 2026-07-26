@@ -79,7 +79,7 @@ module Reports
     end
 
     def category_breakdown_hash
-      category_breakdown.to_h({}) { |c, h| h[c.name] = c.total.to_f }
+      category_breakdown.to_h { |c| [c.name, c.total.to_f] }
     end
 
     def group_breakdown
