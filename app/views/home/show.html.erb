@@ -26,13 +26,11 @@
     <%= render 'cards', :cards => @report_data.cards %>
   </div>
 
-  <%# Bloco de Investimentos em 2 colunas (Posição Atual) %>
-  <div class="dashboard-grid dashboard-grid--2col">
-    <%= render 'investments_allocation_chart', :investments_allocation => @report_data.investments_allocation_chart_data %>
+  <%# Gráfico Comparativo Meta vs Atual (Largura Total) %>
+  <div class="dashboard-grid dashboard-grid--full mt-3">
+    <%= render 'investments_allocation_percentual', :portfolio_summary => @report_data.investments_allocation_percentual %>
     <%= render 'investments_by_bucket', :investments_by_bucket => @report_data.investments_by_bucket %>
   </div>
-
-  <%= render 'investments_allocation_percentual', :portfolio_summary => @report_data.investments_allocation_percentual %>
 
   <%# Relatórios e Evolução Histórica (Meses Anteriores ao final) %>
   <%= render 'past_month_reports', :past_reports => @report_data.past_reports %>

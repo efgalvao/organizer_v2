@@ -26,7 +26,6 @@ module Users
         expense_by_category: fetch_expense_by_category,
         expenses_by_group: fetch_expenses_by_group,
         ideal_expenses_data: fetch_ideal_expenses_data,
-        investments_allocation_chart_data: fetch_investments_allocation,
         investments_by_bucket: fetch_investments_by_bucket,
         investments_allocation_percentual: fetch_investments_allocation_percentual
       )
@@ -35,8 +34,8 @@ module Users
     # Classe para encapsular os dados do dashboard
     class DashboardData
       attr_accessor :user_report, :past_reports, :past_reports_chart_data, :accounts, :cards,
-                    :expense_by_category, :expenses_by_group, :ideal_expenses_data,
-                    :investments_allocation_chart_data, :investments_by_bucket, :investments_allocation_percentual
+                    :expense_by_category, :expenses_by_group, :ideal_expenses_data, :investments_by_bucket,
+                    :investments_allocation_percentual
 
       def initialize(attributes = {})
         attributes.each do |key, value|
@@ -75,10 +74,6 @@ module Users
 
     def fetch_ideal_expenses_data
       Users::FetchIdealExpenseData.call(user_id)
-    end
-
-    def fetch_investments_allocation
-      Users::FetchInvestmentsAllocation.call(user_id)
     end
 
     def fetch_investments_by_bucket
