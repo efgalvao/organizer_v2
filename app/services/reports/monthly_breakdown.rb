@@ -51,7 +51,7 @@ module Reports
     end
 
     def calculate_variation(current, previous)
-      return nil unless current && previou&.positive?
+      return nil unless current && previous&.positive?
 
       ((current - previous) / previous.to_f * 100).round(2)
     end
