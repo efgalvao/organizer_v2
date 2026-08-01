@@ -477,6 +477,8 @@ pt-BR:
               shares_sold: Cotas Vendidas
               ending_shares: Cotas Finais
     kinds:
+      fixed_investment: Renda Fixa
+      variable_investment: Renda Variável
       stock: Ações
       fii: FII
       reit: REIT

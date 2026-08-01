@@ -2,6 +2,7 @@
   as: :investment,
   url: investment.new_record? ? investments_path : investment_path(investment),
   html: { class: "form" } do |f| %>
+    <%= f.hidden_field :account_id, as: :hidden, input_html: { value: investment.account_id } %>
 
   <%= form_error_notification(investment) %>
 
@@ -10,11 +11,10 @@
   <%= f.input :invested_amount, as: :float, label: t('investments.investments.index.invested') %>
   <%= f.input :current_amount, as: :float, label: t('investments.investments.index.current') %>
   <%= f.input :type, as: :select, collection: [
-    [t('investments.kinds.fixed'), "FixedInvestment"],
-    [t('investments.kinds.stock'), "VariableInvestment"]], label: t('investments.investments.index.kind') %>
+    [t('investments.kinds.fixed_investment'), "FixedInvestment"],
+    [t('investments.kinds.variable_investment'), "VariableInvestment"]], label: t('investments.investments.index.kind') %>
 <% end %>
   <%= f.input :shares_total, as: :integer, label: t('investments.investments.index.shares') %>
-  <%= f.input :account_id, as: :hidden, input_html: { value: investment.account_id } %>
   <%= f.input :kind, as: :select, collection: Investments::Investment.kinds.keys.map { |k| [t("investments.kinds.#{k}"), k] }, label: t('investments.investments.index.kind') %>
   <%= f.input :bucket, as: :select, collection: Investments::Investment.buckets.keys.map { |k| [t("investments.buckets.#{k}"), k] }, label: t('investments.investments.summary.bucket') %>
 
