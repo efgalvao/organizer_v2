@@ -56,5 +56,35 @@ RSpec.describe Transactions::BuildParcels, type: :service do
       result = described_class.call(params)
       expect(result).to match_array(expected_transactions)
     end
+
+    context 'when account_id and category_id are provided' do
+      let(:category) { create(:category) }
+      let(:params) do
+        {
+          title: 'Test Transaction',
+          category_id: category.id,
+          account_id: account.id,
+          type: 0,
+          amount: '50.00',
+          parcels: '1',
+          date: '2024-10-01',
+          group: 'custos_fixos',
+          recurrence: 0
+        }
+      end
+
+      it 'uses the ids directly without resolving by name' do
+        expect(Account::Account).not_to receive(:find_by)
+        expect(Category).not_to receive(:find_by)
+
+        result = described_class.call(params)
+
+        expect(result.first).to include(
+          account_id: account.id,
+          category_id: category.id,
+          type: 'Account::Expense'
+        )
+      end
+    end
   end
 end
