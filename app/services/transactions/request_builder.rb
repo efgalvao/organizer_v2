@@ -10,18 +10,20 @@ module Transactions
 
     def call
       ActiveRecord::Base.transaction do
-        transaction_params = build_transaction
-
-        transactions = Transactions::BuildParcels.call(transaction_params)
-
-        response = transactions.flat_map do |transaction|
+        saved_transactions = Transactions::BuildParcels.call(build_transaction).map do |transaction|
           Transactions::ProcessRequest.call(
             params: transaction,
-            value_to_update_balance: value_to_update(transaction)
+            value_to_update_balance: balance_delta(transaction),
+            update_balance: false,
+            consolidate_report: false,
+            raise_on_error: true
           )
         end
 
-        response.first
+        apply_balance_updates(saved_transactions)
+        consolidate_reports(saved_transactions)
+
+        saved_transactions.first
       end
     rescue StandardError => e
       error_response(e.message)
@@ -34,8 +36,8 @@ module Transactions
     def build_transaction
       {
         title: params.fetch(:title),
-        category: category_name(params.fetch(:category_id)),
-        account: account_name(params.fetch(:account_id)),
+        category_id: params[:category_id],
+        account_id: params.fetch(:account_id),
         type: params.fetch(:type),
         amount: params.fetch(:amount),
         date: date,
@@ -45,12 +47,29 @@ module Transactions
       }
     end
 
-    def account_name(account_id)
-      Account::Account.find(account_id)&.name
+    def apply_balance_updates(transactions)
+      transactions.group_by(&:account_id).each do |account_id, account_transactions|
+        total = account_transactions.sum { |transaction| balance_delta_for(transaction) }
+        next if total.zero?
+
+        Accounts::UpdateBalance.call(account_id: account_id, amount: total)
+      end
     end
 
-    def category_name(category_id)
-      Category.find_by(id: category_id)&.name
+    def consolidate_reports(transactions)
+      transactions.group_by { |transaction| [transaction.account_id, transaction.date.beginning_of_month] }
+                  .each_value do |month_transactions|
+        transaction = month_transactions.first
+        Reports::ConsolidateAccountReport.call(transaction.account, transaction.date)
+      end
+    end
+
+    def balance_delta(transaction)
+      transaction[:type] == 'Account::Expense' ? -transaction[:amount].to_d : transaction[:amount].to_d
+    end
+
+    def balance_delta_for(transaction)
+      transaction.type == 'Account::Expense' ? -transaction.amount : transaction.amount
     end
 
     def error_response(message)
@@ -61,10 +80,6 @@ module Transactions
 
     def date
       params[:date].presence || Date.current.strftime('%Y-%m-%d')
-    end
-
-    def value_to_update(transaction)
-      transaction[:type] == 'Account::Expense' ? -transaction[:amount].to_d : transaction[:amount].to_d
     end
   end
 end

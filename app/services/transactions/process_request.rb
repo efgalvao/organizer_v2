@@ -1,23 +1,36 @@
 module Transactions
   class ProcessRequest
-    def initialize(params:, value_to_update_balance:)
+    def initialize(params:, value_to_update_balance:, update_balance: true, consolidate_report: true,
+                   raise_on_error: false)
       @params = params
       @value_to_update_balance = BigDecimal(value_to_update_balance.to_s)
+      @update_balance = update_balance
+      @consolidate_report = consolidate_report
+      @raise_on_error = raise_on_error
     end
 
-    def self.call(params:, value_to_update_balance:)
-      new(params: params, value_to_update_balance: value_to_update_balance).call
+    def self.call(params:, value_to_update_balance:, update_balance: true, consolidate_report: true,
+                  raise_on_error: false)
+      new(
+        params: params,
+        value_to_update_balance: value_to_update_balance,
+        update_balance: update_balance,
+        consolidate_report: consolidate_report,
+        raise_on_error: raise_on_error
+      ).call
     end
 
     def call
       ActiveRecord::Base.transaction do
         transaction = build_and_save_transaction
-        update_account_balance
-        consolidate_account_report(transaction)
+        update_account_balance if @update_balance
+        consolidate_account_report(transaction) if @consolidate_report
         transaction
       end
     rescue StandardError => e
       Rails.logger.error(e.full_message)
+      raise if @raise_on_error
+
       Account::Transaction.new
     end
 
