@@ -36,7 +36,7 @@ RSpec.describe Files::ProcessFile do
       let(:parsed_content) { [{ date: '01/03/2026', title: 'Fatura', amount: 500.0 }] }
 
       before do
-        allow(Files::NuInvoiceCsvParser).to receive(:call)
+        allow(Files::Parsers::NuInvoiceCsvParser).to receive(:call)
           .with(file, account.id)
           .and_return(parsed_content)
       end
@@ -44,7 +44,7 @@ RSpec.describe Files::ProcessFile do
       it 'calls NuInvoiceCsvParser with file and account_id' do
         process_file
 
-        expect(Files::NuInvoiceCsvParser).to have_received(:call).with(file, account.id)
+        expect(Files::Parsers::NuInvoiceCsvParser).to have_received(:call).with(file, account.id)
       end
 
       it 'passes parsed content to ProcessContent' do
@@ -59,7 +59,7 @@ RSpec.describe Files::ProcessFile do
       let(:parsed_content) { [{ date: '01/03/2026', title: 'Pagamento', amount: 100.0 }] }
 
       before do
-        allow(Files::NuStatementCsvParser).to receive(:call)
+        allow(Files::Parsers::NuStatementCsvParser).to receive(:call)
           .with(file, account.id)
           .and_return(parsed_content)
       end
@@ -67,7 +67,7 @@ RSpec.describe Files::ProcessFile do
       it 'calls NuStatementCsvParser with file and account_id' do
         process_file
 
-        expect(Files::NuStatementCsvParser).to have_received(:call).with(file, account.id)
+        expect(Files::Parsers::NuStatementCsvParser).to have_received(:call).with(file, account.id)
       end
 
       it 'passes parsed content to ProcessContent' do
@@ -82,7 +82,7 @@ RSpec.describe Files::ProcessFile do
       let(:parsed_content) { [] }
 
       before do
-        allow(Files::BbStatementCsvParser).to receive(:call)
+        allow(Files::Parsers::BbStatementCsvParser).to receive(:call)
           .with(file, account.id)
           .and_return(parsed_content)
       end
@@ -90,7 +90,7 @@ RSpec.describe Files::ProcessFile do
       it 'calls BbStatementCsvParser with file and account_id' do
         process_file
 
-        expect(Files::BbStatementCsvParser).to have_received(:call).with(file, account.id)
+        expect(Files::Parsers::BbStatementCsvParser).to have_received(:call).with(file, account.id)
       end
 
       it 'passes parsed content to ProcessContent' do
@@ -187,7 +187,7 @@ RSpec.describe Files::ProcessFile do
       let(:process_content_result) { instance_double(Object) }
 
       before do
-        allow(Files::BbStatementCsvParser).to receive(:call).with(file, account.id).and_return(parsed_content)
+        allow(Files::Parsers::BbStatementCsvParser).to receive(:call).with(file, account.id).and_return(parsed_content)
         allow(Files::ProcessContent).to receive(:call).with(parsed_content).and_return(process_content_result)
       end
 

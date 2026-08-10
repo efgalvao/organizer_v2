@@ -2,11 +2,11 @@ require 'rails_helper'
 require 'fileutils'
 require 'bigdecimal'
 
-RSpec.describe Files::BbStatementCsvParser do
+RSpec.describe Files::Parsers::BbStatementCsvParser do
   subject(:parser) { described_class.call(file, account.id) }
 
   let(:user) { create(:user) }
-  let(:account) { create(:account, user: user, name: 'Banco do Brasil') }
+  let(:account) { create(:account, user: user) }
   let(:csv_content) do
     <<~CSV
       "Data","Lançamento","Detalhes","Nº documento","Valor","Tipo Lançamento","Category","Group"
@@ -90,7 +90,7 @@ RSpec.describe Files::BbStatementCsvParser do
       expect(entrada[:parcels]).to eq(1)
       expect(entrada[:group]).to be_nil
       expect(entrada[:category]).to be_nil
-      expect(entrada[:account]).to eq('Banco do Brasil')
+      expect(entrada[:account]).to eq(account.id)
     end
 
     it 'parses saída transactions correctly', :aggregate_failures do
@@ -108,7 +108,7 @@ RSpec.describe Files::BbStatementCsvParser do
       expect(saida[:parcels]).to eq(1)
       expect(saida[:group]).to eq(5)
       expect(saida[:category]).to be_nil
-      expect(saida[:account]).to eq('Banco do Brasil')
+      expect(saida[:account]).to eq(account.id)
     end
 
     it 'formats Brazilian currency values correctly', :aggregate_failures do

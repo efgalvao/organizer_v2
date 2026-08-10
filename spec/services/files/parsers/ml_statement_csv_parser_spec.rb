@@ -8,7 +8,7 @@ RSpec.describe Files::Parsers::MlStatementCsvParser do
   subject(:parser) { described_class.call(file, account.id) }
 
   let(:user) { create(:user) }
-  let(:account) { create(:account, user: user, name: 'Mercado Livre') }
+  let(:account) { create(:account, user: user) }
   let(:csv_content) do
     <<~CSV
       02/02/2026;Ordem Bancária;REF001;871,36;1300,00;;;
@@ -53,7 +53,7 @@ RSpec.describe Files::Parsers::MlStatementCsvParser do
       expect(entrada[:parcels]).to eq(1)
       expect(entrada[:group]).to be_blank
       expect(entrada[:category]).to be_blank
-      expect(entrada[:account]).to eq('Mercado Livre')
+      expect(entrada[:account]).to eq(account.id)
     end
 
     it 'parses saída transactions correctly', :aggregate_failures do
@@ -69,7 +69,7 @@ RSpec.describe Files::Parsers::MlStatementCsvParser do
       expect(saida[:parcels]).to eq(1)
       expect(saida[:group]).to eq('5')
       expect(saida[:category]).to be_blank
-      expect(saida[:account]).to eq('Mercado Livre')
+      expect(saida[:account]).to eq(account.id)
     end
 
     it 'formats Brazilian currency values correctly', :aggregate_failures do
