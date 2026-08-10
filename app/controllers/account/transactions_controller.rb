@@ -2,7 +2,7 @@ module Account
   class TransactionsController < ApplicationController
     before_action :authenticate_user!
     before_action :set_transaction, only: %i[edit update anticipate anticipate_form]
-    before_action :categories, only: %i[new create edit anticipate]
+    before_action :categories, only: %i[new edit anticipate]
 
     def index
       transactions = TransactionRepository.for_user_account(
@@ -23,13 +23,15 @@ module Account
     def create
       @transaction = Transactions::RequestBuilder.call(transaction_params)
 
-      if @transaction.valid?
+      if @transaction&.persisted?
         @transaction = @transaction.decorate
         respond_to do |format|
           format.html { redirect_to account_transactions_path, notice: 'Transação cadastrada.' }
           format.turbo_stream { flash.now[:notice] = 'Transação cadastrada.' }
         end
       else
+        categories
+        @transaction ||= Account::Transaction.new(transaction_params)
         render :new, status: :unprocessable_entity
       end
     end
