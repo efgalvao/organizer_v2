@@ -57,15 +57,15 @@ module Transactions
       return nil if account_name.blank?
 
       downcased = account_name.to_s.downcase.strip
-      Account::Account.find_by('LOWER(name) = ?', downcased)&.id
+      AccountRepository.find_by('LOWER(name) = ?', downcased)&.id
     end
 
     def resolve_category_id(category_name)
       return nil if category_name.blank?
 
       downcased = category_name.to_s.downcase.strip
-      Category.find_by('LOWER(name) = ?', downcased)&.id ||
-        Category.find_by(name: 'Diversos')&.id
+      CategoryRepository.find_by('LOWER(name) = ?', downcased)&.id ||
+        CategoryRepository.find_by(name: 'Diversos')&.id
     end
 
     def resolve_transaction_type(type)
