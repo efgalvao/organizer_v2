@@ -16,8 +16,6 @@ module Transactions
     def call
       ActiveRecord::Base.transaction do
         transaction = build_and_save_transaction
-        # update_account_balance if @update_balance
-        # # consolidate_account_report(transaction) if @consolidate_report
         transaction
       end
     rescue StandardError => e
@@ -36,16 +34,5 @@ module Transactions
       transaction.save!
       transaction
     end
-
-    # def update_account_balance
-    #   Accounts::UpdateBalance.call(
-    #     account_id: params[:account_id],
-    #     amount: value_to_update_balance
-    #   )
-    # end
-
-    # def consolidate_account_report(transaction)
-    #   Reports::ConsolidateAccountReport.call(transaction.account, transaction.date)
-    # end
   end
 end
