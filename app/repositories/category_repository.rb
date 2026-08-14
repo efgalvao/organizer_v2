@@ -18,6 +18,10 @@ module CategoryRepository
     Category.find(id)
   end
 
+  def find_by(*args)
+    Category.find_by(*args)
+  end
+
   def destroy(id)
     Category.delete(id)
   end
