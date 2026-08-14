@@ -54,10 +54,6 @@ module Files
         }
       end
 
-      # def account
-      #   @account ||= Account::Account.find(account_id)
-      # end
-
       def kind(amount)
         amount.to_d.positive? ? 1 : 0
       end

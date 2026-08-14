@@ -74,10 +74,10 @@ RSpec.describe Transactions::BuildParcels, type: :service do
       end
 
       it 'uses the ids directly without resolving by name' do
-        expect(Account::Account).not_to receive(:find_by)
-        expect(Category).not_to receive(:find_by)
-
         result = described_class.call(params)
+
+        expect(Account::Account).not_to have_received(:find_by)
+        expect(Category).not_to have_received(:find_by)
 
         expect(result.first).to include(
           account_id: account.id,

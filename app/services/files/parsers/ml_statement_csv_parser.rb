@@ -56,10 +56,6 @@ module Files
         }
       end
 
-      # def account
-      #   @account ||= Account::Account.find(account_id)
-      # end
-
       def parse_currency(value)
         return 0.to_d if value.blank?
 

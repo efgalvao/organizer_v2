@@ -55,10 +55,6 @@ module Files
           recurrence: row[RECURRENCE_INDEX]
         }
       end
-
-      # def account
-      #   @account ||= Account::Account.find(account_id)
-      # end
     end
   end
 end

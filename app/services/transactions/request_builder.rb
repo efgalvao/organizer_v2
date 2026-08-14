@@ -14,14 +14,15 @@ module Transactions
           Transactions::ProcessRequest.call(
             params: transaction,
             value_to_update_balance: balance_delta(transaction),
-            update_balance: false,
-            consolidate_report: false,
+            # update_balance: false,
+            # consolidate_report: false,
             raise_on_error: true
           )
         end
 
         apply_balance_updates(saved_transactions)
-        consolidate_reports(saved_transactions)
+        # Colocar fora daqui ?
+        # consolidate_reports(saved_transactions)
 
         saved_transactions.first
       end
