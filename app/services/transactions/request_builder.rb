@@ -13,16 +13,13 @@ module Transactions
         saved_transactions = Transactions::BuildParcels.call(build_transaction).map do |transaction|
           Transactions::ProcessRequest.call(
             params: transaction,
-            value_to_update_balance: balance_delta(transaction),
-            # update_balance: false,
-            # consolidate_report: false,
+            # value_to_update_balance: balance_delta_for(transaction),
             raise_on_error: true
           )
         end
 
         apply_balance_updates(saved_transactions)
-        # Colocar fora daqui ?
-        # consolidate_reports(saved_transactions)
+        consolidate_reports(saved_transactions)
 
         saved_transactions.first
       end
@@ -65,12 +62,11 @@ module Transactions
       end
     end
 
-    def balance_delta(transaction)
-      transaction[:type] == 'Account::Expense' ? -transaction[:amount].to_d : transaction[:amount].to_d
-    end
-
     def balance_delta_for(transaction)
-      transaction.type == 'Account::Expense' ? -transaction.amount : transaction.amount
+      type = fetch_attribute(transaction, :type)
+      amount = fetch_attribute(transaction, :amount).to_d
+
+      type == 'Account::Expense' ? -amount : amount
     end
 
     def error_response(message)
@@ -81,6 +77,10 @@ module Transactions
 
     def date
       params[:date].presence || Date.current.strftime('%Y-%m-%d')
+    end
+
+    def fetch_attribute(object, key)
+      object.respond_to?(key) ? object.public_send(key) : object[key]
     end
   end
 end
