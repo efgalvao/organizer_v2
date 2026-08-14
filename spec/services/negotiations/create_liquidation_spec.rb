@@ -33,7 +33,7 @@ RSpec.describe Negotiations::CreateLiquidation do
     }
   end
 
-  let(:negotiation) { instance_double(Negotiation, date: date) }
+  let(:negotiation) { instance_double(Investments::Negotiation, date: date) }
 
   before do
     allow(investment).to receive(:fixed?).and_return(is_fixed)
