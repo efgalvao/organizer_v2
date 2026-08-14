@@ -22,20 +22,15 @@ module Invoices
     attr_reader :params
 
     def execute_payment_flow
-      Transactions::ProcessRequest.call(
-        params: sender_params,
-        value_to_update_balance: -amount
-      )
+      Transactions::RequestBuilder.call(sender_params)
 
-      Transactions::ProcessRequest.call(
-        params: receiver_params,
-        value_to_update_balance: amount
-      )
+      Transactions::RequestBuilder.call(receiver_params)
     end
 
     def sender_params
       base_params.merge(
         account_id: params[:sender_id],
+        amount: -amount,
         title: "#{I18n.t('invoice.invoice_payment')} - #{receiver.name}"
       )
     end
@@ -43,15 +38,17 @@ module Invoices
     def receiver_params
       base_params.merge(
         account_id: receiver.id,
+        amount: amount,
         title: I18n.t('invoice.invoice_payment')
       )
     end
 
     def base_params
       {
-        amount: amount,
         type: 'Account::InvoicePayment',
         date: payment_date,
+        parcels: 1,
+        group: nil,
         recurrence: 0
       }
     end
@@ -65,7 +62,7 @@ module Invoices
     end
 
     def payment_date
-      @payment_date ||= params[:date].presence || Time.zone.today.strftime('%Y-%m%d')
+      @payment_date ||= params[:date].presence || Time.zone.today.strftime('%Y-%m-%d')
     end
   end
 end

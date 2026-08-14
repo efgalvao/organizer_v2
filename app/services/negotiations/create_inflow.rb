@@ -16,8 +16,8 @@ module Negotiations
       ActiveRecord::Base.transaction do
         negotiation = ::Negotiations::Create.call(formated_params)
 
-        Transactions::ProcessRequest.call(params: transaction_params,
-                                          value_to_update_balance: -amount_by_origin)
+        Transactions::RequestBuilder.call(transaction_params)
+
         update_investment
         consolidate_report(negotiation.date)
         negotiation
@@ -49,13 +49,17 @@ module Negotiations
     end
 
     def transaction_params
-      { account_id: negotiable.account_id,
+      {
+        account_id: negotiable.account_id,
         amount: amount_by_origin,
         type: 'Account::Investment',
+        category_id: params[:category_id],
         title: transaction_title,
         date: date,
+        parcels: 1,
         group: group_parse(params[:group]),
-        recurrence: ONE_TIME_ONLY_RECURRENCE }
+        recurrence: ONE_TIME_ONLY_RECURRENCE
+      }
     end
 
     def update_investment_params
@@ -92,6 +96,8 @@ module Negotiations
         2
       when 'freedom'
         4
+      else
+        param
       end
     end
 

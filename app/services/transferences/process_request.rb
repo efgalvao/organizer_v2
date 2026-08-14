@@ -16,10 +16,11 @@ module Transferences
     def call
       ActiveRecord::Base.transaction do
         transference = build_transference
-        Transactions::ProcessRequest.call(params: sender_transaction_params,
-                                          value_to_update_balance: -amount)
-        Transactions::ProcessRequest.call(params: receiver_transaction_params,
-                                          value_to_update_balance: amount)
+
+        Transactions::RequestBuilder.call(sender_transaction_params)
+
+        Transactions::RequestBuilder.call(receiver_transaction_params)
+
         transference.save!
         transference
       end
@@ -41,12 +42,13 @@ module Transferences
       {
         account_id: params[:sender_id],
         type: 'Account::Transference',
-        amount: amount,
+        amount: -amount,
         date: params[:date],
         category_id: nil,
         title: "Transferência para #{account(params[:receiver_id]).name}",
+        parcels: 1,
+        group: nil,
         recurrence: ONE_TIME_ONLY_RECURRENCE
-
       }
     end
 
@@ -58,6 +60,8 @@ module Transferences
         date: params[:date],
         category_id: nil,
         title: "Transferência de #{account(params[:sender_id]).name}",
+        parcels: 1,
+        group: nil,
         recurrence: ONE_TIME_ONLY_RECURRENCE
       }
     end

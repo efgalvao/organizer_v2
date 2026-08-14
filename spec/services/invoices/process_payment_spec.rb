@@ -32,10 +32,11 @@ RSpec.describe Invoices::ProcessPayment do
 
     context 'when has error in processing' do
       before do
-        allow(Transactions::ProcessRequest).to receive(:call)
+        allow(Transactions::RequestBuilder).to receive(:call)
           .and_wrap_original do |method, args|
-            method.call(args) if args[:value_to_update_balance] < 0
-            raise StandardError, 'Erro inesperado na segunda perna' if args[:value_to_update_balance] > 0
+            raise StandardError, 'Erro inesperado na segunda perna' unless args[:amount].to_d.negative?
+
+            method.call(args)
           end
       end
 
@@ -44,7 +45,7 @@ RSpec.describe Invoices::ProcessPayment do
         expect(receiver.reload.balance).to eq(0.0)
       end
 
-      it 'return false' do
+      it 'returns false' do
         expect(execute_service).to be false
       end
     end
