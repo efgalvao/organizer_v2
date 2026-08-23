@@ -51,7 +51,7 @@ module Files
           type: type(amount_value),
           parcels: PARCELS,
           group: row[GROUP_INDEX],
-          account: account_id,
+          account_id: account_id,
           recurrence: row[RECURRENCE_INDEX]
         }
       end
@@ -66,11 +66,11 @@ module Files
       end
 
       def kind(amount)
-        amount.positive? ? 1 : 0
+        amount.positive? ? 0 : 1
       end
 
       def type(amount)
-        amount.positive? ? 1 : 0
+        amount.positive? ? 0 : 1
       end
 
       def format_amount(amount)

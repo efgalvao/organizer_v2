@@ -2,7 +2,6 @@ module Transactions
   class ProcessRequest
     def initialize(params:, raise_on_error: false)
       @params = params
-      # @value_to_update_balance = BigDecimal(value_to_update_balance.to_s)
       @raise_on_error = raise_on_error
     end
 

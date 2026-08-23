@@ -17,7 +17,8 @@ RSpec.describe Transactions::ProcessRequest do
         title: 'My Transaction',
         date: '2024-01-01',
         group: nil,
-        recurrence: 0
+        recurrence: 0,
+        kind: 0
       }
     end
 

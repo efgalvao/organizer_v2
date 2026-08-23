@@ -1,6 +1,7 @@
 module Dividends
   class Create
     ONE_TIME_ONLY_RECURRENCE = 0
+    INCOME_KIND = 0
 
     def initialize(params)
       @params = params
@@ -58,7 +59,8 @@ module Dividends
         date: date,
         parcels: 1,
         group: nil,
-        recurrence: ONE_TIME_ONLY_RECURRENCE
+        recurrence: ONE_TIME_ONLY_RECURRENCE,
+        kind: INCOME_KIND
       }
     end
 

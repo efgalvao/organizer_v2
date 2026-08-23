@@ -18,7 +18,6 @@ module Files
 
     def process_transactions
       transactions = Transactions::BuildRequest.call(content)
-
       transactions.flatten.each do |transaction|
         next unless process_transaction?(transaction)
 
@@ -30,14 +29,15 @@ module Files
       Account::Transaction.find_by(
         date: transaction[:date],
         amount: transaction[:amount].to_d,
-        account_id: transaction[:account_id] || transaction[:sender_id]
+        account_id: transaction[:account_id] || transaction[:sender_id],
+        type: transaction[:type]
       ).nil?
     end
 
     def enrich_transaction_params(transaction)
       transaction.merge(
         parcels: transaction[:parcels] || 1,
-        group: transaction[:group] || 'outros',
+        group: transaction[:group] || 0,
         recurrence: transaction[:recurrence] || 0
       )
     end

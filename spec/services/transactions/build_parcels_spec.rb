@@ -13,7 +13,8 @@ RSpec.describe Transactions::BuildParcels, type: :service do
         parcels: '3',
         date: '2024-10-01',
         group: 'Test Group',
-        recurrence: 0
+        recurrence: 0,
+        kind: 1
       }
     end
 
@@ -27,7 +28,8 @@ RSpec.describe Transactions::BuildParcels, type: :service do
           amount: 40.0,
           date: '2024-10-01',
           group: 'Test Group',
-          recurrence: 0
+          recurrence: 0,
+          kind: 1
         },
         {
           title: 'Test Transaction - Parcela 2/3',
@@ -37,7 +39,8 @@ RSpec.describe Transactions::BuildParcels, type: :service do
           amount: 40.0,
           date: '2024-11-01',
           group: 'Test Group',
-          recurrence: 0
+          recurrence: 0,
+          kind: 1
         },
         {
           title: 'Test Transaction - Parcela 3/3',
@@ -47,7 +50,8 @@ RSpec.describe Transactions::BuildParcels, type: :service do
           amount: 40.0,
           date: '2024-12-01',
           group: 'Test Group',
-          recurrence: 0
+          recurrence: 0,
+          kind: 1
         }
       ]
     end
@@ -64,12 +68,13 @@ RSpec.describe Transactions::BuildParcels, type: :service do
           title: 'Test Transaction',
           category_id: category.id,
           account_id: account.id,
-          type: 0,
+          type: 1,
           amount: '50.00',
           parcels: '1',
-          date: '2024-10-01',
+          date: '2024-10-02',
           group: 'custos_fixos',
-          recurrence: 0
+          recurrence: 0,
+          kind: 1
         }
       end
 

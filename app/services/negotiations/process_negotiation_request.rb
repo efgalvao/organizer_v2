@@ -11,10 +11,10 @@ module Negotiations
     def call
       case params[:kind]
       when 'buy'
-        negotiation = Negotiations::CreateInflow.call(params)
+        negotiation = Negotiations::CreateOutflow.call(params)
 
       when 'sell'
-        negotiation = Negotiations::CreateOutflow.call(params)
+        negotiation = Negotiations::CreateInflow.call(params)
 
       when 'liquidate'
         negotiation = Negotiations::CreateLiquidation.call(params)

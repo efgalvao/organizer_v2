@@ -1,6 +1,7 @@
 module InterestOnEquities
   class Create
     ONE_TIME_ONLY_RECURRENCE = 0
+    INFLOW_KIND = 0
 
     def initialize(params)
       @params = params
@@ -57,7 +58,8 @@ module InterestOnEquities
         date: date,
         parcels: 1,
         group: nil,
-        recurrence: ONE_TIME_ONLY_RECURRENCE
+        recurrence: ONE_TIME_ONLY_RECURRENCE,
+        kind: INFLOW_KIND
       }
     end
 

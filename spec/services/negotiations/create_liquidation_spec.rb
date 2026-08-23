@@ -75,7 +75,8 @@ RSpec.describe Negotiations::CreateLiquidation do
           date: '15/08/2026',
           parcels: 1,
           group: nil,
-          recurrence: 0
+          recurrence: 0,
+          kind: 0
         )
       end
     end

@@ -19,11 +19,14 @@ RSpec.describe Negotiations::ProcessNegotiationRequest do
         }
       end
 
-      before { allow(Negotiations::CreateInflow).to receive(:call) }
+      before do
+        create(:category, id: primary_income_category_id, user: account.user)
+        allow(Negotiations::CreateOutflow).to receive(:call)
+      end
 
       it 'calls CreateInflow' do
         create_negotiation
-        expect(Negotiations::CreateInflow).to have_received(:call).with(params)
+        expect(Negotiations::CreateOutflow).to have_received(:call).with(params)
       end
     end
 
@@ -38,11 +41,15 @@ RSpec.describe Negotiations::ProcessNegotiationRequest do
         }
       end
 
-      before { allow(Negotiations::CreateOutflow).to receive(:call) }
+      before do
+        create(:category, id: primary_income_category_id, user: account.user)
+        allow(Negotiations::CreateInflow).to receive(:call)
+      end
 
-      it 'calls CreateOutflow' do
+      it 'calls CreateInflow' do
         create_negotiation
-        expect(Negotiations::CreateOutflow).to have_received(:call).with(params)
+
+        expect(Negotiations::CreateInflow).to have_received(:call).with(params)
       end
     end
   end

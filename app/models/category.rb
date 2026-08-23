@@ -11,7 +11,7 @@ class Category < ApplicationRecord
     end
 
     def primary_income_category_id
-      income_category_ids.first
+      income_category_ids.first || nil
     end
 
     private

@@ -1,5 +1,8 @@
 module Invoices
   class ProcessPayment < ApplicationService
+    INFLOW_KIND = 0
+    OUTFLOW_KIND = 1
+
     def initialize(params)
       @params = params
     end
@@ -31,7 +34,8 @@ module Invoices
       base_params.merge(
         account_id: params[:sender_id],
         amount: -amount,
-        title: "#{I18n.t('invoice.invoice_payment')} - #{receiver.name}"
+        title: "#{I18n.t('invoice.invoice_payment')} - #{receiver.name}",
+        kind: OUTFLOW_KIND
       )
     end
 
@@ -39,7 +43,8 @@ module Invoices
       base_params.merge(
         account_id: receiver.id,
         amount: amount,
-        title: I18n.t('invoice.invoice_payment')
+        title: I18n.t('invoice.invoice_payment'),
+        kind: INFLOW_KIND
       )
     end
 

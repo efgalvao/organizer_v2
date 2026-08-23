@@ -14,7 +14,7 @@ RSpec.describe Negotiations::CreateOutflow do
       let(:params) do
         {
           date: Date.current.strftime('%d/%m/%Y'),
-          kind: 'sell',
+          kind: 'buy',
           amount: '10.01',
           investment_id: investment.id,
           shares: 1
@@ -26,7 +26,7 @@ RSpec.describe Negotiations::CreateOutflow do
 
         expect(response).to be_a(Investments::Negotiation)
         expect(response.date).to eq(Date.current)
-        expect(response.kind).to eq('sell')
+        expect(response.kind).to eq('buy')
         expect(response.amount).to eq(10.01)
         expect(response.negotiable_id).to eq(investment.id)
         expect(response.shares).to eq(1)
@@ -34,7 +34,7 @@ RSpec.describe Negotiations::CreateOutflow do
       end
 
       it 'create a income transaction', :aggregate_failures do
-        expect { create_negotiation }.to change(Account::Income, :count).by(1)
+        expect { create_negotiation }.to change(Account::Investment, :count).by(1)
       end
     end
 
@@ -42,7 +42,7 @@ RSpec.describe Negotiations::CreateOutflow do
       let(:params) do
         {
           date: '',
-          kind: 'sell',
+          kind: 'buy',
           amount: '10.01',
           investment_id: investment.id,
           shares: 1
@@ -54,7 +54,7 @@ RSpec.describe Negotiations::CreateOutflow do
 
         expect(response).to be_a(Investments::Negotiation)
         expect(response.date).to eq(Date.current)
-        expect(response.kind).to eq('sell')
+        expect(response.kind).to eq('buy')
         expect(response.amount).to eq(10.01)
         expect(response.negotiable_id).to eq(investment.id)
         expect(response.shares).to eq(1)
@@ -70,7 +70,7 @@ RSpec.describe Negotiations::CreateOutflow do
       let(:params) do
         {
           date: Date.current.strftime('%d/%m/%Y'),
-          kind: 'sell',
+          kind: 'buy',
           amount: '10.01',
           investment_id: investment.id,
           shares: 1
@@ -82,7 +82,7 @@ RSpec.describe Negotiations::CreateOutflow do
 
         expect(response).to be_a(Investments::Negotiation)
         expect(response.date).to eq(Date.current)
-        expect(response.kind).to eq('sell')
+        expect(response.kind).to eq('buy')
         expect(response.amount).to eq(10.01)
         expect(response.negotiable_id).to eq(investment.id)
         expect(response.shares).to eq(1)
@@ -94,7 +94,7 @@ RSpec.describe Negotiations::CreateOutflow do
       let(:params) do
         {
           date: '',
-          kind: 'sell',
+          kind: 'buy',
           amount: '10.01',
           investment_id: investment.id,
           shares: 1
@@ -106,7 +106,7 @@ RSpec.describe Negotiations::CreateOutflow do
 
         expect(response).to be_a(Investments::Negotiation)
         expect(response.date).to eq(Date.current)
-        expect(response.kind).to eq('sell')
+        expect(response.kind).to eq('buy')
         expect(response.amount).to eq(10.01)
         expect(response.negotiable_id).to eq(investment.id)
         expect(response.shares).to eq(1)

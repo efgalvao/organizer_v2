@@ -68,7 +68,7 @@ module Files
           kind: kind,
           type: kind,
           parcels: PARCELS,
-          account: account_id,
+          account_id: account_id,
           category: parse_optional_string(row[CATEGORY_INDEX]),
           group: parse_group(row[GROUP_INDEX]),
           recurrence: row[RECURRENCE_INDEX]
@@ -76,9 +76,9 @@ module Files
       end
 
       def transaction_kind(tipo_lancamento)
-        return 1 if tipo_lancamento == 'Entrada'
+        return 0 if tipo_lancamento == 'Entrada'
 
-        0
+        1
       end
 
       def ignored_lancamento?(lancamento)

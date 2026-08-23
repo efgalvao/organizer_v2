@@ -48,12 +48,12 @@ RSpec.describe Files::Parsers::MlStatementCsvParser do
       expect(entrada[:date]).to eq('02/02/2026')
       expect(entrada[:title]).to eq('Ordem Bancária')
       expect(entrada[:amount]).to eq(BigDecimal('871.36'))
-      expect(entrada[:kind]).to eq(1)
-      expect(entrada[:type]).to eq(1)
+      expect(entrada[:kind]).to eq(0)
+      expect(entrada[:type]).to eq(0)
       expect(entrada[:parcels]).to eq(1)
       expect(entrada[:group]).to be_blank
       expect(entrada[:category]).to be_blank
-      expect(entrada[:account]).to eq(account.id)
+      expect(entrada[:account_id]).to eq(account.id)
     end
 
     it 'parses saída transactions correctly', :aggregate_failures do
@@ -64,12 +64,12 @@ RSpec.describe Files::Parsers::MlStatementCsvParser do
       expect(saida[:date]).to eq('04/02/2026')
       expect(saida[:title]).to eq('Pix - Enviado')
       expect(saida[:amount]).to eq(BigDecimal('150.0'))
-      expect(saida[:kind]).to eq(0)
-      expect(saida[:type]).to eq(0)
+      expect(saida[:kind]).to eq(1)
+      expect(saida[:type]).to eq(1)
       expect(saida[:parcels]).to eq(1)
       expect(saida[:group]).to eq('5')
       expect(saida[:category]).to be_blank
-      expect(saida[:account]).to eq(account.id)
+      expect(saida[:account_id]).to eq(account.id)
     end
 
     it 'formats Brazilian currency values correctly', :aggregate_failures do

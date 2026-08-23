@@ -1,7 +1,7 @@
 module Transactions
   class RequestBuilder
     def initialize(params)
-      @params = params
+      @params = params.transform_keys(&:to_sym)
     end
 
     def self.call(params)
@@ -13,7 +13,6 @@ module Transactions
         saved_transactions = Transactions::BuildParcels.call(build_transaction).map do |transaction|
           Transactions::ProcessRequest.call(
             params: transaction,
-            # value_to_update_balance: balance_delta_for(transaction),
             raise_on_error: true
           )
         end
@@ -41,7 +40,8 @@ module Transactions
         date: date,
         parcels: params[:parcels],
         group: params.fetch(:group),
-        recurrence: params.fetch(:recurrence)
+        recurrence: params.fetch(:recurrence),
+        kind: resolve_kind
       }
     end
 
@@ -63,10 +63,7 @@ module Transactions
     end
 
     def balance_delta_for(transaction)
-      type = fetch_attribute(transaction, :type)
-      amount = fetch_attribute(transaction, :amount).to_d
-
-      type == 'Account::Expense' ? -amount : amount
+      transaction.balance_delta
     end
 
     def error_response(message)
@@ -79,8 +76,10 @@ module Transactions
       params[:date].presence || Date.current.strftime('%Y-%m-%d')
     end
 
-    def fetch_attribute(object, key)
-      object.respond_to?(key) ? object.public_send(key) : object[key]
+    def resolve_kind
+      return params[:kind] if params[:kind]
+
+      params[:type].to_s == '0' ? 0 : 1
     end
   end
 end
