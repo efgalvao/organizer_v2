@@ -16,7 +16,7 @@ module Files
       return unless account_belongs_to_user?
 
       content = parse_file
-      process_file(content)
+      process_content(content)
     end
 
     private
@@ -26,11 +26,11 @@ module Files
     def parse_file
       case params[:origin]
       when 'nu_invoice'
-        Files::NuInvoiceCsvParser.call(params[:file], params[:account_id])
+        Parsers::NuInvoiceCsvParser.call(params[:file], params[:account_id])
       when 'nu_statement'
-        Files::NuStatementCsvParser.call(params[:file], params[:account_id])
+        Parsers::NuStatementCsvParser.call(params[:file], params[:account_id])
       when 'bb_statement'
-        Files::BbStatementCsvParser.call(params[:file], params[:account_id])
+        Parsers::BbStatementCsvParser.call(params[:file], params[:account_id])
       when 'ml_statement'
         Parsers::MlStatementCsvParser.call(params[:file], params[:account_id])
 
@@ -39,7 +39,7 @@ module Files
       end
     end
 
-    def process_file(content)
+    def process_content(content)
       Files::ProcessContent.call(content)
     end
 

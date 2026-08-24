@@ -18,24 +18,28 @@ module Files
 
     def process_transactions
       transactions = Transactions::BuildRequest.call(content)
-
       transactions.flatten.each do |transaction|
         next unless process_transaction?(transaction)
 
-        Transactions::ProcessRequest.call(params: transaction,
-                                          value_to_update_balance: amount_to_update(transaction))
+        Transactions::RequestBuilder.call(enrich_transaction_params(transaction))
       end
     end
 
     def process_transaction?(transaction)
-      Account::Transaction.find_by(date: transaction[:date], amount: transaction[:amount].to_d,
-                                   account_id: transaction[:account_id] || transaction[:sender_id]).nil?
+      Account::Transaction.find_by(
+        date: transaction[:date],
+        amount: transaction[:amount].to_d,
+        account_id: transaction[:account_id] || transaction[:sender_id],
+        type: transaction[:type]
+      ).nil?
     end
 
-    def amount_to_update(transaction)
-      return -transaction[:amount].to_d if transaction[:type] == 'Account::Expense'
-
-      transaction[:amount].to_d
+    def enrich_transaction_params(transaction)
+      transaction.merge(
+        parcels: transaction[:parcels] || 1,
+        group: transaction[:group] || 0,
+        recurrence: transaction[:recurrence] || 0
+      )
     end
   end
 end

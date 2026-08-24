@@ -4,6 +4,7 @@ RSpec.describe 'Financings::Transaction' do
   let(:user) { create(:user) }
   let(:account) { create(:account, user: user) }
   let!(:transaction) { create(:transaction, account: account) }
+  let!(:category) { create(:category, user: user) }
 
   before do
     sign_in user
@@ -32,12 +33,12 @@ RSpec.describe 'Financings::Transaction' do
             date: '2024-01-01',
             amount: '100.01',
             type: 1,
-            category_id: 2,
+            category_id: category.id,
             parcels: 1,
             group: 'conforto',
             recurrence: 'one_time'
           } }
-        end.to change(Account::Income, :count).by(1)
+        end.to change(Account::Expense, :count).by(1)
       end
     end
 

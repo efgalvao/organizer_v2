@@ -1,15 +1,15 @@
 module Files
   module Parsers
-    class MlStatementCsvParser
+    class NuStatementCsvParser
       require 'csv'
 
-      DATE_INDEX            = 0
-      TITLE_INDEX           = 1
-      AMOUNT_INDEX          = 3
-      CATEGORY_INDEX        = 5
-      GROUP_INDEX           = 6
-      PARCELS               = 1
-      RECURRENCE_INDEX      = 7
+      PARCELS        = 1
+      DATE_INDEX     = 0
+      AMOUNT_INDEX   = 1
+      TITLE_INDEX    = 3
+      CATEGORY_INDEX = 4
+      GROUP_INDEX    = 5
+      RECURRENCE_INDEX = 6
 
       def initialize(file, account_id)
         @file = file
@@ -31,8 +31,8 @@ module Files
       def parse_file
         transactions = []
 
-        CSV.foreach(file.path, col_sep: ';', headers: false) do |row|
-          next if row[DATE_INDEX].blank? || row[AMOUNT_INDEX].blank?
+        CSV.foreach(Rails.root + file.path, headers: false) do |row|
+          next unless row[0].to_d.positive?
 
           transactions << parse_transaction(row)
         end
@@ -40,15 +40,13 @@ module Files
       end
 
       def parse_transaction(row)
-        amount_value = parse_currency(row[AMOUNT_INDEX])
-
         {
           date: row[DATE_INDEX],
           title: row[TITLE_INDEX],
-          amount: format_amount(amount_value),
+          amount: format_amount(row[AMOUNT_INDEX]),
           category: row[CATEGORY_INDEX],
-          kind: kind(amount_value),
-          type: type(amount_value),
+          kind: kind(row[AMOUNT_INDEX]),
+          type: type(row[AMOUNT_INDEX]),
           parcels: PARCELS,
           group: row[GROUP_INDEX],
           account_id: account_id,
@@ -56,25 +54,16 @@ module Files
         }
       end
 
-      def parse_currency(value)
-        return 0.to_d if value.blank?
-
-        value.to_s
-             .gsub('.', '')
-             .gsub(',', '.')
-             .to_d
-      end
-
       def kind(amount)
-        amount.positive? ? 0 : 1
+        amount.to_d.positive? ? 0 : 1
       end
 
       def type(amount)
-        amount.positive? ? 0 : 1
+        amount.to_d.positive? ? 0 : 1
       end
 
       def format_amount(amount)
-        amount.abs
+        amount.to_d.abs
       end
     end
   end

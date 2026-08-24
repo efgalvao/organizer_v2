@@ -4,6 +4,8 @@ module Transferences
   class ProcessRequest
     TRANSFERENCE_CODE = 2
     ONE_TIME_ONLY_RECURRENCE = 0
+    INFLOW_KIND = 0
+    OUTFLOW_KIND = 1
 
     def initialize(params)
       @params = params
@@ -16,10 +18,11 @@ module Transferences
     def call
       ActiveRecord::Base.transaction do
         transference = build_transference
-        Transactions::ProcessRequest.call(params: sender_transaction_params,
-                                          value_to_update_balance: -amount)
-        Transactions::ProcessRequest.call(params: receiver_transaction_params,
-                                          value_to_update_balance: amount)
+
+        Transactions::RequestBuilder.call(sender_transaction_params)
+
+        Transactions::RequestBuilder.call(receiver_transaction_params)
+
         transference.save!
         transference
       end
@@ -45,8 +48,10 @@ module Transferences
         date: params[:date],
         category_id: nil,
         title: "Transferência para #{account(params[:receiver_id]).name}",
-        recurrence: ONE_TIME_ONLY_RECURRENCE
-
+        parcels: 1,
+        group: nil,
+        recurrence: ONE_TIME_ONLY_RECURRENCE,
+        kind: OUTFLOW_KIND
       }
     end
 
@@ -58,7 +63,10 @@ module Transferences
         date: params[:date],
         category_id: nil,
         title: "Transferência de #{account(params[:sender_id]).name}",
-        recurrence: ONE_TIME_ONLY_RECURRENCE
+        parcels: 1,
+        group: nil,
+        recurrence: ONE_TIME_ONLY_RECURRENCE,
+        kind: INFLOW_KIND
       }
     end
 

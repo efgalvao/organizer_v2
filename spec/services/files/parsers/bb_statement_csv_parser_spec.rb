@@ -2,11 +2,11 @@ require 'rails_helper'
 require 'fileutils'
 require 'bigdecimal'
 
-RSpec.describe Files::BbStatementCsvParser do
+RSpec.describe Files::Parsers::BbStatementCsvParser do
   subject(:parser) { described_class.call(file, account.id) }
 
   let(:user) { create(:user) }
-  let(:account) { create(:account, user: user, name: 'Banco do Brasil') }
+  let(:account) { create(:account, user: user) }
   let(:csv_content) do
     <<~CSV
       "Data","Lançamento","Detalhes","Nº documento","Valor","Tipo Lançamento","Category","Group"
@@ -85,12 +85,12 @@ RSpec.describe Files::BbStatementCsvParser do
       expect(entrada[:date]).to eq('02/02/2026')
       expect(entrada[:title]).to eq('Ordem Bancária DEP FAZENDA E PLANEJAMENTO')
       expect(entrada[:amount]).to eq(871.36)
-      expect(entrada[:kind]).to eq(1)
-      expect(entrada[:type]).to eq(1)
+      expect(entrada[:kind]).to eq(0)
+      expect(entrada[:type]).to eq(0)
       expect(entrada[:parcels]).to eq(1)
       expect(entrada[:group]).to be_nil
       expect(entrada[:category]).to be_nil
-      expect(entrada[:account]).to eq('Banco do Brasil')
+      expect(entrada[:account_id]).to eq(account.id)
     end
 
     it 'parses saída transactions correctly', :aggregate_failures do
@@ -103,12 +103,12 @@ RSpec.describe Files::BbStatementCsvParser do
       expect(saida[:date]).to eq('04/02/2026')
       expect(saida[:title]).to eq('Pix - Enviado 04/02 20:49 PESSOA EXEMPLO')
       expect(saida[:amount]).to eq(BigDecimal('150.0'))
-      expect(saida[:kind]).to eq(0)
-      expect(saida[:type]).to eq(0)
+      expect(saida[:kind]).to eq(1)
+      expect(saida[:type]).to eq(1)
       expect(saida[:parcels]).to eq(1)
       expect(saida[:group]).to eq(5)
       expect(saida[:category]).to be_nil
-      expect(saida[:account]).to eq('Banco do Brasil')
+      expect(saida[:account_id]).to eq(account.id)
     end
 
     it 'formats Brazilian currency values correctly', :aggregate_failures do

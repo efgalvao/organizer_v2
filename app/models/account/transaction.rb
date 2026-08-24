@@ -16,12 +16,20 @@ module Account
 
     enum recurrence: { one_time: 0, recurring: 1, installment: 2 }
 
+    enum :kind, { inflow: 0, outflow: 1 }
+
     delegate :user, :name, to: :account, prefix: 'account'
 
     self.inheritance_column = :type
 
     def self.ransackable_attributes(_auth_object = nil)
       %w[account category_id group title type]
+    end
+
+    def balance_delta
+      return 0.0 if amount.blank?
+
+      outflow? ? -amount.abs : amount.abs
     end
   end
 end

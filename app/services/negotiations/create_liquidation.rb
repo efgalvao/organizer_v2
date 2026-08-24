@@ -2,6 +2,7 @@ module Negotiations
   class CreateLiquidation
     ONE_TIME_ONLY_RECURRENCE = 0
     LIQUIDATION_KIND = 'liquidation'.freeze
+    INFLOW_KIND = 0
 
     def initialize(params)
       @params = params
@@ -16,11 +17,13 @@ module Negotiations
 
       ActiveRecord::Base.transaction do
         negotiation = Negotiations::Create.call(formated_params)
-        Transactions::ProcessRequest.call(params: transaction_params,
-                                          value_to_update_balance: amount_by_origin)
+
+        Transactions::RequestBuilder.call(transaction_params)
+
         update_investment
         liquidate_investment
         consolidate_report(negotiation.date)
+
         negotiation
       end
     end
@@ -50,13 +53,18 @@ module Negotiations
     end
 
     def transaction_params
-      { account_id: negotiable.account_id,
+      {
+        account_id: negotiable.account_id,
         amount: amount_by_origin,
         type: 'Account::Income',
         category_id: income_category_id,
         title: "#{I18n.t('investments.redeem_negotiation')} - #{negotiable.name}",
         date: date,
-        recurrence: ONE_TIME_ONLY_RECURRENCE }
+        parcels: 1,
+        group: nil,
+        recurrence: ONE_TIME_ONLY_RECURRENCE,
+        kind: INFLOW_KIND
+      }
     end
 
     def update_investment_params
@@ -77,7 +85,7 @@ module Negotiations
 
     def amount_by_origin
       if negotiable.fixed?
-        params[:amount]
+        params[:amount].to_d
       else
         params[:amount].to_d * params[:shares].to_i
       end

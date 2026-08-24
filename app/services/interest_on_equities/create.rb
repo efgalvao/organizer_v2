@@ -1,6 +1,7 @@
 module InterestOnEquities
   class Create
     ONE_TIME_ONLY_RECURRENCE = 0
+    INFLOW_KIND = 0
 
     def initialize(params)
       @params = params
@@ -13,8 +14,9 @@ module InterestOnEquities
     def call
       ActiveRecord::Base.transaction do
         interest_on_equity = create_interest
-        Transactions::ProcessRequest.call(params: transaction_params,
-                                          value_to_update_balance: amount)
+
+        Transactions::RequestBuilder.call(transaction_params)
+
         consolidate_report(interest_on_equity.date)
         interest_on_equity
       end
@@ -47,13 +49,18 @@ module InterestOnEquities
     end
 
     def transaction_params
-      { account_id: investment.account_id,
+      {
+        account_id: investment.account_id,
         amount: amount,
         type: 'Account::Income',
         category_id: income_category_id,
         title: "#{I18n.t('investments.interest_on_equity.interest_on_equity')} - #{investment.name}",
         date: date,
-        recurrence: ONE_TIME_ONLY_RECURRENCE }
+        parcels: 1,
+        group: nil,
+        recurrence: ONE_TIME_ONLY_RECURRENCE,
+        kind: INFLOW_KIND
+      }
     end
 
     def amount

@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Transactions::ProcessRequest do
-  subject(:process_transaction_request) { described_class.call(params: params, value_to_update_balance: '1.23') }
+  subject(:process_transaction_request) { described_class.call(params: params) }
 
   let(:account) { create(:account, balance: 1.0) }
 
@@ -14,20 +16,20 @@ RSpec.describe Transactions::ProcessRequest do
         category_id: nil,
         title: 'My Transaction',
         date: '2024-01-01',
-        recurrence: 0
+        group: nil,
+        recurrence: 0,
+        kind: 0
       }
     end
 
-    it 'create a new transaction', :aggregate_failures do
+    it 'creates a new transaction' do
       expect { process_transaction_request }.to change(Account::Income, :count).by(1)
     end
 
-    it 'update account balance', :aggregate_failures do
+    it 'does not alter account balance directly' do
       process_transaction_request
 
-      account.reload
-
-      expect(account.balance).to eq(2.23)
+      expect(account.reload.balance).to eq(1.0)
     end
   end
 
@@ -35,7 +37,7 @@ RSpec.describe Transactions::ProcessRequest do
     let(:params) do
       {
         account_id: account.id,
-        value: '123.45',
+        amount: '123.45',
         type: 'Account::Income',
         category_id: nil,
         title: 'My Transaction',
@@ -44,7 +46,7 @@ RSpec.describe Transactions::ProcessRequest do
     end
 
     before do
-      allow(Transactions::Build).to receive(:build).and_raise(StandardError)
+      allow(Transactions::Build).to receive(:build).and_raise(StandardError, 'Build error')
       allow(Rails.logger).to receive(:error)
     end
 
@@ -54,7 +56,7 @@ RSpec.describe Transactions::ProcessRequest do
       expect(Rails.logger).to have_received(:error)
     end
 
-    it 'returns a new transaction' do
+    it 'returns a new non-persisted transaction' do
       response = process_transaction_request
 
       expect(response).to be_a(Account::Transaction)

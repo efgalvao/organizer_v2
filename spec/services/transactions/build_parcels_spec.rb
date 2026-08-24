@@ -13,7 +13,8 @@ RSpec.describe Transactions::BuildParcels, type: :service do
         parcels: '3',
         date: '2024-10-01',
         group: 'Test Group',
-        recurrence: 0
+        recurrence: 0,
+        kind: 1
       }
     end
 
@@ -27,7 +28,8 @@ RSpec.describe Transactions::BuildParcels, type: :service do
           amount: 40.0,
           date: '2024-10-01',
           group: 'Test Group',
-          recurrence: 0
+          recurrence: 0,
+          kind: 1
         },
         {
           title: 'Test Transaction - Parcela 2/3',
@@ -37,7 +39,8 @@ RSpec.describe Transactions::BuildParcels, type: :service do
           amount: 40.0,
           date: '2024-11-01',
           group: 'Test Group',
-          recurrence: 0
+          recurrence: 0,
+          kind: 1
         },
         {
           title: 'Test Transaction - Parcela 3/3',
@@ -47,7 +50,8 @@ RSpec.describe Transactions::BuildParcels, type: :service do
           amount: 40.0,
           date: '2024-12-01',
           group: 'Test Group',
-          recurrence: 0
+          recurrence: 0,
+          kind: 1
         }
       ]
     end
@@ -55,6 +59,40 @@ RSpec.describe Transactions::BuildParcels, type: :service do
     it 'builds the correct transaction parcels' do
       result = described_class.call(params)
       expect(result).to match_array(expected_transactions)
+    end
+
+    context 'when account_id and category_id are provided' do
+      let(:category) { create(:category) }
+      let(:params) do
+        {
+          title: 'Test Transaction',
+          category_id: category.id,
+          account_id: account.id,
+          type: 1,
+          amount: '50.00',
+          parcels: '1',
+          date: '2024-10-02',
+          group: 'custos_fixos',
+          recurrence: 0,
+          kind: 1
+        }
+      end
+
+      it 'uses the ids directly without resolving by name' do
+        allow(AccountRepository).to receive(:find_by)
+        allow(CategoryRepository).to receive(:find_by)
+
+        result = described_class.call(params)
+
+        expect(AccountRepository).not_to have_received(:find_by)
+        expect(CategoryRepository).not_to have_received(:find_by)
+
+        expect(result.first).to include(
+          account_id: account.id,
+          category_id: category.id,
+          type: 'Account::Expense'
+        )
+      end
     end
   end
 end

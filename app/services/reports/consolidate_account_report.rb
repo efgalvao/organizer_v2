@@ -1,7 +1,7 @@
 module Reports
   class ConsolidateAccountReport
     def initialize(account, date)
-      @account = account
+      @account = resolve_account(account)
       @date = parse_date(date)
     end
 
@@ -10,6 +10,8 @@ module Reports
     end
 
     def call
+      return unless account
+
       report = find_or_create_report
       report.update(default_account_report_attributes) if report.new_record?
 
@@ -19,6 +21,12 @@ module Reports
     private
 
     attr_reader :account, :date
+
+    def resolve_account(account)
+      return account if account.is_a?(Account::Account)
+
+      Account::Account.find_by(id: account)
+    end
 
     def parse_date(date)
       date.is_a?(String) ? Date.parse(date) : date

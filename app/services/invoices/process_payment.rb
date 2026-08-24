@@ -1,5 +1,8 @@
 module Invoices
   class ProcessPayment < ApplicationService
+    INFLOW_KIND = 0
+    OUTFLOW_KIND = 1
+
     def initialize(params)
       @params = params
     end
@@ -22,36 +25,35 @@ module Invoices
     attr_reader :params
 
     def execute_payment_flow
-      Transactions::ProcessRequest.call(
-        params: sender_params,
-        value_to_update_balance: -amount
-      )
+      Transactions::RequestBuilder.call(sender_params)
 
-      Transactions::ProcessRequest.call(
-        params: receiver_params,
-        value_to_update_balance: amount
-      )
+      Transactions::RequestBuilder.call(receiver_params)
     end
 
     def sender_params
       base_params.merge(
         account_id: params[:sender_id],
-        title: "#{I18n.t('invoice.invoice_payment')} - #{receiver.name}"
+        amount: -amount,
+        title: "#{I18n.t('invoice.invoice_payment')} - #{receiver.name}",
+        kind: OUTFLOW_KIND
       )
     end
 
     def receiver_params
       base_params.merge(
         account_id: receiver.id,
-        title: I18n.t('invoice.invoice_payment')
+        amount: amount,
+        title: I18n.t('invoice.invoice_payment'),
+        kind: INFLOW_KIND
       )
     end
 
     def base_params
       {
-        amount: amount,
         type: 'Account::InvoicePayment',
         date: payment_date,
+        parcels: 1,
+        group: nil,
         recurrence: 0
       }
     end
@@ -65,7 +67,7 @@ module Invoices
     end
 
     def payment_date
-      @payment_date ||= params[:date].presence || Time.zone.today.strftime('%Y-%m%d')
+      @payment_date ||= params[:date].presence || Time.zone.today.strftime('%Y-%m-%d')
     end
   end
 end

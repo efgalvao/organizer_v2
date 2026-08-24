@@ -42,7 +42,8 @@ module Transactions
         title: params[:title],
         account_report_id: account_report.id,
         group: params[:group],
-        recurrence: format_recurrence(params[:recurrence])
+        recurrence: format_recurrence(params[:recurrence]),
+        kind: params[:kind]
       }
     end
 

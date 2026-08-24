@@ -1,6 +1,7 @@
 module Dividends
   class Create
     ONE_TIME_ONLY_RECURRENCE = 0
+    INCOME_KIND = 0
 
     def initialize(params)
       @params = params
@@ -13,8 +14,9 @@ module Dividends
     def call
       ActiveRecord::Base.transaction do
         dividend = create_dividend
-        Transactions::ProcessRequest.call(params: transaction_params,
-                                          value_to_update_balance: transaction_amount)
+
+        Transactions::RequestBuilder.call(transaction_params)
+
         consolidate_report(dividend.date)
         dividend
       end
@@ -48,13 +50,18 @@ module Dividends
     end
 
     def transaction_params
-      { account_id: investment.account_id,
+      {
+        account_id: investment.account_id,
         amount: transaction_amount,
         type: 'Account::Income',
         category_id: income_category_id,
         title: "#{I18n.t('investments.dividends.dividends')} - #{investment.name}",
         date: date,
-        recurrence: ONE_TIME_ONLY_RECURRENCE }
+        parcels: 1,
+        group: nil,
+        recurrence: ONE_TIME_ONLY_RECURRENCE,
+        kind: INCOME_KIND
+      }
     end
 
     def transaction_amount
