@@ -21,8 +21,7 @@ module Portfolio
       else
         set_target_repository
 
-        errors_list = result.errors.is_a?(Array) ? result.errors.join(', ') : result.errors
-        flash.now[:alert] = errors_list.presence || t('.error', default: 'Verifique os dados informados.')
+        flash.now[:alert] = t('.error', default: 'Verifique os dados informados.')
 
         render :edit, status: :unprocessable_entity
       end
