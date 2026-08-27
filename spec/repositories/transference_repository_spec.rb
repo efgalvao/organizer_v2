@@ -5,6 +5,7 @@ RSpec.describe TransferenceRepository do
 
   let(:user) { create(:user) }
   let!(:transferences) { create_list(:transference, 2, user_id: user.id) }
+  let(:transference) { transferences.first }
 
   describe '#all' do
     it 'returns only transference from the given user' do
@@ -35,6 +36,20 @@ RSpec.describe TransferenceRepository do
       expect(transference.user_id).to eq(user.id)
       expect(transference.sender_id).to eq(sender.id)
       expect(transference.receiver_id).to eq(receiver.id)
+    end
+  end
+
+  describe '#find_by' do
+    it 'retrieves transference with matching attributes' do
+      found_transference = repository.find_by(id: transference.id)
+
+      expect(found_transference).to eq(transference)
+    end
+
+    it 'returns nil for non-matching attributes' do
+      found_transference = repository.find_by(id: 999_999)
+
+      expect(found_transference).to be_nil
     end
   end
 end
