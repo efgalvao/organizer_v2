@@ -13,7 +13,7 @@ module Files
     end
 
     def call
-      return unless account_belongs_to_user?
+      return if params[:origin] != 'transference' && !account_belongs_to_user?
 
       content = parse_file
       process_content(content)
@@ -33,14 +33,20 @@ module Files
         Parsers::BbStatementCsvParser.call(params[:file], params[:account_id])
       when 'ml_statement'
         Parsers::MlStatementCsvParser.call(params[:file], params[:account_id])
-
+      when 'transference'
+        Parsers::TransferenceCsvParser.call(params[:file], user_id)
       else
         raise UnknownFileTypeError, 'Invalid Origin'
       end
     end
 
     def process_content(content)
-      Files::ProcessContent.call(content)
+      case params[:origin]
+      when 'transference'
+        Processors::TransferenceProcessor.call(content, user_id)
+      else
+        Files::Processors::TransactionProcessor.call(content)
+      end
     end
 
     def account_belongs_to_user?

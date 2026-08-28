@@ -18,7 +18,8 @@ RSpec.describe Files::ProcessFile do
   end
 
   before do
-    allow(Files::ProcessContent).to receive(:call)
+    allow(Files::Processors::TransactionProcessor).to receive(:call)
+    allow(Files::Processors::TransferenceProcessor).to receive(:call)
   end
 
   describe '.call' do
@@ -47,10 +48,10 @@ RSpec.describe Files::ProcessFile do
         expect(Files::Parsers::NuInvoiceCsvParser).to have_received(:call).with(file, account.id)
       end
 
-      it 'passes parsed content to ProcessContent' do
+      it 'passes parsed content to TransactionProcessor' do
         process_file
 
-        expect(Files::ProcessContent).to have_received(:call).with(parsed_content)
+        expect(Files::Processors::TransactionProcessor).to have_received(:call).with(parsed_content)
       end
     end
 
@@ -70,10 +71,10 @@ RSpec.describe Files::ProcessFile do
         expect(Files::Parsers::NuStatementCsvParser).to have_received(:call).with(file, account.id)
       end
 
-      it 'passes parsed content to ProcessContent' do
+      it 'passes parsed content to TransactionProcessor' do
         process_file
 
-        expect(Files::ProcessContent).to have_received(:call).with(parsed_content)
+        expect(Files::Processors::TransactionProcessor).to have_received(:call).with(parsed_content)
       end
     end
 
@@ -93,10 +94,10 @@ RSpec.describe Files::ProcessFile do
         expect(Files::Parsers::BbStatementCsvParser).to have_received(:call).with(file, account.id)
       end
 
-      it 'passes parsed content to ProcessContent' do
+      it 'passes parsed content to TransactionProcessor' do
         process_file
 
-        expect(Files::ProcessContent).to have_received(:call).with(parsed_content)
+        expect(Files::Processors::TransactionProcessor).to have_received(:call).with(parsed_content)
       end
     end
 
@@ -116,10 +117,73 @@ RSpec.describe Files::ProcessFile do
         expect(Files::Parsers::MlStatementCsvParser).to have_received(:call).with(file, account.id)
       end
 
-      it 'passes parsed content to ProcessContent' do
+      it 'passes parsed content to TransactionProcessor' do
         process_file
 
-        expect(Files::ProcessContent).to have_received(:call).with(parsed_content)
+        expect(Files::Processors::TransactionProcessor).to have_received(:call).with(parsed_content)
+      end
+    end
+
+    context "when origin is 'transference'" do
+      let(:origin) { 'transference' }
+      let(:parsed_content) do
+        [{ date: '01/03/2026', sender: 'conta origem', recipient: 'conta destino', amount: 100.0 }]
+      end
+      let(:processor_result) { instance_double(Object) }
+
+      before do
+        allow(Files::Parsers::TransferenceCsvParser).to receive(:call)
+          .with(file, user.id)
+          .and_return(parsed_content)
+        allow(Files::Processors::TransferenceProcessor).to receive(:call)
+          .with(parsed_content, user.id)
+          .and_return(processor_result)
+      end
+
+      it 'calls TransferenceCsvParser with file and user_id (not account_id)' do
+        process_file
+
+        expect(Files::Parsers::TransferenceCsvParser).to have_received(:call).with(file, user.id)
+      end
+
+      it 'passes parsed content and user_id to TransferenceProcessor' do
+        process_file
+
+        expect(Files::Processors::TransferenceProcessor).to have_received(:call).with(parsed_content, user.id)
+      end
+
+      it 'does not call TransactionProcessor' do
+        process_file
+
+        expect(Files::Processors::TransactionProcessor).not_to have_received(:call)
+      end
+
+      it 'returns the result of TransferenceProcessor.call' do
+        expect(process_file).to eq(processor_result)
+      end
+
+      # Documents current behavior: due to the short-circuit in `call`,
+      # account ownership is never checked when origin == 'transference'.
+      it 'does not check account ownership' do
+        allow(AccountRepository).to receive(:find_by)
+
+        process_file
+
+        expect(AccountRepository).not_to have_received(:find_by)
+      end
+
+      context 'when account_id is nil or belongs to another user' do
+        let(:params) do
+          {
+            file: file,
+            account_id: nil,
+            origin: origin
+          }
+        end
+
+        it 'still processes the transference (ownership check is bypassed)' do
+          expect(process_file).to eq(processor_result)
+        end
       end
     end
 
@@ -138,10 +202,10 @@ RSpec.describe Files::ProcessFile do
         expect(Files::Parsers::MlStatementCsvParser).not_to have_received(:call)
       end
 
-      it 'does not call ProcessContent' do
+      it 'does not call TransactionProcessor' do
         process_file
 
-        expect(Files::ProcessContent).not_to have_received(:call)
+        expect(Files::Processors::TransactionProcessor).not_to have_received(:call)
       end
 
       it 'returns nil (early return)' do
@@ -175,9 +239,9 @@ RSpec.describe Files::ProcessFile do
         expect { process_file }.to raise_error(Files::ProcessFile::UnknownFileTypeError, 'Invalid Origin')
       end
 
-      it 'does not call ProcessContent' do
+      it 'does not call TransactionProcessor' do
         expect { process_file }.to raise_error(Files::ProcessFile::UnknownFileTypeError)
-        expect(Files::ProcessContent).not_to have_received(:call)
+        expect(Files::Processors::TransactionProcessor).not_to have_received(:call)
       end
     end
 
@@ -188,10 +252,10 @@ RSpec.describe Files::ProcessFile do
 
       before do
         allow(Files::Parsers::BbStatementCsvParser).to receive(:call).with(file, account.id).and_return(parsed_content)
-        allow(Files::ProcessContent).to receive(:call).with(parsed_content).and_return(process_content_result)
+        allow(Files::Processors::TransactionProcessor).to receive(:call).with(parsed_content).and_return(process_content_result)
       end
 
-      it 'returns the result of ProcessContent.call' do
+      it 'returns the result of TransactionProcessor.call' do
         expect(process_file).to eq(process_content_result)
       end
     end

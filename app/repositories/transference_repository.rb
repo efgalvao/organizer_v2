@@ -8,6 +8,10 @@ module TransferenceRepository
                 .limit(limit)
   end
 
+  def find_by(params)
+    Transference.find_by(params)
+  end
+
   def create!(attributes)
     Transference.create!(attributes)
   end
