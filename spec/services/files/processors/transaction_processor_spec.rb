@@ -6,7 +6,7 @@ RSpec.describe Files::Processors::TransactionProcessor do
   subject(:processor_call) { described_class.call(content) }
 
   describe '.call' do
-    context 'delegation' do
+    context 'when delegation' do
       let(:content) { [{ date: '01/03/2026' }] }
 
       it 'instantiates the processor with content and invokes #call' do

@@ -8,7 +8,7 @@ RSpec.describe Files::Processors::TransferenceProcessor do
   let(:user_id) { 1 }
 
   describe '.call' do
-    context 'delegation' do
+    context 'when delegation' do
       let(:content) { [{ date: '2024-03-16' }] }
 
       it 'instantiates the processor with content and user_id and invokes #call' do
