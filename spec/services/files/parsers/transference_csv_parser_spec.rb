@@ -29,7 +29,7 @@ RSpec.describe Files::Parsers::TransferenceCsvParser do
   end
 
   describe '.call' do
-    context 'delegation' do
+    context 'when delegation' do
       let(:file) { build_csv_file([]) }
 
       it 'instantiates the parser with file and user_id and invokes #call' do
@@ -172,7 +172,7 @@ RSpec.describe Files::Parsers::TransferenceCsvParser do
         result = parser_call
 
         expect(result.size).to eq(2)
-        expect(result.map { |t| t[:date] }).to eq(%w[01/03/2026 03/03/2026])
+        expect(result.pluck(:date)).to eq(%w[01/03/2026 03/03/2026])
       end
     end
 

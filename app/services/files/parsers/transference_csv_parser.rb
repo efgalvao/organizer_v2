@@ -63,8 +63,8 @@ module Files
       end
 
       def accounts_by_name
-        @accounts_by_name ||= AccountRepository.all_by_user(user_id).each_with_object({}) do |account, hash|
-          hash[account.name.downcase.strip] = account.id
+        @accounts_by_name ||= AccountRepository.all_by_user(user_id).to_h do |account|
+          [account.name.downcase.strip, account.id]
         end
       end
     end
