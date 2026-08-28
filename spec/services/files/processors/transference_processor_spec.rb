@@ -1,104 +1,83 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Files::Processors::TransferenceProcessor do
-  subject(:service) { described_class.new(content, user_id) }
+  subject(:processor_call) { described_class.call(content, user_id) }
 
   let(:user_id) { 1 }
 
   describe '.call' do
-    it 'instantiates the class and calls #call' do
-      instance = instance_double(described_class, call: true)
-      allow(described_class).to receive(:new).with('content', user_id).and_return(instance)
+    context 'delegation' do
+      let(:content) { [{ date: '2024-03-16' }] }
 
-      described_class.call('content', user_id)
+      it 'instantiates the processor with content and user_id and invokes #call' do
+        instance = instance_double(described_class, call: nil)
+        allow(described_class).to receive(:new).with(content, user_id).and_return(instance)
 
-      expect(instance).to have_received(:call)
-    end
-  end
+        processor_call
 
-  describe '#call' do
-    context 'when content is blank' do
-      let(:content) { nil }
-
-      it 'does not build transferences' do
-        allow(Transferences::BuildRequest).to receive(:call)
-
-        service.call
-
-        expect(Transferences::BuildRequest).not_to have_received(:call)
+        expect(instance).to have_received(:call)
       end
     end
 
-    context 'when content is an empty array' do
-      let(:content) { [] }
+    context 'when content is blank' do
+      before do
+        allow(TransferenceRepository).to receive(:find_by)
+        allow(Transferences::ProcessRequest).to receive(:call)
+      end
 
-      it 'does not build transferences' do
-        allow(Transferences::BuildRequest).to receive(:call)
+      [nil, [], '', false].each do |blank_value|
+        context "when content is #{blank_value.inspect}" do
+          let(:content) { blank_value }
 
-        service.call
+          it 'does not check for existing transferences' do
+            processor_call
 
-        expect(Transferences::BuildRequest).not_to have_received(:call)
+            expect(TransferenceRepository).not_to have_received(:find_by)
+          end
+
+          it 'does not build any transference request' do
+            processor_call
+
+            expect(Transferences::ProcessRequest).not_to have_received(:call)
+          end
+
+          it 'returns nil' do
+            expect(processor_call).to be_nil
+          end
+        end
       end
     end
 
     context 'when content is present' do
-      let(:content) do
-        [{
-          sender: 'Conta A',
-          receiver: 'Conta B',
-          user_id: user_id,
-          amount: '1.23',
-          date: '2024-03-16'
-        }]
-      end
-
       let(:built_transference) do
-        {
-          sender_id: 10,
-          receiver_id: 20,
-          user_id: user_id,
-          amount: '1.23',
-          date: '2024-03-16'
-        }
+        { date: '2024-03-16', amount: '1.23', sender_id: 10, receiver_id: 20, user_id: user_id }
       end
-
-      before do
-        allow(Transferences::BuildRequest).to receive(:call).and_return([built_transference])
-        allow(Transferences::ProcessRequest).to receive(:call)
-        allow(TransferenceRepository).to receive(:find_by).and_return(nil)
-      end
-
-      it 'calls Transferences::BuildRequest with content and user_id' do
-        service.call
-
-        expect(Transferences::BuildRequest).to have_received(:call).with(content, user_id)
-      end
+      let(:content) { [built_transference] }
 
       context 'when the transference does not exist yet' do
         before do
           allow(TransferenceRepository).to receive(:find_by).and_return(nil)
+          allow(Transferences::ProcessRequest).to receive(:call)
         end
 
-        it 'checks existence using sender_id as account_id' do
-          service.call
+        it 'checks existence using date, amount as decimal, sender_id and receiver_id' do
+          processor_call
 
           expect(TransferenceRepository).to have_received(:find_by).with(
             date: built_transference[:date],
             amount: built_transference[:amount].to_d,
-            account_id: built_transference[:sender_id]
+            sender_id: built_transference[:sender_id],
+            receiver_id: built_transference[:receiver_id]
           )
         end
 
         it 'builds the transference request enriching default attributes' do
-          service.call
+          processor_call
 
           expect(Transferences::ProcessRequest).to have_received(:call).with(
-            hash_including(
-              sender_id: built_transference[:sender_id],
-              receiver_id: built_transference[:receiver_id],
-              user_id: user_id,
-              amount: '1.23',
-              date: '2024-03-16',
+            built_transference.merge(
               parcels: 1,
               group: 0,
               recurrence: 0,
@@ -110,27 +89,47 @@ RSpec.describe Files::Processors::TransferenceProcessor do
         context 'when transference already has parcels, group and recurrence' do
           let(:built_transference) do
             {
-              sender_id: 10,
-              receiver_id: 20,
-              user_id: user_id,
-              amount: '1.23',
-              date: '2024-03-16',
-              parcels: 3,
-              group: 5,
-              recurrence: 2
+              date: '2024-03-16', amount: '1.23', sender_id: 10, receiver_id: 20, user_id: user_id,
+              parcels: 3, group: 5, recurrence: 2
             }
           end
 
           it 'keeps the given parcels, group and recurrence values' do
-            service.call
+            processor_call
 
             expect(Transferences::ProcessRequest).to have_received(:call).with(
-              hash_including(
-                parcels: 3,
-                group: 5,
-                recurrence: 2,
-                type: 'Account::Transference'
-              )
+              built_transference.merge(type: 'Account::Transference')
+            )
+          end
+        end
+
+        context 'when parcels is explicitly 0' do
+          let(:built_transference) do
+            { date: '2024-03-16', amount: '1.23', sender_id: 10, receiver_id: 20, user_id: user_id, parcels: 0 }
+          end
+
+          it 'keeps parcels as 0, since 0 is truthy in Ruby and is not replaced by ||' do
+            processor_call
+
+            expect(Transferences::ProcessRequest).to have_received(:call).with(
+              built_transference.merge(group: 0, recurrence: 0, type: 'Account::Transference')
+            )
+          end
+        end
+
+        context 'when group and recurrence are explicitly falsy (false / nil)' do
+          let(:built_transference) do
+            {
+              date: '2024-03-16', amount: '1.23', sender_id: 10, receiver_id: 20, user_id: user_id,
+              group: false, recurrence: nil
+            }
+          end
+
+          it 'replaces group and recurrence with defaults, since false/nil are falsy in Ruby' do
+            processor_call
+
+            expect(Transferences::ProcessRequest).to have_received(:call).with(
+              built_transference.merge(parcels: 1, group: 0, recurrence: 0, type: 'Account::Transference')
             )
           end
         end
@@ -138,43 +137,63 @@ RSpec.describe Files::Processors::TransferenceProcessor do
 
       context 'when the transference already exists' do
         before do
-          allow(TransferenceRepository).to receive(:find_by).and_return(instance_double(Transference))
+          allow(TransferenceRepository).to receive(:find_by).and_return(instance_double(Account::Transference))
+          allow(Transferences::ProcessRequest).to receive(:call)
         end
 
-        it 'does not build a new transference request' do
-          service.call
+        it 'does not build a transference request' do
+          processor_call
 
           expect(Transferences::ProcessRequest).not_to have_received(:call)
         end
       end
 
-      context 'when there are multiple transferences' do
-        let(:existing_transference) do
-          {
-            sender_id: 30,
-            receiver_id: 40,
-            user_id: user_id,
-            amount: '5.00',
-            date: '2024-04-01'
-          }
-        end
+      context 'when content has nested arrays' do
+        let(:transference_a) { { date: '2024-03-16', amount: '1.23', sender_id: 10, receiver_id: 20, user_id: user_id } }
+        let(:transference_b) { { date: '2024-03-17', amount: '4.56', sender_id: 30, receiver_id: 40, user_id: user_id } }
+        let(:content) { [[transference_a], [transference_b]] }
 
         before do
-          allow(Transferences::BuildRequest).to receive(:call).and_return([built_transference, existing_transference])
+          allow(TransferenceRepository).to receive(:find_by).and_return(nil)
+          allow(Transferences::ProcessRequest).to receive(:call)
+        end
+
+        it 'flattens the content before processing each transference' do
+          processor_call
+
+          expect(Transferences::ProcessRequest).to have_received(:call).twice
+          expect(Transferences::ProcessRequest).to have_received(:call).with(
+            transference_a.merge(parcels: 1, group: 0, recurrence: 0, type: 'Account::Transference')
+          )
+          expect(Transferences::ProcessRequest).to have_received(:call).with(
+            transference_b.merge(parcels: 1, group: 0, recurrence: 0, type: 'Account::Transference')
+          )
+        end
+      end
+
+      context 'when there are multiple transferences' do
+        let(:transference_new) do
+          { date: '2024-03-16', amount: '1.23', sender_id: 10, receiver_id: 20, user_id: user_id }
+        end
+        let(:transference_existing) do
+          { date: '2024-03-17', amount: '4.56', sender_id: 30, receiver_id: 40, user_id: user_id }
+        end
+        let(:content) { [transference_new, transference_existing] }
+
+        before do
           allow(TransferenceRepository).to receive(:find_by)
-            .with(hash_including(account_id: built_transference[:sender_id]))
-            .and_return(nil)
+            .with(hash_including(date: '2024-03-16')).and_return(nil)
           allow(TransferenceRepository).to receive(:find_by)
-            .with(hash_including(account_id: existing_transference[:sender_id]))
-            .and_return(instance_double(Transference))
+            .with(hash_including(date: '2024-03-17')).and_return(instance_double(Account::Transference))
+          allow(Transferences::ProcessRequest).to receive(:call)
         end
 
         it 'only builds requests for transferences that do not exist yet' do
-          service.call
+          processor_call
 
           expect(Transferences::ProcessRequest).to have_received(:call).once
           expect(Transferences::ProcessRequest).to have_received(:call).with(
-            hash_including(sender_id: built_transference[:sender_id])
+            transference_new.merge(parcels: 1, group: 0, recurrence: 0, type: 'Account::Transference')
           )
         end
       end
