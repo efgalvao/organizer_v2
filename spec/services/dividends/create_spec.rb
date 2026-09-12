@@ -13,7 +13,8 @@ RSpec.describe Dividends::Create do
       {
         date: Date.current.strftime('%d/%m/%Y'),
         amount: '10.01',
-        investment_id: investment.id
+        investment_id: investment.id,
+        shares: 1
       }
     end
 
@@ -37,7 +38,8 @@ RSpec.describe Dividends::Create do
       {
         date: '',
         amount: '10.01',
-        investment_id: investment.id
+        investment_id: investment.id,
+        shares: 1
       }
     end
 
