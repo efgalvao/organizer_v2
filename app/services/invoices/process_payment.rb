@@ -33,7 +33,7 @@ module Invoices
     def sender_params
       base_params.merge(
         account_id: params[:sender_id],
-        amount: -amount,
+        amount: amount,
         title: "#{I18n.t('invoice.invoice_payment')} - #{receiver.name}",
         kind: OUTFLOW_KIND
       )
