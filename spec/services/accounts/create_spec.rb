@@ -60,7 +60,7 @@ RSpec.describe Accounts::Create do
         it 'returns failure result' do
           result = create_account
           expect(result[:success?]).to be(false)
-          expect(result[:errors]).to include('Tipo de conta inválido. Tipos permitidos: Account::Savings, Account::Broker')
+          expect(result[:errors]).to include('Tipo de conta inválido. Tipos permitidos: Account::Savings, Account::Broker, Account::Card')
         end
       end
 

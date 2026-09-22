@@ -1,6 +1,6 @@
 module Accounts
   class Create
-    VALID_ACCOUNT_TYPES = ['Account::Savings', 'Account::Broker'].freeze
+    VALID_ACCOUNT_TYPES = ['Account::Savings', 'Account::Broker', 'Account::Card'].freeze
 
     def initialize(account_params)
       @account_params = account_params
