@@ -34,15 +34,8 @@ module Files
 
       def parse_file
         transactions = []
-        first_row = true
 
         CSV.foreach(Rails.root + file.path, headers: false) do |row|
-          # Skip header row
-          if first_row
-            first_row = false
-            next
-          end
-
           # Skip rows without tipo de lançamento (usually summary/total rows)
           next if row[TIPO_INDEX].to_s.strip.empty?
 
@@ -82,9 +75,8 @@ module Files
       end
 
       def ignored_lancamento?(lancamento)
-        return true if lancamento.nil? || lancamento.strip.empty?
+        return false if lancamento.nil? || lancamento.strip.empty?
 
-        # Normalize by removing spaces and converting to uppercase for comparison
         normalized = lancamento.strip.gsub(/\s+/, '').upcase
         IGNORED_LANCAMENTOS.any? { |ignored| ignored.gsub(/\s+/, '').upcase == normalized }
       end

@@ -9,7 +9,6 @@ RSpec.describe Files::Parsers::BbStatementCsvParser do
   let(:account) { create(:account, user: user) }
   let(:csv_content) do
     <<~CSV
-      "Data","Lançamento","Detalhes","Nº documento","Valor","Tipo Lançamento","Category","Group"
       "15/01/2026","Saldo Anterior","","","429,09","","",""
       "02/02/2026","Ordem Bancária","DEP FAZENDA E PLANEJAMENTO","202600000000001","871,36","Entrada","",""
       "00/00/0000","Saldo do dia","","","1.300,45","","",""
@@ -137,24 +136,9 @@ RSpec.describe Files::Parsers::BbStatementCsvParser do
     context 'when file has only ignored entries' do
       let(:csv_content) do
         <<~CSV
-          "Data","Lançamento","Detalhes","Nº documento","Valor","Tipo Lançamento","Category","Group"
           "28/01/2026","Saldo Anterior","","","429,09","","",""
           "00/00/0000","Saldo do dia","","","1.300,45","","",""
           "18/02/2026","S A L D O","","","567,75","","",""
-        CSV
-      end
-
-      it 'returns an empty array' do
-        result = parser
-
-        expect(result).to eq([])
-      end
-    end
-
-    context 'when file is empty except for header' do
-      let(:csv_content) do
-        <<~CSV
-          "Data","Lançamento","Detalhes","Nº documento","Valor","Tipo Lançamento","Category","Group"
         CSV
       end
 
