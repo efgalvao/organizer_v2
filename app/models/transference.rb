@@ -9,6 +9,4 @@ class Transference < ApplicationRecord
   def different_accounts
     errors.add(:base, 'Accounts must be different') if sender_id == receiver_id
   end
-
-  #TODO - É Usado ?
 end
