@@ -25,12 +25,12 @@ module Transactions
 
     def transaction_class
       {
-        'Account::Income' => ::Account::Income,
-        'Account::Expense' => ::Account::Expense,
-        'Account::Transference' => ::Account::Transference,
-        'Account::Investment' => ::Account::Investment,
-        'Account::InvoicePayment' => ::Account::InvoicePayment
-      }.fetch(params[:type], ::Account::Transaction)
+        'Transaction::Income' => ::Transaction::Income,
+        'Transaction::Expense' => ::Transaction::Expense,
+        'Transaction::Transference' => ::Transaction::Transference,
+        'Transaction::Investment' => ::Transaction::Investment,
+        'Transaction::InvoicePayment' => ::Transaction::InvoicePayment
+      }.fetch(params[:type], ::Transaction)
     end
 
     def transaction_params

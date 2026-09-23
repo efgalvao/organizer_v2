@@ -12,7 +12,7 @@ class HomeController < ApplicationController
   def transactions
     transactions = Transactions::Fetch.call(params, current_user.id)
 
-    @transactions = Account::TransactionDecorator.decorate_collection(transactions)
+    @transactions = TransactionDecorator.decorate_collection(transactions)
   end
 
   def past_summary

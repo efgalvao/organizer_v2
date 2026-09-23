@@ -54,7 +54,7 @@ RSpec.describe Files::Processors::TransactionProcessor do
 
       context 'when the transaction does not already exist' do
         before do
-          allow(Account::Transaction).to receive(:find_by).and_return(nil)
+          allow(Transaction).to receive(:find_by).and_return(nil)
           allow(Transactions::RequestBuilder).to receive(:call)
         end
 
@@ -67,7 +67,7 @@ RSpec.describe Files::Processors::TransactionProcessor do
         it 'checks for an existing transaction using date, amount as decimal, account_id and type' do
           processor_call
 
-          expect(Account::Transaction).to have_received(:find_by).with(
+          expect(Transaction).to have_received(:find_by).with(
             date: '01/03/2026',
             amount: BigDecimal('100.0'),
             account_id: 1,
@@ -86,7 +86,7 @@ RSpec.describe Files::Processors::TransactionProcessor do
 
       context 'when the transaction already exists' do
         before do
-          allow(Account::Transaction).to receive(:find_by).and_return(instance_double(Account::Transaction))
+          allow(Transaction).to receive(:find_by).and_return(instance_double(Transaction))
           allow(Transactions::RequestBuilder).to receive(:call)
         end
 
@@ -107,14 +107,14 @@ RSpec.describe Files::Processors::TransactionProcessor do
         end
 
         before do
-          allow(Account::Transaction).to receive(:find_by).and_return(nil)
+          allow(Transaction).to receive(:find_by).and_return(nil)
           allow(Transactions::RequestBuilder).to receive(:call)
         end
 
         it 'falls back to sender_id when looking up an existing transaction' do
           processor_call
 
-          expect(Account::Transaction).to have_received(:find_by).with(
+          expect(Transaction).to have_received(:find_by).with(
             date: '01/03/2026',
             amount: BigDecimal('50.0'),
             account_id: 2,
@@ -129,7 +129,7 @@ RSpec.describe Files::Processors::TransactionProcessor do
         end
 
         before do
-          allow(Account::Transaction).to receive(:find_by).and_return(nil)
+          allow(Transaction).to receive(:find_by).and_return(nil)
           allow(Transactions::RequestBuilder).to receive(:call)
         end
 
@@ -146,7 +146,7 @@ RSpec.describe Files::Processors::TransactionProcessor do
         end
 
         before do
-          allow(Account::Transaction).to receive(:find_by).and_return(nil)
+          allow(Transaction).to receive(:find_by).and_return(nil)
           allow(Transactions::RequestBuilder).to receive(:call)
         end
 
@@ -165,7 +165,7 @@ RSpec.describe Files::Processors::TransactionProcessor do
         end
 
         before do
-          allow(Account::Transaction).to receive(:find_by).and_return(nil)
+          allow(Transaction).to receive(:find_by).and_return(nil)
           allow(Transactions::RequestBuilder).to receive(:call)
         end
 
@@ -184,7 +184,7 @@ RSpec.describe Files::Processors::TransactionProcessor do
 
         before do
           allow(Transactions::BuildRequest).to receive(:call).with(content).and_return([[transaction_a], [transaction_b]])
-          allow(Account::Transaction).to receive(:find_by).and_return(nil)
+          allow(Transaction).to receive(:find_by).and_return(nil)
           allow(Transactions::RequestBuilder).to receive(:call)
         end
 
@@ -207,9 +207,9 @@ RSpec.describe Files::Processors::TransactionProcessor do
 
         before do
           allow(Transactions::BuildRequest).to receive(:call).with(content).and_return([transaction_new, transaction_existing])
-          allow(Account::Transaction).to receive(:find_by).with(hash_including(date: '01/03/2026')).and_return(nil)
-          allow(Account::Transaction).to receive(:find_by).with(hash_including(date: '02/03/2026'))
-                                                          .and_return(instance_double(Account::Transaction))
+          allow(Transaction).to receive(:find_by).with(hash_including(date: '01/03/2026')).and_return(nil)
+          allow(Transaction).to receive(:find_by).with(hash_including(date: '02/03/2026'))
+                                                 .and_return(instance_double(Transaction))
           allow(Transactions::RequestBuilder).to receive(:call)
         end
 

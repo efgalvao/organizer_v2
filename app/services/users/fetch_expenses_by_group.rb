@@ -17,12 +17,12 @@ module Users
     attr_reader :user_id
 
     def expenses_by_group
-      @expenses_by_group ||= Account::Expense.where(account: account_scope)
-                                             .where('date >= ? AND date <= ?', Date.current.beginning_of_month,
-                                                    Date.current.end_of_month)
-                                             .where.not(group: nil)
-                                             .group(:group)
-                                             .sum(:amount)
+      @expenses_by_group ||= Transaction::Expense.where(account: account_scope)
+                                                 .where('date >= ? AND date <= ?', Date.current.beginning_of_month,
+                                                        Date.current.end_of_month)
+                                                 .where.not(group: nil)
+                                                 .group(:group)
+                                                 .sum(:amount)
     end
 
     def account_scope
@@ -42,12 +42,12 @@ module Users
     end
 
     def investments
-      @investments ||= Account::Investment.where(account: account_scope)
-                                          .where('date >= ? AND date <= ?', Date.current.beginning_of_month,
-                                                 Date.current.end_of_month)
-                                          .where.not(group: nil)
-                                          .group(:group)
-                                          .sum(:amount)
+      @investments ||= Transaction::Investment.where(account: account_scope)
+                                              .where('date >= ? AND date <= ?', Date.current.beginning_of_month,
+                                                     Date.current.end_of_month)
+                                              .where.not(group: nil)
+                                              .group(:group)
+                                              .sum(:amount)
     end
   end
 end

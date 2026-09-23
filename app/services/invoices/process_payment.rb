@@ -50,7 +50,7 @@ module Invoices
 
     def base_params
       {
-        type: 'Account::InvoicePayment',
+        type: 'Transaction::InvoicePayment',
         date: payment_date,
         parcels: 1,
         group: nil,

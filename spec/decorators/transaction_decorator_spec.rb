@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Account::TransactionDecorator do
+RSpec.describe TransactionDecorator do
   subject(:decorated_transaction) { transaction.decorate }
 
   describe '#amount' do

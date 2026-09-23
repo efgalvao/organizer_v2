@@ -27,7 +27,7 @@ module Files
       end
 
       def process_transaction?(transaction)
-        Account::Transaction.find_by(
+        Transaction.find_by(
           date: transaction[:date],
           amount: transaction[:amount].to_d,
           account_id: transaction[:account_id] || transaction[:sender_id],

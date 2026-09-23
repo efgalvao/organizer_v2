@@ -38,7 +38,7 @@ RSpec.describe 'Financings::Transaction' do
             group: 'conforto',
             recurrence: 'one_time'
           } }
-        end.to change(Account::Expense, :count).by(1)
+        end.to change(Transaction::Expense, :count).by(1)
       end
     end
 

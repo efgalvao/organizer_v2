@@ -57,7 +57,7 @@ RSpec.describe Reports::FetchExpensesByCategory do
 
   context 'when there are no expenses' do
     before do
-      Account::Expense.destroy_all
+      Transaction::Expense.destroy_all
     end
 
     it 'returns empty hashes' do

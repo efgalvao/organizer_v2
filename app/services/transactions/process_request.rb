@@ -21,7 +21,7 @@ module Transactions
       Rails.logger.error(e.full_message)
       raise if @raise_on_error
 
-      Account::Transaction.new
+      Transaction.new
     end
 
     private

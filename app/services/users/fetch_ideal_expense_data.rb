@@ -23,10 +23,10 @@ module Users
     attr_reader :user_id
 
     def ideal_expenses_data
-      incomes_scope = Account::Income.joins(:account)
-                                     .where(accounts: { user_id: user_id })
-                                     .where('date >= ? AND date <= ?',
-                                            Date.current.beginning_of_month, Date.current.end_of_month)
+      incomes_scope = Transaction::Income.joins(:account)
+                                         .where(accounts: { user_id: user_id })
+                                         .where('date >= ? AND date <= ?',
+                                                Date.current.beginning_of_month, Date.current.end_of_month)
 
       incomes_scope = incomes_scope.where(category_id: income_category_ids) if income_category_ids.present?
       incomes = incomes_scope.sum(:amount)

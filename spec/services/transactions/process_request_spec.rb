@@ -12,7 +12,7 @@ RSpec.describe Transactions::ProcessRequest do
       {
         account_id: account.id,
         amount: '1.23',
-        type: 'Account::Income',
+        type: 'Transaction::Income',
         category_id: nil,
         title: 'My Transaction',
         date: '2024-01-01',
@@ -23,7 +23,7 @@ RSpec.describe Transactions::ProcessRequest do
     end
 
     it 'creates a new transaction' do
-      expect { process_transaction_request }.to change(Account::Income, :count).by(1)
+      expect { process_transaction_request }.to change(Transaction::Income, :count).by(1)
     end
 
     it 'does not alter account balance directly' do
@@ -38,7 +38,7 @@ RSpec.describe Transactions::ProcessRequest do
       {
         account_id: account.id,
         amount: '123.45',
-        type: 'Account::Income',
+        type: 'Transaction::Income',
         category_id: nil,
         title: 'My Transaction',
         date: '2024-01-01'
@@ -59,7 +59,7 @@ RSpec.describe Transactions::ProcessRequest do
     it 'returns a new non-persisted transaction' do
       response = process_transaction_request
 
-      expect(response).to be_a(Account::Transaction)
+      expect(response).to be_a(Transaction)
       expect(response).not_to be_persisted
     end
   end

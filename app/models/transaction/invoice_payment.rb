@@ -1,7 +1,5 @@
-module Account
-  class Transference < Transaction
+  class Transaction::InvoicePayment < Transaction
     def balance_delta
       outflow? ? -amount.abs : amount.abs
     end
   end
-end

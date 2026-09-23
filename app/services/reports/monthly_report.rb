@@ -29,7 +29,7 @@ module Reports
     def all_transactions
       @all_transactions ||= @user.transactions
                                  .where(date: @date.beginning_of_month..@date.next_month.end_of_month)
-                                 .where.not(type: 'Account::Transference')
+                                 .where.not(type: 'Transaction::Transference')
                                  .includes(:account)
     end
 
@@ -60,15 +60,15 @@ module Reports
     end
 
     def expenses(transactions)
-      transactions.select { |t| t.type == 'Account::Expense' }
+      transactions.select { |t| t.type == 'Transaction::Expense' }
     end
 
     def incomes(transactions)
-      transactions.select { |t| t.type == 'Account::Income' }
+      transactions.select { |t| t.type == 'Transaction::Income' }
     end
 
     def investments(transactions)
-      transactions.select { |t| t.type == 'Account::Investment' }
+      transactions.select { |t| t.type == 'Transaction::Investment' }
     end
 
     def card_expenses(transactions)
@@ -88,7 +88,7 @@ module Reports
     end
 
     def invoice_payments(transactions)
-      transactions.select { |t| t.type == 'Account::InvoicePayment' && !t.account.card? }
+      transactions.select { |t| t.type == 'Transaction::InvoicePayment' && !t.account.card? }
     end
 
     def recurring_incomes(transactions)
@@ -159,7 +159,7 @@ module Reports
     end
 
     def format_transaction(transaction)
-      return unless %w[Account::Income Account::Expense].include?(transaction.type)
+      return unless %w[Transaction::Income Transaction::Expense].include?(transaction.type)
 
       {
         date_raw: transaction.date,
@@ -171,7 +171,7 @@ module Reports
     end
 
     def format_kind(transaction)
-      return 'Entrada' if transaction.type == 'Account::Income'
+      return 'Entrada' if transaction.type == 'Transaction::Income'
 
       case transaction.recurrence
       when 'recurring'   then 'Fixo'

@@ -31,7 +31,7 @@ module Account
         end
       else
         categories
-        @transaction ||= Account::Transaction.new(transaction_params)
+        @transaction ||= Transaction.new(transaction_params)
         render :new, status: :unprocessable_entity
       end
     end

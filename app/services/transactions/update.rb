@@ -14,7 +14,7 @@ module Transactions
       transaction.reload
     rescue StandardError => e
       Rails.logger.error(e.full_message)
-      Account::Transaction.new
+      Transaction.new
     end
 
     private

@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :income, class: 'Account::Income' do
+  factory :income, class: 'Transaction::Income' do
     account
     account_report
     category_id { create(:category).id }

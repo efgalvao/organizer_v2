@@ -23,13 +23,13 @@ module TransactionRepository
   end
 
   def find_by(attributes = {})
-    Account::Transaction.find_by(attributes)
+    Transaction.find_by(attributes)
   end
 
   def expenses_by_category(accounts, start_date, end_date)
-    Account::Transaction
+    Transaction
       .where(account_id: accounts)
-      .where(type: 'Account::Expense')
+      .where(type: 'Transaction::Expense')
       .where(date: start_date..end_date)
       .joins(:category)
       .group('categories.name')
@@ -37,7 +37,7 @@ module TransactionRepository
   end
 
   def for_user_in_current_month(user_id, groups: nil, categories: nil)
-    scope = Account::Transaction
+    scope = Transaction
             .joins(:account, :category)
             .where(accounts: { user_id: user_id })
             .where(

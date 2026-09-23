@@ -67,7 +67,7 @@ module Transactions
     end
 
     def error_response(message)
-      transaction = Account::Transaction.new
+      transaction = Transaction.new
       transaction.errors.add(:base, message)
       transaction
     end
