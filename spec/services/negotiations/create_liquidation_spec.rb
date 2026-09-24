@@ -69,7 +69,7 @@ RSpec.describe Negotiations::CreateLiquidation do
         expect(Transactions::RequestBuilder).to have_received(:call).with(
           account_id: account.id,
           amount: 100.0.to_d,
-          type: 'Transaction::Income',
+          type: 'Transaction::Redeem',
           category_id: category.id,
           title: "#{I18n.t('investments.redeem_negotiation')} - Tesouro Selic 2026",
           date: '15/08/2026',

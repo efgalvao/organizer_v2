@@ -53,7 +53,7 @@ module Negotiations
       {
         account_id: negotiable.account_id,
         amount: amount_by_origin,
-        type: 'Transaction::Income',
+        type: 'Transaction::Redeem',
         category_id: income_category_id,
         title: "#{I18n.t('investments.redeem_negotiation')} - #{negotiable.name}",
         date: date,
