@@ -79,6 +79,7 @@ module Transactions
       when 2 then 'Transaction::Transference'
       when 3 then 'Transaction::Investment'
       when 4 then 'Transaction::InvoicePayment'
+      when 5 then 'Transaction::Redeem'
       else Transaction
       end
     end

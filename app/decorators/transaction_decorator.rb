@@ -23,6 +23,8 @@ class TransactionDecorator < Draper::Decorator
       I18n.t('transactions.kinds.investment')
     when 'Transaction::InvoicePayment'
       I18n.t('transactions.kinds.invoice_payment')
+    when 'Transaction::Redeem'
+      I18n.t('transactions.kinds.redeem')
     end
   end
 

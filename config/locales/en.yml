@@ -115,6 +115,7 @@ en:
       transfer: Transference
       investment: Investment
       invoice_payment: Invoice payment
+      redeem: Redeem
     index:
       transactions: Transactions
       create_transaction: Create transaction

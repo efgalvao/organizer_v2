@@ -29,7 +29,8 @@ module Transactions
         'Transaction::Expense' => ::Transaction::Expense,
         'Transaction::Transference' => ::Transaction::Transference,
         'Transaction::Investment' => ::Transaction::Investment,
-        'Transaction::InvoicePayment' => ::Transaction::InvoicePayment
+        'Transaction::InvoicePayment' => ::Transaction::InvoicePayment,
+        'Transaction::Redeem' => ::Transaction::Redeem
       }.fetch(params[:type], ::Transaction)
     end
 
