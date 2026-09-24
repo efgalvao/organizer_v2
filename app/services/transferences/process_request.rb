@@ -43,7 +43,7 @@ module Transferences
     def sender_transaction_params
       {
         account_id: params[:sender_id],
-        type: 'Account::Transference',
+        type: 'Transaction::Transference',
         amount: amount,
         date: params[:date],
         category_id: nil,
@@ -58,7 +58,7 @@ module Transferences
     def receiver_transaction_params
       {
         account_id: params[:receiver_id],
-        type: 'Account::Transference',
+        type: 'Transaction::Transference',
         amount: amount,
         date: params[:date],
         category_id: nil,

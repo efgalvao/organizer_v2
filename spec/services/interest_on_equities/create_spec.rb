@@ -28,7 +28,7 @@ RSpec.describe InterestOnEquities::Create do
     end
 
     it 'creates income transaction' do
-      expect { create_interest_on_equity }.to change(Account::Income, :count).by(1)
+      expect { create_interest_on_equity }.to change(Transaction::Income, :count).by(1)
     end
   end
 
@@ -52,7 +52,7 @@ RSpec.describe InterestOnEquities::Create do
     end
 
     it 'creates income transaction' do
-      expect { create_interest_on_equity }.to change(Account::Income, :count).by(1)
+      expect { create_interest_on_equity }.to change(Transaction::Income, :count).by(1)
     end
   end
 end

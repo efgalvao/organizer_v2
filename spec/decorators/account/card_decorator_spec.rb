@@ -33,7 +33,7 @@ RSpec.describe Account::CardDecorator, type: :decorator do
   describe '#transactions' do
     it 'decorates transactions' do
       create(:transaction, account: card)
-      expect(decorated_card.transactions).to all(be_a(Account::TransactionDecorator))
+      expect(decorated_card.transactions).to all(be_a(TransactionDecorator))
     end
   end
 

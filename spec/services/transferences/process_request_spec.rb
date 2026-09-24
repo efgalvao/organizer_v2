@@ -34,7 +34,7 @@ RSpec.describe Transferences::ProcessRequest do
     end
 
     it 'create two transactions' do
-      expect { service.call }.to change(Account::Transference, :count).by(2)
+      expect { service.call }.to change(Transaction::Transference, :count).by(2)
     end
 
     it 'updates the account balance' do

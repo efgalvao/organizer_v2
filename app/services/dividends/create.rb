@@ -53,7 +53,7 @@ module Dividends
       {
         account_id: investment.account_id,
         amount: transaction_amount,
-        type: 'Account::Income',
+        type: 'Transaction::Income',
         category_id: income_category_id,
         title: "#{I18n.t('investments.dividends.dividends')} - #{investment.name}",
         date: date,

@@ -8,7 +8,7 @@ RSpec.describe Transactions::Build do
     {
       account_id: account.id,
       amount: '123.45',
-      type: 'Account::Income',
+      type: 'Transaction::Income',
       category_id: nil,
       title: 'My Transaction',
       date: '2024-01-01'
@@ -18,7 +18,7 @@ RSpec.describe Transactions::Build do
   it 'build a new transaction', :aggregate_failures do
     response = build_transaction
 
-    expect(response).to be_a(Account::Income)
+    expect(response).to be_a(Transaction::Income)
     expect(response.title).to eq('My Transaction')
     expect(response.amount).to eq(123.45)
     expect(response).not_to be_persisted

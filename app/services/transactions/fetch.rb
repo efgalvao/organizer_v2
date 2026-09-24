@@ -21,16 +21,16 @@ module Transactions
     attr_reader :groups, :categories, :user_id
 
     def fetch_transactions
-      Account::Transaction.joins(:account, :category)
-                          .where(accounts: { user_id: user_id })
-                          .where(
-                            'date >= ? AND date <= ?',
-                            Time.zone.today.beginning_of_month,
-                            Time.zone.today.end_of_month
-                          )
-                          .where(groups.present? ? { group: groups } : nil)
-                          .where(categories.present? ? { category_id: categories } : nil)
-                          .order(date: :desc)
+      Transaction.joins(:account, :category)
+                 .where(accounts: { user_id: user_id })
+                 .where(
+                   'date >= ? AND date <= ?',
+                   Time.zone.today.beginning_of_month,
+                   Time.zone.today.end_of_month
+                 )
+                 .where(groups.present? ? { group: groups } : nil)
+                 .where(categories.present? ? { category_id: categories } : nil)
+                 .order(date: :desc)
     end
   end
 end

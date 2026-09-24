@@ -8,7 +8,7 @@ RSpec.describe Transactions::BuildParcels, type: :service do
         title: 'Test Transaction',
         category: nil,
         account: account.name,
-        type: 'Account::Expense',
+        type: 'Transaction::Expense',
         amount: '120.00',
         parcels: '3',
         date: '2024-10-01',
@@ -24,7 +24,7 @@ RSpec.describe Transactions::BuildParcels, type: :service do
           title: 'Test Transaction - Parcela 1/3',
           category_id: nil,
           account_id: account.id,
-          type: 'Account::Expense',
+          type: 'Transaction::Expense',
           amount: 40.0,
           date: '2024-10-01',
           group: 'Test Group',
@@ -35,7 +35,7 @@ RSpec.describe Transactions::BuildParcels, type: :service do
           title: 'Test Transaction - Parcela 2/3',
           category_id: nil,
           account_id: account.id,
-          type: 'Account::Expense',
+          type: 'Transaction::Expense',
           amount: 40.0,
           date: '2024-11-01',
           group: 'Test Group',
@@ -46,7 +46,7 @@ RSpec.describe Transactions::BuildParcels, type: :service do
           title: 'Test Transaction - Parcela 3/3',
           account_id: account.id,
           category_id: nil,
-          type: 'Account::Expense',
+          type: 'Transaction::Expense',
           amount: 40.0,
           date: '2024-12-01',
           group: 'Test Group',
@@ -90,7 +90,7 @@ RSpec.describe Transactions::BuildParcels, type: :service do
         expect(result.first).to include(
           account_id: account.id,
           category_id: category.id,
-          type: 'Account::Expense'
+          type: 'Transaction::Expense'
         )
       end
     end

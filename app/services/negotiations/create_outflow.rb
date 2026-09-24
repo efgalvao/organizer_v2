@@ -52,7 +52,7 @@ module Negotiations
       {
         account_id: negotiable.account_id,
         amount: amount_by_origin,
-        type: 'Account::Investment',
+        type: 'Transaction::Investment',
         category_id: params[:category_id],
         title: transaction_title,
         date: date,

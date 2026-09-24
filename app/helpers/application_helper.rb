@@ -24,7 +24,7 @@ module ApplicationHelper
   end
 
   def groups_for_select
-    Account::Transaction.groups.map { |group, number| [group.humanize, number] }
+    Transaction.groups.map { |group, number| [group.humanize, number] }
   end
 
   def user_categories(user_id)

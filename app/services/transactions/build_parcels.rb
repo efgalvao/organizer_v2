@@ -71,15 +71,15 @@ module Transactions
     end
 
     def resolve_transaction_type(type)
-      return type if type.to_s.start_with?('Account::')
+      return type if type.to_s.start_with?('Transaction::')
 
       case type.to_i
-      when 0 then 'Account::Income'
-      when 1 then 'Account::Expense'
-      when 2 then 'Account::Transference'
-      when 3 then 'Account::Investment'
-      when 4 then 'Account::InvoicePayment'
-      else Account::Transaction
+      when 0 then 'Transaction::Income'
+      when 1 then 'Transaction::Expense'
+      when 2 then 'Transaction::Transference'
+      when 3 then 'Transaction::Investment'
+      when 4 then 'Transaction::InvoicePayment'
+      else Transaction
       end
     end
   end

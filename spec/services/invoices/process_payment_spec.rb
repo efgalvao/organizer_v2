@@ -19,14 +19,14 @@ RSpec.describe Invoices::ProcessPayment do
     subject(:execute_service) { described_class.call(params) }
 
     context 'when attributes are valid' do
-      it 'process correctly payment and adjut balances', :aggregate_failures do
+      it 'process correctly payment and adjust balances', :aggregate_failures do
         expect(execute_service).to be_valid
         expect(sender.reload.balance).to eq(399.89)
         expect(receiver.reload.balance).to eq(100.11)
       end
 
       it 'create two transactions' do
-        expect { execute_service }.to change(Account::Transaction, :count).by(2)
+        expect { execute_service }.to change(Transaction, :count).by(2)
       end
     end
 
@@ -55,7 +55,7 @@ RSpec.describe Invoices::ProcessPayment do
 
       it 'utiliza a data atual do sistema' do
         execute_service
-        last_transaction = Account::Transaction.last
+        last_transaction = Transaction.last
         expect(last_transaction.date).to eq(Time.zone.today)
       end
     end

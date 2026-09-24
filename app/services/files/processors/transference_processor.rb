@@ -1,7 +1,7 @@
 module Files
   module Processors
     class TransferenceProcessor
-      TRANSFERENCE_TYPE = 'Account::Transference'.freeze
+      TRANSFERENCE_TYPE = 'Transaction::Transference'.freeze
 
       def initialize(content, user_id)
         @content = content

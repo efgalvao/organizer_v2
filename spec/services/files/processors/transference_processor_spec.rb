@@ -81,7 +81,7 @@ RSpec.describe Files::Processors::TransferenceProcessor do
               parcels: 1,
               group: 0,
               recurrence: 0,
-              type: 'Account::Transference'
+              type: 'Transaction::Transference'
             )
           )
         end
@@ -98,7 +98,7 @@ RSpec.describe Files::Processors::TransferenceProcessor do
             processor_call
 
             expect(Transferences::ProcessRequest).to have_received(:call).with(
-              built_transference.merge(type: 'Account::Transference')
+              built_transference.merge(type: 'Transaction::Transference')
             )
           end
         end
@@ -112,7 +112,7 @@ RSpec.describe Files::Processors::TransferenceProcessor do
             processor_call
 
             expect(Transferences::ProcessRequest).to have_received(:call).with(
-              built_transference.merge(group: 0, recurrence: 0, type: 'Account::Transference')
+              built_transference.merge(group: 0, recurrence: 0, type: 'Transaction::Transference')
             )
           end
         end
@@ -129,7 +129,7 @@ RSpec.describe Files::Processors::TransferenceProcessor do
             processor_call
 
             expect(Transferences::ProcessRequest).to have_received(:call).with(
-              built_transference.merge(parcels: 1, group: 0, recurrence: 0, type: 'Account::Transference')
+              built_transference.merge(parcels: 1, group: 0, recurrence: 0, type: 'Transaction::Transference')
             )
           end
         end
@@ -137,7 +137,7 @@ RSpec.describe Files::Processors::TransferenceProcessor do
 
       context 'when the transference already exists' do
         before do
-          allow(TransferenceRepository).to receive(:find_by).and_return(instance_double(Account::Transference))
+          allow(TransferenceRepository).to receive(:find_by).and_return(instance_double(Transaction::Transference))
           allow(Transferences::ProcessRequest).to receive(:call)
         end
 
@@ -163,10 +163,10 @@ RSpec.describe Files::Processors::TransferenceProcessor do
 
           expect(Transferences::ProcessRequest).to have_received(:call).twice
           expect(Transferences::ProcessRequest).to have_received(:call).with(
-            transference_a.merge(parcels: 1, group: 0, recurrence: 0, type: 'Account::Transference')
+            transference_a.merge(parcels: 1, group: 0, recurrence: 0, type: 'Transaction::Transference')
           )
           expect(Transferences::ProcessRequest).to have_received(:call).with(
-            transference_b.merge(parcels: 1, group: 0, recurrence: 0, type: 'Account::Transference')
+            transference_b.merge(parcels: 1, group: 0, recurrence: 0, type: 'Transaction::Transference')
           )
         end
       end
@@ -184,7 +184,7 @@ RSpec.describe Files::Processors::TransferenceProcessor do
           allow(TransferenceRepository).to receive(:find_by)
             .with(hash_including(date: '2024-03-16')).and_return(nil)
           allow(TransferenceRepository).to receive(:find_by)
-            .with(hash_including(date: '2024-03-17')).and_return(instance_double(Account::Transference))
+            .with(hash_including(date: '2024-03-17')).and_return(instance_double(Transaction::Transference))
           allow(Transferences::ProcessRequest).to receive(:call)
         end
 
@@ -193,7 +193,7 @@ RSpec.describe Files::Processors::TransferenceProcessor do
 
           expect(Transferences::ProcessRequest).to have_received(:call).once
           expect(Transferences::ProcessRequest).to have_received(:call).with(
-            transference_new.merge(parcels: 1, group: 0, recurrence: 0, type: 'Account::Transference')
+            transference_new.merge(parcels: 1, group: 0, recurrence: 0, type: 'Transaction::Transference')
           )
         end
       end

@@ -29,7 +29,7 @@ RSpec.describe Dividends::Create do
     end
 
     it 'create income transaction' do
-      expect { create_dividend }.to change(Account::Income, :count).by(1)
+      expect { create_dividend }.to change(Transaction::Income, :count).by(1)
     end
   end
 
@@ -54,7 +54,7 @@ RSpec.describe Dividends::Create do
     end
 
     it 'create income transaction' do
-      expect { create_dividend }.to change(Account::Income, :count).by(1)
+      expect { create_dividend }.to change(Transaction::Income, :count).by(1)
     end
   end
 end

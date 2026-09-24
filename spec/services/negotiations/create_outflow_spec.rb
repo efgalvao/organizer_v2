@@ -34,7 +34,7 @@ RSpec.describe Negotiations::CreateOutflow do
       end
 
       it 'create a income transaction', :aggregate_failures do
-        expect { create_negotiation }.to change(Account::Investment, :count).by(1)
+        expect { create_negotiation }.to change(Transaction::Investment, :count).by(1)
       end
     end
 

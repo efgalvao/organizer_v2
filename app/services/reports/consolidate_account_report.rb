@@ -79,19 +79,19 @@ module Reports
     end
 
     def month_income(report)
-      @month_income ||= sum_transactions(report, 'Account::Income')
+      @month_income ||= sum_transactions(report, 'Transaction::Income')
     end
 
     def month_expense(report)
-      @month_expense ||= sum_transactions(report, 'Account::Expense')
+      @month_expense ||= sum_transactions(report, 'Transaction::Expense')
     end
 
     def month_invested(report)
-      @month_invested ||= sum_transactions(report, 'Account::Investment')
+      @month_invested ||= sum_transactions(report, 'Transaction::Investment')
     end
 
     def invoice_payment(report)
-      @invoice_payment ||= sum_transactions(report, 'Account::InvoicePayment')
+      @invoice_payment ||= sum_transactions(report, 'Transaction::InvoicePayment')
     end
 
     def sum_transactions(report, type)

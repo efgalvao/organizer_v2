@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :transaction_transference, class: 'Account::Transference' do
+  factory :transaction_transference, class: 'Transaction::Transference' do
     account
     account_report
     category_id { create(:category).id }

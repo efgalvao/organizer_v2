@@ -35,6 +35,10 @@ Rails:
 Style/Documentation:
   Enabled: false
 
+Style/ClassAndModuleChildren:
+  Exclude:
+    - 'app/models/transaction/*.rb'
+
 Layout/AccessModifierIndentation:
   EnforcedStyle: indent
 

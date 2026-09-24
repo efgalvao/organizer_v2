@@ -52,7 +52,7 @@ module InterestOnEquities
       {
         account_id: investment.account_id,
         amount: amount,
-        type: 'Account::Income',
+        type: 'Transaction::Income',
         category_id: income_category_id,
         title: "#{I18n.t('investments.interest_on_equity.interest_on_equity')} - #{investment.name}",
         date: date,
