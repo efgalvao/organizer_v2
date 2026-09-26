@@ -434,6 +434,7 @@ pt-BR:
             kinds:
               buy: Compra
               sell: Venda
+              liquidation: Liquidação
           earnings:
             title: Proventos
             date: Data

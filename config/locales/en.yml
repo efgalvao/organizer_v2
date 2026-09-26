@@ -439,6 +439,7 @@ en:
             kinds:
               buy: Buy
               sell: Sell
+              liquidation: Liquidate
           earnings:
             title: Earnings
             date: Date
