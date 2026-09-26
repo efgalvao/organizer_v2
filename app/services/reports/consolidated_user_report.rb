@@ -100,9 +100,7 @@ module Reports
     end
 
     def calculate_redeemed_total(account, current_month)
-      account.investments.sum do |inv|
-        inv.negotiations.select { |n| n.kind == 'sell' && current_month.cover?(n.date) }.sum(&:amount)
-      end
+      account.transactions.select { |t| t.type == 'Transaction::Redeem' && current_month.cover?(t.date) }.sum(&:amount)
     end
 
     def consolidate_cards(cards)
