@@ -61,7 +61,7 @@ module Reports
       consolidate_savings_and_brokers(savings_and_brokers)
       consolidate_cards(accounts_by_type['Account::Card'].to_a)
 
-      @balance = @incomes - @expenses - @invested - @invoice_payments
+      @balance = @incomes - @expenses - @invested - @invoice_payments + @redeemed
       @total = @savings + @investments
     end
 
