@@ -73,6 +73,7 @@ module Reports
 
     def redeemed(transactions)
       transactions.select { |t| t.type == 'Transaction::Redeem' }
+    end
 
     def card_expenses(transactions)
       expenses(transactions).select { |t| t.account.card? }
