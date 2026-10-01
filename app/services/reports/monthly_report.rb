@@ -71,6 +71,9 @@ module Reports
       transactions.select { |t| t.type == 'Transaction::Investment' }
     end
 
+    def redeemed(transactions)
+      transactions.select { |t| t.type == 'Transaction::Redeem' }
+
     def card_expenses(transactions)
       expenses(transactions).select { |t| t.account.card? }
     end
@@ -112,13 +115,14 @@ module Reports
       total_investments = sum_values(investments(trans))
       total_payments    = sum_values(invoice_payments(trans))
       debit_realized    = sum_values(debit_expenses(trans)) + total_payments
+      total_redeemed      = sum_values(redeemed(trans))
 
       {
         total_incomes: total_income,
         total_recurrent_incomes: sum_values(recurring_incomes(trans)),
         debit_realized: debit_realized,
         investments_realized: total_investments,
-        current_balance: total_income - debit_realized - total_investments
+        current_balance: total_income - debit_realized - total_investments + total_redeemed
       }
     end
 
