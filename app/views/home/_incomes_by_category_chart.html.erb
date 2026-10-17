@@ -1,0 +1,20 @@
+<div class="lcars-content h-100">
+  <div class="lcars-subtitle">
+    <%= t('home.charts.incomes_by_category') %>
+  </div>
+
+  <div class="charts-container charts-container--2col">
+    <div class="chart">
+      <h4><%= t('home.charts.incomes_by_category') %></h4>
+      <%= pie_chart incomes_by_category[:incomes],
+                    precision: 2,
+                    legend: 'bottom',
+                    colors: ['#FF9900', '#3399FF', '#CC6699', '#FFCC00', '#9999FF'],
+                    library: {
+                      chartArea: { backgroundColor: 'transparent' },
+                      backgroundColor: 'transparent',
+                      legend: { textStyle: { color: '#FFFFFF', fontSize: 11 } }
+                    } %>
+    </div>
+  </div>
+</div>

@@ -176,6 +176,12 @@ body {
   margin-bottom: 1.5rem;
 }
 
+.dashboard-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
 /* Ajuste nos cards para manter a altura consistente */
 .lcars-content {
   height: 100%;

@@ -280,6 +280,7 @@ pt-BR:
       month_balance: Saldo do mês
       card_balance: Saldo do cartão
     charts:
+      incomes_by_category: Receitas por Categoria
       expense_by_category: Despesas por Categoria
       card_expenses_by_category: Despesas do Cartão por Categoria
       account_expenses_by_category: Despesas da Conta por Categoria
