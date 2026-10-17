@@ -36,6 +36,16 @@ module TransactionRepository
       .sum(:amount)
   end
 
+  def incomes_by_category(accounts, start_date, end_date)
+    Transaction
+      .where(account_id: accounts)
+      .where(type: 'Transaction::Income')
+      .where(date: start_date..end_date)
+      .joins(:category)
+      .group('categories.name')
+      .sum(:amount)
+  end
+
   def for_user_in_current_month(user_id, groups: nil, categories: nil)
     scope = Transaction
             .joins(:account, :category)
