@@ -304,6 +304,7 @@ en:
       month_balance: Month balance
       card_balance: Card balance
     charts:
+      incomes_by_category: Incomes by Category
       expense_by_category: Expenses by Category
       card_expenses_by_category: Card Expenses by Category
       account_expenses_by_category: Account Expenses by Category

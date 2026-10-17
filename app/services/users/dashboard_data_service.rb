@@ -24,6 +24,7 @@ module Users
         accounts: fetch_accounts,
         cards: fetch_cards,
         expense_by_category: fetch_expense_by_category,
+        incomes_by_category: fetch_income_by_category,
         expenses_by_group: fetch_expenses_by_group,
         ideal_expenses_data: fetch_ideal_expenses_data,
         investments_by_bucket: fetch_investments_by_bucket,
@@ -34,8 +35,8 @@ module Users
     # Classe para encapsular os dados do dashboard
     class DashboardData
       attr_accessor :user_report, :past_reports, :past_reports_chart_data, :accounts, :cards,
-                    :expense_by_category, :expenses_by_group, :ideal_expenses_data, :investments_by_bucket,
-                    :investments_allocation_percentual
+                    :expense_by_category, :incomes_by_category, :expenses_by_group, :ideal_expenses_data,
+                    :investments_by_bucket, :investments_allocation_percentual
 
       def initialize(attributes = {})
         attributes.each do |key, value|
@@ -62,6 +63,10 @@ module Users
 
     def fetch_cards
       Users::FetchUserCardsSummary.new(user_id).call
+    end
+
+    def fetch_income_by_category
+      Reports::FetchIncomesByCategory.call(user_id)
     end
 
     def fetch_expense_by_category

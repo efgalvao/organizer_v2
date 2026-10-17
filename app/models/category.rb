@@ -14,6 +14,10 @@ class Category < ApplicationRecord
       income_category_ids.first || nil
     end
 
+    def earning_category_id
+      ENV.fetch('EARNING_CATEGORY_ID', '')
+    end
+
     private
 
     def parsed_income_categories

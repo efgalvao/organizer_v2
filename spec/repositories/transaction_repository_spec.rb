@@ -159,4 +159,31 @@ RSpec.describe TransactionRepository do
       expect(result).to be_empty
     end
   end
+
+  describe '#incomes_by_category' do
+    let(:category) { create(:category, user: user) }
+    let(:start_date) { 1.month.ago }
+    let(:end_date) { Date.current }
+
+    before do
+      create(:income, account: account, category_id: category.id, amount: 100.0, date: Date.current)
+      create(:income, account: account, category_id: category.id, amount: 50.0, date: 1.week.ago)
+    end
+
+    it 'returns incomes grouped by category name' do
+      result = repository.incomes_by_category([account.id], start_date, end_date)
+
+      expect(result).to have_key(category.name)
+      expect(result[category.name]).to eq(150.0)
+    end
+
+    it 'returns empty hash when no incomes found' do
+      old_start_date = 1.year.ago
+      old_end_date = 6.months.ago
+
+      result = repository.incomes_by_category([account.id], old_start_date, old_end_date)
+
+      expect(result).to be_empty
+    end
+  end
 end

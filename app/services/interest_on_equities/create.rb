@@ -53,7 +53,7 @@ module InterestOnEquities
         account_id: investment.account_id,
         amount: amount,
         type: 'Transaction::Income',
-        category_id: income_category_id,
+        category_id: earning_category_id,
         title: "#{I18n.t('investments.interest_on_equity.interest_on_equity')} - #{investment.name}",
         date: date,
         parcels: 1,
@@ -74,8 +74,8 @@ module InterestOnEquities
       Rails.logger.error("Error consolidating monthly report: #{e.message}")
     end
 
-    def income_category_id
-      Category.primary_income_category_id
+    def earning_category_id
+      Category.earning_category_id
     end
   end
 end

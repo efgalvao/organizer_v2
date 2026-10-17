@@ -14,10 +14,16 @@
   <%# Resumo no topo %>
   <%= render 'summary', :user_report => @report_data.user_report %>
 
+  <div class="dashboard-wrapper">
   <%# GRID 1: Despesas por Categoria lado a lado com Despesas por Grupo %>
   <div class="dashboard-grid dashboard-grid--2col">
     <%= render 'expenses_by_category_chart', :expense_by_category => @report_data.expense_by_category %>
     <%= render 'expenses_by_group_chart', :expenses_by_group => @report_data.expenses_by_group, :ideal => @report_data.ideal_expenses_data %>
+  </div>
+
+  <%#  GRID 2: Receitas por Categoria (Largura Total) %>
+  <div class="dashboard-grid dashboard-grid--full mt-3">
+    <%= render 'incomes_by_category_chart', :incomes_by_category => @report_data.incomes_by_category %>
   </div>
 
   <%# GRID 2: Contas e Cartões em 2 colunas %>
@@ -35,4 +41,5 @@
   <%# Relatórios e Evolução Histórica (Meses Anteriores ao final) %>
   <%= render 'past_month_reports', :past_reports => @report_data.past_reports %>
   <%= render 'past_month_reports_charts', :semester_summary => @report_data.past_reports_chart_data %>
+  </div>
 </main>
