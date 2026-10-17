@@ -31,47 +31,43 @@ RSpec.describe Category do
 
   describe '.income_category_ids' do
     it 'parses ids from the environment' do
-      ids = with_income_categories_env('1, 2,3 ,  4') do
-        described_class.income_category_ids
-      end
+      stub_env('INCOMES_CATEGORIES_IDS', '1, 2,3 ,  4')
 
-      expect(ids).to eq([1, 2, 3, 4])
+      expect(described_class.income_category_ids).to eq([1, 2, 3, 4])
     end
 
     it 'returns an empty array when env var is undefined' do
-      ids = with_income_categories_env(nil) do
-        described_class.income_category_ids
-      end
+      stub_env('INCOMES_CATEGORIES_IDS', '')
 
-      expect(ids).to eq([])
+      expect(described_class.income_category_ids).to eq([])
     end
   end
 
   describe '.primary_income_category_id' do
     it 'returns the first configured id' do
-      primary_id = with_income_categories_env('9,10') do
-        described_class.primary_income_category_id
-      end
+      stub_env('INCOMES_CATEGORIES_IDS', '9,10')
 
-      expect(primary_id).to eq(9)
+      expect(described_class.primary_income_category_id).to eq(9)
     end
 
     it 'returns nil when no ids are configured' do
-      primary_id = with_income_categories_env(nil) do
-        described_class.primary_income_category_id
-      end
+      stub_env('INCOMES_CATEGORIES_IDS', '')
 
-      expect(primary_id).to be_nil
+      expect(described_class.primary_income_category_id).to be_nil
     end
   end
 
-  private
+  describe '.earning_category_id' do
+    it 'returns the configured id' do
+      stub_env('EARNING_CATEGORY_ID', '99')
 
-  def with_income_categories_env(value)
-    original = ENV.fetch('INCOMES_CATEGORIES_IDS', nil)
-    value.nil? ? ENV.delete('INCOMES_CATEGORIES_IDS') : ENV.store('INCOMES_CATEGORIES_IDS', value)
-    yield
-  ensure
-    original.nil? ? ENV.delete('INCOMES_CATEGORIES_IDS') : ENV.store('INCOMES_CATEGORIES_IDS', original)
+      expect(described_class.earning_category_id).to eq('99')
+    end
+
+    it 'returns nil when no ids are configured' do
+      stub_env('EARNING_CATEGORY_ID', nil)
+
+      expect(described_class.earning_category_id).to be_nil
+    end
   end
 end

@@ -10,6 +10,10 @@ module CategoryHelpers
   def secondary_income_category_id
     income_category_ids.second || primary_income_category_id
   end
+
+  def earning_category_id
+    Category.earning_category_id || 1
+  end
 end
 
 RSpec.configure do |config|
